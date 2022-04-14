@@ -36,15 +36,15 @@ As a **\_\_\_\_\_\_**, I want to **\_\_\_\_\_\_**, because **\_\_\_\_\_\_**.
 # Routes
 
 Index
-/
+- / (Home Page)
 
 Users
 
-- B GET /users/
-- R GET /users/:id
-- ~~E POST /users/:id~~
-- ~~A POST /users/~~
-- ~~D POST /users/:id/delete~~
+- B GET /api/users/
+- R GET /api/users/:id
+- ~~E POST /api/users/:id~~ (Not needed for MVD)
+- ~~A POST /api/users/~~ (Not needed for MVD)
+- ~~D POST /api/users/:id/delete~~ (Not needed for MVD)
 
 Projects
 
@@ -52,7 +52,7 @@ Projects
 - R GET /api/projects/:id
 - E POST /api/projects/:id
 - A POST /api/projects/
-- ~~D POST /api/projects/:id/delete~~
+- ~~D POST /api/projects/:id/delete~~ (Using is_active instead)
 
 Tasks
 
@@ -60,7 +60,7 @@ Tasks
 - R GET /api/tasks/:id
 - E POST /api/tasks/:id
 - A POST /api/tasks/
-- ~~D POST /api/tasks/:id/delete~~
+- ~~D POST /api/tasks/:id/delete~~ (Using is_active instead)
 
 # Tech Stack
 
