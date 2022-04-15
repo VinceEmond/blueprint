@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS projects CASCADE;
 DROP TABLE IF EXISTS tasks CASCADE;
 
-DROP TYPE current_status;
+DROP TYPE IF EXISTS current_status;
 
 CREATE TYPE current_status AS ENUM ('Not Started', 'In Progress', 'Pending', 'Complete');
 

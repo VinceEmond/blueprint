@@ -1,7 +1,7 @@
 -- Drop and recreate tasks table
 DROP TABLE IF EXISTS tasks CASCADE;
 
-DROP TYPE current_priority;
+DROP TYPE IF EXISTS current_priority;
 CREATE TYPE current_priority AS ENUM ('Low', 'Medium', 'High');
 
 CREATE TABLE tasks (
