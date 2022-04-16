@@ -49,7 +49,7 @@ export default function Simple() {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>
-              <Link href="/" _hover={{ textDecoration: 'none' }}>
+              <Link href="/" rounded={'md'} _hover={{ textDecoration: 'none' }}>
                 blueprint.
               </Link>
             </Box>
