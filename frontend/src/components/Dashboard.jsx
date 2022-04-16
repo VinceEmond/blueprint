@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Box,
   Heading,
@@ -17,9 +17,11 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-} from '@chakra-ui/react';
-import { getUserName } from '../helpers/selectors';
-import { set } from 'lodash';
+} from "@chakra-ui/react";
+import { getUserName } from "../helpers/selectors";
+import { set } from "lodash";
+import NewTaskForm from "./NewTaskForm";
+import NewProjectForm from "./NewProjectForm";
 
 export default function Dashboard() {
   const [userData, setUserData] = useState([]);
@@ -40,26 +42,26 @@ export default function Dashboard() {
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
   const DATE_OPTIONS = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   // save into variable the current date using options
-  const currentDate = date.toLocaleDateString('en-US', DATE_OPTIONS);
+  const currentDate = date.toLocaleDateString("en-US", DATE_OPTIONS);
 
   // function to determine the hour and message depending on it
   function timeMessage() {
     const hours = new Date().getHours();
-    let message = '';
+    let message = "";
 
     if (hours < 12) {
-      message = 'Good Morning';
+      message = "Good Morning";
     } else if (hours >= 12 && hours <= 17) {
-      message = 'Good Afternoon';
+      message = "Good Afternoon";
     } else if (hours >= 17 && hours <= 24) {
-      message = 'Good Evening';
+      message = "Good Evening";
     }
 
     return message;
@@ -70,7 +72,7 @@ export default function Dashboard() {
     const controller = new AbortController();
     if (!loading) {
       axios
-        .get('/api/users')
+        .get("/api/users")
         .then((response) => {
           const allUsers = response.data.users;
           const specificUser = getUserName(allUsers, 3);
@@ -80,7 +82,7 @@ export default function Dashboard() {
             controller.abort();
           };
         })
-        .catch((err) => console.log('err:', err));
+        .catch((err) => console.log("err:", err));
     }
   }, []);
 
@@ -89,12 +91,12 @@ export default function Dashboard() {
     if (!loading) {
       loading = true;
       axios
-        .get('/api/tasks')
+        .get("/api/tasks")
         .then((response) => {
           const allTasks = response.data.tasks;
           setUserTasks(allTasks);
         })
-        .catch((err) => console.log('err:', err));
+        .catch((err) => console.log("err:", err));
     }
   }, []);
 
@@ -153,6 +155,8 @@ export default function Dashboard() {
           </TabPanels>
         </Tabs>
       </Container>
+      <NewTaskForm />
+      <NewProjectForm />
     </div>
   );
 }
