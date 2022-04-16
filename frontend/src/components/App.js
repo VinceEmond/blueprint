@@ -1,10 +1,16 @@
 import "./App.css";
-import TestComponent from "./TestComponent";
+import NavBar from "./NavBar";
+import { ChakraProvider } from "@chakra-ui/react";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
     <div className="App">
-      <TestComponent />
+      <ChakraProvider>
+        <NavBar />
+        <h1>RENDERED HERE</h1>
+        <Dashboard />
+      </ChakraProvider>
     </div>
   );
 }
