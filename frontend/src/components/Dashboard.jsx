@@ -182,10 +182,12 @@ export default function Dashboard() {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mw="60%">
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Modal Body text</ModalBody>
+          <ModalBody>
+            <NewTaskForm />
+          </ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
@@ -196,7 +198,6 @@ export default function Dashboard() {
         </ModalContent>
       </Modal>
 
-      <NewTaskForm />
       <NewProjectForm />
     </div>
   );
