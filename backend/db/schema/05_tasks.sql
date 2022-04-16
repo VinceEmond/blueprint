@@ -11,9 +11,9 @@ CREATE TABLE tasks (
   project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
+  start_date DATE NOT NULL,
   due_date DATE NOT NULL,
   modified_date DATE NOT NULL,
-  start_date DATE NOT NULL,
   status current_status,
   priority current_priority,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
