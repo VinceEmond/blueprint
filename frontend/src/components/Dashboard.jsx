@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Box, Heading, Center, LinkBox, LinkOverlay } from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
-import { set } from "lodash";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Box,
+  Heading,
+  Center,
+  LinkBox,
+  LinkOverlay,
+  Container,
+} from '@chakra-ui/react';
+import { getUserName } from '../helpers/selectors';
+import { set } from 'lodash';
 
 export default function Dashboard() {
   const [userData, setUserData] = useState([]);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
     axios
-      .get("/api/users")
+      .get('/api/users')
       .then((response) => {
         const allUsers = response.data.users;
         setUserData(allUsers);
@@ -23,7 +30,7 @@ export default function Dashboard() {
           controller.abort();
         };
       })
-      .catch((err) => console.log("err:", err));
+      .catch((err) => console.log('err:', err));
   }, []);
 
   return (
@@ -38,6 +45,12 @@ export default function Dashboard() {
           </Heading>
         </LinkBox>
       </Center>
+
+      <Container border="2px" borderRadius="5px">
+        <Heading size="sm" textAlign="left">
+          My Priorities
+        </Heading>
+      </Container>
     </div>
   );
 }
