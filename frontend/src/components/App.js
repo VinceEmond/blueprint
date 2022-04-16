@@ -11,7 +11,6 @@ function App() {
     <div className="App">
       <ChakraProvider>
         <NavBar />
-        <h1>RENDERED HERE</h1>
 
         <div className="content">
           <Routes>
