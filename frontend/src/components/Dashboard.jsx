@@ -7,6 +7,11 @@ import {
   LinkBox,
   LinkOverlay,
   Container,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from '@chakra-ui/react';
 import { getUserName } from '../helpers/selectors';
 import { set } from 'lodash';
@@ -50,6 +55,29 @@ export default function Dashboard() {
         <Heading size="sm" textAlign="left">
           My Priorities
         </Heading>
+        <Tabs>
+          <TabList>
+            <Tab>All</Tab>
+            <Tab>Not started</Tab>
+            <Tab>In progress</Tab>
+            <Tab>Complete</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <p>List all here</p>
+            </TabPanel>
+            <TabPanel>
+              <p>Not started</p>
+            </TabPanel>
+            <TabPanel>
+              <p>In progress</p>
+            </TabPanel>
+            <TabPanel>
+              <p>Complete</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Container>
     </div>
   );
