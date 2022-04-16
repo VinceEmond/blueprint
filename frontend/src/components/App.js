@@ -1,6 +1,6 @@
 import './App.css';
 import NavBar from './NavBar';
-import { ChakraProvider, Switch } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Projects from './Projects';
@@ -19,8 +19,6 @@ function App() {
             <Route path="/Tasks" element={<Tasks />} />
           </Routes>
         </div>
-
-        {/* <Dashboard /> */}
       </ChakraProvider>
     </div>
   );
