@@ -4,6 +4,7 @@ import {
   Box,
   Heading,
   Center,
+  IconButton,
   LinkBox,
   LinkOverlay,
   Container,
@@ -18,6 +19,7 @@ import {
   Tab,
   TabPanel,
 } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 import { getUserName } from '../helpers/selectors';
 import { set } from 'lodash';
 
@@ -114,9 +116,19 @@ export default function Dashboard() {
       </Center>
 
       <Container border="2px" borderRadius="5px">
-        <Heading size="sm" textAlign="left">
-          My Priorities
-        </Heading>
+        <Container
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between">
+          <Heading size="sm" textAlign="left">
+            My Priorities
+          </Heading>
+          <IconButton
+            aria-label="Search database"
+            borderRadius="50%"
+            icon={<AddIcon />}
+          />
+        </Container>
         <Tabs>
           <TabList>
             <Tab>All</Tab>
