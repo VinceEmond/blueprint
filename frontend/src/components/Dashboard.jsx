@@ -19,18 +19,35 @@ import { set } from 'lodash';
 export default function Dashboard() {
   const [userData, setUserData] = useState([]);
   const [userName, setUserName] = useState('');
+  const [userTasks, setUserTasks] = useState([]);
 
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   axios
+  //     .get('/api/users')
+  //     .then((response) => {
+  //       const allUsers = response.data.users;
+  //       setUserData(allUsers);
+  //       // console.log("allUsers: ", allUsers);
+  //       const specificUser = getUserName(userData, 1);
+  //       setUserName(specificUser);
+
+  //       return () => {
+  //         controller.abort();
+  //       };
+  //     })
+  //     .catch((err) => console.log('err:', err));
+  // }, [userName]);
+
+  // For now get all tasks, eventually get user specific tasks
   useEffect(() => {
     const controller = new AbortController();
     axios
-      .get('/api/users')
+      .get('/api/tasks')
       .then((response) => {
-        const allUsers = response.data.users;
-        setUserData(allUsers);
-        // console.log("allUsers: ", allUsers);
-        const specificUser = getUserName(userData, 3);
-        setUserName(specificUser);
-
+        const allTasks = response.data.tasks;
+        setUserTasks(allTasks);
+        console.log('allUsers: ', allTasks);
         return () => {
           controller.abort();
         };
@@ -66,6 +83,11 @@ export default function Dashboard() {
           <TabPanels>
             <TabPanel>
               <p>List all here</p>
+              <ul>
+                {userTasks.map((task) => {
+                  return <li>{task.name}</li>;
+                })}
+              </ul>
             </TabPanel>
             <TabPanel>
               <p>Not started</p>

@@ -4,7 +4,7 @@ export function getUserName(users, id) {
     return user.id === id;
   });
 
-  const name = filteredUser[0]["first_name"];
+  const name = filteredUser[0].first_name;
 
   return name;
 }
