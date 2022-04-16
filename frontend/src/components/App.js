@@ -15,8 +15,8 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Dashboard />} />
-            <Route path="/Projects" element={<Projects />} />
-            <Route path="/Tasks" element={<Tasks />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/tasks" element={<Tasks />} />
           </Routes>
         </div>
       </ChakraProvider>
