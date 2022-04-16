@@ -7,6 +7,11 @@ import {
   LinkBox,
   LinkOverlay,
   Container,
+  TableContainer,
+  Table,
+  Tbody,
+  Tr,
+  Td,
   Tabs,
   TabList,
   TabPanels,
@@ -20,28 +25,28 @@ export default function Dashboard() {
   const [userData, setUserData] = useState([]);
   const [userName, setUserName] = useState('');
   const [userTasks, setUserTasks] = useState([]);
+  // Prevent double api calls by checking if already loading
   let loading = false;
 
+  // Retrieve current user
   useEffect(() => {
     const controller = new AbortController();
-    if (!loading) {
-      axios
-        .get('/api/users')
-        .then((response) => {
-          const allUsers = response.data.users;
-          setUserData(allUsers);
-          const specificUser = getUserName(allUsers, 1);
-          setUserName(specificUser);
+    axios
+      .get('/api/users')
+      .then((response) => {
+        const allUsers = response.data.users;
+        setUserData(allUsers);
+        const specificUser = getUserName(allUsers, 3);
+        setUserName(specificUser);
 
-          return () => {
-            controller.abort();
-          };
-        })
-        .catch((err) => console.log('err:', err));
-    }
-  }, [userName]);
+        return () => {
+          controller.abort();
+        };
+      })
+      .catch((err) => console.log('err:', err));
+  }, []);
 
-  // For now get all tasks, eventually get user specific tasks
+  // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     if (!loading) {
       loading = true;
@@ -50,7 +55,6 @@ export default function Dashboard() {
         .then((response) => {
           const allTasks = response.data.tasks;
           setUserTasks(allTasks);
-          return () => {};
         })
         .catch((err) => console.log('err:', err));
     }
@@ -83,12 +87,19 @@ export default function Dashboard() {
 
           <TabPanels>
             <TabPanel>
-              <p>List all here</p>
-              <ul>
-                {userTasks.map((task) => {
-                  return <li key={task.id}>{task.name}</li>;
-                })}
-              </ul>
+              <TableContainer>
+                <Table size="sm">
+                  <Tbody>
+                    {userTasks.map((task) => {
+                      return (
+                        <Tr>
+                          <Td key={task.id}>{task.name}</Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
             </TabPanel>
             <TabPanel>
               <p>Not started</p>
