@@ -1,16 +1,33 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Box, Heading, Center, LinkBox, LinkOverlay } from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
-import { set } from "lodash";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Box,
+  Heading,
+  Center,
+  LinkBox,
+  LinkOverlay,
+  Container,
+  TableContainer,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from '@chakra-ui/react';
+import { getUserName } from '../helpers/selectors';
+import { set } from 'lodash';
 
 export default function Dashboard() {
-  // State for all users from DB
   const [userData, setUserData] = useState([]);
-  // State for specific user name
-  const [userName, setUserName] = useState("");
+  const [userTasks, setUserTasks] = useState([]);
   // State for current time and date
   const [date, setDate] = useState(new Date());
+  // Prevent double api calls by checking if already loading
+  let loading = false;
 
   // When mounted, we get the date/time that updates every second
   useEffect(() => {
@@ -23,26 +40,26 @@ export default function Dashboard() {
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
   const DATE_OPTIONS = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   };
 
   // save into variable the current date using options
-  const currentDate = date.toLocaleDateString("en-US", DATE_OPTIONS);
+  const currentDate = date.toLocaleDateString('en-US', DATE_OPTIONS);
 
   // function to determine the hour and message depending on it
   function timeMessage() {
     const hours = new Date().getHours();
-    let message = "";
+    let message = '';
 
     if (hours < 12) {
-      message = "Good Morning";
+      message = 'Good Morning';
     } else if (hours >= 12 && hours <= 17) {
-      message = "Good Afternoon";
+      message = 'Good Afternoon';
     } else if (hours >= 17 && hours <= 24) {
-      message = "Good Evening";
+      message = 'Good Evening';
     }
 
     return message;
@@ -51,21 +68,35 @@ export default function Dashboard() {
   // When mounted, API call for DB query for all users and specific user's name when component renders
   useEffect(() => {
     const controller = new AbortController();
-    axios
-      .get("/api/users")
-      .then((response) => {
-        const allUsers = response.data.users;
-        setUserData(allUsers);
-        // console.log("allUsers: ", allUsers);
-        const specificUser = getUserName(userData, 3);
-        setUserName(specificUser);
+    if (!loading) {
+      axios
+        .get('/api/users')
+        .then((response) => {
+          const allUsers = response.data.users;
+          const specificUser = getUserName(allUsers, 3);
+          setUserData(specificUser);
 
-        return function cleanup() {
-          controller.abort();
-        };
-      })
-      .catch((err) => console.log("err:", err));
-  }, [userData]);
+          return () => {
+            controller.abort();
+          };
+        })
+        .catch((err) => console.log('err:', err));
+    }
+  }, []);
+
+  // Retrieve all tasks (eventually user specific tasks)
+  useEffect(() => {
+    if (!loading) {
+      loading = true;
+      axios
+        .get('/api/tasks')
+        .then((response) => {
+          const allTasks = response.data.tasks;
+          setUserTasks(allTasks);
+        })
+        .catch((err) => console.log('err:', err));
+    }
+  }, []);
 
   return (
     <div>
@@ -76,11 +107,52 @@ export default function Dashboard() {
           </Box>
           <Heading size="md" my="2">
             <LinkOverlay>
-              {timeMessage()}, {userName}
+              {timeMessage()}, {userData.first_name}
             </LinkOverlay>
           </Heading>
         </LinkBox>
       </Center>
+
+      <Container border="2px" borderRadius="5px">
+        <Heading size="sm" textAlign="left">
+          My Priorities
+        </Heading>
+        <Tabs>
+          <TabList>
+            <Tab>All</Tab>
+            <Tab>Not started</Tab>
+            <Tab>In progress</Tab>
+            <Tab>Complete</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <TableContainer>
+                <Table size="sm">
+                  <Tbody>
+                    {userTasks.map((task) => {
+                      return (
+                        <Tr key={task.id}>
+                          <Td>{task.name}</Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+              <p>Not started</p>
+            </TabPanel>
+            <TabPanel>
+              <p>In progress</p>
+            </TabPanel>
+            <TabPanel>
+              <p>Complete</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Container>
     </div>
   );
 }
