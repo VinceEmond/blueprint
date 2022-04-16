@@ -17,11 +17,10 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { NavLink } from 'react-router-dom';
 
 const Links = ['Dashboard', 'Projects', 'Tasks'];
 
-const NavLinker = ({ children }) => (
+const NavLink = ({ children }) => (
   <Link
     px={2}
     py={1}
@@ -50,13 +49,17 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>blueprint.</Box>
+            <Box>
+              <Link href="/" _hover={{ textDecoration: 'none' }}>
+                blueprint.
+              </Link>
+            </Box>
             <HStack
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLinker key={link}>{link}</NavLinker>
+                <NavLink key={link}>{link}</NavLink>
               ))}
             </HStack>
           </HStack>
