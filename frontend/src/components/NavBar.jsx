@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {
   Box,
   Flex,
@@ -11,7 +10,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
@@ -80,7 +78,6 @@ export default function Simple() {
                 />
               </MenuButton>
               <MenuList>
-                {/* <MenuDivider /> */}
                 <MenuItem>Logout</MenuItem>
               </MenuList>
             </Menu>
