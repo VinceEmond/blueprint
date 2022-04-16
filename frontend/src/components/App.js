@@ -1,11 +1,11 @@
-import './App.css';
-import NavBar from './NavBar';
-import { ChakraProvider } from '@chakra-ui/react';
-import { Routes, Route } from 'react-router-dom';
-import LandingPage from './LandingPage';
-import Dashboard from './Dashboard';
-import Projects from './Projects';
-import Tasks from './Tasks';
+import "./App.css";
+import NavBar from "./NavBar";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "./LandingPage";
+import Dashboard from "./Dashboard";
+import Projects from "./Projects";
+import Tasks from "./Tasks";
 
 function App() {
   return (
