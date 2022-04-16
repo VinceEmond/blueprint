@@ -19,9 +19,10 @@ import {
   Tab,
   TabPanel,
 } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
 import { getUserName } from '../helpers/selectors';
 import { set } from 'lodash';
+import NewTaskForm from './NewTaskForm';
+import NewProjectForm from './NewProjectForm';
 
 export default function Dashboard() {
   const [userData, setUserData] = useState([]);
@@ -165,6 +166,8 @@ export default function Dashboard() {
           </TabPanels>
         </Tabs>
       </Container>
+      <NewTaskForm />
+      <NewProjectForm />
     </div>
   );
 }
