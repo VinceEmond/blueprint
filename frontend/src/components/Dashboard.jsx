@@ -31,19 +31,20 @@ export default function Dashboard() {
   // Retrieve current user
   useEffect(() => {
     const controller = new AbortController();
-    axios
-      .get('/api/users')
-      .then((response) => {
-        const allUsers = response.data.users;
-        setUserData(allUsers);
-        const specificUser = getUserName(allUsers, 3);
-        setUserName(specificUser);
+    if (!loading) {
+      axios
+        .get('/api/users')
+        .then((response) => {
+          const allUsers = response.data.users;
+          const specificUser = getUserName(allUsers, 3);
+          setUserData(specificUser);
 
-        return () => {
-          controller.abort();
-        };
-      })
-      .catch((err) => console.log('err:', err));
+          return () => {
+            controller.abort();
+          };
+        })
+        .catch((err) => console.log('err:', err));
+    }
   }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
@@ -68,7 +69,7 @@ export default function Dashboard() {
             Thursday, April 14
           </Box>
           <Heading size="md" my="2">
-            <LinkOverlay>Good Afternoon, {userName}</LinkOverlay>
+            <LinkOverlay>Good Afternoon, {userData.first_name}</LinkOverlay>
           </Heading>
         </LinkBox>
       </Center>
@@ -92,8 +93,8 @@ export default function Dashboard() {
                   <Tbody>
                     {userTasks.map((task) => {
                       return (
-                        <Tr>
-                          <Td key={task.id}>{task.name}</Td>
+                        <Tr key={task.id}>
+                          <Td>{task.name}</Td>
                         </Tr>
                       );
                     })}
