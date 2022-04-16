@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Box,
+  Button,
   Heading,
   Center,
   IconButton,
   LinkBox,
   LinkOverlay,
   Container,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   TableContainer,
   Table,
   Tbody,
@@ -18,13 +26,17 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { getUserName } from '../helpers/selectors';
+import { AddIcon } from '@chakra-ui/icons';
 import { set } from 'lodash';
 import NewTaskForm from './NewTaskForm';
 import NewProjectForm from './NewProjectForm';
 
 export default function Dashboard() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [userData, setUserData] = useState([]);
   const [userTasks, setUserTasks] = useState([]);
   // State for current time and date
@@ -128,6 +140,7 @@ export default function Dashboard() {
             aria-label="Search database"
             borderRadius="50%"
             icon={<AddIcon />}
+            onClick={onOpen}
           />
         </Container>
         <Tabs>
@@ -166,6 +179,23 @@ export default function Dashboard() {
           </TabPanels>
         </Tabs>
       </Container>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Modal Body text</ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
       <NewTaskForm />
       <NewProjectForm />
     </div>
