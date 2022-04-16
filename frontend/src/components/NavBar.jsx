@@ -17,10 +17,11 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 const Links = ['Dashboard', 'Projects', 'Tasks'];
 
-const NavLink = ({ children }) => (
+const NavLinker = ({ children }) => (
   <Link
     px={2}
     py={1}
@@ -29,7 +30,7 @@ const NavLink = ({ children }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={`/${children}`}>
+    href={`/${children === 'Dashboard' ? '' : children}`}>
     {children}
   </Link>
 );
@@ -55,7 +56,7 @@ export default function Simple() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLinker key={link}>{link}</NavLinker>
               ))}
             </HStack>
           </HStack>
