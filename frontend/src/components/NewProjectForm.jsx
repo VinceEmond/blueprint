@@ -10,13 +10,34 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 export default function NewTaskForm() {
+  const [projectFormValues, setProjectFormValues] = React.useState({
+    owner_id: 1, 
+    name: "New 69 Project", 
+    description: "Test Project Description Herrreeeee", 
+    start_date: '1969-04-20', 
+    due_date: '1969-04-20', 
+    modified_date: '2022-04-15', 
+    status: 'Not Started', 
+    category_id: 1
+  });
+
+  function createProject() {
+    axios
+      .post('/api/projects', projectFormValues)
+      .then((response) => {
+        
+      })
+      .catch((err) => console.log("err:", err));
+  }
+
   return (
     <Container mt="4em">
       <HStack mt="1em">
         <Editable
-          defaultValue="Enter task here..."
+          defaultValue="Enter project here..."
           width="70%"
           display="flex"
           alignItems="left"
@@ -51,6 +72,7 @@ export default function NewTaskForm() {
       <ButtonGroup variant="outline" spacing="6" mt="1em">
         <Button colorScheme="blue">Save</Button>
       </ButtonGroup>
+      <button onClick={createProject}>CREATE PROJECT</button>
     </Container>
   );
 }
