@@ -52,7 +52,7 @@ Projects
 - R GET /api/projects/:id
 - E POST /api/projects/:id
 - A POST /api/projects/
-- ~~D POST /api/projects/:id/delete~~ (Using is_active instead)
+- D POST /api/projects/:id/delete (Using is_active)
 
 Tasks
 
@@ -60,7 +60,7 @@ Tasks
 - R GET /api/tasks/:id
 - E POST /api/tasks/:id
 - A POST /api/tasks/
-- ~~D POST /api/tasks/:id/delete~~ (Using is_active instead)
+- D POST /api/tasks/:id/delete (Using is_active)
 
 # Tech Stack
 
