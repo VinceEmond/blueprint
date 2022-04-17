@@ -128,59 +128,72 @@ export default function Dashboard() {
         </LinkBox>
       </Center>
 
-      <Container border="2px" borderRadius="5px" mt="4em">
+      <Container width="50%" maxWidth="100%">
         <Container
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between">
-          <Heading size="sm" textAlign="left">
-            My Priorities
-          </Heading>
-          <IconButton
-            aria-label="Search database"
-            borderRadius="50%"
-            icon={<AddIcon />}
-            onClick={onOpen}
-          />
-        </Container>
-        <Tabs>
-          <TabList>
-            <Tab>All</Tab>
-            <Tab>Not started</Tab>
-            <Tab>In progress</Tab>
-            <Tab>Complete</Tab>
-          </TabList>
+          width="100%"
+          maxWidth="100%"
+          border="2px"
+          borderRadius="5px"
+          mt="4em">
+          <Container
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            maxWidth="100%">
+            <Heading size="sm" textAlign="left">
+              My Priorities
+            </Heading>
+            <IconButton
+              aria-label="Search database"
+              borderRadius="50%"
+              icon={<AddIcon />}
+              onClick={onOpen}
+            />
+          </Container>
+          <Tabs>
+            <TabList>
+              <Tab>All</Tab>
+              <Tab>Not started</Tab>
+              <Tab>In progress</Tab>
+              <Tab>Complete</Tab>
+            </TabList>
 
-          <TabPanels>
-            <TabPanel>
-              <TableContainer>
-                <Table size="sm">
-                  <Tbody>
-                    {userTasks.map((task) => {
-                      return (
-                        <Tr key={task.id}>
-                          <Td>{task.name}</Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </TabPanel>
-            <TabPanel>
-              <p>Not started</p>
-            </TabPanel>
-            <TabPanel>
-              <p>In progress</p>
-            </TabPanel>
-            <TabPanel>
-              <p>Complete</p>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Container>
-      <Container border="2px" borderRadius="5px" mt="3em">
-        <ProjectsCarousel />
+            <TabPanels>
+              <TabPanel>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks.map((task) => {
+                        return (
+                          <Tr key={task.id}>
+                            <Td>{task.name}</Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </TabPanel>
+              <TabPanel>
+                <p>Not started</p>
+              </TabPanel>
+              <TabPanel>
+                <p>In progress</p>
+              </TabPanel>
+              <TabPanel>
+                <p>Complete</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Container>
+        <Container
+          border="2px"
+          borderRadius="5px"
+          mt="3em"
+          width="100%"
+          maxWidth="100%">
+          <ProjectsCarousel />
+        </Container>
       </Container>
 
       <Modal isOpen={isOpen} onClose={onClose}>

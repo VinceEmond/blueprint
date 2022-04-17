@@ -5,27 +5,58 @@ import { Box, Flex, Spacer } from '@chakra-ui/react';
 
 export default function ProjectsCarousel() {
   return (
-    <Carousel>
-      <Flex>
-        <Box>Testing</Box>
+    <Carousel display="flex" alignSelf="center" infiniteLoop="true">
+      <Flex mt={5} alignContent="center" height="100%" width="100%">
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
       </Flex>
-      <Flex>
-        <Box>Testing</Box>
+      <Flex mt={5} alignContent="center" height="100%" width="100%">
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
       </Flex>
-      <Flex>
-        <Box>Testing</Box>
+      <Flex mt={5} alignContent="center" height="100%" width="100%">
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
         <Spacer />
-        <Box>Testing</Box>
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
+      </Flex>
+      <Flex mt={5} alignContent="center" height="100%" width="100%">
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
+        <Spacer />
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
+        <Spacer />
+        <Box height="200px" flex="5" border="1px">
+          Testing
+        </Box>
       </Flex>
     </Carousel>
   );
