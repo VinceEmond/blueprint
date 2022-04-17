@@ -6,6 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Projects from "./Projects";
 import Tasks from "./Tasks";
+// import Trello from "./Trello1";
+import Trello from "./Trello/Trello";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
             <Route exact path="/" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/trello" element={<Trello />} />
           </Routes>
         </div>
       </ChakraProvider>

@@ -15,9 +15,11 @@
     "framer-motion": "^6.3.0",
     "moment": "^2.29.2",
     "react": "^18.0.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-trello": "^2.2.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
