@@ -223,7 +223,7 @@ export default function Dashboard() {
         </Container>
       </Container>
 
-      {modalState === 'tasks' ? (
+      {modalState === 'tasks' && (
         <Modal isOpen={isOpen} onClose={() => handleModal()}>
           <ModalOverlay />
           <ModalContent mw="60%">
@@ -240,7 +240,9 @@ export default function Dashboard() {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      ) : modalState === 'projects' ? (
+      )}
+
+      {modalState === 'projects' && (
         <Modal isOpen={isOpen} onClose={() => handleModal()}>
           <ModalOverlay />
           <ModalContent mw="60%">
@@ -257,8 +259,6 @@ export default function Dashboard() {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      ) : (
-        <div></div>
       )}
     </div>
   );
