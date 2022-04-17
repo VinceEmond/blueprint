@@ -1,2 +1,15 @@
-.carousel-root {
+.carousel-status {
+  display: none;
+}
+
+.control-dots {
+  margin-bottom: -20px !important;
+}
+
+.dot {
+  background: rgb(148, 148, 148) !important;
+}
+
+.dot.selected {
+  background: black !important;
 }
