@@ -52,7 +52,7 @@ export default function Simple() {
               <Link
                 href="/welcome"
                 rounded={'md'}
-                _focus="none"
+                _focus={{ boxShadow: 'none' }}
                 _hover={{ textDecoration: 'none' }}>
                 blueprint.
               </Link>
