@@ -224,7 +224,7 @@ export default function Dashboard() {
       </Container>
 
       {modalState === 'tasks' ? (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={() => handleModal()}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader>New Task</ModalHeader>
@@ -233,7 +233,7 @@ export default function Dashboard() {
               <NewTaskForm />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
+              <Button colorScheme="blue" mr={3} onClick={() => handleModal()}>
                 Close
               </Button>
               <Button variant="ghost">Secondary Action</Button>
@@ -241,16 +241,16 @@ export default function Dashboard() {
           </ModalContent>
         </Modal>
       ) : modalState === 'projects' ? (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={() => handleModal()}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader>New Task</ModalHeader>
+            <ModalHeader>New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewProjectForm />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
+              <Button colorScheme="blue" mr={3} onClick={() => handleModal()}>
                 Close
               </Button>
               <Button variant="ghost">Secondary Action</Button>
@@ -258,7 +258,7 @@ export default function Dashboard() {
           </ModalContent>
         </Modal>
       ) : (
-        handleModal
+        <div></div>
       )}
     </div>
   );
