@@ -36,6 +36,7 @@ import ProjectsCarousel from './ProjectsCarousel';
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalState, setModalState] = useState('close');
 
   const [userData, setUserData] = useState([]);
   const [userTasks, setUserTasks] = useState([]);
@@ -112,6 +113,11 @@ export default function Dashboard() {
         .catch((err) => console.log('err:', err));
     }
   }, []);
+
+  const handleModal = () => {
+    setModalState('close');
+    onClose();
+  };
 
   return (
     <div>
@@ -211,25 +217,43 @@ export default function Dashboard() {
         </Container>
       </Container>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent mw="60%">
-          <ModalHeader>New Task</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <NewTaskForm />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
-      {/* <NewProjectForm /> */}
+      {modalState === 'tasks' ? (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent mw="60%">
+            <ModalHeader>New Task</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <NewTaskForm />
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      ) : modalState === 'projects' ? (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent mw="60%">
+            <ModalHeader>New Task</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <NewProjectForm />
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      ) : (
+        handleModal
+      )}
     </div>
   );
 }
