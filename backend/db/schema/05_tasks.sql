@@ -11,9 +11,9 @@ CREATE TABLE tasks (
   assignee_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  start_date DATE NOT NULL,
+  start_date DATE DEFAULT NULL,
   due_date DATE NOT NULL,
-  modified_date DATE NOT NULL,
+  modified_date DATE DEFAULT NULL,
   status current_status,
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
