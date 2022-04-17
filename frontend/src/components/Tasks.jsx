@@ -23,7 +23,7 @@ export default function Tasks() {
     if (!loading) {
       loading = true;
       axios
-        .get("/api/tasks")
+        .get("/api/tasks/")
         .then((response) => {
           const allTasks = response.data.tasks;
           setUserTasks(allTasks);
