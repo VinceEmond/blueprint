@@ -128,7 +128,7 @@ export default function Dashboard() {
         </LinkBox>
       </Center>
 
-      <Container width="50%" maxWidth="100%">
+      <Container width="40%" maxWidth="100%">
         <Container
           width="100%"
           maxWidth="100%"
@@ -140,7 +140,7 @@ export default function Dashboard() {
             flexDirection="row"
             justifyContent="space-between"
             maxWidth="100%">
-            <Heading size="sm" textAlign="left">
+            <Heading size="md" textAlign="left">
               My Priorities
             </Heading>
             <IconButton
@@ -192,6 +192,21 @@ export default function Dashboard() {
           mt="3em"
           width="100%"
           maxWidth="100%">
+          <Container
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            maxWidth="100%">
+            <Heading size="md" textAlign="left">
+              Projects
+            </Heading>
+            <IconButton
+              aria-label="Search database"
+              borderRadius="50%"
+              icon={<AddIcon />}
+              onClick={onOpen}
+            />
+          </Container>
           <ProjectsCarousel />
         </Container>
       </Container>
