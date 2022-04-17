@@ -179,6 +179,9 @@ export default function Dashboard() {
           </TabPanels>
         </Tabs>
       </Container>
+      <Container border="2px" borderRadius="5px" mt="3em">
+        <ProjectsCarousel />
+      </Container>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -197,8 +200,6 @@ export default function Dashboard() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
-      <ProjectsCarousel />
 
       {/* <NewProjectForm /> */}
     </div>
