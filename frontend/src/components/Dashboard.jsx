@@ -40,14 +40,15 @@ export default function Dashboard() {
 
   const [userData, setUserData] = useState([]);
   const [userTasks, setUserTasks] = useState([]);
+
   // State for current time and date
   const [date, setDate] = useState(new Date());
   // Prevent double api calls by checking if already loading
   let loading = false;
 
-  // When mounted, we get the date/time that updates every second
+  // When mounted, we get the date/time that updates every 15 minutes
   useEffect(() => {
-    const timer = setInterval(() => setDate(new Date()), 1000);
+    const timer = setInterval(() => setDate(new Date()), 900000);
 
     return function cleanup() {
       clearInterval(timer);
@@ -98,7 +99,7 @@ export default function Dashboard() {
         })
         .catch((err) => console.log('err:', err));
     }
-  }, [loading]);
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
