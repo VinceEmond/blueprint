@@ -5,9 +5,9 @@ module.exports = (db) => {
 
 
   // GET: BROWSE --- RETRIEVE ALL TASKS
-  router.get("/", (req, res) => {
+  router.get('/', (req, res) => {
     const queryParams = [];
-    const queryStr = `SELECT * FROM tasks;`;
+    const queryStr = `SELECT * FROM tasks WHERE is_active = true;`;
 
     db.query(queryStr, queryParams)
       .then(data => {
@@ -26,7 +26,7 @@ module.exports = (db) => {
   router.get('/:id', (req, res) => {
     const {id} = req.params;
     const queryParams = [id];
-    const queryStr = `SELECT * FROM tasks WHERE id = $1;`;
+    const queryStr = `SELECT * FROM tasks WHERE id = $1 AND is_active = true;`;
 
     db.query(queryStr, queryParams)
       .then(data => {
@@ -44,20 +44,21 @@ module.exports = (db) => {
   // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK
   router.get('/:id', (req, res) => {
     const {id} = req.params;
-    const queryParams = [project_id, user_id, name, description, category_id, status, start_date, due_date, modified_date, priority, id];
+    const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id, id];
     const queryStr = `UPDATE tasks SET
-    project_id = $1,
-    user_id = $2,
-    name = $3,
-    description = $4,
-    category_id = $5,
-    status = $6,
-    start_date = $7,
-    due_date = $8,
-    modified_date = $9,
-    priority = $10
-    WHERE id = $11
-    RETURNING *;`;
+      project_id = $1,
+      priority = $2
+      assignee_id = $3,
+      name = $4,
+      description = $5,
+      start_date = $6,
+      due_date = $7,
+      modified_date = $8,
+      status = $9,
+      category_id = $10,
+      WHERE id = $11 AND is_active = true
+      RETURNING *;
+    `;
 
     db.query(queryStr, queryParams)
       .then(data => {
@@ -74,10 +75,12 @@ module.exports = (db) => {
 
   // POST: ADD - TASKS --- ADD/CREATE A NEW TASK
   router.get('/', (req, res) => {
-    const {user_id, category_id, project_id, name, description, due_date, modified_date, start_date, priority, status} = req.body;
-    const queryParams = [user_id, category_id, project_id, name, description, due_date, modified_date, start_date, priority, status];
-    const queryStr = `INSERT INTO tasks (user_id, category_id, project_id, name, description, due_date, modified_date, start_date, priority, status) VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+    const {project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id} = req.body;
+    const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id];
+    const queryStr = `INSERT INTO tasks
+      (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+    `;
 
     db.query(queryStr, queryParams)
       .then(data => {
@@ -89,6 +92,28 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
+  });
+
+
+  // POST:DELETE - TASKSK --- SET EXISTING TASK TO INACTIVE IN DB
+  router.post('/:id/delete', (req,res) => {
+    const {id} = req.params;
+    const queryParams = [id];
+    const queryStr = `UPDATE tasks SET
+      is_active = false
+      WHERE id = $1
+      RETURNING *;
+    `;
+
+    db.query(queryStr, queryParams)
+    .then((data) => {
+      res.json({});
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
 
