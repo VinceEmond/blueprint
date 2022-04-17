@@ -16,7 +16,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Dashboard />} />
-            <Route exact="/welcome" element={<LandingPage />} />
+            <Route path="/welcome" element={<LandingPage />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/tasks" element={<Tasks />} />
           </Routes>
