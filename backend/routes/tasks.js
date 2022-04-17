@@ -1,3 +1,4 @@
+const { query } = require('express');
 const express = require('express');
 const router  = express.Router();
 
@@ -42,7 +43,7 @@ module.exports = (db) => {
 
 
   // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK
-  router.get('/:id', (req, res) => {
+  router.post('/:id', (req, res) => {
     const {id} = req.params;
     const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id, id];
     const queryStr = `UPDATE tasks SET
@@ -74,9 +75,14 @@ module.exports = (db) => {
 
 
   // POST: ADD - TASKS --- ADD/CREATE A NEW TASK
-  router.get('/', (req, res) => {
+  router.post('/', (req, res) => {
+    // console.log("REQBODY:", req.body)
+
     const {project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id} = req.body;
+
     const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id];
+    // console.log("QUERYPARAMS: ", queryParams)
+
     const queryStr = `INSERT INTO tasks
       (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
@@ -85,6 +91,7 @@ module.exports = (db) => {
     db.query(queryStr, queryParams)
       .then(data => {
         const task = data.rows;
+        // console.log('SUCCESSFUL')
         res.json({ task });
       })
       .catch(err => {

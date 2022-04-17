@@ -10,8 +10,21 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 export default function NewTaskForm() {
+  const [formValue, setformValue] = React.useState(null);
+  
+  // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
+  function axiosCall() {
+        axios
+          .post("/api/tasks", formValue)
+          .then((response) => {
+            // console.log("RESPONSE FROM FRONTEND: ", response)
+          })
+          .catch((err) => console.log("err:", err));
+  } 
+
   return (
     <Container mt="4em">
       <HStack mt="1em">
@@ -32,9 +45,9 @@ export default function NewTaskForm() {
         </Select>
       </HStack>
       <HStack mt="1em">
-        <p>Project:  </p>
+        <p>Project_ID:  </p>
         <Editable
-          defaultValue="Project name here...."
+          defaultValue="Project_ID name here...."
           width="80%"
           display="flex"
         >
@@ -69,6 +82,7 @@ export default function NewTaskForm() {
       <ButtonGroup variant="outline" spacing="6" mt="1em" display="flex" justifyContent="center">
         <Button colorScheme="blue">Save</Button>
       </ButtonGroup>
+      <button onClick={axiosCall}>SUBMIT</button>
     </Container>
   );
 }
