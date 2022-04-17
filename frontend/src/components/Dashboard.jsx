@@ -153,7 +153,10 @@ export default function Dashboard() {
               aria-label="Search database"
               borderRadius="50%"
               icon={<AddIcon />}
-              onClick={onOpen}
+              onClick={() => {
+                setModalState('tasks');
+                onOpen();
+              }}
             />
           </Container>
           <Tabs>
@@ -210,7 +213,10 @@ export default function Dashboard() {
               aria-label="Search database"
               borderRadius="50%"
               icon={<AddIcon />}
-              onClick={onOpen}
+              onClick={() => {
+                setModalState('projects');
+                onOpen();
+              }}
             />
           </Container>
           <ProjectsCarousel />
