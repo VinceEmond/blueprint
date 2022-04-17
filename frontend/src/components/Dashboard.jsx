@@ -135,7 +135,7 @@ export default function Dashboard() {
         </LinkBox>
       </Center>
 
-      <Container width="40%" maxWidth="100%">
+      <Container width="50%" maxWidth="100%">
         <Container
           width="100%"
           maxWidth="100%"

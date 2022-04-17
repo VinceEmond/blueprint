@@ -40,7 +40,6 @@ export default function ProjectsCarousel() {
             display="flex"
             alignContent="center"
             height="100%"
-            // width="100%"
             key={count}>
             {boxes}
           </Flex>
