@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import { Box, Flex, Spacer } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, Spacer } from '@chakra-ui/react';
 import axios from 'axios';
 
 export default function ProjectsCarousel() {
@@ -15,9 +15,22 @@ export default function ProjectsCarousel() {
       .then((response) => {
         const allProjects = response.data.projects;
         const projectBoxes = allProjects.map((project) => {
+          const statusColor =
+            project.status === 'Complete' ? 'green' : 'yellow';
           return (
             <Box height="200px" flex="5" border="1px" key={project.id}>
-              {project.name}
+              <Flex
+                height="100%"
+                justifyContent="center"
+                flexDirection="column">
+                <Box>
+                  <Heading size="md">{project.name}</Heading>
+                  <Badge fontSize="lg" colorScheme={statusColor}>
+                    {project.status}
+                  </Badge>
+                </Box>
+                <Box></Box>
+              </Flex>
             </Box>
           );
         });
@@ -59,9 +72,10 @@ export default function ProjectsCarousel() {
         display="flex"
         alignSelf="center"
         infiniteLoop="true"
-        showThumbs={false}
-        autoPlay="true"
-        interval="3000">
+        showThumbs="false"
+        // autoPlay="true"
+        interval="3000"
+        stopOnHover="true">
         {listProjectFlexes()}
       </Carousel>
     </div>
