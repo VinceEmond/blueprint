@@ -30,7 +30,7 @@ UPDATE projects SET
   modified_date = '2022-04-15',
   status = 'Pending',
   category_id = '3'
-  WHERE id = 1 and is_active = true
+  WHERE id = 1 AND is_active = true
   RETURNING *;
 
 -- Add project with a certain owner_ID
