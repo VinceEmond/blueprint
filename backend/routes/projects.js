@@ -52,7 +52,9 @@ module.exports = (db) => {
   // POST: EDIT - PROJECTS --- EDIT/UPDATE DATA FOR SPECIFIC PROJECT
   router.put("/:id", (req, res) => {
     const { id } = req.params;
+    console.log("REQ.BODY: ", req.body);
     const {
+      owner_id,
       name,
       description,
       start_date,
@@ -60,8 +62,10 @@ module.exports = (db) => {
       modified_date,
       status,
       category_id,
+      is_active,
     } = req.body;
     const queryParams = [
+      owner_id,
       name,
       description,
       start_date,
@@ -69,23 +73,28 @@ module.exports = (db) => {
       modified_date,
       status,
       category_id,
+      is_active,
       id,
     ];
+    console.log("PARAMS: ", queryParams);
     const queryStr = `UPDATE projects SET
-      name = $1,
-      description = $2,
-      start_date = $3,
-      due_date = $4,
-      modified_date = $5,
-      status = $6,
-      category_id = $7
-      WHERE id = $8 AND is_active = true
-      RETURNING *
+    owner_id = $1,
+    name = $2,
+    description = $3,
+    start_date = $4,
+    due_date = $5,
+    modified_date = $6,
+    status = $7,
+    category_id = $8,
+    is_active = $9
+    WHERE id = $10
+    RETURNING *;
     `;
 
     db.query(queryStr, queryParams)
       .then((data) => {
         const project = data.rows;
+        console.log("QUERY SUCCESS");
         res.json({ project });
       })
       .catch((err) => {
