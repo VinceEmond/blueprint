@@ -177,13 +177,58 @@ export default function Dashboard() {
                 </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>Not started</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'Not Started')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>In progress</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'In Progress')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>Complete</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'Complete')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>
