@@ -13,7 +13,7 @@ import Register from "./User/Register";
 import LandingPage from "./LandingPage";
 import Project from "./Project";
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
+
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);

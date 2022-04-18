@@ -28,7 +28,6 @@ export default function NewProjectForm(props) {
   const [projectFormValues, setProjectFormValues] = React.useState(testProjectValues);
   const {setModalState} = props;
   
-  
 
   function createProject(projectFormValues) {
     axios
