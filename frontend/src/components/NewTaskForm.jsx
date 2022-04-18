@@ -13,15 +13,13 @@ import {
 import axios from "axios";
 
 export default function NewTaskForm() {
-  const [formValue, setformValue] = React.useState(null);
+  const [formValue, setFormValue] = React.useState(null);
   
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function axiosCall() {
         axios
           .post("/api/tasks", formValue)
-          .then((response) => {
-            // console.log("RESPONSE FROM FRONTEND: ", response)
-          })
+          .then((response) => {})
           .catch((err) => console.log("err:", err));
   } 
 

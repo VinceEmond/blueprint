@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Editable,
   EditableInput,
@@ -9,10 +9,12 @@ import {
   Textarea,
   Button,
   ButtonGroup,
+  Input
 } from "@chakra-ui/react";
 import axios from "axios";
 
-export default function NewTaskForm() {
+const NewProjectForm = () => {
+
   const [projectFormValues, setProjectFormValues] = React.useState({
     owner_id: 1, 
     name: "New 69 Project", 
@@ -24,55 +26,95 @@ export default function NewTaskForm() {
     category_id: 1
   });
 
-  function createProject() {
+  // const [projectFormValues, setProjectFormValues] = React.useState({
+  //   owner_id: "", 
+  //   name: "", 
+  //   description: "", 
+  //   start_date: '', 
+  //   due_date: '', 
+  //   modified_date: '', 
+  //   status: '', 
+  //   category_id: 1
+  // });
+
+  function createProject(projectFormValues) {
     axios
-      .post('/api/projects', projectFormValues)
-      .then((response) => {
-        
-      })
-      .catch((err) => console.log("err:", err));
+    .post('/api/projects', projectFormValues)
+    .then((response) => {
+      console.log("Succesfully added Project to database")
+      console.log("Response", response.data)
+    })
+    .catch((err) => console.log("err:", err));
+  }
+  
+  // let loading = false;
+  // useEffect(() => {
+  //   if (!loading) {
+  //     loading = true;
+  //   console.log("Set Project Form Values", projectFormValues.name)
+  //   }
+  // }, [])
+
+  function handleProjectChange(event) {setProjectFormValues({...projectFormValues, name: event.target.value})}
+  function handleOwnerChange(event) {setProjectFormValues({...projectFormValues, owner_id: event.target.value})}
+  function handleStatusChange(event) {setProjectFormValues({...projectFormValues, status: event.target.value})}
+  function handleDateChange(event) {setProjectFormValues({...projectFormValues, due_date: event.target.value})}
+  function handleDescriptionChange(event) {setProjectFormValues({...projectFormValues, description: event.target.value})}
+  
+  function handleSave(event){
+    console.log('project: ', projectFormValues.name);
+    console.log('owner: ', projectFormValues.owner_id)
+    console.log('status: ', projectFormValues.status)
+    console.log('date: ',projectFormValues.due_date)
+    console.log('description: ', projectFormValues.description)
+    // Validation happens here
+    createProject(projectFormValues)
   }
 
   return (
     <Container mt="4em">
       <HStack mt="1em">
         <Editable
-          defaultValue="Enter project here..."
           width="70%"
           display="flex"
           alignItems="left"
+          placeholder="Project name here..."
+          value={projectFormValues.name}
         >
-          <EditablePreview display="flex" />
-          <EditableInput display="flex" />
+          <EditablePreview display="flex" width="full"/>
+          <EditableInput display="flex" onChange={(e) => handleProjectChange(e)}/>
         </Editable>
-        <Select placeholder="Select option" width="30%" display="flex">
-          <option value="option1">Not Started</option>
-          <option value="option2">In Progress</option>
-          <option value="option3">Pending</option>
-          <option value="option3">Complete</option>
+        <Select placeholder="Select Status" value={projectFormValues.status} width="30%" display="flex" onChange={(e) => handleStatusChange(e)}>
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Pending">Pending</option>
+          <option value="Complete">Complete</option>
         </Select>
       </HStack>
       <HStack mt="1em">
         <p>Owner: </p>
-        <Editable defaultValue="Owner name here...." width="80%" display="flex">
-          <EditablePreview />
-          <EditableInput />
+        <Editable 
+          width="80%" 
+          display="flex"
+          placeholder="Owner name here..."
+          value={projectFormValues.owner_id}
+        >
+          <EditablePreview width="full" />
+          <EditableInput onChange={(e) => handleOwnerChange(e)}></EditableInput>
         </Editable>
       </HStack>
 
       <HStack mt="1em">
         <p>Due Date: </p>
-        <Editable defaultValue="Due date here..." width="80%" display="flex">
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
+        <Input type="date" value={projectFormValues.due_date} onChange={(e) => handleDateChange(e)}/>
       </HStack>
-      <Textarea mt="1em" placeholder="Description here..." />
+      <Textarea mt="1em" placeholder="Description here..." value={projectFormValues.description} onChange={(e) => handleDescriptionChange(e)}/>
 
       <ButtonGroup variant="outline" spacing="6" mt="1em">
-        <Button colorScheme="blue">Save</Button>
+        <Button colorScheme="blue" onClick={(e)=>handleSave(e)}>Save</Button>
       </ButtonGroup>
-      <button onClick={createProject}>CREATE PROJECT</button>
     </Container>
   );
 }
+
+export default NewProjectForm;
