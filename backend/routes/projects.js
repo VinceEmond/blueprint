@@ -50,7 +50,7 @@ module.exports = (db) => {
   });
 
   // POST: EDIT - PROJECTS --- EDIT/UPDATE DATA FOR SPECIFIC PROJECT
-  router.post("/:id", (req, res) => {
+  router.put("/:id", (req, res) => {
     const { id } = req.params;
     const {
       name,
@@ -131,7 +131,7 @@ module.exports = (db) => {
   });
 
   // POST:DELETE - PROJECTS --- SET EXISTING PROJECT TO INACTIVE IN DB
-  router.post("/:id/delete", (req, res) => {
+  router.delete("/:id/delete", (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const queryStr = `UPDATE projects SET

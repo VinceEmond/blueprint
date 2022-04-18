@@ -1,12 +1,14 @@
-import './App.css';
-import NavBar from './NavBar';
-import { ChakraProvider } from '@chakra-ui/react';
-import { Routes, Route } from 'react-router-dom';
-import LandingPage from './LandingPage';
-import Dashboard from './Dashboard';
-import Projects from './Projects';
-import Project from './Project';
-import Tasks from './Tasks';
+import "./App.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+// import LandingPage from "./LandingPage";
+import NavBar from "./NavBar";
+import Dashboard from "./Dashboard";
+import Projects from "./Projects";
+import Tasks from "./Tasks";
+import Trello from "./Trello/Trello";
+import LandingPage from "./LandingPage";
+import Project from "./Project";
 
 function App() {
   return (
@@ -21,9 +23,9 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<Project />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/trello" element={<Trello />} />
           </Routes>
         </div>
-        
       </ChakraProvider>
     </div>
   );

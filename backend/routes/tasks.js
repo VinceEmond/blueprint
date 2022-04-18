@@ -34,9 +34,23 @@ module.exports = (db) => {
       });
   });
 
-  // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK
-  router.post("/:id", (req, res) => {
+  // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
+  router.put("/:id", (req, res) => {
     const { id } = req.params;
+    console.log("REQ.BODY: ", req.body);
+    const {
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+      is_active,
+    } = req.body;
     const queryParams = [
       project_id,
       priority,
@@ -48,11 +62,13 @@ module.exports = (db) => {
       modified_date,
       status,
       category_id,
+      is_active,
       id,
     ];
+    console.log("PARAMS: ", queryParams);
     const queryStr = `UPDATE tasks SET
       project_id = $1,
-      priority = $2
+      priority = $2,
       assignee_id = $3,
       name = $4,
       description = $5,
@@ -61,7 +77,8 @@ module.exports = (db) => {
       modified_date = $8,
       status = $9,
       category_id = $10,
-      WHERE id = $11 AND is_active = true
+      is_active = $11
+      WHERE id = $12
       RETURNING *;
     `;
 
@@ -71,6 +88,7 @@ module.exports = (db) => {
         res.json({ task });
       })
       .catch((err) => {
+        console.log(err);
         res.status(500).json({ error: err.message });
       });
   });
@@ -123,7 +141,7 @@ module.exports = (db) => {
   });
 
   // POST:DELETE - TASKSK --- SET EXISTING TASK TO INACTIVE IN DB
-  router.post("/:id/delete", (req, res) => {
+  router.delete("/:id/delete", (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const queryStr = `UPDATE tasks SET
