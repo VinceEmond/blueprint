@@ -40,18 +40,23 @@ export default function Dashboard() {
 
   const [userData, setUserData] = useState([]);
   const [userTasks, setUserTasks] = useState([]);
+
   // State for current time and date
   const [date, setDate] = useState(new Date());
   // Prevent double api calls by checking if already loading
+  // const [loading, setLoading] = useState(false);
   let loading = false;
 
-  // When mounted, we get the date/time that updates every second
+  // When mounted, we get the date/time that updates every 15 minutes
   useEffect(() => {
-    const timer = setInterval(() => setDate(new Date()), 1000);
+    if (!loading) {
+      console.log('3');
+      const timer = setInterval(() => setDate(new Date()), 900000);
 
-    return function cleanup() {
-      clearInterval(timer);
-    };
+      return function cleanup() {
+        clearInterval(timer);
+      };
+    }
   }, []);
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
@@ -85,6 +90,8 @@ export default function Dashboard() {
   useEffect(() => {
     const controller = new AbortController();
     if (!loading) {
+      console.log('1');
+
       axios
         .get('/api/users')
         .then((response) => {
@@ -98,11 +105,12 @@ export default function Dashboard() {
         })
         .catch((err) => console.log('err:', err));
     }
-  }, [loading]);
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     if (!loading) {
+      console.log('2');
       loading = true;
       axios
         .get('/api/tasks')
@@ -115,7 +123,7 @@ export default function Dashboard() {
   }, []);
 
   const handleModal = () => {
-    setModalState('close');
+    // setModalState('close');
     onClose();
   };
 
@@ -134,7 +142,7 @@ export default function Dashboard() {
         </LinkBox>
       </Center>
 
-      <Container width="40%" maxWidth="100%">
+      <Container width="50%" maxWidth="100%">
         <Container
           width="100%"
           maxWidth="100%"
@@ -199,6 +207,7 @@ export default function Dashboard() {
           border="2px"
           borderRadius="5px"
           mt="3em"
+          mb="3em"
           width="100%"
           maxWidth="100%">
           <Container

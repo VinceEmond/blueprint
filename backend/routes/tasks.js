@@ -1,51 +1,55 @@
-const { query } = require('express');
-const express = require('express');
-const router  = express.Router();
+const { query } = require("express");
+const express = require("express");
+const router = express.Router();
 
 module.exports = (db) => {
-
-
   // GET: BROWSE --- RETRIEVE ALL TASKS
-  router.get('/', (req, res) => {
+  router.get("/", (req, res) => {
     const queryParams = [];
     const queryStr = `SELECT * FROM tasks WHERE is_active = true;`;
 
     db.query(queryStr, queryParams)
-      .then(data => {
+      .then((data) => {
         const tasks = data.rows;
         res.json({ tasks });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
 
-
   // GET: READ --- RETRIEVE SPECIFIC TASK BY ID
-  router.get('/:id', (req, res) => {
-    const {id} = req.params;
+  router.get("/:id", (req, res) => {
+    const { id } = req.params;
     const queryParams = [id];
     const queryStr = `SELECT * FROM tasks WHERE id = $1 AND is_active = true;`;
 
     db.query(queryStr, queryParams)
-      .then(data => {
+      .then((data) => {
         const task = data.rows;
         res.json({ task });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
 
-
   // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK
-  router.post('/:id', (req, res) => {
-    const {id} = req.params;
-    const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id, id];
+  router.post("/:id", (req, res) => {
+    const { id } = req.params;
+    const queryParams = [
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+      id,
+    ];
     const queryStr = `UPDATE tasks SET
       project_id = $1,
       priority = $2
@@ -62,25 +66,44 @@ module.exports = (db) => {
     `;
 
     db.query(queryStr, queryParams)
-      .then(data => {
+      .then((data) => {
         const task = data.rows;
         res.json({ task });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
 
-
   // POST: ADD - TASKS --- ADD/CREATE A NEW TASK
-  router.post('/', (req, res) => {
+  router.post("/", (req, res) => {
     // console.log("REQBODY:", req.body)
 
-    const {project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id} = req.body;
+    const {
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+    } = req.body;
 
-    const queryParams = [project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id];
+    const queryParams = [
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+    ];
     // console.log("QUERYPARAMS: ", queryParams)
 
     const queryStr = `INSERT INTO tasks
@@ -89,22 +112,19 @@ module.exports = (db) => {
     `;
 
     db.query(queryStr, queryParams)
-      .then(data => {
+      .then((data) => {
         const task = data.rows;
         // console.log('SUCCESSFUL')
         res.json({ task });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
 
-
   // POST:DELETE - TASKSK --- SET EXISTING TASK TO INACTIVE IN DB
-  router.post('/:id/delete', (req,res) => {
-    const {id} = req.params;
+  router.post("/:id/delete", (req, res) => {
+    const { id } = req.params;
     const queryParams = [id];
     const queryStr = `UPDATE tasks SET
       is_active = false
@@ -113,17 +133,13 @@ module.exports = (db) => {
     `;
 
     db.query(queryStr, queryParams)
-    .then((data) => {
-      res.json({});
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+      .then((data) => {
+        res.json({});
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
-
 
   return router;
 };
-
