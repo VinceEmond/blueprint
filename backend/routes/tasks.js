@@ -128,7 +128,7 @@ module.exports = (db) => {
   });
 
   // POST:DELETE - TASKSK --- SET EXISTING TASK TO INACTIVE IN DB
-  router.post("/:id/delete", (req, res) => {
+  router.delete("/:id/delete", (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const queryStr = `UPDATE tasks SET

@@ -51,9 +51,7 @@ const TrelloCard = ({ item, index }) => {
           {...provided.dragHandleProps}
         >
           <TaskInformation>
-            <p>
-              {item.name} {item.status}
-            </p>
+            <p>{item.name}</p>
             <p>Description: {item.description}</p>
             <div className="secondary-details">
               <p>

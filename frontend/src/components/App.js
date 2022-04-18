@@ -20,7 +20,6 @@ function App() {
             <Route exact path="/" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/tasks" element={<Tasks />} />
-            <Route path="/trello" element={<Trello />} />
           </Routes>
         </div>
       </ChakraProvider>
