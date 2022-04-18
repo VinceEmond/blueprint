@@ -55,6 +55,10 @@ SELECT * FROM tasks WHERE is_active = true;
 -- Get all tasks with a certain ID
 SELECT * FROM tasks WHERE id = 1 AND is_active = true;
 
+-- Get all tasks with a certain project_id
+SELECT * FROM tasks WHERE project_id = 1 AND is_active = true;
+
+
 -- Update task with a certain ID
 UPDATE tasks SET
   project_id = '2',

@@ -38,18 +38,31 @@ module.exports = (db) => {
   router.put("/:id", (req, res) => {
     const { id } = req.params;
     console.log("REQ.BODY: ", req.body);
+    const {
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+      is_active,
+    } = req.body;
     const queryParams = [
-      req.body.project_id,
-      req.body.priority,
-      req.body.assignee_id,
-      req.body.name,
-      req.body.description,
-      req.body.start_date,
-      req.body.due_date,
-      req.body.modified_date,
-      req.body.status,
-      req.body.category_id,
-      req.body.is_active,
+      project_id,
+      priority,
+      assignee_id,
+      name,
+      description,
+      start_date,
+      due_date,
+      modified_date,
+      status,
+      category_id,
+      is_active,
       id,
     ];
     console.log("PARAMS: ", queryParams);
