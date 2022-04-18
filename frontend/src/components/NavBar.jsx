@@ -92,8 +92,16 @@ export default function NavBar(props) {
                     Dylan
                   </MenuItem>
                 </a>
-                <MenuItem>Vince</MenuItem>
-                <MenuItem>Pablo</MenuItem>
+                <a href="/">
+                  <MenuItem onClick={() => loginHandler("Vince", 3)}>
+                    Vince
+                  </MenuItem>
+                </a>
+                <a href="/">
+                  <MenuItem onClick={() => loginHandler("Pablo", 2)}>
+                    Pablo
+                  </MenuItem>
+                </a>
                 <a href="/welcome">
                   <MenuItem onClick={(e) => logoutHandler(e)}>Logout</MenuItem>
                 </a>
