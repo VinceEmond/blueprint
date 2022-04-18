@@ -12,7 +12,6 @@
     "@testing-library/react": "^13.0.1",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
-    "eslint-plugin-react-hooks": "^4.5.0-next-726ba8029-20220415",
     "framer-motion": "^6.3.0",
     "moment": "^2.29.2",
     "react": "^18.0.0",
@@ -27,15 +26,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "plugins": [
-      "react-hooks"
-    ],
-    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
   },
   "browserslist": {
     "production": [
