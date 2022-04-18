@@ -36,7 +36,10 @@ export default function SocialProfileSimple({ project }) {
         </Text>
 
         <Stack mt={8} direction={'row'} spacing={4} justifyContent="center">
-          <Link _hover={{ textDecoration: 'none' }} width="50%" href="/">
+          <Link
+            _hover={{ textDecoration: 'none' }}
+            width="50%"
+            href={`/projects/${project.id}`}>
             <Button
               fontSize={'sm'}
               rounded={'full'}
