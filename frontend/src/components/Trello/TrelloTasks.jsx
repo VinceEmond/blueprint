@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import TrelloCard from "./TrelloCard";
+import TrelloTasksCard from "./TrelloTasksCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,7 +36,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-const Trello = () => {
+export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
   let loading = false;
 
@@ -191,7 +191,11 @@ const Trello = () => {
                   >
                     <Title>{column.title}</Title>
                     {column.items.map((item, index) => (
-                      <TrelloCard key={item.id} item={item} index={index} />
+                      <TrelloTasksCard
+                        key={item.id}
+                        item={item}
+                        index={index}
+                      />
                     ))}
                     {provided.placeholder}
                   </TaskList>
@@ -203,6 +207,4 @@ const Trello = () => {
       </Container>
     </DragDropContext>
   );
-};
-
-export default Trello;
+}
