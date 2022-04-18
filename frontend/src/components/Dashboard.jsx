@@ -86,7 +86,6 @@ export default function Dashboard() {
   useEffect(() => {
     const controller = new AbortController();
     if (!loading) {
-      console.log('allUsers triggered');
       setLoading(true);
       axios
         .get('/api/users')
@@ -106,7 +105,6 @@ export default function Dashboard() {
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     if (!loading) {
-      console.log('allTasks triggered');
       setLoading(true);
       axios
         .get('/api/tasks')

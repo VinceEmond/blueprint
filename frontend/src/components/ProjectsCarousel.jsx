@@ -25,7 +25,7 @@ export default function ProjectsCarousel() {
         })
         .catch((err) => console.log('err:', err));
     }
-  }, []);
+  }, [loading]);
 
   const listProjectFlexes = () => {
     const flexes = [];
@@ -58,9 +58,9 @@ export default function ProjectsCarousel() {
       <Carousel
         display="flex"
         alignSelf="center"
-        infiniteLoop="true"
-        autoFocus="true"
-        autoPlay="true"
+        infiniteLoop={true}
+        autoFocus={true}
+        autoPlay={false}
         interval="5000"
         stopOnHover={true}
         showThumbs={false}>
