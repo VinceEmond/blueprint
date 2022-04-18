@@ -77,6 +77,10 @@ export default function Register() {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
+            <FormControl id="lastName">
+              <FormLabel>Avatar Image Link</FormLabel>
+              <Input type="text" />
+            </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
                 loadingText="Submitting"
@@ -93,7 +97,7 @@ export default function Register() {
             <Stack pt={6}>
               <Text align={"center"}>
                 Already a user?{" "}
-                <Link color={"blue.400"} to="/login">
+                <Link color={"blue.400"} href="/login">
                   Login
                 </Link>
               </Text>

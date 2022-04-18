@@ -67,7 +67,7 @@ export default function Login() {
               </Button>
               <Text align={"center"}>
                 Not Registered?{" "}
-                <Link color={"blue.400"} to="/register">
+                <Link color={"blue.400"} href="/register">
                   Register Here
                 </Link>
               </Text>
