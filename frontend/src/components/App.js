@@ -20,6 +20,7 @@ function App() {
             <Route path="/tasks" element={<Tasks />} />
           </Routes>
         </div>
+        
       </ChakraProvider>
     </div>
   );
