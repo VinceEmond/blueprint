@@ -9,11 +9,11 @@ import axios from 'axios';
 export default function ProjectsCarousel() {
   const [projectBoxes, setProjectBoxes] = useState([]);
   // Prevent double api calls by checking if already loading
-  const [loading, setLoading] = useState(false);
+  let loading = false;
 
   useEffect(() => {
     if (!loading) {
-      setLoading(true);
+      loading = true;
       axios
         .get('/api/projects')
         .then((response) => {
