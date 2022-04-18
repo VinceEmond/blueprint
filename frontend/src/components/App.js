@@ -12,12 +12,33 @@ import Login from "./User/Login";
 import Register from "./User/Register";
 import LandingPage from "./LandingPage";
 import Project from "./Project";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 
 function App() {
+  const [cookies, setCookie, removeCookie] = useCookies(null);
+
+  // useEffect(() => {
+  //   console.log("COOKIE HAS BEEN SET");
+  // }, [cookies]);
+
+  const loginHandler = (name, id) => {
+    console.log("LOGIN");
+    setCookie("name", name, { path: "/" });
+    setCookie("id", id, { path: "/" });
+  };
+
+  const logoutHandler = (e) => {
+    console.log("LOGOUT");
+    removeCookie("name");
+    removeCookie("id");
+    // cookies.remove("name");
+  };
+
   return (
     <div className="App">
       <ChakraProvider>
-        <NavBar />
+        <NavBar loginHandler={loginHandler} logoutHandler={logoutHandler} />
 
         <div className="content">
           <Routes>
