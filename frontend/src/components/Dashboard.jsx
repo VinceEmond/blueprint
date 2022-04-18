@@ -43,19 +43,15 @@ export default function Dashboard() {
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
-  // Prevent double api calls by checking if already loading
-  // const [loading, setLoading] = useState(false);
 
   // When mounted, we get the date/time that updates every 15 minutes
-  // useEffect(() => {
-  //   if (!loading) {
-  //     const timer = setInterval(() => setDate(new Date()), 900000);
+  useEffect(() => {
+    const timer = setInterval(() => setDate(new Date()), 900000);
 
-  //     return function cleanup() {
-  //       clearInterval(timer);
-  //     };
-  //   }
-  // }, []);
+    return function cleanup() {
+      clearInterval(timer);
+    };
+  }, []);
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
   const DATE_OPTIONS = {
