@@ -14,19 +14,20 @@ import {
 import axios from "axios";
 
 export default function NewTaskForm() {
-  // const [formValue, setFormValue] = React.useState(null);
-  const [taskFormValues, setTaskFormValues] = React.useState({});
+
   
-  const testTaskValues = {
-    name: "New 69 Task", 
-    priority: 'low',
-    status: 'Complete', 
-    description: "Tasks description 420 69", 
-    start_date: '1969-04-20', 
-    due_date: '1969-04-20', 
-    modified_date: '2022-04-15', 
-    category_id: 1
-  }
+  // const testTaskValues = {
+  //   name: "New 69 Task", 
+  //   priority: 'low',
+  //   status: 'Complete', 
+  //   description: "Tasks description 420 69", 
+  //   start_date: '1969-04-20', 
+  //   due_date: '1969-04-20', 
+  //   modified_date: '2022-04-15', 
+  //   category_id: 1
+  // }
+
+  const [taskFormValues, setTaskFormValues] = React.useState({});
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
@@ -112,7 +113,7 @@ function handleSave(event){
         <Input 
           type="date" 
           width="60%" 
-          value={taskFormValues.due_date}
+          value={taskFormValues.due_date || ""}
           onChange={(e)=>handleDateChange(e)}
         />
       </HStack>

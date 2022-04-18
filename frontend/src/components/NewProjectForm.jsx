@@ -13,10 +13,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const NewProjectForm = () => {
+export default function NewProjectForm(props) {
 
-  const [projectFormValues, setProjectFormValues] = React.useState({});
-  
   const testProjectValues = {
     owner_id: 1, 
     name: "New 69 Project", 
@@ -27,6 +25,10 @@ const NewProjectForm = () => {
     status: 'Not Started', 
     category_id: 1
   }
+  const [projectFormValues, setProjectFormValues] = React.useState(testProjectValues);
+  const {setModalState} = props;
+  
+  
 
   function createProject(projectFormValues) {
     axios
@@ -52,6 +54,7 @@ const NewProjectForm = () => {
     console.log('description: ', projectFormValues.description)
     // Validation happens here
     createProject(projectFormValues)
+    setModalState(null);
   }
 
   return (
@@ -113,5 +116,3 @@ const NewProjectForm = () => {
     </Container>
   );
 }
-
-export default NewProjectForm;
