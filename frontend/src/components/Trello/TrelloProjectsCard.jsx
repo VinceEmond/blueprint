@@ -67,11 +67,14 @@ export default function TrelloProjectsCard({ item, index }) {
                   {
                     <span className="priority">
                       {item.priority === "High" ? (
-                        <img src={HighPriorityIcon} />
+                        <img src={HighPriorityIcon} alt="High Priority Icon" />
                       ) : item.priority === "Medium" ? (
-                        <img src={MediumPriorityIcon} />
+                        <img
+                          src={MediumPriorityIcon}
+                          alt="Medium Priority Icon"
+                        />
                       ) : (
-                        <img src={LowPriorityIcon} />
+                        <img src={LowPriorityIcon} alt="Low Priority Icon" />
                       )}
                     </span>
                   }

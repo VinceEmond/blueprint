@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -27,59 +27,54 @@ import {
   Tab,
   TabPanel,
   useDisclosure,
-} from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
-import { AddIcon } from "@chakra-ui/icons";
-import NewTaskForm from "./NewTaskForm";
-import NewProjectForm from "./NewProjectForm";
-import ProjectsCarousel from "./ProjectsCarousel";
+} from '@chakra-ui/react';
+import { getUserName } from '../helpers/selectors';
+import { AddIcon } from '@chakra-ui/icons';
+import NewTaskForm from './NewTaskForm';
+import NewProjectForm from './NewProjectForm';
+import ProjectsCarousel from './ProjectsCarousel';
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalState, setModalState] = useState("close");
+  const [modalState, setModalState] = useState(null);
 
-  const [userData, setUserData] = useState([]);
-  const [userTasks, setUserTasks] = useState([]);
+  const [userData, setUserData] = useState(null);
+  const [userTasks, setUserTasks] = useState(null);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
-  // Prevent double api calls by checking if already loading
-  // const [loading, setLoading] = useState(false);
-  let loading = false;
 
   // When mounted, we get the date/time that updates every 15 minutes
   useEffect(() => {
-    if (!loading) {
-      const timer = setInterval(() => setDate(new Date()), 900000);
+    const timer = setInterval(() => setDate(new Date()), 900000);
 
-      return function cleanup() {
-        clearInterval(timer);
-      };
-    }
+    return function cleanup() {
+      clearInterval(timer);
+    };
   }, []);
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
   const DATE_OPTIONS = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   };
 
   // save into variable the current date using options
-  const currentDate = date.toLocaleDateString("en-US", DATE_OPTIONS);
+  const currentDate = date.toLocaleDateString('en-US', DATE_OPTIONS);
 
   // function to determine the hour and message depending on it
   function timeMessage() {
     const hours = new Date().getHours();
-    let message = "";
+    let message = '';
 
     if (hours < 12) {
-      message = "Good Morning";
+      message = 'Good Morning';
     } else if (hours >= 12 && hours <= 17) {
-      message = "Good Afternoon";
+      message = 'Good Afternoon';
     } else if (hours >= 17 && hours <= 24) {
-      message = "Good Evening";
+      message = 'Good Evening';
     }
 
     return message;
@@ -88,40 +83,33 @@ export default function Dashboard() {
   // When mounted, API call for DB query for all users and specific user's name when component renders
   useEffect(() => {
     const controller = new AbortController();
-    if (!loading) {
-      axios
-        .get("/api/users")
-        .then((response) => {
-          const allUsers = response.data.users;
-          const specificUser = getUserName(allUsers, 3);
-          setUserData(specificUser);
+    axios
+      .get('/api/users')
+      .then((response) => {
+        console.log('GET USERS');
+        const allUsers = response.data.users;
+        const specificUser = getUserName(allUsers, 3);
+        setUserData(specificUser);
 
-          return () => {
-            controller.abort();
-          };
-        })
-        .catch((err) => console.log("err:", err));
-    }
+        return () => {
+          controller.abort();
+        };
+      })
+      .catch((err) => console.log('err:', err));
   }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
-    if (!loading) {
-      loading = true;
-      axios
-        .get("/api/tasks")
-        .then((response) => {
-          const allTasks = response.data.tasks;
-          setUserTasks(allTasks);
-        })
-        .catch((err) => console.log("err:", err));
-    }
-  }, []);
+    axios
+      .get('/api/tasks')
+      .then((response) => {
+        console.log('GET TASKS');
 
-  const handleModal = () => {
-    // setModalState('close');
-    onClose();
-  };
+        const allTasks = response.data.tasks;
+        setUserTasks(allTasks);
+      })
+      .catch((err) => console.log('err:', err));
+  }, []);
 
   return (
     <div>
@@ -132,7 +120,7 @@ export default function Dashboard() {
           </Box>
           <Heading size="md" my="2">
             <LinkOverlay>
-              {timeMessage()}, {userData.first_name}
+              {timeMessage()}, {userData && userData.first_name}
             </LinkOverlay>
           </Heading>
         </LinkBox>
@@ -144,14 +132,12 @@ export default function Dashboard() {
           maxWidth="100%"
           border="2px"
           borderRadius="5px"
-          mt="4em"
-        >
+          mt="4em">
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%"
-          >
+            maxWidth="100%">
             <Heading size="md" textAlign="left">
               My Priorities
             </Heading>
@@ -160,7 +146,7 @@ export default function Dashboard() {
               borderRadius="50%"
               icon={<AddIcon />}
               onClick={() => {
-                setModalState("tasks");
+                setModalState('tasks');
                 onOpen();
               }}
             />
@@ -178,25 +164,71 @@ export default function Dashboard() {
                 <TableContainer>
                   <Table size="sm">
                     <Tbody>
-                      {userTasks.map((task) => {
-                        return (
-                          <Tr key={task.id}>
-                            <Td>{task.name}</Td>
-                          </Tr>
-                        );
-                      })}
+                      {userTasks &&
+                        userTasks.map((task) => {
+                          return (
+                            <Tr key={task.id}>
+                              <Td>{task.name}</Td>
+                            </Tr>
+                          );
+                        })}
                     </Tbody>
                   </Table>
                 </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>Not started</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'Not Started')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>In progress</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'In Progress')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
               <TabPanel>
-                <p>Complete</p>
+                <TableContainer>
+                  <Table size="sm">
+                    <Tbody>
+                      {userTasks &&
+                        userTasks
+                          .filter((task) => task.status === 'Complete')
+                          .map((task) => {
+                            return (
+                              <Tr key={task.id}>
+                                <Td>{task.name}</Td>
+                              </Tr>
+                            );
+                          })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>
@@ -207,14 +239,12 @@ export default function Dashboard() {
           mt="3em"
           mb="3em"
           width="100%"
-          maxWidth="100%"
-        >
+          maxWidth="100%">
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%"
-          >
+            maxWidth="100%">
             <Heading size="md" textAlign="left">
               Projects
             </Heading>
@@ -223,7 +253,7 @@ export default function Dashboard() {
               borderRadius="50%"
               icon={<AddIcon />}
               onClick={() => {
-                setModalState("projects");
+                setModalState('projects');
                 onOpen();
               }}
             />
@@ -232,8 +262,8 @@ export default function Dashboard() {
         </Container>
       </Container>
 
-      {modalState === "tasks" && (
-        <Modal isOpen={isOpen} onClose={() => handleModal()}>
+      {modalState === 'tasks' && (
+        <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader>New Task</ModalHeader>
@@ -242,7 +272,7 @@ export default function Dashboard() {
               <NewTaskForm />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={() => handleModal()}>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
               </Button>
               <Button variant="ghost">Secondary Action</Button>
@@ -251,8 +281,8 @@ export default function Dashboard() {
         </Modal>
       )}
 
-      {modalState === "projects" && (
-        <Modal isOpen={isOpen} onClose={() => handleModal()}>
+      {modalState === 'projects' && (
+        <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader>New Project</ModalHeader>
@@ -261,7 +291,7 @@ export default function Dashboard() {
               <NewProjectForm />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={() => handleModal()}>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
               </Button>
               <Button variant="ghost">Secondary Action</Button>
