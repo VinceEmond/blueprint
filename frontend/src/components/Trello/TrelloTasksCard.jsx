@@ -41,7 +41,7 @@ const TaskInformation = styled.div`
    } 
 `;
 
-const TrelloCard = ({ item, index }) => {
+const TrelloTasksCard = ({ item, index }) => {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided) => (
@@ -73,7 +73,7 @@ const TrelloCard = ({ item, index }) => {
   );
 };
 
-export default TrelloCard;
+export default TrelloTasksCard;
 
 // <span className="priority">
 // {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}

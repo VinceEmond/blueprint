@@ -6,7 +6,8 @@ import NavBar from "./NavBar";
 import Dashboard from "./Dashboard";
 import Projects from "./Projects";
 import Tasks from "./Tasks";
-import Trello from "./Trello/Trello";
+import TrelloTasks from "./Trello/TrelloTasks";
+import TrelloProjects from "./Trello/TrelloProjects";
 import LandingPage from "./LandingPage";
 import Project from "./Project";
 
@@ -23,7 +24,8 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<Project />} />
             <Route path="/tasks" element={<Tasks />} />
-            <Route path="/trello" element={<Trello />} />
+            <Route path="/trellotasks" element={<TrelloTasks />} />
+            <Route path="/trelloprojects" element={<TrelloProjects />} />
           </Routes>
         </div>
       </ChakraProvider>

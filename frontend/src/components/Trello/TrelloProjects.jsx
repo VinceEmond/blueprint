@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import TrelloCard from "./TrelloCard";
+import TrelloProjectsCard from "./TrelloProjectsCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,7 +36,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-const Trello = () => {
+const TrelloTasks = () => {
   const [userTasks, setUserTasks] = useState([]);
   let loading = false;
 
@@ -65,39 +65,37 @@ const Trello = () => {
     if (!loading) {
       loading = true;
       axios
-        .get("/api/tasks/")
+        .get("/api/projects/")
         .then((response) => {
-          const allTasks = response.data.tasks;
-          let allTaskObj = [];
+          const allProjects = response.data.projects;
+          let allProjectsObj = [];
 
           // console.log("ALLTASKS: ", allTasks);
 
-          const cards = allTasks.map((task) => {
+          const cards = allProjects.map((project) => {
             let card = {
-              project_id: String(task.project_id),
-              priority: String(task.priority),
-              assignee_id: String(task.assignee_id),
-              name: String(task.name),
-              description: String(task.description),
-              start_date: String(task.start_date),
-              due_date: String(task.due_date),
-              modified_date: String(task.modified_date),
-              status: String(task.status),
-              category_id: String(task.category_id),
-              is_active: String(task.is_active),
-              id: String(task.id),
+              id: String(project.id),
+              category_id: String(project.category_id),
+              owner_id: String(project.owner_id),
+              name: String(project.name),
+              description: String(project.description),
+              start_date: String(project.start_date),
+              due_date: String(project.due_date),
+              modified_date: String(project.modified_date),
+              status: String(project.status),
+              is_active: String(project.is_active),
             };
-            return allTaskObj.push(card);
+            return allProjectsObj.push(card);
           });
 
-          // console.log("allTaskObj: ", allTaskObj);
+          // console.log("allProjectsObj: ", allProjectsObj);
 
           for (let column in trelloColumns) {
-            for (let j = 0; j < allTaskObj.length; j++) {
+            for (let j = 0; j < allProjectsObj.length; j++) {
               // console.log(trelloColumns[column].title);
-              // console.log(allTaskObj[j].progress);
-              if (trelloColumns[column].title === allTaskObj[j].status)
-                trelloColumns[column].items.push(allTaskObj[j]);
+              // console.log(allProjectsObj[j].status);
+              if (trelloColumns[column].title === allProjectsObj[j].status)
+                trelloColumns[column].items.push(allProjectsObj[j]);
             }
           }
 
@@ -151,12 +149,12 @@ const Trello = () => {
       if (!loading) {
         loading = true;
         axios
-          .put(`/api/tasks/${movedItemId}`, removed)
+          .put(`/api/projects/${movedItemId}`, removed)
           .then((response) => {
-            // const allTasks = response.data.task;
-            // let allTaskObj = [];
-            // console.log("ALLTASKS: ", allTasks);
-            // console.log("SUCCESSFUL EDIT RQST: ", allTasks);
+            // const allProjects = response.data.project;
+            // let allProjectsObj = [];
+            // console.log("ALLPROJECTS: ", allProjects);
+            // console.log("SUCCESSFUL EDIT RQST: ", allProjects);
           })
           .catch((err) => console.log("err:", err));
       }
@@ -191,7 +189,11 @@ const Trello = () => {
                   >
                     <Title>{column.title}</Title>
                     {column.items.map((item, index) => (
-                      <TrelloCard key={item.id} item={item} index={index} />
+                      <TrelloProjectsCard
+                        key={item.id}
+                        item={item}
+                        index={index}
+                      />
                     ))}
                     {provided.placeholder}
                   </TaskList>
@@ -205,4 +207,4 @@ const Trello = () => {
   );
 };
 
-export default Trello;
+export default TrelloTasks;
