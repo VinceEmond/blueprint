@@ -36,7 +36,6 @@ module.exports = (db) => {
   // GET: BROWSE --- RETRIEVE ALL TASKS FOR SPECIFIC PROJECT ID
   router.get("/:id/tasks", (req, res) => {
     const { id } = req.params;
-    console.log(`The project ID is: ${id}`);
     const queryParams = [id];
     const queryStr = `SELECT * FROM tasks WHERE project_id = $1 AND is_active = true;`;
 

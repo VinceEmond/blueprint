@@ -44,7 +44,7 @@ export default function Dashboard() {
   // State for current time and date
   const [date, setDate] = useState(new Date());
   // Prevent double api calls by checking if already loading
-  let loading = false;
+  const [loading, setLoading] = useState(false);
 
   // When mounted, we get the date/time that updates every 15 minutes
   useEffect(() => {
@@ -86,6 +86,8 @@ export default function Dashboard() {
   useEffect(() => {
     const controller = new AbortController();
     if (!loading) {
+      console.log('allUsers triggered');
+      setLoading(true);
       axios
         .get('/api/users')
         .then((response) => {
@@ -104,7 +106,8 @@ export default function Dashboard() {
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     if (!loading) {
-      loading = true;
+      console.log('allTasks triggered');
+      setLoading(true);
       axios
         .get('/api/tasks')
         .then((response) => {
@@ -116,7 +119,7 @@ export default function Dashboard() {
   }, []);
 
   const handleModal = () => {
-    setModalState('close');
+    // setModalState('close');
     onClose();
   };
 
@@ -200,6 +203,7 @@ export default function Dashboard() {
           border="2px"
           borderRadius="5px"
           mt="3em"
+          mb="3em"
           width="100%"
           maxWidth="100%">
           <Container

@@ -2,25 +2,29 @@ import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './Carousel.css';
 import { Carousel } from 'react-responsive-carousel';
-import { Badge, Box, Flex, Heading, Spacer } from '@chakra-ui/react';
+import { Flex, Spacer } from '@chakra-ui/react';
 import SocialProfileSimple from './ProjectCard';
 import axios from 'axios';
 
 export default function ProjectsCarousel() {
-  const [userProjects, setUserProjects] = useState([]);
   const [projectBoxes, setProjectBoxes] = useState([]);
+  // Prevent double api calls by checking if already loading
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get('/api/projects')
-      .then((response) => {
-        const allProjects = response.data.projects;
-        const projectBoxes = allProjects.map((project) => {
-          return <SocialProfileSimple project={project} />;
-        });
-        setProjectBoxes(projectBoxes);
-      })
-      .catch((err) => console.log('err:', err));
+    if (!loading) {
+      setLoading(true);
+      axios
+        .get('/api/projects')
+        .then((response) => {
+          const allProjects = response.data.projects;
+          const projectBoxes = allProjects.map((project) => {
+            return <SocialProfileSimple key={project.id} project={project} />;
+          });
+          setProjectBoxes(projectBoxes);
+        })
+        .catch((err) => console.log('err:', err));
+    }
   }, []);
 
   const listProjectFlexes = () => {
@@ -46,26 +50,24 @@ export default function ProjectsCarousel() {
         );
         flexes.push(flex);
       } else {
-        const spacer = <Spacer />;
+        const spacer = <Spacer key={`spacer${count}`} />;
         boxes.push(spacer);
       }
     }
-    return flexes;
-  };
-
-  return (
-    <div>
+    return (
       <Carousel
         display="flex"
         alignSelf="center"
         infiniteLoop="true"
-        showThumbs="false"
         autoFocus="true"
         autoPlay="true"
         interval="5000"
-        stopOnHover>
-        {listProjectFlexes()}
+        stopOnHover={true}
+        showThumbs={false}>
+        {flexes}
       </Carousel>
-    </div>
-  );
+    );
+  };
+
+  return <div>{listProjectFlexes()}</div>;
 }

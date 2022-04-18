@@ -2,8 +2,13 @@
   display: none;
 }
 
+.carousel-slider {
+  padding-bottom: 20px;
+}
+
 .control-dots {
   margin-bottom: -20px !important;
+  padding: 20px !important;
 }
 
 .dot {

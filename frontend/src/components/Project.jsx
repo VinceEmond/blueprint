@@ -14,7 +14,8 @@ import axios from 'axios';
 import moment from 'moment';
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
-  let loading = false;
+  // Prevent double api calls by checking if already loading
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
   console.log(`THE ID IS: ${id}`);
@@ -22,7 +23,7 @@ export default function Tasks() {
   // Retrieve all current project tasks
   useEffect(() => {
     if (!loading) {
-      loading = true;
+      setLoading(true);
       axios
         .get(`/api/projects/${id}/tasks`)
         .then((response) => {
@@ -47,7 +48,7 @@ export default function Tasks() {
         })
         .catch((err) => console.log('err:', err));
     }
-  }, []);
+  }, [loading, id]);
 
   return (
     <TableContainer>
