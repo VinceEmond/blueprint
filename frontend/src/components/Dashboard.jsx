@@ -109,6 +109,7 @@ export default function Dashboard() {
       .catch((err) => console.log('err:', err));
   }, []);
 
+  // Onsubmit helper function or quick add tasks
   const addTask = (e) => {
     e.preventDefault();
     console.log(e.target[0].value);
@@ -172,6 +173,7 @@ export default function Dashboard() {
                           <form onSubmit={(e) => addTask(e)}>
                             <Input
                               variant="flushed"
+                              autoFocus
                               placeholder="Add new task..."
                             />
                           </form>
