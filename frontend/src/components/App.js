@@ -8,6 +8,8 @@ import Projects from "./Projects";
 import Tasks from "./Tasks";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TrelloProjects from "./Trello/TrelloProjects";
+import Login from "./User/Login";
+import Register from "./User/Register";
 import LandingPage from "./LandingPage";
 import Project from "./Project";
 
@@ -26,6 +28,8 @@ function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/trellotasks" element={<TrelloTasks />} />
             <Route path="/trelloprojects" element={<TrelloProjects />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </ChakraProvider>

@@ -68,11 +68,14 @@ export default function TrelloTasksCard({ item, index }) {
                   {
                     <span className="priority">
                       {item.priority === "High" ? (
-                        <img src={HighPriorityIcon} />
+                        <img src={HighPriorityIcon} alt="High Priority Icon" />
                       ) : item.priority === "Medium" ? (
-                        <img src={MediumPriorityIcon} />
+                        <img
+                          src={MediumPriorityIcon}
+                          alt="Medium Priority Icon"
+                        />
                       ) : (
-                        <img src={LowPriorityIcon} />
+                        <img src={LowPriorityIcon} alt="Low Priority Icon" />
                       )}
                     </span>
                   }
@@ -86,9 +89,7 @@ export default function TrelloTasksCard({ item, index }) {
   );
 }
 
-{
-  /* <span className="priority">
+/* <span className="priority">
 {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}
 </span>
 <div><CustomAvatar name={item.Assignee} isTable={false} size={16} /></div> */
-}
