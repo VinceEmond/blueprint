@@ -36,30 +36,29 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
+const trelloColumns = {
+  [uuidv4()]: {
+    title: "Not Started",
+    items: [],
+  },
+  [uuidv4()]: {
+    title: "In Progress",
+    items: [],
+  },
+  [uuidv4()]: {
+    title: "Pending",
+    items: [],
+  },
+  [uuidv4()]: {
+    title: "Complete",
+    items: [],
+  },
+};
+
 export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
-  let loading = false;
-
-  const trelloColumns = {
-    [uuidv4()]: {
-      title: "Not Started",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "In Progress",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "Pending",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "Complete",
-      items: [],
-    },
-  };
-
   const [columns, setColumns] = useState(trelloColumns);
+  let loading = false;
 
   useEffect(() => {
     if (!loading) {
@@ -110,9 +109,9 @@ export default function TrelloTasks() {
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
-    console.log("RESULT: ", result);
-    console.log("DESTINATION INDEX: ", result.destination.index);
-    console.log("COLUMNS: ", columns);
+    // console.log("RESULT: ", result);
+    // console.log("DESTINATION INDEX: ", result.destination.index);
+    // console.log("COLUMNS: ", columns);
 
     if (!destination) {
       return;
@@ -127,8 +126,8 @@ export default function TrelloTasks() {
       destItems.splice(destination.index, 0, removed);
 
       // TEST START
-      // result.source.index = result.destination.index;
-      // result.destination.index = null;
+      result.source.index = result.destination.index;
+      result.destination.index = null;
       // console.log("NEWRESULT: ", result);
       // TEST END
 
