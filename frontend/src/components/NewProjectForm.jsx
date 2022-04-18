@@ -94,7 +94,12 @@ const NewProjectForm = () => {
 
       <HStack mt="1em">
         <p>Due Date: </p>
-        <Input type="date" width="60%" value={projectFormValues.due_date} onChange={(e)=>handleDateChange(e)}/>
+        <Input 
+          type="date" 
+          width="60%" 
+          value={projectFormValues.due_date} 
+          onChange={(e)=>handleDateChange(e)}
+        />
       </HStack>
       <Textarea
         mt="1em" 
