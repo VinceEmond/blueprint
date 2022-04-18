@@ -15,45 +15,28 @@ import axios from "axios";
 
 const NewProjectForm = () => {
 
-  const [projectFormValues, setProjectFormValues] = React.useState({
+  const [projectFormValues, setProjectFormValues] = React.useState({});
+  
+  const testProjectValues = {
     owner_id: 1, 
     name: "New 69 Project", 
-    description: "Test Project Description Herrreeeee", 
+    description: "Test Project Description Herrreeeeeasdasd", 
     start_date: '1969-04-20', 
     due_date: '1969-04-20', 
     modified_date: '2022-04-15', 
     status: 'Not Started', 
     category_id: 1
-  });
-
-  // const [projectFormValues, setProjectFormValues] = React.useState({
-  //   owner_id: "", 
-  //   name: "", 
-  //   description: "", 
-  //   start_date: '', 
-  //   due_date: '', 
-  //   modified_date: '', 
-  //   status: '', 
-  //   category_id: 1
-  // });
+  }
 
   function createProject(projectFormValues) {
     axios
     .post('/api/projects', projectFormValues)
     .then((response) => {
-      console.log("Succesfully added Project to database")
-      console.log("Response", response.data)
+      console.log("Succesfully added new Project to database")
     })
     .catch((err) => console.log("err:", err));
   }
   
-  // let loading = false;
-  // useEffect(() => {
-  //   if (!loading) {
-  //     loading = true;
-  //   console.log("Set Project Form Values", projectFormValues.name)
-  //   }
-  // }, [])
 
   function handleProjectChange(event) {setProjectFormValues({...projectFormValues, name: event.target.value})}
   function handleOwnerChange(event) {setProjectFormValues({...projectFormValues, owner_id: event.target.value})}
@@ -84,7 +67,13 @@ const NewProjectForm = () => {
           <EditablePreview display="flex" width="full"/>
           <EditableInput display="flex" onChange={(e) => handleProjectChange(e)}/>
         </Editable>
-        <Select placeholder="Select Status" value={projectFormValues.status} width="30%" display="flex" onChange={(e) => handleStatusChange(e)}>
+        <Select 
+          placeholder="Select Status" 
+          value={projectFormValues.status || 'Not Started'} 
+          width="40%" 
+          display="flex" 
+          onChange={(e) => handleStatusChange(e)}
+        >
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Pending">Pending</option>
@@ -92,7 +81,6 @@ const NewProjectForm = () => {
         </Select>
       </HStack>
       <HStack mt="1em">
-        <p>Owner: </p>
         <Editable 
           width="80%" 
           display="flex"
@@ -106,11 +94,15 @@ const NewProjectForm = () => {
 
       <HStack mt="1em">
         <p>Due Date: </p>
-        <Input type="date" value={projectFormValues.due_date} onChange={(e) => handleDateChange(e)}/>
+        <Input type="date" width="60%" value={projectFormValues.due_date} onChange={(e)=>handleDateChange(e)}/>
       </HStack>
-      <Textarea mt="1em" placeholder="Description here..." value={projectFormValues.description} onChange={(e) => handleDescriptionChange(e)}/>
-
-      <ButtonGroup variant="outline" spacing="6" mt="1em">
+      <Textarea
+        mt="1em" 
+        placeholder="Description here..." 
+        value={projectFormValues.description} 
+        onChange={(e) => handleDescriptionChange(e)}
+      />
+      <ButtonGroup variant="outline" spacing="6" mt="1em"  display="flex">
         <Button colorScheme="blue" onClick={(e)=>handleSave(e)}>Save</Button>
       </ButtonGroup>
     </Container>
