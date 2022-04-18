@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
   Heading,
   Center,
   IconButton,
+  Input,
   LinkBox,
   LinkOverlay,
   Container,
@@ -27,12 +28,12 @@ import {
   Tab,
   TabPanel,
   useDisclosure,
-} from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
-import { AddIcon } from "@chakra-ui/icons";
-import NewTaskForm from "./NewTaskForm";
-import NewProjectForm from "./NewProjectForm";
-import ProjectsCarousel from "./ProjectsCarousel";
+} from '@chakra-ui/react';
+import { getUserName } from '../helpers/selectors';
+import { AddIcon } from '@chakra-ui/icons';
+import NewTaskForm from './NewTaskForm';
+import NewProjectForm from './NewProjectForm';
+import ProjectsCarousel from './ProjectsCarousel';
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,26 +56,26 @@ export default function Dashboard() {
 
   // date options to display in WEEKDAY, MONTH DAY, YEAR format
   const DATE_OPTIONS = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   };
 
   // save into variable the current date using options
-  const currentDate = date.toLocaleDateString("en-US", DATE_OPTIONS);
+  const currentDate = date.toLocaleDateString('en-US', DATE_OPTIONS);
 
   // function to determine the hour and message depending on it
   function timeMessage() {
     const hours = new Date().getHours();
-    let message = "";
+    let message = '';
 
     if (hours < 12) {
-      message = "Good Morning";
+      message = 'Good Morning';
     } else if (hours >= 12 && hours <= 17) {
-      message = "Good Afternoon";
+      message = 'Good Afternoon';
     } else if (hours >= 17 && hours <= 24) {
-      message = "Good Evening";
+      message = 'Good Evening';
     }
 
     return message;
@@ -84,9 +85,8 @@ export default function Dashboard() {
   useEffect(() => {
     const controller = new AbortController();
     axios
-      .get("/api/users")
+      .get('/api/users')
       .then((response) => {
-        // console.log('GET USERS');
         const allUsers = response.data.users;
         const specificUser = getUserName(allUsers, 3);
         setUserData(specificUser);
@@ -95,21 +95,26 @@ export default function Dashboard() {
           controller.abort();
         };
       })
-      .catch((err) => console.log("err:", err));
+      .catch((err) => console.log('err:', err));
   }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     axios
-      .get("/api/tasks")
+      .get('/api/tasks')
       .then((response) => {
-        // console.log('GET TASKS');
-
         const allTasks = response.data.tasks;
         setUserTasks(allTasks);
       })
-      .catch((err) => console.log("err:", err));
+      .catch((err) => console.log('err:', err));
   }, []);
+
+  // Onsubmit helper function or quick add tasks
+  const addTask = (e) => {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    e.target[0].value = '';
+  };
 
   return (
     <div>
@@ -132,14 +137,12 @@ export default function Dashboard() {
           maxWidth="100%"
           border="2px"
           borderRadius="5px"
-          mt="4em"
-        >
+          mt="4em">
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%"
-          >
+            maxWidth="100%">
             <Heading size="md" textAlign="left">
               My Priorities
             </Heading>
@@ -148,7 +151,7 @@ export default function Dashboard() {
               borderRadius="50%"
               icon={<AddIcon />}
               onClick={() => {
-                setModalState("tasks");
+                setModalState('tasks');
                 onOpen();
               }}
             />
@@ -160,12 +163,22 @@ export default function Dashboard() {
               <Tab>In progress</Tab>
               <Tab>Complete</Tab>
             </TabList>
-
             <TabPanels>
               <TabPanel>
                 <TableContainer>
                   <Table size="sm">
                     <Tbody>
+                      <Tr>
+                        <Td>
+                          <form onSubmit={(e) => addTask(e)}>
+                            <Input
+                              variant="flushed"
+                              autoFocus
+                              placeholder="Add new task..."
+                            />
+                          </form>
+                        </Td>
+                      </Tr>
                       {userTasks &&
                         userTasks.map((task) => {
                           return (
@@ -184,7 +197,7 @@ export default function Dashboard() {
                     <Tbody>
                       {userTasks &&
                         userTasks
-                          .filter((task) => task.status === "Not Started")
+                          .filter((task) => task.status === 'Not Started')
                           .map((task) => {
                             return (
                               <Tr key={task.id}>
@@ -202,7 +215,7 @@ export default function Dashboard() {
                     <Tbody>
                       {userTasks &&
                         userTasks
-                          .filter((task) => task.status === "In Progress")
+                          .filter((task) => task.status === 'In Progress')
                           .map((task) => {
                             return (
                               <Tr key={task.id}>
@@ -220,7 +233,7 @@ export default function Dashboard() {
                     <Tbody>
                       {userTasks &&
                         userTasks
-                          .filter((task) => task.status === "Complete")
+                          .filter((task) => task.status === 'Complete')
                           .map((task) => {
                             return (
                               <Tr key={task.id}>
@@ -241,14 +254,12 @@ export default function Dashboard() {
           mt="3em"
           mb="3em"
           width="100%"
-          maxWidth="100%"
-        >
+          maxWidth="100%">
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%"
-          >
+            maxWidth="100%">
             <Heading size="md" textAlign="left">
               Projects
             </Heading>
@@ -257,7 +268,7 @@ export default function Dashboard() {
               borderRadius="50%"
               icon={<AddIcon />}
               onClick={() => {
-                setModalState("projects");
+                setModalState('projects');
                 onOpen();
               }}
             />
@@ -266,7 +277,7 @@ export default function Dashboard() {
         </Container>
       </Container>
 
-      {modalState === "tasks" && (
+      {modalState === 'tasks' && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
@@ -285,20 +296,19 @@ export default function Dashboard() {
         </Modal>
       )}
 
-      {modalState === "projects" && (
+      {modalState === 'projects' && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader>New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewProjectForm setModalState={setModalState}/>
+              <NewProjectForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
               </Button>
-
             </ModalFooter>
           </ModalContent>
         </Modal>
