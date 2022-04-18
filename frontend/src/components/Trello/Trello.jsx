@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-// import { trelloColumns, data } from "./TrelloData";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import TrelloCard from "./TrelloCard";
 import axios from "axios";
-import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
@@ -76,12 +74,18 @@ const Trello = () => {
 
           const cards = allTasks.map((task) => {
             let card = {
+              project_id: String(task.project_id),
+              priority: String(task.priority),
+              assignee_id: String(task.assignee_id),
+              name: String(task.name),
+              description: String(task.description),
+              start_date: String(task.start_date),
+              due_date: String(task.due_date),
+              modified_date: String(task.modified_date),
+              status: String(task.status),
+              category_id: String(task.category_id),
+              is_active: String(task.is_active),
               id: String(task.id),
-              Task: String(task.name),
-              Description: String(task.description),
-              Status: String(task.status),
-              Priority: String(task.priority),
-              Due_Date: String(task.due_date),
             };
             return allTaskObj.push(card);
           });
@@ -92,7 +96,7 @@ const Trello = () => {
             for (let j = 0; j < allTaskObj.length; j++) {
               // console.log(trelloColumns[column].title);
               // console.log(allTaskObj[j].progress);
-              if (trelloColumns[column].title === allTaskObj[j].Status)
+              if (trelloColumns[column].title === allTaskObj[j].status)
                 trelloColumns[column].items.push(allTaskObj[j]);
             }
           }
@@ -115,6 +119,8 @@ const Trello = () => {
       const destItems = [...destColumn.items];
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
+      // updates status for particular task being moved to different column
+      removed.status = destColumn.title;
       setColumns({
         ...columns,
         [source.droppableId]: {
@@ -126,6 +132,28 @@ const Trello = () => {
           items: destItems,
         },
       });
+      const movedItemId = removed.id;
+      // const movedStatus = removed.Status;
+      // console.log("SOURCEITEMS: ", sourceItems);
+      // console.log("DESTITEMS: ", destItems);
+      // console.log("ITEM STATUS THAT CHANGES: ", movedStatus);
+      // console.log("SOURCECOLUMN: ", sourceColumn);
+      // console.log("DESTCOLUMN: ", destColumn);
+      // console.log("ITEMID THAT CHANGES: ", movedItemId);
+      // console.log("REMOVED: ", removed);
+
+      if (!loading) {
+        loading = true;
+        axios
+          .put(`/api/tasks/${movedItemId}`, removed)
+          .then((response) => {
+            const allTasks = response.data.task;
+            // let allTaskObj = [];
+            // console.log("ALLTASKS: ", allTasks);
+            console.log("SUCCESSFUL EDIT RQST: ", allTasks);
+          })
+          .catch((err) => console.log("err:", err));
+      }
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.items];
@@ -157,7 +185,7 @@ const Trello = () => {
                   >
                     <Title>{column.title}</Title>
                     {column.items.map((item, index) => (
-                      <TrelloCard key={item} item={item} index={index} />
+                      <TrelloCard key={item.id} item={item} index={index} />
                     ))}
                     {provided.placeholder}
                   </TaskList>

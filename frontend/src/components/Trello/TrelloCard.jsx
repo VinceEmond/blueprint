@@ -41,7 +41,7 @@ const TaskInformation = styled.div`
    } 
 `;
 
-const TaskCard = ({ item, index }) => {
+const TrelloCard = ({ item, index }) => {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided) => (
@@ -51,18 +51,20 @@ const TaskCard = ({ item, index }) => {
           {...provided.dragHandleProps}
         >
           <TaskInformation>
-            <p>{item.Task}</p>
-            <p>Description: {item.Description}</p>
+            <p>
+              {item.name} {item.status}
+            </p>
+            <p>Description: {item.description}</p>
             <div className="secondary-details">
               <p>
                 <span>
                   Due:{" "}
-                  {new Date(item.Due_Date).toLocaleDateString("en-us", {
+                  {new Date(item.due_date).toLocaleDateString("en-us", {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
                   })}
-                  &nbsp;&nbsp;Priorty: {item.Priority}
+                  &nbsp;&nbsp;Priorty: {item.priority}
                 </span>
               </p>
             </div>
@@ -73,7 +75,7 @@ const TaskCard = ({ item, index }) => {
   );
 };
 
-export default TaskCard;
+export default TrelloCard;
 
 // <span className="priority">
 // {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}

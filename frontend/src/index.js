@@ -9,8 +9,8 @@ import App from "./components/App";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
-// 👇️ if you use TypeScript, add non-null (!) assertion operator
-// const root = createRoot(rootElement!);
+// // 👇️ if you use TypeScript, add non-null (!) assertion operator
+// // const root = createRoot(rootElement!);
 
 root.render(
   <BrowserRouter>
