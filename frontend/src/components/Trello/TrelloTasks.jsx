@@ -36,7 +36,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-const TrelloTasks = () => {
+export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
   let loading = false;
 
@@ -207,6 +207,4 @@ const TrelloTasks = () => {
       </Container>
     </DragDropContext>
   );
-};
-
-export default TrelloTasks;
+}

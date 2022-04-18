@@ -2,9 +2,9 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "@emotion/styled";
 // import CustomAvatar from "../TableComponents/CustomAvatar";
-// import { ReactComponent as RedArrow } from "../../assets/icons/High.svg";
-// import { ReactComponent as YellowArrow } from "../../assets/icons/Medium.svg";
-// import { ReactComponent as BlueArrow } from "../../assets/icons/Low.svg";
+import HighPriorityIcon from "../../assets/icons/HighPriorityIcon.png";
+import MediumPriorityIcon from "../../assets/icons/MediumPriorityIcon.png";
+import LowPriorityIcon from "../../assets/icons/LowPriorityIcon.png";
 
 const TaskInformation = styled.div`
   display: flex;
@@ -29,19 +29,20 @@ const TaskInformation = styled.div`
     font-weight: 400px;
     color: #7d7d7d;
   }
+  .status{
+    display: flex;
+  }
    .priority{ 
-   margin-right: 12px; */
-   align-self: center;
-    svg{
-      width: 12px !important;
-      height: 12px !important;
+    img{
+      width: 20px !important;
+      height: 20px !important;
       margin-right: 12px; */
    margin-top: 2px; */
    } 
    } 
 `;
 
-const TrelloProjectsCard = ({ item, index }) => {
+export default function TrelloProjectsCard({ item, index }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided) => (
@@ -55,14 +56,25 @@ const TrelloProjectsCard = ({ item, index }) => {
             <p>Description: {item.description}</p>
             <div className="secondary-details">
               <p>
-                <span>
+                <span className="status">
                   Due:{" "}
                   {new Date(item.due_date).toLocaleDateString("en-us", {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
                   })}
-                  &nbsp;&nbsp;Priorty: {item.priority}
+                  &nbsp;&nbsp;Priorty: &nbsp;&nbsp;
+                  {
+                    <span className="priority">
+                      {item.priority === "High" ? (
+                        <img src={HighPriorityIcon} />
+                      ) : item.priority === "Medium" ? (
+                        <img src={MediumPriorityIcon} />
+                      ) : (
+                        <img src={LowPriorityIcon} />
+                      )}
+                    </span>
+                  }
                 </span>
               </p>
             </div>
@@ -71,9 +83,7 @@ const TrelloProjectsCard = ({ item, index }) => {
       )}
     </Draggable>
   );
-};
-
-export default TrelloProjectsCard;
+}
 
 // <span className="priority">
 // {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}

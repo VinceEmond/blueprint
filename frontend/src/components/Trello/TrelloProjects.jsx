@@ -36,7 +36,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-const TrelloTasks = () => {
+export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
   let loading = false;
 
@@ -109,7 +109,10 @@ const TrelloTasks = () => {
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
-    const { source, destination, draggableId } = result;
+    const { source, destination } = result;
+    console.log("RESULT: ", result);
+    console.log("DESTINATION INDEX: ", result.destination.index);
+    console.log("COLUMNS: ", columns);
 
     if (!destination) {
       return;
@@ -122,6 +125,12 @@ const TrelloTasks = () => {
       const destItems = [...destColumn.items];
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
+
+      // TEST START
+      // result.source.index = result.destination.index;
+      // result.destination.index = null;
+      // console.log("NEWRESULT: ", result);
+      // TEST END
 
       // updates status for particular task being moved to different column
       removed.status = destColumn.title;
@@ -205,6 +214,4 @@ const TrelloTasks = () => {
       </Container>
     </DragDropContext>
   );
-};
-
-export default TrelloTasks;
+}
