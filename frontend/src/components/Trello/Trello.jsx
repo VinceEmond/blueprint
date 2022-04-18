@@ -153,7 +153,7 @@ const Trello = () => {
         axios
           .put(`/api/tasks/${movedItemId}`, removed)
           .then((response) => {
-            const allTasks = response.data.task;
+            // const allTasks = response.data.task;
             // let allTaskObj = [];
             // console.log("ALLTASKS: ", allTasks);
             // console.log("SUCCESSFUL EDIT RQST: ", allTasks);
