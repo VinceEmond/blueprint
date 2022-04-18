@@ -1,6 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "@emotion/styled";
+import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 // import CustomAvatar from "../TableComponents/CustomAvatar";
 import HighPriorityIcon from "../../assets/icons/HighPriorityIcon.png";
 import MediumPriorityIcon from "../../assets/icons/MediumPriorityIcon.png";
@@ -46,44 +47,58 @@ const TaskInformation = styled.div`
 export default function TrelloTasksCard({ item, index }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
+      {(provided, snapshot) => (
+        <NaturalDragAnimation
+          style={provided.draggableProps.style}
+          snapshot={snapshot}
         >
-          <TaskInformation>
-            <p>{item.name}</p>
-            <p>Description: {item.description}</p>
-            <div className="secondary-details">
-              <p>
-                <span className="status">
-                  Due:{" "}
-                  {new Date(item.due_date).toLocaleDateString("en-us", {
-                    month: "short",
-                    day: "2-digit",
-                    year: "numeric",
-                  })}
-                  &nbsp;&nbsp;Priorty:&nbsp;&nbsp;
-                  {
-                    <span className="priority">
-                      {item.priority === "High" ? (
-                        <img src={HighPriorityIcon} alt="High Priority Icon" />
-                      ) : item.priority === "Medium" ? (
-                        <img
-                          src={MediumPriorityIcon}
-                          alt="Medium Priority Icon"
-                        />
-                      ) : (
-                        <img src={LowPriorityIcon} alt="Low Priority Icon" />
-                      )}
+          {(style) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={style}
+            >
+              <TaskInformation>
+                <p>{item.name}</p>
+                <p>Description: {item.description}</p>
+                <div className="secondary-details">
+                  <p>
+                    <span className="status">
+                      Due:{" "}
+                      {new Date(item.due_date).toLocaleDateString("en-us", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                      &nbsp;&nbsp;Priorty:&nbsp;&nbsp;
+                      {
+                        <span className="priority">
+                          {item.priority === "High" ? (
+                            <img
+                              src={HighPriorityIcon}
+                              alt="High Priority Icon"
+                            />
+                          ) : item.priority === "Medium" ? (
+                            <img
+                              src={MediumPriorityIcon}
+                              alt="Medium Priority Icon"
+                            />
+                          ) : (
+                            <img
+                              src={LowPriorityIcon}
+                              alt="Low Priority Icon"
+                            />
+                          )}
+                        </span>
+                      }
                     </span>
-                  }
-                </span>
-              </p>
+                  </p>
+                </div>
+              </TaskInformation>
             </div>
-          </TaskInformation>
-        </div>
+          )}
+        </NaturalDragAnimation>
       )}
     </Draggable>
   );
