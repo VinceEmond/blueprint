@@ -6,6 +6,7 @@ import {
   Heading,
   Center,
   IconButton,
+  Input,
   LinkBox,
   LinkOverlay,
   Container,
@@ -86,7 +87,6 @@ export default function Dashboard() {
     axios
       .get('/api/users')
       .then((response) => {
-        console.log('GET USERS');
         const allUsers = response.data.users;
         const specificUser = getUserName(allUsers, 3);
         setUserData(specificUser);
@@ -103,13 +103,17 @@ export default function Dashboard() {
     axios
       .get('/api/tasks')
       .then((response) => {
-        console.log('GET TASKS');
-
         const allTasks = response.data.tasks;
         setUserTasks(allTasks);
       })
       .catch((err) => console.log('err:', err));
   }, []);
+
+  const addTask = (e) => {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    e.target[0].value = '';
+  };
 
   return (
     <div>
@@ -158,12 +162,21 @@ export default function Dashboard() {
               <Tab>In progress</Tab>
               <Tab>Complete</Tab>
             </TabList>
-
             <TabPanels>
               <TabPanel>
                 <TableContainer>
                   <Table size="sm">
                     <Tbody>
+                      <Tr>
+                        <Td>
+                          <form onSubmit={(e) => addTask(e)}>
+                            <Input
+                              variant="flushed"
+                              placeholder="Add new task..."
+                            />
+                          </form>
+                        </Td>
+                      </Tr>
                       {userTasks &&
                         userTasks.map((task) => {
                           return (
