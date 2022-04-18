@@ -15,14 +15,12 @@ import moment from 'moment';
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const { id } = useParams();
-  console.log(`THE ID IS: ${id}`);
 
   // Retrieve all current project tasks
   useEffect(() => {
     axios
       .get(`/api/projects/${id}/tasks`)
       .then((response) => {
-        console.log(response);
         const allTasks = response.data.tasks;
         const taskList = allTasks.map((item) => {
           // converting date data to more readable data
@@ -38,7 +36,6 @@ export default function Tasks() {
           );
         });
         setUserTasks(taskList);
-        console.log(allTasks);
       })
       .catch((err) => console.log('err:', err));
   }, [id]);
