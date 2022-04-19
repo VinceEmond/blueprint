@@ -4,13 +4,12 @@ import {
   MenuButton,
   MenuList,
   MenuItemOption,
-  MenuDivider,
   Button,
   Flex,
 } from "@chakra-ui/react";
 
-export default function ViewButton(props) {
-  const { setButtonValue } = props;
+export default function ViewSelect(props) {
+  const { setViewValue } = props;
 
   return (
     <Flex justify="end" mr="2em">
@@ -19,10 +18,10 @@ export default function ViewButton(props) {
           Views
         </MenuButton>
         <MenuList minWidth="240px">
-          <MenuItemOption value="List" onClick={() => setButtonValue("List")}>
+          <MenuItemOption value="List" onClick={() => setViewValue("List")}>
             List
           </MenuItemOption>
-          <MenuItemOption value="Board" onClick={() => setButtonValue("Board")}>
+          <MenuItemOption value="Board" onClick={() => setViewValue("Board")}>
             Board
           </MenuItemOption>
         </MenuList>

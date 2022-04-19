@@ -12,12 +12,12 @@ import {
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
-import ViewButton from "./ViewButton";
+import ViewSelect from "./ViewSelect";
 import TrelloTasks from "./Trello/TrelloTasks";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
-  const [buttonValue, setButtonValue] = useState("List");
+  const [viewValue, setViewValue] = useState("List");
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function Tasks() {
   });
 
   function View() {
-    if (buttonValue === "List") {
+    if (viewValue === "List") {
       return (
         <TableContainer>
           <Table variant="striped" colorScheme="blue">
@@ -64,7 +64,7 @@ export default function Tasks() {
           </Table>
         </TableContainer>
       );
-    } else if (buttonValue === "Board") {
+    } else if (viewValue === "Board") {
       return <TrelloTasks />;
     }
   }
@@ -74,7 +74,7 @@ export default function Tasks() {
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Tasks
       </Heading>
-      <ViewButton setButtonValue={setButtonValue} />
+      <ViewSelect setViewValue={setViewValue} />
       {View()}
     </div>
   );
