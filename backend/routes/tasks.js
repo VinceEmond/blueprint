@@ -34,7 +34,7 @@ module.exports = (db) => {
       });
   });
 
-  // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
+  // PUT: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
   router.put("/:id", (req, res) => {
     const { id } = req.params;
     console.log("REQ.BODY: ", req.body);

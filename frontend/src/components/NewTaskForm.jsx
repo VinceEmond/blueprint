@@ -10,19 +10,19 @@ import {
   Button,
   ButtonGroup,
   Input,
-} from "@chakra-ui/react";
-import axios from "axios";
+} from '@chakra-ui/react';
+import axios from 'axios';
 
 export default function NewTaskForm(props) {
 
   // const testTaskValues = {
-  //   name: "New 69 Task", 
+  //   name: "New 69 Task",
   //   priority: 'low',
-  //   status: 'Complete', 
-  //   description: "Tasks description 420 69", 
-  //   start_date: '1969-04-20', 
-  //   due_date: '1969-04-20', 
-  //   modified_date: '2022-04-15', 
+  //   status: 'Complete',
+  //   description: "Tasks description 420 69",
+  //   start_date: '1969-04-20',
+  //   due_date: '1969-04-20',
+  //   modified_date: '2022-04-15',
   //   category_id: 1
   // }
 
@@ -67,18 +67,16 @@ function handleSave(event){
           display="flex"
           alignItems="left"
           placeholder="Task name here..."
-          value={taskFormValues.name}
-        >
-          <EditablePreview display="flex" width="full"/>
-          <EditableInput display="flex" onChange={(e) => handleNameChange(e)}/>
+          value={taskFormValues.name}>
+          <EditablePreview display="flex" width="full" />
+          <EditableInput display="flex" onChange={(e) => handleNameChange(e)} />
         </Editable>
-        <Select 
-          // placeholder="Select Status" 
-          value={taskFormValues.status || 'Not Started'} 
-          width="40%" 
-          display="flex" 
-          onChange={(e) => handleStatusChange(e)}
-        >
+        <Select
+          // placeholder="Select Status"
+          value={taskFormValues.status || 'Not Started'}
+          width="40%"
+          display="flex"
+          onChange={(e) => handleStatusChange(e)}>
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Pending">Pending</option>
@@ -117,17 +115,17 @@ function handleSave(event){
       </HStack>
       <HStack mt="1em">
         <p>Due Date: </p>
-        <Input 
-          type="date" 
-          width="60%" 
-          value={taskFormValues.due_date || ""}
-          onChange={(e)=>handleDateChange(e)}
+        <Input
+          type="date"
+          width="60%"
+          value={taskFormValues.due_date || ''}
+          onChange={(e) => handleDateChange(e)}
         />
       </HStack>
       <Textarea
-        mt="1em" 
-        placeholder="Description here..." 
-        value={taskFormValues.description} 
+        mt="1em"
+        placeholder="Description here..."
+        value={taskFormValues.description}
         onChange={(e) => handleDescriptionChange(e)}
       />
       <ButtonGroup variant="outline" spacing="6" mt="1em" display="flex" justifyContent="center" padding='10px'>
