@@ -101,7 +101,7 @@ export default function Dashboard() {
       .catch((err) => console.log("err:", err));
   }, [taskToggle]);
 
-  // Onsubmit helper function or quick add tasks
+  // Onsubmit helper function for quick add tasks
   const addTask = (e) => {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
