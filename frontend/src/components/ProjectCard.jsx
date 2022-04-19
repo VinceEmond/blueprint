@@ -11,7 +11,7 @@ import {
 
 export default function SocialProfileSimple({ project }) {
   return (
-    <Center py={6} flex="7" width="33%">
+    <Center py={6} flex="7" height="285px" width="33%">
       <Box
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
@@ -29,7 +29,7 @@ export default function SocialProfileSimple({ project }) {
           textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
-          noOfLines={4}>
+          noOfLines={3}>
           {project.description}
         </Text>
 

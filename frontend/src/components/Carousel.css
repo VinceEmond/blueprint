@@ -1,4 +1,4 @@
-.carousel-status {
+/* .carousel-status {
   display: none;
 }
 
@@ -17,4 +17,77 @@
 
 .dot.selected {
   background: black !important;
+} */
+
+.carousel {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.carousel-inner {
+  height: 360px;
+}
+
+.carousel-indicators [data-coreui-target] {
+  background-color: rgb(143, 143, 143) !important;
+}
+
+.carousel-indicators > .active {
+  background-color: black !important;
+}
+
+.carousel-control-prev {
+  margin-left: -50px;
+  height: 200px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 50px !important;
+}
+
+.carousel-control-prev:hover {
+  background-color: black;
+  animation: slide 500ms ease;
+  animation-fill-mode: forwards;
+
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.carousel-control-prev:hover > .carousel-control-prev-icon {
+  background-color: black;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+  }
+  to {
+    background-color: black;
+    opacity: 0.2;
+    border-radius: 20px;
+  }
+}
+
+.carousel-control-next {
+  margin-right: -50px;
+  height: 200px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 50px !important;
+}
+
+.carousel-control-next:hover {
+  background-color: rgb(100, 100, 100);
+  animation: slide 300ms ease;
+  animation-fill-mode: forwards;
+  height: 200px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.carousel-control-next:hover > .carousel-control-next-icon {
+  background-color: black;
+  z-index: -1;
+  border-radius: 50%;
 }

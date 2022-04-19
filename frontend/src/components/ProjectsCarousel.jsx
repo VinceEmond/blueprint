@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './Carousel.css';
-import { Carousel } from 'react-responsive-carousel';
+import '@coreui/coreui/dist/css/coreui.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { CCarousel } from '@coreui/react';
+import { CCarouselItem } from '@coreui/react';
 import { Flex, Spacer } from '@chakra-ui/react';
 import SocialProfileSimple from './ProjectCard';
 import axios from 'axios';
@@ -53,17 +55,23 @@ export default function ProjectsCarousel() {
       }
     }
     return (
-      <Carousel
-        display="flex"
-        alignSelf="center"
-        infiniteLoop={true}
-        autoFocus={true}
-        autoPlay={false}
-        interval="5000"
-        stopOnHover={true}
-        showThumbs={false}>
-        {flexes}
-      </Carousel>
+      <CCarousel
+        indicators={true}
+        controls={true}
+        interval={false}
+        dark={true}
+        wrap={true}
+        marginLeft="50px"
+        pause={'hover'}>
+        {flexes.map((flex, index) => {
+          console.log('NEW ROW');
+          return (
+            <CCarouselItem key={index} className="w-100">
+              {flex}
+            </CCarouselItem>
+          );
+        })}
+      </CCarousel>
     );
   };
 

@@ -301,13 +301,12 @@ export default function Dashboard() {
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader margin='10px'>New Task</ModalHeader>
+            <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewTaskForm setModalState={setModalState} />
             </ModalBody>
-            <ModalFooter>
-            </ModalFooter>
+            <ModalFooter></ModalFooter>
           </ModalContent>
         </Modal>
       )}
@@ -316,13 +315,12 @@ export default function Dashboard() {
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader margin='10px'>New Project</ModalHeader>
+            <ModalHeader margin="10px">New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewProjectForm setModalState={setModalState} />
             </ModalBody>
-            <ModalFooter>
-            </ModalFooter>
+            <ModalFooter></ModalFooter>
           </ModalContent>
         </Modal>
       )}
