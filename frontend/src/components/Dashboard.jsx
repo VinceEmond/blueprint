@@ -25,10 +25,9 @@ import Projects from "./Dashboard/DashboardProjects";
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
-
   const [userData, setUserData] = useState(null);
   const [userTasks, setUserTasks] = useState(null);
-  const [taskToggle, setTaskToggle] = useState(false);
+  const [userProjects, setUserProjects] = useState(null);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -86,6 +85,17 @@ export default function Dashboard() {
       .catch((err) => console.log("err:", err));
   }, []);
 
+  // Retrieve all projects (eventually user specific projects)
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
+
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     axios
@@ -98,7 +108,7 @@ export default function Dashboard() {
   }, []);
 
   // Onsubmit helper function for quick add tasks
-  const addTask = (e, filter) => {
+  const addTask = (e, filter = "Not Started") => {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
     e.target[0].value = "";
@@ -116,7 +126,6 @@ export default function Dashboard() {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
-          // setTaskToggle((prev) => !prev);
           setUserTasks((prev) => [...prev, taskFormValues]);
           console.log("Succesfully added new Task to database");
         })
@@ -148,7 +157,11 @@ export default function Dashboard() {
           onOpen={onOpen}
         />
         {/* Import dashboard projects */}
-        <Projects setModalState={setModalState} onOpen={onOpen} />
+        <Projects
+          userProjects={userProjects}
+          setModalState={setModalState}
+          onOpen={onOpen}
+        />
       </Container>
 
       {modalState === "tasks" && (
@@ -158,7 +171,10 @@ export default function Dashboard() {
             <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm setModalState={setModalState} />
+              <NewTaskForm
+                setUserTasks={setUserTasks}
+                setModalState={setModalState}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>
@@ -172,7 +188,10 @@ export default function Dashboard() {
             <ModalHeader margin="10px">New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewProjectForm setModalState={setModalState} />
+              <NewProjectForm
+                setUserProjects={setUserProjects}
+                setModalState={setModalState}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

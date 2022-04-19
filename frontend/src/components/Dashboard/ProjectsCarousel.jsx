@@ -8,21 +8,16 @@ import { Flex, Spacer } from "@chakra-ui/react";
 import SocialProfileSimple from "./ProjectCard";
 import axios from "axios";
 
-export default function ProjectsCarousel() {
+export default function ProjectsCarousel({ userProjects }) {
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const allProjects = response.data.projects;
-        const projectBoxes = allProjects.map((project) => {
-          return <SocialProfileSimple key={project.id} project={project} />;
-        });
-        setProjectBoxes(projectBoxes);
-      })
-      .catch((err) => console.log("err:", err));
-  }, []);
+    const allProjects = userProjects ? userProjects : [];
+    const boxes = allProjects.map((project) => {
+      return <SocialProfileSimple key={project.id} project={project} />;
+    });
+    setProjectBoxes(boxes);
+  }, [userProjects]);
 
   const listProjectFlexes = () => {
     const flexes = [];

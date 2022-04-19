@@ -18,7 +18,7 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import ProjectsCarousel from "./ProjectsCarousel";
 
-export default function Projects({ setModalState, onOpen }) {
+export default function Projects({ setModalState, onOpen, userProjects }) {
   return (
     <Container
       border="2px"
@@ -45,7 +45,7 @@ export default function Projects({ setModalState, onOpen }) {
           }}
         />
       </Container>
-      <ProjectsCarousel />
+      <ProjectsCarousel userProjects={userProjects} />
     </Container>
   );
 }
