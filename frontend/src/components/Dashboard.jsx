@@ -95,7 +95,7 @@ export default function Dashboard() {
         setUserTasks(allTasks);
       })
       .catch((err) => console.log("err:", err));
-  }, [taskToggle]);
+  }, []);
 
   // Onsubmit helper function for quick add tasks
   const addTask = (e, filter) => {
@@ -116,7 +116,8 @@ export default function Dashboard() {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
-          setTaskToggle((prev) => !prev);
+          // setTaskToggle((prev) => !prev);
+          setUserTasks((prev) => [...prev, taskFormValues]);
           console.log("Succesfully added new Task to database");
         })
         .catch((err) => console.log("err:", err));
