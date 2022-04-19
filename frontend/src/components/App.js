@@ -14,9 +14,7 @@ import Login from "./User/Login";
 import Register from "./User/Register";
 import Speech from "./Speech/Speech";
 import { useCookies } from "react-cookie";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import { useSpeechRecognition } from "react-speech-recognition";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -81,15 +79,13 @@ function App() {
 
           <div className="content">
             <Routes>
+              <Route exact path="/" element={<Dashboard />} />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:id" element={<Project />} />
               <Route path="/tasks" element={<Tasks />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/speech" element={<Speech />} />
-              <Route exact path="/" element={<Dashboard />} />
             </Routes>
           </div>
         </BrowserRouter>
