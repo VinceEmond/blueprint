@@ -36,10 +36,12 @@ export default function ProjectsCarousel() {
         const flex = (
           <Flex
             mt={5}
+            marginLeft={`${count % 3 !== 0 ? 'auto' : 0}`}
+            marginRight={`${count % 3 !== 0 ? 'auto' : 0}`}
             display="flex"
             alignContent="center"
             height="100%"
-            width={`${count % 3 === 0 ? 100 : }%`}
+            width={`${count % 3 === 0 ? 100 : count % 3 === 2 ? 66 : 33}%`}
             key={count}>
             {boxes}
           </Flex>
