@@ -12,6 +12,7 @@ import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
 import { useCookies } from "react-cookie";
+import Speech from "./Speech/Speech";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -48,6 +49,7 @@ function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/speech" element={<Speech />} />
           </Routes>
         </div>
       </ChakraProvider>
