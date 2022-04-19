@@ -24,7 +24,7 @@ export default function DrawerExample() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
-  const sampleMessages = ['Good morning!', 'Hey!', 'I\'ve completed the message board testing', 'Awesome I\'ll pull your changes from github', 'Good morning!', 'Hey!', 'I\'ve completed the message board testing', 'Awesome I\'ll pull your changes from github', 'Good morning!', 'Hey!', 'I\'ve completed the message board testing', 'Awesome I\'ll pull your changes from github'];
+  const sampleMessages = ['Good morning!', 'Hey!', 'I\'ve completed the message board testing', 'Awesome I\'ll pull your changes from github', 'Good morning!', 'Hey!', 'I\'ve completed the message board testing', 'Awesome I\'ll pull your changes from github'];
   const [messages, setMessages] = useState(sampleMessages);
   const [messageBox, setMessageBox] = useState('');
 
