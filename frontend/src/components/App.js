@@ -8,7 +8,7 @@ import Dashboard from "./Dashboard";
 import Projects from "./Projects";
 import Tasks from "./Tasks";
 import Project from "./Project";
-import AboutUs from "./AboutUs";
+import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
 import { useCookies } from "react-cookie";
