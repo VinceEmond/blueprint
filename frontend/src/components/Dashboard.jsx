@@ -284,7 +284,7 @@ export default function Dashboard() {
             <ModalHeader margin='10px'>New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm />
+              <NewTaskForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter>
             </ModalFooter>

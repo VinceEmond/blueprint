@@ -13,9 +13,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-export default function NewTaskForm() {
+export default function NewTaskForm(props) {
 
-  
   // const testTaskValues = {
   //   name: "New 69 Task", 
   //   priority: 'low',
@@ -34,13 +33,14 @@ export default function NewTaskForm() {
           modified_date: '2022-04-18', 
           category_id: 1
   });
+  const {setModalState} = props;
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
         axios
           .post('/api/tasks', taskFormValues)
           .then((response) => {
-            console.log("Succesfully added new Task to database")
+            console.log("Succesfully added a new Task to database")
           })
           .catch((err) => console.log("err:", err));
   } 
@@ -48,23 +48,15 @@ export default function NewTaskForm() {
 function handleNameChange(event) {setTaskFormValues({...taskFormValues, name: event.target.value})}
 function handleStatusChange(event) {setTaskFormValues({...taskFormValues, status: event.target.value})}
 function handleProjectIDChange(event) {setTaskFormValues({...taskFormValues, project_id: event.target.value})}
-function handleAssigneeChange(event) {
-  console.log("Assignee", event.target.value)
-  setTaskFormValues({...taskFormValues, assignee_id: event.target.value})}
+function handleAssigneeChange(event) {setTaskFormValues({...taskFormValues, assignee_id: event.target.value})}
 function handleDateChange(event) {setTaskFormValues({...taskFormValues, due_date: event.target.value})}
 function handleDescriptionChange(event) {setTaskFormValues({...taskFormValues, description: event.target.value})}
 function handlePriorityChange(event) {setTaskFormValues({...taskFormValues, priority: event.target.name})}  
 
 function handleSave(event){
-  // console.log('task name: ', taskFormValues.name);
-  // console.log('status: ', taskFormValues.status)
-  // console.log('project_id: ', taskFormValues.project_id)
-  // console.log('assignee: ', taskFormValues.assignee_id)
-  // console.log('date: ',taskFormValues.due_date)
-  // console.log('description: ', taskFormValues.description)
-  // console.log('priority: ', taskFormValues.priority)
   // console.log('taskFormValues', taskFormValues);
   createTask(taskFormValues);
+  setModalState(null);
 }
 
   return (

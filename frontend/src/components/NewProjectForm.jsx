@@ -15,16 +15,17 @@ import axios from "axios";
 
 export default function NewProjectForm(props) {
 
-  const testProjectValues = {
-    owner_id: 1, 
-    name: "New 69 Project", 
-    description: "Test Project Description Herrreeeeeasdasd", 
-    start_date: '1969-04-20', 
-    due_date: '1969-04-20', 
-    modified_date: '2022-04-15', 
-    status: 'Not Started', 
-    category_id: 1
-  }
+  // const testProjectValues = {
+  //   owner_id: 1, 
+  //   name: "New 69 Project", 
+  //   description: "Test Project Description Herrreeeeeasdasd", 
+  //   start_date: '1969-04-20', 
+  //   due_date: '1969-04-20', 
+  //   modified_date: '2022-04-15', 
+  //   status: 'Not Started', 
+  //   category_id: 1
+  // }
+
   const [projectFormValues, setProjectFormValues] = React.useState({});
   const {setModalState} = props;
   
@@ -33,12 +34,11 @@ export default function NewProjectForm(props) {
     axios
     .post('/api/projects', projectFormValues)
     .then((response) => {
-      console.log("Succesfully added new Project to database")
+      console.log("Succesfully added a new Project to database")
     })
     .catch((err) => console.log("err:", err));
   }
   
-
   function handleProjectChange(event) {setProjectFormValues({...projectFormValues, name: event.target.value})}
   function handleOwnerChange(event) {setProjectFormValues({...projectFormValues, owner_id: event.target.value})}
   function handleStatusChange(event) {setProjectFormValues({...projectFormValues, status: event.target.value})}
@@ -46,12 +46,7 @@ export default function NewProjectForm(props) {
   function handleDescriptionChange(event) {setProjectFormValues({...projectFormValues, description: event.target.value})}
   
   function handleSave(event){
-    console.log('project: ', projectFormValues.name);
-    console.log('owner: ', projectFormValues.owner_id)
-    console.log('status: ', projectFormValues.status)
-    console.log('date: ',projectFormValues.due_date)
-    console.log('description: ', projectFormValues.description)
-    // Validation happens here
+    // console.log('projectFormValues', projectFormValues);
     createProject(projectFormValues)
     setModalState(null);
   }
@@ -69,8 +64,9 @@ export default function NewProjectForm(props) {
           <EditablePreview display="flex" width="full"/>
           <EditableInput display="flex" onChange={(e) => handleProjectChange(e)}/>
         </Editable>
+
         <Select 
-          placeholder="Select Status" 
+          // placeholder="Select Status" 
           value={projectFormValues.status || 'Not Started'} 
           width="40%" 
           display="flex" 
@@ -82,16 +78,19 @@ export default function NewProjectForm(props) {
           <option value="Complete">Complete</option>
         </Select>
       </HStack>
+
       <HStack mt="1em">
-        <Editable 
-          width="80%" 
-          display="flex"
-          placeholder="Owner name here..."
-          value={projectFormValues.owner_id}
+        <p>Owner:</p>
+        <Select 
+          placeholder="Select Owner" 
+          width="60%" 
+          display="flex" 
+          onChange={(e) => handleOwnerChange(e)}
         >
-          <EditablePreview width="full" />
-          <EditableInput onChange={(e) => handleOwnerChange(e)}></EditableInput>
-        </Editable>
+          <option value='1'>Dylan</option>
+          <option value='2'>Pablo</option>
+          <option value='3'>Vince</option>
+        </Select>
       </HStack>
 
       <HStack mt="1em">
@@ -99,19 +98,24 @@ export default function NewProjectForm(props) {
         <Input 
           type="date" 
           width="60%" 
-          value={projectFormValues.due_date} 
+          value={projectFormValues.due_date || ""}
           onChange={(e)=>handleDateChange(e)}
         />
       </HStack>
-      <Textarea
-        mt="1em" 
-        placeholder="Description here..." 
-        value={projectFormValues.description} 
-        onChange={(e) => handleDescriptionChange(e)}
-      />
-      <ButtonGroup spacing="6" mt="1em"  display="flex" justifyContent="center">
+
+      <HStack mt="1em">
+        <Textarea
+          mt="1em" 
+          placeholder="Description here..." 
+          value={projectFormValues.description} 
+          onChange={(e) => handleDescriptionChange(e)}
+        />
+      </HStack>
+
+      <ButtonGroup paddingTop='15px' spacing="6" mt="1em"  display="flex" justifyContent="center">
         <Button colorScheme="blue" onClick={(e)=>handleSave(e)} width='200px'>Save</Button>
       </ButtonGroup>
+
     </Container>
   );
 }
