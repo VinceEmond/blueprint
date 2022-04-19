@@ -40,6 +40,7 @@ export default function LandingPage() {
             perfect for freelancers, agencies, and moonlighters.
           </Text>
           <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+            <a href="/login">
             <Button
               rounded={"full"}
               bg={"blue.400"}
@@ -50,7 +51,10 @@ export default function LandingPage() {
             >
               Create Project
             </Button>
-            <Button rounded={"full"}>How It Works</Button>
+            </a>
+            <a href="/aboutus">
+            <Button rounded={"full"}>About Us</Button>
+            </a>
           </Stack>
         </Stack>
       </Flex>

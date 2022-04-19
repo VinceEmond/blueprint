@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Heading,
-} from "@chakra-ui/react";
+import { Tr, Td, Heading } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
-import ViewSelect from "./ViewSelect";
 import TrelloTasks from "./Trello/TrelloTasks";
+import TaskTable from "./Tables/TaskTable";
+import ViewSelect from "./ViewSelect";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
@@ -29,7 +21,7 @@ export default function Tasks() {
         // console.log(allTasks)
       })
       .catch((err) => console.log("err:", err));
-  }, []);
+  }, [viewValue]);
 
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
@@ -48,22 +40,7 @@ export default function Tasks() {
 
   function View() {
     if (viewValue === "List") {
-      return (
-        <TableContainer>
-          <Table variant="striped" colorScheme="blue">
-            <Thead>
-              <Tr>
-                <Th>Name</Th>
-                <Th>Project</Th>
-                <Th>Due Date</Th>
-                <Th>Status</Th>
-                <Th>Priority</Th>
-              </Tr>
-            </Thead>
-            <Tbody>{taskList}</Tbody>
-          </Table>
-        </TableContainer>
-      );
+      return <TaskTable taskList={taskList} />;
     } else if (viewValue === "Board") {
       return <TrelloTasks />;
     }
