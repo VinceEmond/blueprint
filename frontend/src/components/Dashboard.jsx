@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
-  Button,
   Heading,
   Center,
-  IconButton,
-  Input,
   LinkBox,
   LinkOverlay,
   Container,
@@ -101,14 +98,14 @@ export default function Dashboard() {
   }, [taskToggle]);
 
   // Onsubmit helper function for quick add tasks
-  const addTask = (e) => {
+  const addTask = (e, filter) => {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
     e.target[0].value = "";
     if (newTask) {
       const taskFormValues = {
         name: newTask,
-        status: "Not Started",
+        status: filter,
         project_id: "1",
         assignee_id: "1",
         due_date: "2022-04-29",
@@ -150,7 +147,7 @@ export default function Dashboard() {
           onOpen={onOpen}
         />
         {/* Import dashboard projects */}
-        <Projects />
+        <Projects setModalState={setModalState} onOpen={onOpen} />
       </Container>
 
       {modalState === "tasks" && (

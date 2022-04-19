@@ -18,6 +18,63 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 
 export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
+  const tabFilters = ["Not Started", "In Progress", "Pending", "Complete"];
+
+  const currentTab = (tasks, filter = "Not Started", key) => {
+    return (
+      <TabPanel key={key}>
+        <TableContainer>
+          <Table size="sm">
+            <Tbody>
+              <Tr>
+                <Td>
+                  <form onSubmit={(e) => addTask(e, filter)}>
+                    <Input
+                      variant="flushed"
+                      autoFocus
+                      placeholder="Add new task..."
+                    />
+                  </form>
+                </Td>
+              </Tr>
+              {tasks}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </TabPanel>
+    );
+  };
+
+  const tabLists = () => {
+    const currentTabs = [];
+    currentTabs.push({
+      tasks: userTasks.map((task) => {
+        return (
+          <Tr key={task.id}>
+            <Td>{task.name}</Td>
+          </Tr>
+        );
+      }),
+    });
+    for (const filter of tabFilters) {
+      currentTabs.push({
+        tasks: userTasks
+          .filter((task) => task.status === filter)
+          .map((task) => {
+            return (
+              <Tr key={task.id}>
+                <Td>{task.name}</Td>
+              </Tr>
+            );
+          }),
+        filter: filter,
+      });
+    }
+    return currentTabs.map((tab, index) =>
+      currentTab(tab.tasks, tab.filter, index)
+    );
+  };
+
   return (
     <Container
       width="100%"
@@ -50,89 +107,7 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
           <Tab>In progress</Tab>
           <Tab>Complete</Tab>
         </TabList>
-        <TabPanels>
-          <TabPanel>
-            <TableContainer>
-              <Table size="sm">
-                <Tbody>
-                  <Tr>
-                    <Td>
-                      <form onSubmit={(e) => addTask(e)}>
-                        <Input
-                          variant="flushed"
-                          autoFocus
-                          placeholder="Add new task..."
-                        />
-                      </form>
-                    </Td>
-                  </Tr>
-                  {userTasks &&
-                    userTasks.map((task) => {
-                      return (
-                        <Tr key={task.id}>
-                          <Td>{task.name}</Td>
-                        </Tr>
-                      );
-                    })}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </TabPanel>
-          <TabPanel>
-            <TableContainer>
-              <Table size="sm">
-                <Tbody>
-                  {userTasks &&
-                    userTasks
-                      .filter((task) => task.status === "Not Started")
-                      .map((task) => {
-                        return (
-                          <Tr key={task.id}>
-                            <Td>{task.name}</Td>
-                          </Tr>
-                        );
-                      })}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </TabPanel>
-          <TabPanel>
-            <TableContainer>
-              <Table size="sm">
-                <Tbody>
-                  {userTasks &&
-                    userTasks
-                      .filter((task) => task.status === "In Progress")
-                      .map((task) => {
-                        return (
-                          <Tr key={task.id}>
-                            <Td>{task.name}</Td>
-                          </Tr>
-                        );
-                      })}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </TabPanel>
-          <TabPanel>
-            <TableContainer>
-              <Table size="sm">
-                <Tbody>
-                  {userTasks &&
-                    userTasks
-                      .filter((task) => task.status === "Complete")
-                      .map((task) => {
-                        return (
-                          <Tr key={task.id}>
-                            <Td>{task.name}</Td>
-                          </Tr>
-                        );
-                      })}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </TabPanel>
-        </TabPanels>
+        <TabPanels>{userTasks && tabLists()}</TabPanels>
       </Tabs>
     </Container>
   );
