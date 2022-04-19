@@ -61,10 +61,8 @@ export default function ProjectsCarousel() {
         interval={false}
         dark={true}
         wrap={true}
-        marginLeft="50px"
         pause={"hover"}>
         {flexes.map((flex, index) => {
-          console.log("NEW ROW");
           return (
             <CCarouselItem key={index} className="w-100">
               {flex}
