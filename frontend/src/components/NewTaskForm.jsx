@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Editable,
   EditableInput,
@@ -25,7 +25,7 @@ export default function NewTaskForm(props) {
   //   category_id: 1
   // }
 
-  const arrayOfUserNames = ["Vince", "Dylan", "Pablo"];
+  // const arrayOfUserNames = ["Vince", "Dylan", "Pablo"];
 
   const [taskFormValues, setTaskFormValues] = React.useState({
     start_date: "2000-01-01",

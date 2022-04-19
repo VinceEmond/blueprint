@@ -1,20 +1,4 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Heading,
-  IconButton,
-  Input,
-  TableContainer,
-  Table,
-  Tbody,
-  Tr,
-  Td,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Container, Heading, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ProjectsCarousel from "./ProjectsCarousel";
 
