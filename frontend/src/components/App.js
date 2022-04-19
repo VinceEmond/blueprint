@@ -11,6 +11,7 @@ import TrelloProjects from "./Trello/TrelloProjects";
 import Login from "./User/Login";
 import Register from "./User/Register";
 import LandingPage from "./LandingPage";
+import Message from "./Message";
 import Project from "./Project";
 import { useCookies } from "react-cookie";
 
@@ -51,6 +52,8 @@ function App() {
             <Route path="/trelloprojects" element={<TrelloProjects />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/message" element={<Message />} />
+
           </Routes>
         </div>
       </ChakraProvider>
