@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import './Carousel.css';
-import { Carousel } from 'react-responsive-carousel';
-import { Flex, Spacer } from '@chakra-ui/react';
-import SocialProfileSimple from './ProjectCard';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./Carousel.css";
+import "@coreui/coreui/dist/css/coreui.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { CCarousel } from "@coreui/react";
+import { CCarouselItem } from "@coreui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
+import SocialProfileSimple from "./ProjectCard";
+import axios from "axios";
 
 export default function ProjectsCarousel() {
   const [projectBoxes, setProjectBoxes] = useState([]);
-  // Prevent double api calls by checking if already loading
-  let loading = false;
 
   useEffect(() => {
-    if (!loading) {
-      loading = true;
-      axios
-        .get('/api/projects')
-        .then((response) => {
-          const allProjects = response.data.projects;
-          const projectBoxes = allProjects.map((project) => {
-            return <SocialProfileSimple key={project.id} project={project} />;
-          });
-          setProjectBoxes(projectBoxes);
-        })
-        .catch((err) => console.log('err:', err));
-    }
-  }, [loading]);
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        const projectBoxes = allProjects.map((project) => {
+          return <SocialProfileSimple key={project.id} project={project} />;
+        });
+        setProjectBoxes(projectBoxes);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
 
   const listProjectFlexes = () => {
     const flexes = [];
@@ -41,9 +38,12 @@ export default function ProjectsCarousel() {
         const flex = (
           <Flex
             mt={5}
+            marginLeft={`${count % 3 !== 0 ? "auto" : 0}`}
+            marginRight={`${count % 3 !== 0 ? "auto" : 0}`}
             display="flex"
             alignContent="center"
             height="100%"
+            width={`${count % 3 === 0 ? 100 : count % 3 === 2 ? 66 : 33}%`}
             key={count}>
             {boxes}
           </Flex>
@@ -55,17 +55,23 @@ export default function ProjectsCarousel() {
       }
     }
     return (
-      <Carousel
-        display="flex"
-        alignSelf="center"
-        infiniteLoop={true}
-        autoFocus={true}
-        autoPlay={false}
-        interval="5000"
-        stopOnHover={true}
-        showThumbs={false}>
-        {flexes}
-      </Carousel>
+      <CCarousel
+        indicators={true}
+        controls={true}
+        interval={false}
+        dark={true}
+        wrap={true}
+        marginLeft="50px"
+        pause={"hover"}>
+        {flexes.map((flex, index) => {
+          console.log("NEW ROW");
+          return (
+            <CCarouselItem key={index} className="w-100">
+              {flex}
+            </CCarouselItem>
+          );
+        })}
+      </CCarousel>
     );
   };
 
