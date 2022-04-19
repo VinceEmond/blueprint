@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import './Carousel.css';
-import '@coreui/coreui/dist/css/coreui.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { CCarousel } from '@coreui/react';
-import { CCarouselItem } from '@coreui/react';
-import { Flex, Spacer } from '@chakra-ui/react';
-import SocialProfileSimple from './ProjectCard';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./Carousel.css";
+import "@coreui/coreui/dist/css/coreui.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { CCarousel } from "@coreui/react";
+import { CCarouselItem } from "@coreui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
+import SocialProfileSimple from "./ProjectCard";
+import axios from "axios";
 
 export default function ProjectsCarousel() {
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
     axios
-      .get('/api/projects')
+      .get("/api/projects")
       .then((response) => {
         const allProjects = response.data.projects;
         const projectBoxes = allProjects.map((project) => {
@@ -21,7 +21,7 @@ export default function ProjectsCarousel() {
         });
         setProjectBoxes(projectBoxes);
       })
-      .catch((err) => console.log('err:', err));
+      .catch((err) => console.log("err:", err));
   }, []);
 
   const listProjectFlexes = () => {
@@ -38,8 +38,8 @@ export default function ProjectsCarousel() {
         const flex = (
           <Flex
             mt={5}
-            marginLeft={`${count % 3 !== 0 ? 'auto' : 0}`}
-            marginRight={`${count % 3 !== 0 ? 'auto' : 0}`}
+            marginLeft={`${count % 3 !== 0 ? "auto" : 0}`}
+            marginRight={`${count % 3 !== 0 ? "auto" : 0}`}
             display="flex"
             alignContent="center"
             height="100%"
@@ -62,9 +62,9 @@ export default function ProjectsCarousel() {
         dark={true}
         wrap={true}
         marginLeft="50px"
-        pause={'hover'}>
+        pause={"hover"}>
         {flexes.map((flex, index) => {
-          console.log('NEW ROW');
+          console.log("NEW ROW");
           return (
             <CCarouselItem key={index} className="w-100">
               {flex}
