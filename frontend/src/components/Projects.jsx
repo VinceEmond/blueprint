@@ -12,8 +12,9 @@ import {
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
-import ViewSelect from "./ViewSelect";
 import TrelloProjects from "./Trello/TrelloProjects";
+import ProjectTable from "./Tables/ProjectTable";
+import ViewSelect from "./ViewSelect";
 
 export default function Projects() {
   const [userProjects, setUserProjects] = useState(null);
@@ -41,25 +42,11 @@ export default function Projects() {
         setUserProjects(projectList);
       })
       .catch((err) => console.log("err:", err));
-  }, []);
+  }, [viewValue]);
 
   function View() {
     if (viewValue === "List") {
-      return (
-        <TableContainer>
-          <Table variant="striped" colorScheme="blue">
-            <Thead>
-              <Tr>
-                <Th>Name</Th>
-                <Th>Owner</Th>
-                <Th>Due Date</Th>
-                <Th>Status</Th>
-              </Tr>
-            </Thead>
-            <Tbody>{userProjects}</Tbody>
-          </Table>
-        </TableContainer>
-      );
+      return <ProjectTable userProjects={userProjects} />;
     } else if (viewValue === "Board") {
       return <TrelloProjects />;
     }
