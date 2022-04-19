@@ -157,12 +157,14 @@ export default function Dashboard() {
           maxWidth="100%"
           border="2px"
           borderRadius="5px"
-          mt="4em">
+          mt="4em"
+        >
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%">
+            maxWidth="100%"
+          >
             <Heading size="md" textAlign="left">
               My Priorities
             </Heading>
@@ -274,12 +276,14 @@ export default function Dashboard() {
           mt="3em"
           mb="3em"
           width="100%"
-          maxWidth="100%">
+          maxWidth="100%"
+        >
           <Container
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            maxWidth="100%">
+            maxWidth="100%"
+          >
             <Heading size="md" textAlign="left">
               Projects
             </Heading>
