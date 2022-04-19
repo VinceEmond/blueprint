@@ -8,24 +8,19 @@ import axios from 'axios';
 
 export default function ProjectsCarousel() {
   const [projectBoxes, setProjectBoxes] = useState([]);
-  // Prevent double api calls by checking if already loading
-  let loading = false;
 
   useEffect(() => {
-    if (!loading) {
-      loading = true;
-      axios
-        .get('/api/projects')
-        .then((response) => {
-          const allProjects = response.data.projects;
-          const projectBoxes = allProjects.map((project) => {
-            return <SocialProfileSimple key={project.id} project={project} />;
-          });
-          setProjectBoxes(projectBoxes);
-        })
-        .catch((err) => console.log('err:', err));
-    }
-  }, [loading]);
+    axios
+      .get('/api/projects')
+      .then((response) => {
+        const allProjects = response.data.projects;
+        const projectBoxes = allProjects.map((project) => {
+          return <SocialProfileSimple key={project.id} project={project} />;
+        });
+        setProjectBoxes(projectBoxes);
+      })
+      .catch((err) => console.log('err:', err));
+  }, []);
 
   const listProjectFlexes = () => {
     const flexes = [];
@@ -44,6 +39,7 @@ export default function ProjectsCarousel() {
             display="flex"
             alignContent="center"
             height="100%"
+            width={`${count % 3 === 0 ? 100 : }%`}
             key={count}>
             {boxes}
           </Flex>

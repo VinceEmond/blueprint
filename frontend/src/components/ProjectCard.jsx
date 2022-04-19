@@ -11,7 +11,7 @@ import {
 
 export default function SocialProfileSimple({ project }) {
   return (
-    <Center py={6} flex="7">
+    <Center py={6} flex="7" width="33%">
       <Box
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
