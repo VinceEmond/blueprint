@@ -112,18 +112,20 @@ export default function Dashboard() {
   // Onsubmit helper function or quick add tasks
   const addTask = (e) => {
     e.preventDefault();
-    const newTask = e.target[0].value;
-    console.log(newTask);
+    const newTask = e.target[0].value.trim();
     e.target[0].value = '';
-    // axios
-    // .post('/api/tasks', projectFormValues)
-    // .then((response) => {
-    //   console.log("Succesfully added new Task to database")
-    // })
-    // .catch((err) => console.log("err:", err));
+    if (newTask) {
+      const taskFormValues = {
+        name: newTask,
+      };
+      axios
+        .post('/api/tasks', taskFormValues)
+        .then((response) => {
+          console.log('Succesfully added new Task to database');
+        })
+        .catch((err) => console.log('err:', err));
+    }
   };
-
-  function createProject(projectFormValues) {}
 
   return (
     <div>
