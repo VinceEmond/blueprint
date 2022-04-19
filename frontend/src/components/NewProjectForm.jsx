@@ -25,7 +25,7 @@ export default function NewProjectForm(props) {
     status: 'Not Started', 
     category_id: 1
   }
-  const [projectFormValues, setProjectFormValues] = React.useState(testProjectValues);
+  const [projectFormValues, setProjectFormValues] = React.useState({});
   const {setModalState} = props;
   
 
@@ -57,7 +57,7 @@ export default function NewProjectForm(props) {
   }
 
   return (
-    <Container mt="4em">
+    <Container>
       <HStack mt="1em">
         <Editable
           width="70%"
@@ -109,8 +109,8 @@ export default function NewProjectForm(props) {
         value={projectFormValues.description} 
         onChange={(e) => handleDescriptionChange(e)}
       />
-      <ButtonGroup variant="outline" spacing="6" mt="1em"  display="flex">
-        <Button colorScheme="blue" onClick={(e)=>handleSave(e)}>Save</Button>
+      <ButtonGroup spacing="6" mt="1em"  display="flex" justifyContent="center">
+        <Button colorScheme="blue" onClick={(e)=>handleSave(e)} width='200px'>Save</Button>
       </ButtonGroup>
     </Container>
   );

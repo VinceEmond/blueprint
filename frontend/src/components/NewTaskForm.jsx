@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Editable,
   EditableInput,
@@ -27,7 +27,13 @@ export default function NewTaskForm() {
   //   category_id: 1
   // }
 
-  const [taskFormValues, setTaskFormValues] = React.useState({});
+  const arrayOfUserNames = ['Vince','Dylan', 'Pablo'];
+
+  const [taskFormValues, setTaskFormValues] = React.useState({
+          start_date: '2000-01-01',
+          modified_date: '2022-04-18', 
+          category_id: 1
+  });
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
@@ -42,25 +48,27 @@ export default function NewTaskForm() {
 function handleNameChange(event) {setTaskFormValues({...taskFormValues, name: event.target.value})}
 function handleStatusChange(event) {setTaskFormValues({...taskFormValues, status: event.target.value})}
 function handleProjectIDChange(event) {setTaskFormValues({...taskFormValues, project_id: event.target.value})}
-function handleAssigneeChange(event) {setTaskFormValues({...taskFormValues, assignee_id: event.target.value})}
+function handleAssigneeChange(event) {
+  console.log("Assignee", event.target.value)
+  setTaskFormValues({...taskFormValues, assignee_id: event.target.value})}
 function handleDateChange(event) {setTaskFormValues({...taskFormValues, due_date: event.target.value})}
 function handleDescriptionChange(event) {setTaskFormValues({...taskFormValues, description: event.target.value})}
 function handlePriorityChange(event) {setTaskFormValues({...taskFormValues, priority: event.target.name})}  
 
 function handleSave(event){
-  console.log('task name: ', taskFormValues.name);
-  console.log('status: ', taskFormValues.status)
-  console.log('project_id: ', taskFormValues.project_id)
-  console.log('assignee: ', taskFormValues.assignee_id)
-  console.log('date: ',taskFormValues.due_date)
-  console.log('description: ', taskFormValues.description)
-  console.log('priority: ', taskFormValues.priority)
-
-  // createTask(taskFormValues);
+  // console.log('task name: ', taskFormValues.name);
+  // console.log('status: ', taskFormValues.status)
+  // console.log('project_id: ', taskFormValues.project_id)
+  // console.log('assignee: ', taskFormValues.assignee_id)
+  // console.log('date: ',taskFormValues.due_date)
+  // console.log('description: ', taskFormValues.description)
+  // console.log('priority: ', taskFormValues.priority)
+  // console.log('taskFormValues', taskFormValues);
+  createTask(taskFormValues);
 }
 
   return (
-    <Container mt="4em">
+    <Container>
       <HStack mt="1em">
         <Editable
           width="70%"
@@ -85,28 +93,35 @@ function handleSave(event){
           <option value="Complete">Complete</option>
         </Select>
       </HStack>
+
       <HStack mt="1em">
-        <Editable 
-          width="80%" 
-          display="flex"
-          placeholder="Project ID here..."
-          value={taskFormValues.project_id}
-        >
-          <EditablePreview width="full" />
-          <EditableInput onChange={(e) => handleProjectIDChange(e)}></EditableInput>
-        </Editable>
+        <p>Project:</p>
+        <Select 
+          placeholder="Select Project" 
+          // value={'Not Started'} 
+          width="60%" 
+          display="flex" 
+          onChange={(e) => handleProjectIDChange(e)}
+          >
+          <option value='1'>Project 1</option>
+          <option value='2'>Project 2</option>
+          <option value='3'>Project 3</option>
+        </Select>
       </HStack>
+
       <HStack mt="1em">
         <p>Assignee:  </p>
-        <Editable 
-          width="80%" 
-          display="flex"
-          placeholder="Assignee ID here..."
-          value={taskFormValues.assignee_id}
+        <Select 
+        placeholder="Select Assignee" 
+        // value={'Not Started'} 
+        width="60%" 
+        display="flex" 
+        onChange={(e) => handleAssigneeChange(e)}
         >
-          <EditablePreview width="full" />
-          <EditableInput onChange={(e) => handleAssigneeChange(e)}></EditableInput>
-        </Editable>
+        <option value='1'>Dylan</option>
+        <option value='2'>Pablo</option>
+        <option value='3'>Vince</option>
+        </Select>
       </HStack>
       <HStack mt="1em">
         <p>Due Date: </p>
@@ -123,13 +138,13 @@ function handleSave(event){
         value={taskFormValues.description} 
         onChange={(e) => handleDescriptionChange(e)}
       />
-      <ButtonGroup variant="outline" spacing="6" mt="1em" display="flex" justifyContent="center">
-        <Button colorScheme="green" name='low' onClick={(e)=> handlePriorityChange(e)}>low</Button>
-        <Button colorScheme="yellow" name='medium' onClick={(e)=> handlePriorityChange(e)}>medium</Button>
-        <Button colorScheme="red" name='high' onClick={(e)=> handlePriorityChange(e)}>high</Button>
+      <ButtonGroup variant="outline" spacing="6" mt="1em" display="flex" justifyContent="center" padding='10px'>
+        <Button colorScheme="green" name='Low' onClick={(e)=> handlePriorityChange(e)} width='100px'>low</Button>
+        <Button colorScheme="yellow" name='Medium' onClick={(e)=> handlePriorityChange(e)} width='100px'>medium</Button>
+        <Button colorScheme="red" name='High' onClick={(e)=> handlePriorityChange(e)} width='100px'>high</Button>
       </ButtonGroup>
-      <ButtonGroup variant="outline" spacing="6" mt="1em"  display="flex">
-        <Button colorScheme="blue" onClick={(e)=>handleSave(e)}>Save</Button>
+      <ButtonGroup paddingTop='15px' spacing="6" mt="1em"  display="flex" justifyContent="center">
+        <Button colorScheme="blue" onClick={(e)=>handleSave(e)} width='200px'>Save</Button>
       </ButtonGroup>
     </Container>
   );

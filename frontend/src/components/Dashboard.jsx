@@ -278,37 +278,30 @@ export default function Dashboard() {
       </Container>
 
       {modalState === 'tasks' && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader>New Task</ModalHeader>
+            <ModalHeader margin='10px'>New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewTaskForm />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       )}
 
       {modalState === 'projects' && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader>New Project</ModalHeader>
+            <ModalHeader margin='10px'>New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewProjectForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
