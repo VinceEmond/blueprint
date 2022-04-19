@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 // import LandingPage from "./LandingPage";
 import NavBar from "./NavBar";
 import LandingPage from "./LandingPage";
@@ -11,47 +12,89 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
-import { useCookies } from "react-cookie";
 import Speech from "./Speech/Speech";
+import { useCookies } from "react-cookie";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
+  //////////
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const commands = [
+    {
+      command: ["Open *"],
+      callback: (redirectPage) => setRedirectUrl(redirectPage),
+    },
+  ];
 
-  // useEffect(() => {
-  //   console.log("COOKIE HAS BEEN SET");
-  // }, [cookies]);
+  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+
+  // state of redirect URL
+  const pages = ["home", "welcome", "about us", "projects", "tasks"];
+  const urls = {
+    home: "/",
+    welcome: "/welcome",
+    "about us": "/aboutus",
+    projects: "/projects",
+    tasks: "/tasks",
+  };
+
+  // if speech recognition is not supported, won't do anything
+  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+  //   return null
+  // }
+
+  // continous speech recognition
+  // if (SpeechRecognition.browserSupportsContinuousListening) {
+  //   SpeechRecognition.startListening({ continuous: true })
+  // } else {
+  //   return
+  // }
+
+  let redirect = "";
 
   const loginHandler = (name, id) => {
-    console.log("LOGIN");
     setCookie("name", name, { path: "/" });
     setCookie("id", id, { path: "/" });
   };
 
   const logoutHandler = (e) => {
-    console.log("LOGOUT");
     removeCookie("name");
     removeCookie("id");
-    // cookies.remove("name");
   };
 
   return (
     <div className="App">
       <ChakraProvider>
-        <NavBar loginHandler={loginHandler} logoutHandler={logoutHandler} />
+        <BrowserRouter>
+          <NavBar
+            loginHandler={loginHandler}
+            logoutHandler={logoutHandler}
+            transcript={transcript}
+            resetTranscript={resetTranscript}
+          />
+          {redirectUrl && pages.includes(redirectUrl) && (
+            <Navigate to={urls[redirectUrl]} />
+          )}
 
-        <div className="content">
-          <Routes>
-            <Route exact path="/" element={<Dashboard />} />
-            <Route path="/welcome" element={<LandingPage />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<Project />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/speech" element={<Speech />} />
-          </Routes>
-        </div>
+          <div className="content">
+            <Routes>
+              <Route path="/welcome" element={<LandingPage />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<Project />} />
+              <Route path="/tasks" element={<Tasks />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/speech" element={<Speech />} />
+              <Route exact path="/" element={<Dashboard />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+
+        {redirect}
       </ChakraProvider>
     </div>
   );

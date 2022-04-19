@@ -41,6 +41,13 @@ export default function Speech() {
       </div>
     );
   }
+
+  // if (SpeechRecognition.browserSupportsContinuousListening) {
+  //   SpeechRecognition.startListening({ continuous: true })
+  // } else {
+  //   return
+  // }
+  
   const handleListing = () => {
     setIsListening(true);
     microphoneRef.current.classList.add("listening");

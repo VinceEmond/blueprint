@@ -17,8 +17,6 @@ const root = createRoot(rootElement);
 
 root.render(
   <CookiesProvider>
-    <BrowserRouter>
       <App />
-    </BrowserRouter>
   </CookiesProvider>
 );
