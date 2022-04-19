@@ -41,6 +41,7 @@ export default function Dashboard() {
 
   const [userData, setUserData] = useState(null);
   const [userTasks, setUserTasks] = useState(null);
+  const [taskToggle, setTaskToggle] = useState(false);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -107,7 +108,7 @@ export default function Dashboard() {
         setUserTasks(allTasks);
       })
       .catch((err) => console.log('err:', err));
-  }, []);
+  }, [taskToggle]);
 
   // Onsubmit helper function or quick add tasks
   const addTask = (e) => {
@@ -121,21 +122,14 @@ export default function Dashboard() {
         project_id: '1',
         assignee_id: '1',
         due_date: '2022-04-29',
-        description: 'Empty description',
+        description: 'Describe task',
         priority: 'Low',
       };
-
-      console.log('task name: ', taskFormValues.name);
-      console.log('status: ', taskFormValues.status);
-      console.log('project_id: ', taskFormValues.project_id);
-      console.log('assignee: ', taskFormValues.assignee_id);
-      console.log('date: ', taskFormValues.due_date);
-      console.log('description: ', taskFormValues.description);
-      console.log('priority: ', taskFormValues.priority);
 
       axios
         .post('/api/tasks', taskFormValues)
         .then((response) => {
+          setTaskToggle((prev) => !prev);
           console.log('Succesfully added new Task to database');
         })
         .catch((err) => console.log('err:', err));
