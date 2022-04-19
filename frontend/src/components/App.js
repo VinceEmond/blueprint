@@ -11,6 +11,7 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
+import Message from "./Message";
 import { useCookies } from "react-cookie";
 import Speech from "./Speech/Speech";
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/message" element={<Message />} />
             <Route path="/speech" element={<Speech />} />
           </Routes>
         </div>
