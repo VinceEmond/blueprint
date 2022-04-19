@@ -50,11 +50,12 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
     currentTabs.push({
       tasks: userTasks.map((task) => {
         return (
-          <Tr key={task.id}>
+          <Tr key={`${task.id}`}>
             <Td>{task.name}</Td>
           </Tr>
         );
       }),
+      key: "all",
     });
     for (const filter of tabFilters) {
       currentTabs.push({
@@ -62,12 +63,13 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
           .filter((task) => task.status === filter)
           .map((task) => {
             return (
-              <Tr key={task.id}>
+              <Tr key={`${filter} ${task.id}`}>
                 <Td>{task.name}</Td>
               </Tr>
             );
           }),
         filter: filter,
+        key: filter,
       });
     }
     return currentTabs.map((tab, index) =>
