@@ -80,7 +80,7 @@ function App() {
 
           <div className="content">
             <Routes>
-              <Route exact path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/projects" element={<Projects />} />
