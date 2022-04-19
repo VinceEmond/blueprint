@@ -117,7 +117,22 @@ export default function Dashboard() {
     if (newTask) {
       const taskFormValues = {
         name: newTask,
+        status: 'Not Started',
+        project_id: '1',
+        assignee_id: '1',
+        due_date: '2022-04-29',
+        description: 'Empty description',
+        priority: 'Low',
       };
+
+      console.log('task name: ', taskFormValues.name);
+      console.log('status: ', taskFormValues.status);
+      console.log('project_id: ', taskFormValues.project_id);
+      console.log('assignee: ', taskFormValues.assignee_id);
+      console.log('date: ', taskFormValues.due_date);
+      console.log('description: ', taskFormValues.description);
+      console.log('priority: ', taskFormValues.priority);
+
       axios
         .post('/api/tasks', taskFormValues)
         .then((response) => {
