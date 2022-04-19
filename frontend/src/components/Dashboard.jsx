@@ -41,6 +41,7 @@ export default function Dashboard() {
 
   const [userData, setUserData] = useState(null);
   const [userTasks, setUserTasks] = useState(null);
+  const [taskToggle, setTaskToggle] = useState(false);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -107,13 +108,32 @@ export default function Dashboard() {
         setUserTasks(allTasks);
       })
       .catch((err) => console.log('err:', err));
-  }, []);
+  }, [taskToggle]);
 
   // Onsubmit helper function or quick add tasks
   const addTask = (e) => {
     e.preventDefault();
-    console.log(e.target[0].value);
+    const newTask = e.target[0].value.trim();
     e.target[0].value = '';
+    if (newTask) {
+      const taskFormValues = {
+        name: newTask,
+        status: 'Not Started',
+        project_id: '1',
+        assignee_id: '1',
+        due_date: '2022-04-29',
+        description: 'Describe task',
+        priority: 'Low',
+      };
+
+      axios
+        .post('/api/tasks', taskFormValues)
+        .then((response) => {
+          setTaskToggle((prev) => !prev);
+          console.log('Succesfully added new Task to database');
+        })
+        .catch((err) => console.log('err:', err));
+    }
   };
 
   return (
@@ -278,37 +298,30 @@ export default function Dashboard() {
       </Container>
 
       {modalState === 'tasks' && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader>New Task</ModalHeader>
+            <ModalHeader margin='10px'>New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm />
+              <NewTaskForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       )}
 
       {modalState === 'projects' && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader>New Project</ModalHeader>
+            <ModalHeader margin='10px'>New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewProjectForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

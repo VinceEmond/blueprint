@@ -34,7 +34,7 @@ module.exports = (db) => {
       });
   });
 
-  // POST: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
+  // PUT: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
   router.put("/:id", (req, res) => {
     const { id } = req.params;
     console.log("REQ.BODY: ", req.body);
@@ -103,11 +103,11 @@ module.exports = (db) => {
       assignee_id,
       name,
       description,
-      start_date,
+      start_date, //
       due_date,
-      modified_date,
+      modified_date, //
       status,
-      category_id,
+      category_id, //
     } = req.body;
 
     const queryParams = [
@@ -122,12 +122,29 @@ module.exports = (db) => {
       status,
       category_id,
     ];
-    // console.log("QUERYPARAMS: ", queryParams)
 
-    const queryStr = `INSERT INTO tasks
-      (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
-    `;
+    // const queryParams = [
+    //   1,
+    //   'Low',
+    //    1,
+    //     'Plant Seeds',
+    //      'I need to plant seeds',
+    //       '1969-04-20',
+    //       '1969-04-20',
+    //        '2022-04-15',
+    //        'Not Started',
+    //         1
+    // ];
+    console.log("QUERYPARAMS: ", queryParams)
+
+    // const queryStr = `INSERT INTO tasks
+    //   (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
+    //   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+    // `;
+
+    const queryStr = `INSERT INTO tasks (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+  `;
 
     db.query(queryStr, queryParams)
       .then((data) => {
