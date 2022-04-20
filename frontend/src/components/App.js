@@ -12,14 +12,12 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
-import Message from "./Message";
 import Speech from "./Speech/Speech";
 import { useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
-  //////////
   const [redirectUrl, setRedirectUrl] = useState("");
   const commands = [
     {
@@ -42,7 +40,7 @@ function App() {
 
   // if speech recognition is not supported, won't do anything
   // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-  //   return null
+  //   return null;
   // }
 
   // continous speech recognition
@@ -88,7 +86,6 @@ function App() {
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/message" element={<Message />} />
               <Route path="/speech" element={<Speech />} />
             </Routes>
           </div>

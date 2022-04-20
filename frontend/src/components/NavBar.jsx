@@ -17,6 +17,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import SpeechRecognition from "react-speech-recognition";
 import { useEffect } from "react";
+import Message from "./Message";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -86,7 +87,10 @@ export default function NavBar(props) {
             </HStack>
           </HStack>
 
+
+
           <Flex alignItems={"center"}>
+          <Message />
             <Menu>
               <MenuButton
                 as={Button}
@@ -102,6 +106,8 @@ export default function NavBar(props) {
                   }
                 />
               </MenuButton>
+
+                
 
               <MenuList>
                 <a href="/">
