@@ -75,6 +75,7 @@ export default function Dashboard() {
       .get("/api/users")
       .then((response) => {
         const allUsers = response.data.users;
+        console.log(allUsers);
         const specificUser = getUserName(allUsers, 3);
         setUserData(specificUser);
 
@@ -182,7 +183,7 @@ export default function Dashboard() {
       )}
 
       {modalState === "projects" && (
-        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={onClose} id="projects">
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader margin="10px">New Project</ModalHeader>
