@@ -36,8 +36,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks(props) {
-  const { userProjects } = props;
+export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
 
   const trelloColumns = {

@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
-  Button,
   Heading,
   Center,
-  IconButton,
-  Input,
   LinkBox,
   LinkOverlay,
   Container,
@@ -17,31 +14,20 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  TableContainer,
-  Table,
-  Tbody,
-  Tr,
-  Td,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   useDisclosure,
 } from "@chakra-ui/react";
 import { getUserName } from "../helpers/selectors";
-import { AddIcon } from "@chakra-ui/icons";
 import NewTaskForm from "./NewTaskForm";
 import NewProjectForm from "./NewProjectForm";
-import ProjectsCarousel from "./ProjectsCarousel";
+import Tasks from "./Dashboard/DashboardTasks";
+import Projects from "./Dashboard/DashboardProjects";
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
-
   const [userData, setUserData] = useState(null);
   const [userTasks, setUserTasks] = useState(null);
-  const [taskToggle, setTaskToggle] = useState(false);
+  const [userProjects, setUserProjects] = useState(null);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -99,6 +85,17 @@ export default function Dashboard() {
       .catch((err) => console.log("err:", err));
   }, []);
 
+  // Retrieve all projects (eventually user specific projects)
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
+
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     axios
@@ -108,17 +105,17 @@ export default function Dashboard() {
         setUserTasks(allTasks);
       })
       .catch((err) => console.log("err:", err));
-  }, [taskToggle]);
+  }, []);
 
-  // Onsubmit helper function or quick add tasks
-  const addTask = (e) => {
+  // Onsubmit helper function for quick add tasks
+  const addTask = (e, filter = "Not Started") => {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
     e.target[0].value = "";
     if (newTask) {
       const taskFormValues = {
         name: newTask,
-        status: "Not Started",
+        status: filter,
         project_id: "1",
         assignee_id: "1",
         due_date: "2022-04-29",
@@ -129,7 +126,7 @@ export default function Dashboard() {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
-          setTaskToggle((prev) => !prev);
+          setUserTasks((prev) => [...prev, taskFormValues]);
           console.log("Succesfully added new Task to database");
         })
         .catch((err) => console.log("err:", err));
@@ -152,153 +149,19 @@ export default function Dashboard() {
       </Center>
 
       <Container width="50%" maxWidth="100%">
-        <Container
-          width="100%"
-          maxWidth="100%"
-          border="2px"
-          borderRadius="5px"
-          mt="4em"
-        >
-          <Container
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            maxWidth="100%"
-          >
-            <Heading size="md" textAlign="left">
-              My Priorities
-            </Heading>
-            <IconButton
-              aria-label="Search database"
-              borderRadius="50%"
-              icon={<AddIcon />}
-              onClick={() => {
-                setModalState("tasks");
-                onOpen();
-              }}
-            />
-          </Container>
-          <Tabs>
-            <TabList>
-              <Tab>All</Tab>
-              <Tab>Not started</Tab>
-              <Tab>In progress</Tab>
-              <Tab>Complete</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <TableContainer>
-                  <Table size="sm">
-                    <Tbody>
-                      <Tr>
-                        <Td>
-                          <form onSubmit={(e) => addTask(e)}>
-                            <Input
-                              variant="flushed"
-                              autoFocus
-                              placeholder="Add new task..."
-                            />
-                          </form>
-                        </Td>
-                      </Tr>
-                      {userTasks &&
-                        userTasks.map((task) => {
-                          return (
-                            <Tr key={task.id}>
-                              <Td>{task.name}</Td>
-                            </Tr>
-                          );
-                        })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </TabPanel>
-              <TabPanel>
-                <TableContainer>
-                  <Table size="sm">
-                    <Tbody>
-                      {userTasks &&
-                        userTasks
-                          .filter((task) => task.status === "Not Started")
-                          .map((task) => {
-                            return (
-                              <Tr key={task.id}>
-                                <Td>{task.name}</Td>
-                              </Tr>
-                            );
-                          })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </TabPanel>
-              <TabPanel>
-                <TableContainer>
-                  <Table size="sm">
-                    <Tbody>
-                      {userTasks &&
-                        userTasks
-                          .filter((task) => task.status === "In Progress")
-                          .map((task) => {
-                            return (
-                              <Tr key={task.id}>
-                                <Td>{task.name}</Td>
-                              </Tr>
-                            );
-                          })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </TabPanel>
-              <TabPanel>
-                <TableContainer>
-                  <Table size="sm">
-                    <Tbody>
-                      {userTasks &&
-                        userTasks
-                          .filter((task) => task.status === "Complete")
-                          .map((task) => {
-                            return (
-                              <Tr key={task.id}>
-                                <Td>{task.name}</Td>
-                              </Tr>
-                            );
-                          })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Container>
-        <Container
-          border="2px"
-          borderRadius="5px"
-          mt="3em"
-          mb="3em"
-          width="100%"
-          maxWidth="100%"
-        >
-          <Container
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            maxWidth="100%"
-          >
-            <Heading size="md" textAlign="left">
-              Projects
-            </Heading>
-            <IconButton
-              aria-label="Search database"
-              borderRadius="50%"
-              icon={<AddIcon />}
-              onClick={() => {
-                setModalState("projects");
-                onOpen();
-              }}
-            />
-          </Container>
-          <ProjectsCarousel />
-        </Container>
+        {/* Import dashboard tasks */}
+        <Tasks
+          userTasks={userTasks}
+          addTask={addTask}
+          setModalState={setModalState}
+          onOpen={onOpen}
+        />
+        {/* Import dashboard projects */}
+        <Projects
+          userProjects={userProjects}
+          setModalState={setModalState}
+          onOpen={onOpen}
+        />
       </Container>
 
       {modalState === "tasks" && (
@@ -308,7 +171,10 @@ export default function Dashboard() {
             <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm setModalState={setModalState} />
+              <NewTaskForm
+                setUserTasks={setUserTasks}
+                setModalState={setModalState}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>
@@ -322,7 +188,10 @@ export default function Dashboard() {
             <ModalHeader margin="10px">New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewProjectForm setModalState={setModalState} />
+              <NewProjectForm
+                setUserProjects={setUserProjects}
+                setModalState={setModalState}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

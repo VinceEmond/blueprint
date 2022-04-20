@@ -15,6 +15,8 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import SpeechRecognition from "react-speech-recognition";
+import { useEffect } from "react";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -36,7 +38,18 @@ const NavLink = ({ children }) => (
 
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loginHandler, logoutHandler } = props;
+  const { loginHandler, logoutHandler, transcript, resetTranscript } = props;
+
+  useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if (e.key === "1") {
+        SpeechRecognition.startListening();
+      } else if (e.key === "2") {
+        SpeechRecognition.stopListening();
+        resetTranscript();
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -68,8 +81,12 @@ export default function NavBar(props) {
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
+              <div style={{ marginLeft: "2em" }}>
+                <p>Command Transcript History: {transcript}</p>
+              </div>
             </HStack>
           </HStack>
+
           <Flex alignItems={"center"}>
             <Menu>
               <MenuButton
@@ -86,6 +103,7 @@ export default function NavBar(props) {
                   }
                 />
               </MenuButton>
+
               <MenuList>
                 <a href="/">
                   <MenuItem onClick={() => loginHandler("Dylan", 1)}>

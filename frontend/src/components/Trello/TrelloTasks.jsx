@@ -39,7 +39,6 @@ const Title = styled.span`
 
 export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
-  let loading = false;
 
   const trelloColumns = {
     [uuidv4()]: {
@@ -63,11 +62,9 @@ export default function TrelloTasks() {
   const [columns, setColumns] = useState(trelloColumns);
 
   useEffect(() => {
-    console.log("BEFORE GET REQUEST AXIOS");
     axios
       .get("/api/tasks")
       .then((response) => {
-        console.log("GET REQUEST");
         const allTasks = response.data.tasks;
 
         // console.log("ALLTASKS: ", allTasks);
@@ -102,7 +99,7 @@ export default function TrelloTasks() {
 
         // console.log("trelloColumns: ", trelloColumns);
 
-        setUserTasks(...preventOverflow, cards.status);
+        setUserTasks((prev) => [...prev, cards.status]);
       })
       .catch((err) => console.log("err:", err));
   }, []);
@@ -149,7 +146,6 @@ export default function TrelloTasks() {
       axios
         .put(`/api/tasks/${movedItemId}`, removed)
         .then((response) => {
-          console.log("PUT REQUEST");
           // const allTasks = response.data.task;
           // let allTaskObj = [];
           // console.log("ALLTASKS: ", allTasks);
