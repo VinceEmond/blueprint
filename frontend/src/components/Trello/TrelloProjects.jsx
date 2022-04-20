@@ -36,74 +36,69 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-const trelloColumns = {
-  [uuidv4()]: {
-    title: "Not Started",
-    items: [],
-  },
-  [uuidv4()]: {
-    title: "In Progress",
-    items: [],
-  },
-  [uuidv4()]: {
-    title: "Pending",
-    items: [],
-  },
-  [uuidv4()]: {
-    title: "Complete",
-    items: [],
-  },
-};
-
 export default function TrelloTasks() {
   const [userTasks, setUserTasks] = useState([]);
+
+  const trelloColumns = {
+    [uuidv4()]: {
+      title: "Not Started",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "In Progress",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "Pending",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "Complete",
+      items: [],
+    },
+  };
+
   const [columns, setColumns] = useState(trelloColumns);
-  let loading = false;
 
   useEffect(() => {
-    if (!loading) {
-      loading = true;
-      axios
-        .get("/api/projects/")
-        .then((response) => {
-          const allProjects = response.data.projects;
-          let allProjectsObj = [];
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
 
-          // console.log("ALLTASKS: ", allTasks);
+        // console.log("ALLTASKS: ", allTasks);
 
-          const cards = allProjects.map((project) => {
-            let card = {
-              id: String(project.id),
-              category_id: String(project.category_id),
-              owner_id: String(project.owner_id),
-              name: String(project.name),
-              description: String(project.description),
-              start_date: String(project.start_date),
-              due_date: String(project.due_date),
-              modified_date: String(project.modified_date),
-              status: String(project.status),
-              is_active: String(project.is_active),
-            };
-            return allProjectsObj.push(card);
-          });
+        const cards = allProjects.map((project) => {
+          return {
+            id: String(project.id),
+            category_id: String(project.category_id),
+            owner_id: String(project.owner_id),
+            name: String(project.name),
+            description: String(project.description),
+            start_date: String(project.start_date),
+            due_date: String(project.due_date),
+            modified_date: String(project.modified_date),
+            status: String(project.status),
+            is_active: String(project.is_active),
+          };
+        });
 
-          // console.log("allProjectsObj: ", allProjectsObj);
+        // console.log("allProjectsObj: ", allProjectsObj);
 
-          for (let column in trelloColumns) {
-            for (let j = 0; j < allProjectsObj.length; j++) {
-              // console.log(trelloColumns[column].title);
-              // console.log(allProjectsObj[j].status);
-              if (trelloColumns[column].title === allProjectsObj[j].status)
-                trelloColumns[column].items.push(allProjectsObj[j]);
-            }
+        for (let column in trelloColumns) {
+          for (let j = 0; j < cards.length; j++) {
+            // console.log(trelloColumns[column].title);
+            // console.log(allProjectsObj[j].status);
+            if (trelloColumns[column].title === cards[j].status)
+              trelloColumns[column].items.push(cards[j]);
           }
+        }
 
-          // console.log("trelloColumns: ", trelloColumns);
+        // console.log("trelloColumns: ", trelloColumns);
 
-          setUserTasks(cards);
-        })
-        .catch((err) => console.log("err:", err));
-    }
+        setUserTasks((prev) => [...prev, cards.status]);
+      })
+      .catch((err) => console.log("err:", err));
   }, []);
 
   const onDragEnd = (result, columns, setColumns) => {
@@ -154,18 +149,15 @@ export default function TrelloTasks() {
       // console.log("ITEMID THAT CHANGES: ", movedItemId);
       // console.log("REMOVED: ", removed);
 
-      if (!loading) {
-        loading = true;
-        axios
-          .put(`/api/projects/${movedItemId}`, removed)
-          .then((response) => {
-            // const allProjects = response.data.project;
-            // let allProjectsObj = [];
-            // console.log("ALLPROJECTS: ", allProjects);
-            // console.log("SUCCESSFUL EDIT RQST: ", allProjects);
-          })
-          .catch((err) => console.log("err:", err));
-      }
+      axios
+        .put(`/api/projects/${movedItemId}`, removed)
+        .then((response) => {
+          // const allProjects = response.data.project;
+          // let allProjectsObj = [];
+          // console.log("ALLPROJECTS: ", allProjects);
+          // console.log("SUCCESSFUL EDIT RQST: ", allProjects);
+        })
+        .catch((err) => console.log("err:", err));
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.items];
