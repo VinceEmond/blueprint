@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Tr, Td, Heading } from "@chakra-ui/react";
+import { Tr, Td, Heading, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
+import ModalForm from "./ModalForm";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
+  const [modalState, setModalState] = useState("hide");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
@@ -51,8 +54,21 @@ export default function Tasks() {
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Tasks
       </Heading>
-      <ViewSelect setViewValue={setViewValue} />
+      <ViewSelect
+        setViewValue={setViewValue}
+        setModalState={setModalState}
+        onOpen={onOpen}
+        state="tasks"
+      />
       {View()}
+      <ModalForm
+        isOpen={isOpen}
+        onClose={onClose}
+        modalState={modalState}
+        setModalState={setModalState}
+        setUserTasks={setUserTasks}
+        setUserProjects={null}
+      />
     </div>
   );
 }

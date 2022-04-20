@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tr, Td, Heading, useDisclosure, IconButton } from "@chakra-ui/react";
+import { Tr, Td, Heading, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
@@ -56,6 +56,7 @@ export default function Projects() {
         setViewValue={setViewValue}
         setModalState={setModalState}
         onOpen={onOpen}
+        state="projects"
       />
       {View()}
       <ModalForm
