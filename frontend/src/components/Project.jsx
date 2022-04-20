@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   Table,
   Thead,
@@ -8,10 +8,10 @@ import {
   Th,
   Td,
   TableContainer,
-} from '@chakra-ui/react';
-import axios from 'axios';
+} from "@chakra-ui/react";
+import axios from "axios";
 // package that allows conversion of date data
-import moment from 'moment';
+import moment from "moment";
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const { id } = useParams();
@@ -24,7 +24,7 @@ export default function Tasks() {
         const allTasks = response.data.tasks;
         const taskList = allTasks.map((item) => {
           // converting date data to more readable data
-          let date = moment(item.due_date).utc().format('YYYY-MM-DD');
+          let date = moment(item.due_date).utc().format("YYYY-MM-DD");
           return (
             <Tr key={item.id}>
               <Td>{item.name}</Td>
@@ -37,7 +37,7 @@ export default function Tasks() {
         });
         setUserTasks(taskList);
       })
-      .catch((err) => console.log('err:', err));
+      .catch((err) => console.log("err:", err));
   }, [id]);
 
   return (
