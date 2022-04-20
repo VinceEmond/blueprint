@@ -14,14 +14,14 @@ export default function Tasks() {
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
     axios
-      .get("/api/tasks/")
+      .get("/api/tasks")
       .then((response) => {
         const allTasks = response.data.tasks;
         setUserTasks(allTasks);
         // console.log(allTasks)
       })
       .catch((err) => console.log("err:", err));
-  }, [viewValue, userTasks]);
+  }, [viewValue]);
 
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data

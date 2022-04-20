@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function ProjectTable(props) {
-  const { userProjects } = props;
+  const { projectList } = props;
   const projectColumn = ["Name", "Owner", "Due Date", "Status"];
 
   const projectHeader = projectColumn.map((column, index) => {
@@ -25,7 +25,7 @@ export default function ProjectTable(props) {
             <Thead>
               <Tr>{projectHeader}</Tr>
             </Thead>
-            <Tbody>{userProjects}</Tbody>
+            <Tbody>{projectList}</Tbody>
           </Table>
         </TableContainer>
       </Container>

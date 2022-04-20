@@ -8,7 +8,7 @@ import ProjectTable from "./Tables/ProjectTable";
 import ViewSelect from "./ViewSelect";
 
 export default function Projects() {
-  const [userProjects, setUserProjects] = useState(null);
+  const [userProjects, setUserProjects] = useState([]);
   const [viewValue, setViewValue] = useState("List");
 
   // Retrieve all tasks (eventually user specific tasks)
@@ -16,29 +16,29 @@ export default function Projects() {
     axios
       .get("/api/projects")
       .then((response) => {
-        const userProjects = response.data.projects;
-        const projectList = userProjects.map((item) => {
-          // converting date data to more readable data
-          let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-
-          return (
-            <Tr key={item.id}>
-              <Td>{item.name}</Td>
-              <Td>{item.owner_id}</Td>
-              <Td>{date}</Td>
-              <Td>{item.status}</Td>
-            </Tr>
-          );
-        });
-
-        setUserProjects(projectList);
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
       })
       .catch((err) => console.log("err:", err));
-  }, [viewValue, userProjects]);
+  }, [viewValue]);
+
+  const projectList = userProjects.map((item) => {
+    // converting date data to more readable data
+    let date = moment(item.due_date).utc().format("YYYY-MM-DD");
+
+    return (
+      <Tr key={item.id}>
+        <Td>{item.name}</Td>
+        <Td>{item.owner_id}</Td>
+        <Td>{date}</Td>
+        <Td>{item.status}</Td>
+      </Tr>
+    );
+  });
 
   function View() {
     if (viewValue === "List") {
-      return <ProjectTable userProjects={userProjects} />;
+      return <ProjectTable projectList={projectList} />;
     } else if (viewValue === "Board") {
       return <TrelloProjects />;
     }
