@@ -21,7 +21,7 @@ export default function Tasks() {
         // console.log(allTasks)
       })
       .catch((err) => console.log("err:", err));
-  }, [viewValue]);
+  }, [viewValue, userTasks]);
 
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data

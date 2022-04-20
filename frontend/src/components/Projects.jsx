@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Heading,
-} from "@chakra-ui/react";
+import { Tr, Td, Heading } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
@@ -39,10 +30,11 @@ export default function Projects() {
             </Tr>
           );
         });
+
         setUserProjects(projectList);
       })
       .catch((err) => console.log("err:", err));
-  }, [viewValue]);
+  }, [viewValue, userProjects]);
 
   function View() {
     if (viewValue === "List") {

@@ -20,7 +20,9 @@ import { useSpeechRecognition } from "react-speech-recognition";
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   //////////
+  // state of redirect URL
   const [redirectUrl, setRedirectUrl] = useState("");
+
   const commands = [
     {
       command: ["Open *"],
@@ -30,8 +32,8 @@ function App() {
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
 
-  // state of redirect URL
   const pages = ["home", "welcome", "about us", "projects", "tasks"];
+
   const urls = {
     home: "/",
     welcome: "/welcome",
@@ -66,8 +68,8 @@ function App() {
 
   return (
     <div className="App">
-      <ChakraProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ChakraProvider>
           <NavBar
             loginHandler={loginHandler}
             logoutHandler={logoutHandler}
@@ -86,16 +88,13 @@ function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:id" element={<Project />} />
               <Route path="/tasks" element={<Tasks />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/message" element={<Message />} />
               <Route path="/speech" element={<Speech />} />
             </Routes>
           </div>
-        </BrowserRouter>
-
-        {redirect}
-      </ChakraProvider>
+          {redirect && setRedirectUrl(null)}
+        </ChakraProvider>
+      </BrowserRouter>
     </div>
   );
 }
