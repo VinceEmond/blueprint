@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import TrelloTasksCard from "./TrelloTasksCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { preventOverflow } from "@popperjs/core";
 
 const Container = styled.div`
   display: flex;
