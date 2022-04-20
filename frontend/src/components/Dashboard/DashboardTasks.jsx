@@ -17,11 +17,9 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 
 export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
-  const tabFilters = ["Not Started", "In Progress", "Pending", "Complete"];
-
-  const currentTab = (tasks, filter = "Not Started", key) => {
+  const tabPanel = (tasks, filter = "Not Started") => {
     return (
-      <TabPanel key={key}>
+      <TabPanel>
         <TableContainer>
           <Table size="sm">
             <Tbody>
@@ -44,34 +42,18 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
     );
   };
 
-  const tabLists = () => {
-    const currentTabs = [];
-    currentTabs.push({
-      tasks: userTasks.map((task) => {
+  const tabList = (filter = "all") => {
+    return userTasks
+      .filter((task) => task.status === filter || filter === "all")
+      .map((task) => {
+        // For freshly rendered tasks, id will be undefined so make up temp id
+        const key = `${filter}+${task.id || task.name.length * 1000}`;
         return (
-          <Tr key={`${task.id}`}>
+          <Tr key={key}>
             <Td>{task.name}</Td>
           </Tr>
         );
-      }),
-      key: "all",
-    });
-    for (const filter of tabFilters) {
-      currentTabs.push({
-        tasks: userTasks
-          .filter((task) => task.status === filter)
-          .map((task) => {
-            return (
-              <Tr key={`${filter} ${task.id}`}>
-                <Td>{task.name}</Td>
-              </Tr>
-            );
-          }),
-        filter: filter,
-        key: filter,
       });
-    }
-    return currentTabs.map((tab) => currentTab(tab.tasks, tab.filter, tab.key));
   };
 
   return (
@@ -106,9 +88,16 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
           <Tab>All</Tab>
           <Tab>Not started</Tab>
           <Tab>In progress</Tab>
+          <Tab>Pending</Tab>
           <Tab>Complete</Tab>
         </TabList>
-        <TabPanels>{userTasks && tabLists()}</TabPanels>
+        <TabPanels>
+          {userTasks && tabPanel(tabList())}
+          {userTasks && tabPanel(tabList("Not Started"))}
+          {userTasks && tabPanel(tabList("In Progress"), "In Progress")}
+          {userTasks && tabPanel(tabList("Pending"), "Pending")}
+          {userTasks && tabPanel(tabList("Complete"), "Complete")}
+        </TabPanels>
       </Tabs>
     </Container>
   );
