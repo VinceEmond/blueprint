@@ -99,7 +99,7 @@ export default function Dashboard() {
       .catch((err) => console.log("err:", err));
   }, []);
 
-  // Onsubmit helper function for quick add tasks
+  // Onsubmit helper function for add tasks
   const addTask = (e, filter = "Not Started") => {
     e.preventDefault();
     const newTask = e.target[0].value.trim();

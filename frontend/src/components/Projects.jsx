@@ -30,7 +30,8 @@ export default function Projects() {
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
 
     return (
-      <Tr key={item.id}>
+      // Temporary hack for freshly added projects without database id (until page refresh)
+      <Tr key={item.id || item.description.length * 10}>
         <Td>{item.name}</Td>
         <Td>{item.owner_id}</Td>
         <Td>{date}</Td>
