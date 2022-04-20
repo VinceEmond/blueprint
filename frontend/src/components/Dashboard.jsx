@@ -9,7 +9,7 @@ import {
   Container,
   useDisclosure,
 } from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
+import { getUserName, getUserSpecificTasks } from "../helpers/selectors";
 import Tasks from "./Dashboard/DashboardTasks";
 import Projects from "./Dashboard/DashboardProjects";
 import ModalForm from "./ModalForm";
@@ -95,7 +95,8 @@ export default function Dashboard() {
       .get("/api/tasks")
       .then((response) => {
         const allTasks = response.data.tasks;
-        setUserTasks(allTasks);
+        const usersTasks = getUserSpecificTasks(allTasks, 1);
+        setUserTasks(usersTasks);
       })
       .catch((err) => console.log("err:", err));
   }, []);

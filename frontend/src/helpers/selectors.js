@@ -28,3 +28,14 @@ export function getProjectName(projectId, projects) {
 
   return filteredProjectName;
 }
+
+/* Gets all tasks assigned to a specific userID */
+export function getUserSpecificTasks(allTasks, user_id) {
+  if (!allTasks) {
+    return;
+  }
+
+  return allTasks.filter((task) => {
+    return task.assignee_id === user_id;
+  });
+}
