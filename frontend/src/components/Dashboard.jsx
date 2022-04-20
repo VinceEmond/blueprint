@@ -9,7 +9,11 @@ import {
   Container,
   useDisclosure,
 } from "@chakra-ui/react";
-import { getUserName, getUserSpecificTasks } from "../helpers/selectors";
+import {
+  getUserName,
+  getUserSpecificTasks,
+  getUserSpecificProjects,
+} from "../helpers/selectors";
 import Tasks from "./Dashboard/DashboardTasks";
 import Projects from "./Dashboard/DashboardProjects";
 import ModalForm from "./ModalForm";
@@ -83,11 +87,18 @@ export default function Dashboard() {
     axios
       .get("/api/projects")
       .then((response) => {
+        const userID = 1;
         const allProjects = response.data.projects;
-        setUserProjects(allProjects);
+        const usersTasks = getUserSpecificTasks(userTasks, userID);
+        const usersProjects = getUserSpecificProjects(
+          allProjects,
+          usersTasks,
+          userID
+        );
+        setUserProjects(usersProjects);
       })
       .catch((err) => console.log("err:", err));
-  }, []);
+  }, [userTasks]);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {

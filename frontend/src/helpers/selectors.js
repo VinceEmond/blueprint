@@ -39,3 +39,18 @@ export function getUserSpecificTasks(allTasks, user_id) {
     return task.assignee_id === user_id;
   });
 }
+
+/* Gets all projects where user is assigned to a task */
+export function getUserSpecificProjects(allProjects, userTasks, user_id) {
+  if (!allProjects || !userTasks) {
+    return;
+  }
+
+  return allProjects.filter((project) => {
+    for (const task of userTasks) {
+      if (task.project_id === project.id || project.owner_id === user_id) {
+        return project;
+      }
+    }
+  });
+}
