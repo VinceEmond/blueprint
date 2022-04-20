@@ -14,18 +14,19 @@ import {
 import axios from "axios";
 
 export default function NewProjectForm(props) {
-  // const testProjectValues = {
-  //   owner_id: 1,
-  //   name: "New 69 Project",
-  //   description: "Test Project Description Herrreeeeeasdasd",
-  //   start_date: '1969-04-20',
-  //   due_date: '1969-04-20',
-  //   modified_date: '2022-04-15',
-  //   status: 'Not Started',
-  //   category_id: 1
-  // }
+  const testProjectValues = {
+    owner_id: 1,
+    name: "New 69 Project",
+    description: "Test Project Description Herrreeeeeasdasd",
+    start_date: "1969-04-20",
+    due_date: "1969-04-20",
+    modified_date: "2022-04-15",
+    status: "Not Started",
+    category_id: 1,
+  };
 
-  const [projectFormValues, setProjectFormValues] = React.useState({});
+  const [projectFormValues, setProjectFormValues] =
+    React.useState(testProjectValues);
   const { setModalState, setUserProjects } = props;
 
   function createProject(projectFormValues) {
@@ -77,7 +78,8 @@ export default function NewProjectForm(props) {
           display="flex"
           alignItems="left"
           placeholder="Project name here..."
-          value={projectFormValues.name}>
+          value={projectFormValues.name}
+        >
           <EditablePreview display="flex" width="full" />
           <EditableInput
             display="flex"
@@ -90,7 +92,8 @@ export default function NewProjectForm(props) {
           value={projectFormValues.status || "Not Started"}
           width="40%"
           display="flex"
-          onChange={(e) => handleStatusChange(e)}>
+          onChange={(e) => handleStatusChange(e)}
+        >
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Pending">Pending</option>
@@ -104,7 +107,8 @@ export default function NewProjectForm(props) {
           placeholder="Select Owner"
           width="60%"
           display="flex"
-          onChange={(e) => handleOwnerChange(e)}>
+          onChange={(e) => handleOwnerChange(e)}
+        >
           <option value="1">Dylan</option>
           <option value="2">Pablo</option>
           <option value="3">Vince</option>
@@ -135,7 +139,8 @@ export default function NewProjectForm(props) {
         spacing="6"
         mt="1em"
         display="flex"
-        justifyContent="center">
+        justifyContent="center"
+      >
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
