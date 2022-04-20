@@ -101,8 +101,6 @@ export default function Projects() {
       });
     }
 
-    // boxShadow='2xl';
-
     return (
       // Temporary hack for freshly added projects without database id (until page refresh)
       <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>

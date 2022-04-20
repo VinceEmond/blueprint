@@ -56,3 +56,27 @@ export function updateUserProjectStatus(
   // console.log("FILTEREDPROJ ", filteredProject);
   // return filteredProject;
 }
+
+/* Updates user task status */
+export function updateUserTaskStatus(userTasks, task_id, checkBoxBool) {
+  let newStatus = "";
+
+  if (checkBoxBool === true) {
+    newStatus = "Complete";
+  } else {
+    newStatus = "Not Started";
+  }
+
+  const updateState = userTasks.map((task) => {
+    if (task.id === task_id) {
+      task.status = newStatus;
+    }
+    // console.log("PROJECT: ", project);
+    return task;
+  });
+  return updateState;
+
+  // const filteredProject = filteredState[0];
+  // console.log("FILTEREDPROJ ", filteredProject);
+  // return filteredProject;
+}
