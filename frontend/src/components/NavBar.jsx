@@ -39,7 +39,7 @@ const NavLink = ({ children }) => (
 
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loginHandler, logoutHandler, transcript } = props;
+  const { loginHandler, logoutHandler, transcript, resetTranscript } = props;
 
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
@@ -47,6 +47,7 @@ export default function NavBar(props) {
         SpeechRecognition.startListening();
       } else if (e.key === "2") {
         SpeechRecognition.stopListening();
+        resetTranscript();
       }
     });
   }, []);

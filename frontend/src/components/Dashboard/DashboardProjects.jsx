@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Heading,
-  IconButton,
-  Input,
-  TableContainer,
-  Table,
-  Tbody,
-  Tr,
-  Td,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Container, Heading, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ProjectsCarousel from "./ProjectsCarousel";
 
-export default function Projects({ setModalState, onOpen }) {
+export default function Projects({ setModalState, onOpen, userProjects }) {
   return (
     <Container
       border="2px"
@@ -45,7 +29,7 @@ export default function Projects({ setModalState, onOpen }) {
           }}
         />
       </Container>
-      <ProjectsCarousel />
+      <ProjectsCarousel userProjects={userProjects} />
     </Container>
   );
 }
