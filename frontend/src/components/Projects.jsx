@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Tr, Td, Heading } from "@chakra-ui/react";
+import { Tr, Td, Heading, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
 import TrelloProjects from "./Trello/TrelloProjects";
 import ProjectTable from "./Tables/ProjectTable";
 import ViewSelect from "./ViewSelect";
+import ModalForm from "./ModalForm";
 import { getProjectOwnerName } from "../helpers/selectors";
 
 export default function Projects() {
   const [userProjects, setUserProjects] = useState([]);
   const [viewValue, setViewValue] = useState("List");
+  const [modalState, setModalState] = useState("hide");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [userData, setUserData] = useState(null);
 
   // When mounted, API call for DB query for all users and specific user's name when component renders
@@ -49,7 +52,8 @@ export default function Projects() {
     // console.log("USERDATA:", userData);
     let ownerName = getProjectOwnerName(item.owner_id, userData);
     return (
-      <Tr key={item.id}>
+      // Temporary hack for freshly added projects without database id (until page refresh)
+      <Tr key={item.id || item.description.length * 10}>
         <Td>{item.name}</Td>
         <Td>{ownerName}</Td>
         <Td>{date}</Td>
@@ -71,8 +75,21 @@ export default function Projects() {
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Projects
       </Heading>
-      <ViewSelect setViewValue={setViewValue} />
+      <ViewSelect
+        setViewValue={setViewValue}
+        setModalState={setModalState}
+        onOpen={onOpen}
+        state="projects"
+      />
       {View()}
+      <ModalForm
+        isOpen={isOpen}
+        onClose={onClose}
+        modalState={modalState}
+        setModalState={setModalState}
+        setUserTasks={null}
+        setUserProjects={setUserProjects}
+      />
     </div>
   );
 }
