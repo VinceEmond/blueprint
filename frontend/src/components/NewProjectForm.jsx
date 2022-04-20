@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Editable,
   EditableInput,
@@ -27,6 +27,7 @@ export default function NewProjectForm(props) {
 
   const [projectFormValues, setProjectFormValues] = React.useState({});
   const { setModalState, setUserProjects } = props;
+  const initialRef = React.useRef();
 
   function createProject(projectFormValues) {
     axios
@@ -77,11 +78,13 @@ export default function NewProjectForm(props) {
           display="flex"
           alignItems="left"
           placeholder="Project name here..."
-          value={projectFormValues.name}>
+          value={projectFormValues.name}
+        >
           <EditablePreview display="flex" width="full" />
           <EditableInput
             display="flex"
             onChange={(e) => handleProjectChange(e)}
+            ref={initialRef}
           />
         </Editable>
 
@@ -90,7 +93,8 @@ export default function NewProjectForm(props) {
           value={projectFormValues.status || "Not Started"}
           width="40%"
           display="flex"
-          onChange={(e) => handleStatusChange(e)}>
+          onChange={(e) => handleStatusChange(e)}
+        >
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Pending">Pending</option>
@@ -104,7 +108,8 @@ export default function NewProjectForm(props) {
           placeholder="Select Owner"
           width="60%"
           display="flex"
-          onChange={(e) => handleOwnerChange(e)}>
+          onChange={(e) => handleOwnerChange(e)}
+        >
           <option value="1">Dylan</option>
           <option value="2">Pablo</option>
           <option value="3">Vince</option>
@@ -135,7 +140,8 @@ export default function NewProjectForm(props) {
         spacing="6"
         mt="1em"
         display="flex"
-        justifyContent="center">
+        justifyContent="center"
+      >
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
