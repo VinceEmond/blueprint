@@ -28,3 +28,31 @@ export function getProjectName(projectId, projects) {
 
   return filteredProjectName;
 }
+
+/* Updates user project status */
+export function updateUserProjectStatus(
+  userProjects,
+  project_id,
+  checkBoxBool
+) {
+  let newStatus = "";
+
+  if (checkBoxBool === true) {
+    newStatus = "Complete";
+  } else {
+    newStatus = "Not Started";
+  }
+
+  const updateState = userProjects.map((project) => {
+    if (project.id === project_id) {
+      project.status = newStatus;
+    }
+    // console.log("PROJECT: ", project);
+    return project;
+  });
+  return updateState;
+
+  // const filteredProject = filteredState[0];
+  // console.log("FILTEREDPROJ ", filteredProject);
+  // return filteredProject;
+}
