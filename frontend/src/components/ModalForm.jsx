@@ -10,7 +10,14 @@ import {
 import NewTaskForm from "./NewTaskForm";
 import NewProjectForm from "./NewProjectForm";
 
-export default function ModalForm() {
+export default function ModalForm({
+  setModalState,
+  modalState,
+  setUserProjects,
+  setUserTasks,
+  isOpen,
+  onClose,
+}) {
   return (
     <>
       {modalState === "tasks" && (
