@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
-// import LandingPage from "./LandingPage";
 import NavBar from "./NavBar";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
@@ -19,7 +18,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
-  //////////
+
   const [redirectUrl, setRedirectUrl] = useState("");
   const commands = [
     {
@@ -80,7 +79,7 @@ function App() {
 
           <div className="content">
             <Routes>
-              <Route exact path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/projects" element={<Projects />} />
