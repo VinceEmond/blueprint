@@ -67,6 +67,7 @@ export default function Dashboard() {
       .get("/api/users")
       .then((response) => {
         const allUsers = response.data.users;
+        console.log(allUsers);
         const specificUser = getUserName(allUsers, 3);
         setUserData(specificUser);
 

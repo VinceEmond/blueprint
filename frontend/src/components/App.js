@@ -15,6 +15,17 @@ import Speech from "./Speech/Speech";
 import { useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
 
+// let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
+
+// let projectButton = document.querySelectorAll("div.css-1mrikgh > button");
+
+// function taskClick() {
+//   taskButton.click();
+// }
+// function projectClick() {
+//   projectButton.click();
+// }
+
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null);
 
@@ -25,6 +36,18 @@ function App() {
       command: ["Open *"],
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
+    // {
+    //   command: "add task",
+    //   callback: () => {
+    //     taskClick();
+    //   },
+    // },
+    // {
+    //   command: "add project",
+    //   callback: () => {
+    //     projectClick();
+    //   },
+    // },
   ];
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });

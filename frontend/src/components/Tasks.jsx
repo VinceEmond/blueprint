@@ -7,12 +7,25 @@ import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
 import ModalForm from "./ModalForm";
+import { getProjectName } from "../helpers/selectors";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userProjects, setUserProjects] = useState(null);
+
+  // Retrieve all projects (eventually user specific projects)
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
@@ -30,10 +43,12 @@ export default function Tasks() {
     // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
 
+    let projectName = getProjectName(item.project_id, userProjects);
+
     return (
       <Tr key={item.id}>
         <Td>{item.name}</Td>
-        <Td>{item.project_id}</Td>
+        <Td>{projectName}</Td>
         <Td>{date}</Td>
         <Td>{item.status}</Td>
         <Td>{item.priority}</Td>

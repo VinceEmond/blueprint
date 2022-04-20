@@ -88,10 +88,8 @@ export default function NavBar(props) {
             </HStack>
           </HStack>
 
-
-
           <Flex alignItems={"center"}>
-          <Message />
+            <Message />
             <Menu>
               <MenuButton
                 as={Button}
@@ -107,8 +105,6 @@ export default function NavBar(props) {
                   }
                 />
               </MenuButton>
-
-                
 
               <MenuList>
                 <a href="/">
