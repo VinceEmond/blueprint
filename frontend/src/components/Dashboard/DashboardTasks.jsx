@@ -71,9 +71,7 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
         key: filter,
       });
     }
-    return currentTabs.map((tab, index) =>
-      currentTab(tab.tasks, tab.filter, index)
-    );
+    return currentTabs.map((tab) => currentTab(tab.tasks, tab.filter, tab.key));
   };
 
   return (
@@ -82,12 +80,14 @@ export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
       maxWidth="100%"
       border="2px"
       borderRadius="5px"
-      mt="4em">
+      mt="4em"
+    >
       <Container
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
-        maxWidth="100%">
+        maxWidth="100%"
+      >
         <Heading size="md" textAlign="left">
           My Priorities
         </Heading>
