@@ -6,10 +6,23 @@ import moment from "moment";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
+import { getProjectName } from "../helpers/selectors";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
+  const [userProjects, setUserProjects] = useState(null);
+
+  // Retrieve all projects (eventually user specific projects)
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
@@ -27,10 +40,12 @@ export default function Tasks() {
     // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
 
+    let projectName = getProjectName(item.project_id, userProjects);
+
     return (
       <Tr key={item.id}>
         <Td>{item.name}</Td>
-        <Td>{item.project_id}</Td>
+        <Td>{projectName}</Td>
         <Td>{date}</Td>
         <Td>{item.status}</Td>
         <Td>{item.priority}</Td>
