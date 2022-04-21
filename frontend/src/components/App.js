@@ -11,7 +11,6 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
-import Speech from "./Speech/Speech";
 import { useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
 
@@ -110,7 +109,6 @@ function App() {
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/speech" element={<Speech />} />
             </Routes>
           </div>
           {redirect && setRedirectUrl(null)}

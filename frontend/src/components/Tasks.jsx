@@ -12,7 +12,6 @@ export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [userProjects, setUserProjects] = useState(null);
-  const [userData, setUserData] = useState(null);
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -99,6 +98,8 @@ export default function Tasks() {
       </Tr>
     );
   });
+
+  // returns component based on view option
   function View() {
     if (viewValue === "List") {
       return <TaskTable taskList={taskList} />;
