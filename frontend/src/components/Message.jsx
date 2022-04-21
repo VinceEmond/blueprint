@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import {
   Drawer,
   DrawerBody,
@@ -18,48 +17,55 @@ import {
   Image,
 } from "@chakra-ui/react";
 import moment from "moment";
+import axios from "axios";
 
 export default function DrawerExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef(null);
-  const chatMessagesContainer = React.useRef(null);
-
-  // const sampleMessages = [
-  //   "Good morning!",
-  //   "Hey!",
-  //   "I've completed the message board testing",
-  //   "Awesome I'll pull your changes from github",
-  // ];
-
-  const sampleMessages = [
-    { message: "Good morning!", sender: "Vince" },
-    { message: "Hey!" },
-    { message: "I've completed the message board testing" },
-    { message: "Awesome I'll pull your changes from github" },
-  ];
+  const initialFocusRef = React.useRef();
 
   const divStyle = {
     overflowY: "scroll",
     position: "relative",
   };
 
-  const [messages, setMessages] = useState(sampleMessages);
+  const [messages, setMessages] = useState([]);
   const [messageBox, setMessageBox] = useState("");
+  const [currentUser, setCurrentUser] = useState(1);
   const divRef = useRef(null);
 
   const scrollToBottom = () => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const formatDate = (dateString) => {
+    return moment(dateString, "YYYY-MM-DD HH:mm:ss").format("MMMM Do, h:mma");
+  };
+
+  // Scrolls the chats up when the limi is reached
   useEffect(() => {
     if (divRef.current) {
       scrollToBottom();
     }
   }, [messages]);
 
+  // When mounted, API call for DB query for all messages
+  useEffect(() => {
+    axios
+      .get("/api/messages")
+      .then((response) => {
+        const allMessages = response.data.messages;
+        setMessages(allMessages);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
+
   const handleMessageBox = (event) => setMessageBox(event.target.value);
   const handleSendMessage = () => {
-    setMessages((prev) => [...prev, { message: messageBox }]);
+    setMessages((prev) => [
+      ...prev,
+      { message: messageBox, sender_id: currentUser },
+    ]);
     setMessageBox("");
   };
 
@@ -67,12 +73,22 @@ export default function DrawerExample() {
     window.open("https://meet.google.com/new");
   };
 
-  const messagesComponents = messages.map((m, index) => {
+  const messagesComponents = messages.map((message, index) => {
     let color = "#3182CE";
     let justify = "left";
     let avatar = "";
     let userName = "";
-    let messageTimestamp = moment().format("MMMM Do, h:mma");
+    // let messageTimestamp = moment().format("MMMM Do, h:mma");
+    let messageTimestamp = formatDate(message.time_stamp);
+    let senderName = "Unknown Sender";
+
+    if (message.sender_id === 1) {
+      senderName = "Dylan";
+    } else if (message.sender_id === 2) {
+      senderName = "Pablo";
+    } else if (message.sender_id === 3) {
+      senderName = "Vince";
+    }
 
     if (index % 2 === 0) {
       color = "#3182CE";
@@ -110,7 +126,7 @@ export default function DrawerExample() {
           </Box>
 
           <div>
-            <p>{userName} Says:</p>
+            <p>{senderName} Says:</p>
             <Box
               key={index}
               borderRadius="lg"
@@ -120,7 +136,7 @@ export default function DrawerExample() {
               p={4}
               color="white"
             >
-              <p>{m.message}</p>
+              <p>{message.content}</p>
             </Box>
           </div>
         </HStack>
@@ -136,6 +152,7 @@ export default function DrawerExample() {
       <Drawer
         isOpen={isOpen}
         placement="right"
+        initialFocusRef={initialFocusRef}
         onClose={onClose}
         finalFocusRef={btnRef}
         size="md"
@@ -155,9 +172,7 @@ export default function DrawerExample() {
 
           <HStack display="flex" justifyContent="center">
             <Textarea
-              // mt="1em"
-              // margin='1px'
-
+              ref={initialFocusRef}
               width="100%"
               placeholder="Type your message here..."
               value={messageBox}

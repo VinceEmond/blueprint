@@ -9,7 +9,11 @@ import {
   Container,
   useDisclosure,
 } from "@chakra-ui/react";
-import { getUserName } from "../helpers/selectors";
+import {
+  getUserName,
+  getUserSpecificTasks,
+  getUserSpecificProjects,
+} from "../helpers/selectors";
 import Tasks from "./Dashboard/DashboardTasks";
 import Projects from "./Dashboard/DashboardProjects";
 import ModalForm from "./ModalForm";
@@ -67,7 +71,7 @@ export default function Dashboard() {
       .get("/api/users")
       .then((response) => {
         const allUsers = response.data.users;
-        console.log(allUsers);
+        // console.log(allUsers);
         const specificUser = getUserName(allUsers, 3);
         setUserData(specificUser);
 
@@ -83,11 +87,18 @@ export default function Dashboard() {
     axios
       .get("/api/projects")
       .then((response) => {
+        const userID = 1;
         const allProjects = response.data.projects;
-        setUserProjects(allProjects);
+        const usersTasks = getUserSpecificTasks(userTasks, userID);
+        const usersProjects = getUserSpecificProjects(
+          allProjects,
+          usersTasks,
+          userID
+        );
+        setUserProjects(usersProjects);
       })
       .catch((err) => console.log("err:", err));
-  }, []);
+  }, [userTasks]);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {
@@ -95,7 +106,8 @@ export default function Dashboard() {
       .get("/api/tasks")
       .then((response) => {
         const allTasks = response.data.tasks;
-        setUserTasks(allTasks);
+        const usersTasks = getUserSpecificTasks(allTasks, 1);
+        setUserTasks(usersTasks);
       })
       .catch((err) => console.log("err:", err));
   }, []);

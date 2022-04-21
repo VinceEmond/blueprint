@@ -11,7 +11,6 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
-import Speech from "./Speech/Speech";
 import { useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
 
@@ -27,7 +26,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 // }
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  // const [cookies, setCookie, removeCookie] = useCookies(null);
 
   const [redirectUrl, setRedirectUrl] = useState("");
 
@@ -76,26 +75,11 @@ function App() {
 
   let redirect = "";
 
-  const loginHandler = (name, id) => {
-    setCookie("name", name, { path: "/" });
-    setCookie("id", id, { path: "/" });
-  };
-
-  const logoutHandler = (e) => {
-    removeCookie("name");
-    removeCookie("id");
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
         <ChakraProvider>
-          <NavBar
-            loginHandler={loginHandler}
-            logoutHandler={logoutHandler}
-            transcript={transcript}
-            resetTranscript={resetTranscript}
-          />
+          <NavBar transcript={transcript} resetTranscript={resetTranscript} />
           {redirectUrl && pages.includes(redirectUrl) && (
             <Navigate to={urls[redirectUrl]} />
           )}
@@ -110,7 +94,6 @@ function App() {
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/speech" element={<Speech />} />
             </Routes>
           </div>
           {redirect && setRedirectUrl(null)}

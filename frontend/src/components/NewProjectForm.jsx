@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Editable,
   EditableInput,
@@ -28,6 +28,7 @@ export default function NewProjectForm(props) {
   const [projectFormValues, setProjectFormValues] =
     React.useState(testProjectValues);
   const { setModalState, setUserProjects } = props;
+  const initialRef = React.useRef();
 
   function createProject(projectFormValues) {
     axios
@@ -84,6 +85,7 @@ export default function NewProjectForm(props) {
           <EditableInput
             display="flex"
             onChange={(e) => handleProjectChange(e)}
+            ref={initialRef}
           />
         </Editable>
 
