@@ -65,22 +65,22 @@ export default function Dashboard() {
   }
 
   // When mounted, API call for DB query for all users and specific user's name when component renders
-  useEffect(() => {
-    const controller = new AbortController();
-    axios
-      .get("/api/users")
-      .then((response) => {
-        const allUsers = response.data.users;
-        // console.log(allUsers);
-        const specificUser = getUserName(allUsers, 3);
-        setUserData(specificUser);
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   axios
+  //     .get("/api/users")
+  //     .then((response) => {
+  //       const allUsers = response.data.users;
+  //       // console.log(allUsers);
+  //       const specificUser = getUserName(allUsers, 3);
+  //       setUserData(specificUser);
 
-        return () => {
-          controller.abort();
-        };
-      })
-      .catch((err) => console.log("err:", err));
-  }, []);
+  //       return () => {
+  //         controller.abort();
+  //       };
+  //     })
+  //     .catch((err) => console.log("err:", err));
+  // }, []);
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -156,7 +156,7 @@ export default function Dashboard() {
       <Container width="50%" maxWidth="100%">
         {/* Import dashboard tasks */}
         <Tasks
-          userTasks={userTasks}
+          // userTasks={userTasks}
           addTask={addTask}
           setModalState={setModalState}
           onOpen={onOpen}
@@ -170,7 +170,7 @@ export default function Dashboard() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        setUserTasks={setUserTasks}
+        // setUserTasks={setUserTasks}
       />
     </div>
   );
