@@ -40,12 +40,14 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const projectsRoutes = require("./routes/projects");
 const tasksRoutes = require("./routes/tasks");
+const smsRoutes = require("./routes/sms");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/projects", projectsRoutes(db));
 app.use("/api/tasks", tasksRoutes(db));
+app.use("/api/sms", smsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
