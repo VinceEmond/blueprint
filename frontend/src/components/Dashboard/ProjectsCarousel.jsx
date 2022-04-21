@@ -7,23 +7,38 @@ import { CCarouselItem } from "@coreui/react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import SocialProfileSimple from "./ProjectCard";
 import { projectsContext } from "../../Providers/ProjectsProvider";
+import { usersContext } from "../../Providers/UsersProvider";
+import { tasksContext } from "../../Providers/TasksProvider";
 
 export default function ProjectsCarousel() {
   const { userProjects } = useContext(projectsContext);
+  const { cookies } = useContext(usersContext);
+  const { userTasks } = useContext(tasksContext);
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
     const allProjects = userProjects ? userProjects : [];
-    const boxes = allProjects.map((project) => {
-      return (
-        <SocialProfileSimple
-          key={`p${project.id || project.description.length * 100}`}
-          project={project}
-        />
-      );
-    });
+    const userAssignedProjectsByTask = userTasks
+      .filter((task) => task.assignee_id === Number(cookies.id))
+      .map((task) => task.project_id);
+    console.log(userAssignedProjectsByTask);
+    const boxes = allProjects
+      .filter((project) => {
+        return (
+          project.owner_id === Number(cookies.id) ||
+          userAssignedProjectsByTask.includes(project.id)
+        );
+      })
+      .map((project) => {
+        return (
+          <SocialProfileSimple
+            key={`p${project.id || project.description.length * 100}`}
+            project={project}
+          />
+        );
+      });
     setProjectBoxes(boxes);
-  }, [userProjects]);
+  }, [userProjects, userTasks]);
 
   const listProjectFlexes = () => {
     const flexes = [];
