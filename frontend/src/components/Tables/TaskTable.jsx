@@ -12,7 +12,14 @@ import {
 
 export default function TaskTable(props) {
   const { taskList } = props;
-  const taskColumn = ["Name", "Project Name", "Due Date", "Status", "Priority"];
+  const taskColumn = [
+    "Complete",
+    "Name",
+    "Project Name",
+    "Due Date",
+    "Status",
+    "Priority",
+  ];
 
   const taskHeader = taskColumn.map((column, index) => {
     return <Th key={index}>{column}</Th>;
@@ -21,7 +28,7 @@ export default function TaskTable(props) {
     <Center>
       <Container borderWidth="1px" borderRadius="lg" maxW="8xl">
         <TableContainer>
-          <Table variant="striped" colorScheme="blue" size="lg">
+          <Table size="lg">
             <Thead>
               <Tr>{taskHeader}</Tr>
             </Thead>

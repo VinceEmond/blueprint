@@ -12,7 +12,7 @@ import {
 
 export default function ProjectTable(props) {
   const { projectList } = props;
-  const projectColumn = ["Name", "Owner", "Due Date", "Status"];
+  const projectColumn = ["Complete", "Name", "Owner", "Due Date", "Status"];
 
   const projectHeader = projectColumn.map((column, index) => {
     return <Th key={index}>{column}</Th>;
@@ -21,7 +21,7 @@ export default function ProjectTable(props) {
     <Center>
       <Container borderWidth="1px" borderRadius="lg" maxW="8xl">
         <TableContainer>
-          <Table variant="striped" colorScheme="blue" size="lg">
+          <Table size="lg">
             <Thead>
               <Tr>{projectHeader}</Tr>
             </Thead>

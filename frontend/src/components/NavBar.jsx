@@ -16,8 +16,9 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import SpeechRecognition from "react-speech-recognition";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Message from "./Message";
+import { usersContext } from "../Providers/UsersProvider";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -39,7 +40,23 @@ const NavLink = ({ children }) => (
 
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loginHandler, logoutHandler, transcript, resetTranscript } = props;
+  const { transcript, resetTranscript } = props;
+  const {
+    login,
+    logout,
+    cookies,
+    currentUser,
+    getUserByID,
+    allUsers,
+    setCurrentUser,
+  } = useContext(usersContext);
+
+  const userObj = getUserByID(cookies.id);
+
+  // const testGetUser = () => {
+  //   setCurrentUser(getUserByID(cookies.id));
+  //   console.log("The user:", getUserByID(cookies.id));
+  // };
 
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
@@ -51,6 +68,12 @@ export default function NavBar(props) {
       }
     });
   }, []);
+
+  // const testGetUser = () => {
+  //   console.log("Retreived user from ID", getUserByID(cookies.id));
+  // };
+
+  // console.log("Current user", currentUser);
 
   return (
     <>
@@ -84,6 +107,7 @@ export default function NavBar(props) {
               ))}
               <div style={{ marginLeft: "2em" }}>
                 <p>Command Transcript History: {transcript}</p>
+                <p>Logged in as: {currentUser && currentUser.first_name}</p>
               </div>
             </HStack>
           </HStack>
@@ -108,22 +132,16 @@ export default function NavBar(props) {
 
               <MenuList>
                 <a href="/">
-                  <MenuItem onClick={() => loginHandler("Dylan", 1)}>
-                    Dylan
-                  </MenuItem>
+                  <MenuItem onClick={() => login(1)}>Dylan</MenuItem>
                 </a>
                 <a href="/">
-                  <MenuItem onClick={() => loginHandler("Vince", 3)}>
-                    Vince
-                  </MenuItem>
+                  <MenuItem onClick={() => login(3)}>Vince</MenuItem>
                 </a>
                 <a href="/">
-                  <MenuItem onClick={() => loginHandler("Pablo", 2)}>
-                    Pablo
-                  </MenuItem>
+                  <MenuItem onClick={() => login(2)}>Pablo</MenuItem>
                 </a>
                 <a href="/welcome">
-                  <MenuItem onClick={(e) => logoutHandler(e)}>Logout</MenuItem>
+                  <MenuItem onClick={() => logout()}>Logout</MenuItem>
                 </a>
               </MenuList>
             </Menu>
