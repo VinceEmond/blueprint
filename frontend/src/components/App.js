@@ -27,7 +27,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 // }
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  // const [cookies, setCookie, removeCookie] = useCookies(null);
 
   const [redirectUrl, setRedirectUrl] = useState("");
 
@@ -76,26 +76,11 @@ function App() {
 
   let redirect = "";
 
-  const loginHandler = (name, id) => {
-    setCookie("name", name, { path: "/" });
-    setCookie("id", id, { path: "/" });
-  };
-
-  const logoutHandler = (e) => {
-    removeCookie("name");
-    removeCookie("id");
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
         <ChakraProvider>
-          <NavBar
-            loginHandler={loginHandler}
-            logoutHandler={logoutHandler}
-            transcript={transcript}
-            resetTranscript={resetTranscript}
-          />
+          <NavBar transcript={transcript} resetTranscript={resetTranscript} />
           {redirectUrl && pages.includes(redirectUrl) && (
             <Navigate to={urls[redirectUrl]} />
           )}

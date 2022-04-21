@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tr, Td, Heading } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
@@ -7,11 +7,22 @@ import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
 import { getProjectName } from "../helpers/selectors";
+import { usersContext } from "../Providers/UsersProvider";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [userProjects, setUserProjects] = useState(null);
+
+  const {
+    login,
+    logout,
+    cookies,
+    currentUser,
+    getUserByID,
+    allUsers,
+    setCurrentUser,
+  } = useContext(usersContext);
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -65,6 +76,7 @@ export default function Tasks() {
     <div>
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Tasks
+        <p>{currentUser && currentUser.first_name}</p>
       </Heading>
       <ViewSelect setViewValue={setViewValue} />
       {View()}
