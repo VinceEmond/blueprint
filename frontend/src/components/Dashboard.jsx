@@ -162,11 +162,7 @@ export default function Dashboard() {
           onOpen={onOpen}
         />
         {/* Import dashboard projects */}
-        <Projects
-          userProjects={userProjects}
-          setModalState={setModalState}
-          onOpen={onOpen}
-        />
+        <Projects setModalState={setModalState} onOpen={onOpen} />
       </Container>
 
       <ModalForm
@@ -175,7 +171,6 @@ export default function Dashboard() {
         modalState={modalState}
         setModalState={setModalState}
         setUserTasks={setUserTasks}
-        setUserProjects={setUserProjects}
       />
     </div>
   );
