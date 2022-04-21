@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Tr, Td, Heading, Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import {
+  Tr,
+  Td,
+  Heading,
+  Checkbox,
+  CheckboxGroup,
+  useDisclosure,
+} from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
@@ -8,12 +15,15 @@ import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
 import { usersContext } from "../Providers/UsersProvider";
 import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
+import ModalForm from "./ModalForm";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [userProjects, setUserProjects] = useState(null);
   const { currentUser } = useContext(usersContext);
+  const [modalState, setModalState] = useState("hide");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -37,9 +47,13 @@ export default function Tasks() {
       })
       .catch((err) => console.log("err:", err));
   }, [viewValue]);
+
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
+
+    // console.log(`UserProjects: ${userProjects}`);
+    // console.log(`item.project_id: ${item.project_id}`);
 
     let projectName = getProjectName(item.project_id, userProjects);
 
@@ -82,7 +96,8 @@ export default function Tasks() {
     }
 
     return (
-      <Tr key={item.id} bg={completeStatusBool}>
+      // Dylan's temp hack to make sure new task gets unique key
+      <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
         <Td size="sm">
           <CheckboxGroup defaultValue={checkValues}>
             <Checkbox
@@ -114,8 +129,21 @@ export default function Tasks() {
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Tasks
       </Heading>
-      <ViewSelect setViewValue={setViewValue} />
+      <ViewSelect
+        setViewValue={setViewValue}
+        setModalState={setModalState}
+        onOpen={onOpen}
+        state="tasks"
+      />
       {View()}
+      <ModalForm
+        isOpen={isOpen}
+        onClose={onClose}
+        modalState={modalState}
+        setModalState={setModalState}
+        setUserTasks={setUserTasks}
+        setUserProjects={null}
+      />
     </div>
   );
 }

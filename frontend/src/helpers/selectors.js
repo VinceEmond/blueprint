@@ -22,7 +22,7 @@ export function getProjectOwnerName(ownerId, users) {
 /* Gets project name from project id */
 export function getProjectName(projectId, projects) {
   const filteredProject = projects.filter((project) => {
-    return project.id === projectId;
+    return project.id === Number(projectId);
   });
   const filteredProjectName = filteredProject[0].name;
 
