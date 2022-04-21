@@ -41,7 +41,11 @@ export default function NewTaskForm(props) {
     axios
       .post("/api/tasks", taskFormValues)
       .then((response) => {
-        setUserTasks((prev) => [...prev, taskFormValues]);
+        setUserTasks((prev) => {
+          console.log(taskFormValues);
+          console.log(prev);
+          return [...prev, taskFormValues];
+        });
         console.log("Succesfully added a new Task to database");
       })
       .catch((err) => console.log("err:", err));
@@ -54,10 +58,16 @@ export default function NewTaskForm(props) {
     setTaskFormValues({ ...taskFormValues, status: event.target.value });
   }
   function handleProjectIDChange(event) {
-    setTaskFormValues({ ...taskFormValues, project_id: event.target.value });
+    setTaskFormValues({
+      ...taskFormValues,
+      project_id: Number(event.target.value),
+    });
   }
   function handleAssigneeChange(event) {
-    setTaskFormValues({ ...taskFormValues, assignee_id: event.target.value });
+    setTaskFormValues({
+      ...taskFormValues,
+      assignee_id: Number(event.target.value),
+    });
   }
   function handleDateChange(event) {
     setTaskFormValues({ ...taskFormValues, due_date: event.target.value });
@@ -111,9 +121,9 @@ export default function NewTaskForm(props) {
           display="flex"
           onChange={(e) => handleProjectIDChange(e)}
         >
-          <option value="1">Project 1</option>
-          <option value="2">Project 2</option>
-          <option value="3">Project 3</option>
+          <option value={1}>Project 1</option>
+          <option value={2}>Project 2</option>
+          <option value={3}>Project 3</option>
         </Select>
       </HStack>
 
@@ -126,9 +136,9 @@ export default function NewTaskForm(props) {
           display="flex"
           onChange={(e) => handleAssigneeChange(e)}
         >
-          <option value="1">Dylan</option>
-          <option value="2">Pablo</option>
-          <option value="3">Vince</option>
+          <option value={1}>Dylan</option>
+          <option value={2}>Pablo</option>
+          <option value={3}>Vince</option>
         </Select>
       </HStack>
       <HStack mt="1em">

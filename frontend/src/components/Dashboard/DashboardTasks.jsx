@@ -43,11 +43,7 @@ export default function Tasks({ setModalState, onOpen }) {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
-          console.log(`Taskformvalues: ${taskFormValues}`);
-          setUserTasks((prev) => {
-            console.log(prev);
-            return [...prev, taskFormValues];
-          });
+          setUserTasks((prev) => [...prev, taskFormValues]);
           console.log("Succesfully added new Task to database");
         })
         .catch((err) => console.log("err:", err));
@@ -95,10 +91,6 @@ export default function Tasks({ setModalState, onOpen }) {
         );
       });
   };
-
-  useEffect(() => {
-    console.log(userTasks);
-  }, [userTasks]);
 
   return (
     <Container
