@@ -12,7 +12,7 @@ export default function TasksProvider(props) {
       .get("/api/tasks")
       .then((response) => {
         const allTasks = response.data.tasks;
-        setUserTasks(usersTasks);
+        setUserTasks(allTasks);
       })
       .catch((err) => console.log("err:", err));
   }, []);

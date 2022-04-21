@@ -13,7 +13,6 @@ import NewProjectForm from "./NewProjectForm";
 export default function ModalForm({
   setModalState,
   modalState,
-  setUserTasks,
   isOpen,
   onClose,
 }) {
@@ -26,10 +25,7 @@ export default function ModalForm({
             <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm
-                setUserTasks={setUserTasks}
-                setModalState={setModalState}
-              />
+              <NewTaskForm setModalState={setModalState} />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Editable,
   EditableInput,
@@ -12,6 +12,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { tasksContext } from "../Providers/TasksProvider";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {
@@ -27,12 +28,13 @@ export default function NewTaskForm(props) {
 
   // const arrayOfUserNames = ["Vince", "Dylan", "Pablo"];
 
-  const [taskFormValues, setTaskFormValues] = React.useState({
+  const [taskFormValues, setTaskFormValues] = useState({
     start_date: "2000-01-01",
     modified_date: "2022-04-18",
     category_id: 1,
   });
-  const { setModalState, setUserTasks } = props;
+  const { setModalState } = props;
+  const { setUserTasks } = useContext(tasksContext);
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
@@ -81,7 +83,8 @@ export default function NewTaskForm(props) {
           display="flex"
           alignItems="left"
           placeholder="Task name here..."
-          value={taskFormValues.name}>
+          value={taskFormValues.name}
+        >
           <EditablePreview display="flex" width="full" />
           <EditableInput display="flex" onChange={(e) => handleNameChange(e)} />
         </Editable>
@@ -90,7 +93,8 @@ export default function NewTaskForm(props) {
           value={taskFormValues.status || "Not Started"}
           width="40%"
           display="flex"
-          onChange={(e) => handleStatusChange(e)}>
+          onChange={(e) => handleStatusChange(e)}
+        >
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Pending">Pending</option>
@@ -105,7 +109,8 @@ export default function NewTaskForm(props) {
           // value={'Not Started'}
           width="60%"
           display="flex"
-          onChange={(e) => handleProjectIDChange(e)}>
+          onChange={(e) => handleProjectIDChange(e)}
+        >
           <option value="1">Project 1</option>
           <option value="2">Project 2</option>
           <option value="3">Project 3</option>
@@ -119,7 +124,8 @@ export default function NewTaskForm(props) {
           // value={'Not Started'}
           width="60%"
           display="flex"
-          onChange={(e) => handleAssigneeChange(e)}>
+          onChange={(e) => handleAssigneeChange(e)}
+        >
           <option value="1">Dylan</option>
           <option value="2">Pablo</option>
           <option value="3">Vince</option>
@@ -146,26 +152,30 @@ export default function NewTaskForm(props) {
         mt="1em"
         display="flex"
         justifyContent="center"
-        padding="10px">
+        padding="10px"
+      >
         <Button
           colorScheme="green"
           name="Low"
           onClick={(e) => handlePriorityChange(e)}
-          width="100px">
+          width="100px"
+        >
           low
         </Button>
         <Button
           colorScheme="yellow"
           name="Medium"
           onClick={(e) => handlePriorityChange(e)}
-          width="100px">
+          width="100px"
+        >
           medium
         </Button>
         <Button
           colorScheme="red"
           name="High"
           onClick={(e) => handlePriorityChange(e)}
-          width="100px">
+          width="100px"
+        >
           high
         </Button>
       </ButtonGroup>
@@ -174,7 +184,8 @@ export default function NewTaskForm(props) {
         spacing="6"
         mt="1em"
         display="flex"
-        justifyContent="center">
+        justifyContent="center"
+      >
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
