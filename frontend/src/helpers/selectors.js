@@ -29,6 +29,32 @@ export function getProjectName(projectId, projects) {
   return filteredProjectName;
 }
 
+/* Gets all tasks assigned to a specific userID */
+export function getUserSpecificTasks(allTasks, user_id) {
+  if (!allTasks) {
+    return;
+  }
+
+  return allTasks.filter((task) => {
+    return task.assignee_id === user_id;
+  });
+}
+
+/* Gets all projects where user is assigned to a task */
+export function getUserSpecificProjects(allProjects, userTasks, user_id) {
+  if (!allProjects || !userTasks) {
+    return;
+  }
+
+  return allProjects.filter((project) => {
+    for (const task of userTasks) {
+      if (task.project_id === project.id || project.owner_id === user_id) {
+        return project;
+      }
+    }
+  });
+}
+
 /* Updates user project status */
 export function updateUserProjectStatus(
   userProjects,
