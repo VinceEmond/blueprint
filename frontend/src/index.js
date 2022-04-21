@@ -1,6 +1,4 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 
 import App from "./components/App";
 
@@ -9,6 +7,7 @@ import { CookiesProvider } from "react-cookie";
 import UsersProvider from "./Providers/UsersProvider";
 import ViewsProvider from "./Providers/ViewProvider";
 import ProjectsProvider from "./Providers/ProjectsProvider";
+import TasksProvider from "./Providers/TasksProvider";
 
 // 👇️ IMPORTANT: use correct ID of your root element
 // this is the ID of the div in your index.html file
@@ -22,9 +21,11 @@ root.render(
   <CookiesProvider>
     <UsersProvider>
       <ProjectsProvider>
-        <ViewsProvider>
-          <App />
-        </ViewsProvider>
+        <TasksProvider>
+          <ViewsProvider>
+            <App />
+          </ViewsProvider>
+        </TasksProvider>
       </ProjectsProvider>
     </UsersProvider>
   </CookiesProvider>
