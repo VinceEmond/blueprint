@@ -16,25 +16,27 @@ import ViewSelect from "./ViewSelect";
 import { usersContext } from "../Providers/UsersProvider";
 import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
 import ModalForm from "./ModalForm";
+import { projectsContext } from "../Providers/ProjectsProvider";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
-  const [userProjects, setUserProjects] = useState(null);
+  // const [userProjects, setUserProjects] = useState(null);
   const { currentUser } = useContext(usersContext);
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { userProjects, setUserProjects } = useContext(projectsContext);
 
   // Retrieve all projects (eventually user specific projects)
-  useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const allProjects = response.data.projects;
-        setUserProjects(allProjects);
-      })
-      .catch((err) => console.log("err:", err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/projects")
+  //     .then((response) => {
+  //       const allProjects = response.data.projects;
+  //       setUserProjects(allProjects);
+  //     })
+  //     .catch((err) => console.log("err:", err));
+  // }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
   useEffect(() => {

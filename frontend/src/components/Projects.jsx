@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Tr,
   Td,
@@ -19,43 +19,47 @@ import {
   updateUserProjectStatus,
 } from "../helpers/selectors";
 // import { viewsContext } from "../Providers/UsersProvider";
+import { projectsContext } from "../Providers/ProjectsProvider";
+import { usersContext } from "../Providers/UsersProvider";
 
 export default function Projects() {
-  const [userProjects, setUserProjects] = useState([]);
+  // const [userProjects, setUserProjects] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   // const { view, viewValue } = useContext(viewsContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
+  const { allUsers } = useContext(usersContext);
 
-  // When mounted, API call for DB query for all users and specific user's name when component renders
-  useEffect(() => {
-    const controller = new AbortController();
-    axios
-      .get("/api/users")
-      .then((response) => {
-        const allUsers = response.data.users;
-        setUserData(allUsers);
-        // console.log("ALLUSERS: ", allUsers);
+  // // When mounted, API call for DB query for all users and specific user's name when component renders
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   axios
+  //     .get("/api/users")
+  //     .then((response) => {
+  //       const allUsers = response.data.users;
+  //       setUserData(allUsers);
+  //       // console.log("ALLUSERS: ", allUsers);
 
-        return () => {
-          controller.abort();
-        };
-      })
-      .catch((err) => console.log("err:", err));
-  }, []);
+  //       return () => {
+  //         controller.abort();
+  //       };
+  //     })
+  //     .catch((err) => console.log("err:", err));
+  // }, []);
 
-  // Retrieve all tasks (eventually user specific tasks)
-  useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const allProjects = response.data.projects;
-        setUserProjects(allProjects);
-        // console.log("ALLPROJECTS: ", allProjects);
-      })
-      .catch((err) => console.log("err:", err));
-  }, [viewValue]);
+  // // Retrieve all tasks (eventually user specific tasks)
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/projects")
+  //     .then((response) => {
+  //       const allProjects = response.data.projects;
+  //       setUserProjects(allProjects);
+  //       // console.log("ALLPROJECTS: ", allProjects);
+  //     })
+  //     .catch((err) => console.log("err:", err));
+  // }, [viewValue]);
 
   // Generates list of projects in table row format
   const projectList = userProjects.map((item) => {
@@ -63,7 +67,7 @@ export default function Projects() {
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
     // console.log("OWNERID: ", item.owner_id);
     // console.log("USERDATA:", userData);
-    let ownerName = getProjectOwnerName(item.owner_id, userData);
+    let ownerName = getProjectOwnerName(item.owner_id, allUsers);
 
     // Adds all projects with Complete status so that it can be populated on the list with checkbox marked
     let generatedDefaultValue = [];

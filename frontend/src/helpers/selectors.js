@@ -14,6 +14,11 @@ export function getProjectOwnerName(ownerId, users) {
   const filteredUser = users.filter((user) => {
     return user.id === Number(ownerId);
   });
+
+  if (!filteredUser[0]) {
+    return "";
+  }
+
   const filteredUserName = filteredUser[0].first_name;
 
   return filteredUserName;
@@ -24,6 +29,11 @@ export function getProjectName(projectId, projects) {
   const filteredProject = projects.filter((project) => {
     return project.id === Number(projectId);
   });
+
+  if (!filteredProject[0]) {
+    return "";
+  }
+
   const filteredProjectName = filteredProject[0].name;
 
   return filteredProjectName;

@@ -36,8 +36,8 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks() {
-  const [userTasks, setUserTasks] = useState([]);
+export default function TrelloProjects() {
+  const [userProjects, setUserProjects] = useState([]);
 
   const trelloColumns = {
     [uuidv4()]: {
@@ -96,7 +96,7 @@ export default function TrelloTasks() {
 
         // console.log("trelloColumns: ", trelloColumns);
 
-        setUserTasks((prev) => [...prev, cards.status]);
+        setUserProjects((prev) => [...prev, cards.status]);
       })
       .catch((err) => console.log("err:", err));
   }, []);

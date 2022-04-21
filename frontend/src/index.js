@@ -8,6 +8,7 @@ import App from "./components/App";
 import { CookiesProvider } from "react-cookie";
 import UsersProvider from "./Providers/UsersProvider";
 import ViewsProvider from "./Providers/ViewProvider";
+import ProjectsProvider from "./Providers/ProjectsProvider";
 
 // 👇️ IMPORTANT: use correct ID of your root element
 // this is the ID of the div in your index.html file
@@ -20,9 +21,11 @@ const root = createRoot(rootElement);
 root.render(
   <CookiesProvider>
     <UsersProvider>
-      <ViewsProvider>
-        <App />
-      </ViewsProvider>
+      <ProjectsProvider>
+        <ViewsProvider>
+          <App />
+        </ViewsProvider>
+      </ProjectsProvider>
     </UsersProvider>
   </CookiesProvider>
 );
