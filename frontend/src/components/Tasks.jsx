@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tr, Td, Heading, Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
@@ -6,12 +6,14 @@ import moment from "moment";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
+import { usersContext } from "../Providers/UsersProvider";
 import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [userProjects, setUserProjects] = useState(null);
+  const { currentUser } = useContext(usersContext);
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function Tasks() {
       );
 
       const filteredTasks = updatedTasks.filter((project) => {
-        return project.id == id;
+        return project.id === id;
       });
       console.log("FILTEREDPROJECT: ", filteredTasks);
       console.log("NEWSTATUS: ", item.status);
@@ -75,7 +77,7 @@ export default function Tasks() {
 
       axios.put(`/api/tasks/${id}`, filteredTasks[0]).then(() => {
         console.log("SUCCESSFUL!");
-        setUserProjects(updatedTasks);
+        setUserTasks(updatedTasks);
       });
     }
 
