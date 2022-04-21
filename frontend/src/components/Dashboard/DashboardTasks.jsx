@@ -16,10 +16,12 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
-import { useContext } from "react";
+import { usersContext } from "../../Providers/UsersProvider";
+import { useContext, useEffect } from "react";
 
 export default function Tasks({ addTask, setModalState, onOpen }) {
   const { userTasks } = useContext(tasksContext);
+  const { cookies, currentUser } = useContext(usersContext);
   const tabPanel = (tasks, filter = "Not Started") => {
     return (
       <TabPanel>
@@ -46,7 +48,10 @@ export default function Tasks({ addTask, setModalState, onOpen }) {
   };
 
   const tabList = (filter = "all") => {
-    return userTasks
+    const userSpecificTasks = userTasks.filter(
+      (task) => task.assignee_id === Number(cookies.id)
+    );
+    return userSpecificTasks
       .filter((task) => task.status === filter || filter === "all")
       .map((task) => {
         // For freshly rendered tasks, id will be undefined so make up temp id
@@ -58,6 +63,10 @@ export default function Tasks({ addTask, setModalState, onOpen }) {
         );
       });
   };
+  useEffect(() => {
+    console.log(currentUser);
+    console.log(typeof cookies.id);
+  }, [cookies, currentUser]);
 
   return (
     <Container
