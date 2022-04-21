@@ -21,7 +21,6 @@ export default function ProjectsCarousel() {
     const userAssignedProjectsByTask = userTasks
       .filter((task) => task.assignee_id === Number(cookies.id))
       .map((task) => task.project_id);
-    console.log(userAssignedProjectsByTask);
     const boxes = allProjects
       .filter((project) => {
         return (
