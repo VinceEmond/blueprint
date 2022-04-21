@@ -22,7 +22,7 @@ export default function TaskTable(props) {
   ];
 
   const taskHeader = taskColumn.map((column, index) => {
-    return <Th key={index}>{column}</Th>;
+    return <Th key={`${index}${column}`}>{column}</Th>;
   });
   return (
     <Center>
