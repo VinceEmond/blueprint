@@ -112,31 +112,31 @@ export default function Dashboard() {
       .catch((err) => console.log("err:", err));
   }, []);
 
-  // Onsubmit helper function for add tasks
-  const addTask = (e, filter = "Not Started") => {
-    e.preventDefault();
-    const newTask = e.target[0].value.trim();
-    e.target[0].value = "";
-    if (newTask) {
-      const taskFormValues = {
-        name: newTask,
-        status: filter,
-        project_id: "1",
-        assignee_id: "1",
-        due_date: "2022-04-29",
-        description: "Describe task",
-        priority: "Low",
-      };
+  // // Onsubmit helper function for add tasks
+  // const addTask = (e, filter = "Not Started") => {
+  //   e.preventDefault();
+  //   const newTask = e.target[0].value.trim();
+  //   e.target[0].value = "";
+  //   if (newTask) {
+  //     const taskFormValues = {
+  //       name: newTask,
+  //       status: filter,
+  //       project_id: "1",
+  //       assignee_id: "1",
+  //       due_date: "2022-04-29",
+  //       description: "Describe task",
+  //       priority: "Low",
+  //     };
 
-      axios
-        .post("/api/tasks", taskFormValues)
-        .then((response) => {
-          setUserTasks((prev) => [...prev, taskFormValues]);
-          console.log("Succesfully added new Task to database");
-        })
-        .catch((err) => console.log("err:", err));
-    }
-  };
+  //     axios
+  //       .post("/api/tasks", taskFormValues)
+  //       .then((response) => {
+  //         setUserTasks((prev) => [...prev, taskFormValues]);
+  //         console.log("Succesfully added new Task to database");
+  //       })
+  //       .catch((err) => console.log("err:", err));
+  //   }
+  // };
 
   return (
     <div>
@@ -157,7 +157,7 @@ export default function Dashboard() {
         {/* Import dashboard tasks */}
         <Tasks
           // userTasks={userTasks}
-          addTask={addTask}
+          // addTask={addTask}
           setModalState={setModalState}
           onOpen={onOpen}
         />

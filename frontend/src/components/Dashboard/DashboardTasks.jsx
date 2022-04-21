@@ -17,11 +17,43 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Tasks({ addTask, setModalState, onOpen }) {
-  const { userTasks } = useContext(tasksContext);
-  const { cookies, currentUser } = useContext(usersContext);
+export default function Tasks({ setModalState, onOpen }) {
+  const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { cookies } = useContext(usersContext);
+
+  // Onsubmit helper function for add tasks
+  const addTask = (e, filter = "Not Started") => {
+    e.preventDefault();
+    const newTask = e.target[0].value.trim();
+    e.target[0].value = "";
+    if (newTask) {
+      const taskFormValues = {
+        name: newTask,
+        status: filter,
+        project_id: 1,
+        assignee_id: Number(cookies.id),
+        due_date: "2022-04-29",
+        description: "Describe task",
+        priority: "Low",
+      };
+
+      axios
+        .post("/api/tasks", taskFormValues)
+        .then((response) => {
+          console.log(`Taskformvalues: ${taskFormValues}`);
+          setUserTasks((prev) => {
+            console.log(prev);
+            return [...prev, taskFormValues];
+          });
+          console.log("Succesfully added new Task to database");
+        })
+        .catch((err) => console.log("err:", err));
+    }
+  };
+
   const tabPanel = (tasks, filter = "Not Started") => {
     return (
       <TabPanel>
@@ -54,7 +86,7 @@ export default function Tasks({ addTask, setModalState, onOpen }) {
     return userSpecificTasks
       .filter((task) => task.status === filter || filter === "all")
       .map((task) => {
-        // For freshly rendered tasks, id will be undefined so make up temp id
+        // For freshly rendered tasks, id will be undefined so make up temp key
         const key = `${filter}+${task.id || task.name.length * 1000}`;
         return (
           <Tr key={key}>
@@ -63,10 +95,10 @@ export default function Tasks({ addTask, setModalState, onOpen }) {
         );
       });
   };
+
   useEffect(() => {
-    console.log(currentUser);
-    console.log(typeof cookies.id);
-  }, [cookies, currentUser]);
+    console.log(userTasks);
+  }, [userTasks]);
 
   return (
     <Container
