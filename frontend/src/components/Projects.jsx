@@ -18,6 +18,7 @@ import {
   getProjectOwnerName,
   updateUserProjectStatus,
 } from "../helpers/selectors";
+// import { viewsContext } from "../Providers/UsersProvider";
 
 export default function Projects() {
   const [userProjects, setUserProjects] = useState([]);
@@ -25,6 +26,7 @@ export default function Projects() {
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userData, setUserData] = useState(null);
+  // const { view, viewValue } = useContext(viewsContext);
 
   // When mounted, API call for DB query for all users and specific user's name when component renders
   useEffect(() => {
@@ -128,7 +130,7 @@ export default function Projects() {
   });
 
   // returns component based on view option
-  function View() {
+  function view() {
     if (viewValue === "List") {
       return <ProjectTable projectList={projectList} />;
     } else if (viewValue === "Board") {
@@ -147,7 +149,7 @@ export default function Projects() {
         onOpen={onOpen}
         state="projects"
       />
-      {View()}
+      {view()}
       <ModalForm
         isOpen={isOpen}
         onClose={onClose}
