@@ -12,7 +12,7 @@ export function getUserName(users, id) {
 /* Gets specific user name from project owner id */
 export function getProjectOwnerName(ownerId, users) {
   const filteredUser = users.filter((user) => {
-    return user.id === ownerId;
+    return user.id === Number(ownerId);
   });
   const filteredUserName = filteredUser[0].first_name;
 
