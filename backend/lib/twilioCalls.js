@@ -22,4 +22,4 @@ const sendMsg = (msg, userID) => {
     .done();
 };
 
-module.exports = { sendMsgToDylan };
+module.exports = { sendMsg };

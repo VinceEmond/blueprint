@@ -5,6 +5,7 @@ import {
   HStack,
   Link,
   IconButton,
+  Input,
   Button,
   Menu,
   MenuButton,
@@ -19,6 +20,7 @@ import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext } from "react";
 import Message from "./Message";
 import { usersContext } from "../Providers/UsersProvider";
+import axios from "axios";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -109,6 +111,57 @@ export default function NavBar(props) {
                 <p>Command Transcript History: {transcript}</p>
                 <p>Logged in as: {currentUser && currentUser.first_name}</p>
               </div>
+            </HStack>
+            <HStack>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const msg = e.target[0].value;
+                  e.target[0].value = "";
+                  axios
+                    .post("/api/sms/1", { msg })
+                    .then((response) => {
+                      console.log("Message sent successfully");
+                    })
+                    .catch((err) => console.log("err:", err));
+                }}
+              >
+                <Input placeholder="Say hi to Dylan" />
+              </form>
+            </HStack>
+            <HStack>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const msg = e.target[0].value;
+                  e.target[0].value = "";
+                  axios
+                    .post("/api/sms/2", { msg })
+                    .then((response) => {
+                      console.log("Message sent successfully");
+                    })
+                    .catch((err) => console.log("err:", err));
+                }}
+              >
+                <Input placeholder="Say hi to Pablo" />
+              </form>
+            </HStack>
+            <HStack>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const msg = e.target[0].value;
+                  e.target[0].value = "";
+                  axios
+                    .post("/api/sms/3", { msg })
+                    .then((response) => {
+                      console.log("Message sent successfully");
+                    })
+                    .catch((err) => console.log("err:", err));
+                }}
+              >
+                <Input placeholder="Say hi to Vince" />
+              </form>
             </HStack>
           </HStack>
 
