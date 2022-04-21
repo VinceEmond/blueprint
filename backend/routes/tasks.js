@@ -135,7 +135,7 @@ module.exports = (db) => {
     //        'Not Started',
     //         1
     // ];
-    console.log("QUERYPARAMS: ", queryParams)
+    console.log("QUERYPARAMS: ", queryParams);
 
     // const queryStr = `INSERT INTO tasks
     //   (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
@@ -157,7 +157,7 @@ module.exports = (db) => {
       });
   });
 
-  // POST:DELETE - TASKSK --- SET EXISTING TASK TO INACTIVE IN DB
+  // POST:DELETE - TASKS --- SET EXISTING TASK TO INACTIVE IN DB
   router.delete("/:id/delete", (req, res) => {
     const { id } = req.params;
     const queryParams = [id];

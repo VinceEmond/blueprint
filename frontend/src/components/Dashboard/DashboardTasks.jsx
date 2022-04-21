@@ -15,8 +15,11 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import { tasksContext } from "../../Providers/TasksProvider";
+import { useContext } from "react";
 
-export default function Tasks({ userTasks, addTask, setModalState, onOpen }) {
+export default function Tasks({ addTask, setModalState, onOpen }) {
+  const { userTasks } = useContext(tasksContext);
   const tabPanel = (tasks, filter = "Not Started") => {
     return (
       <TabPanel>

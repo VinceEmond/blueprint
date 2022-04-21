@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   Table,
@@ -12,33 +12,41 @@ import {
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
+import { tasksContext } from "../Providers/TasksProvider";
+
 export default function Tasks() {
-  const [userTasks, setUserTasks] = useState([]);
+  // const [userTasks, setUserTasks] = useState([]);
+  const { userTasks } = useContext(tasksContext);
+  const [tableRows, setTableRows] = useState([]);
   const { id } = useParams();
 
   // Retrieve all current project tasks
   useEffect(() => {
-    axios
-      .get(`/api/projects/${id}/tasks`)
-      .then((response) => {
-        const allTasks = response.data.tasks;
-        const taskList = allTasks.map((item) => {
-          // converting date data to more readable data
-          let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-          return (
-            <Tr key={item.id}>
-              <Td>{item.name}</Td>
-              <Td>{item.project_id}</Td>
-              <Td>{date}</Td>
-              <Td>{item.status}</Td>
-              <Td>{item.priority}</Td>
-            </Tr>
-          );
-        });
-        setUserTasks(taskList);
+    // axios
+    //   .get(`/api/projects/${id}/tasks`)
+    //   .then((response) => {
+    //     const allTasks = response.data.tasks;
+    const taskList = userTasks
+      .filter((task) => {
+        return task.project_id === Number(id);
       })
-      .catch((err) => console.log("err:", err));
-  }, [id]);
+      .map((item) => {
+        // converting date data to more readable data
+        let date = moment(item.due_date).utc().format("YYYY-MM-DD");
+        return (
+          <Tr key={item.id}>
+            <Td>{item.name}</Td>
+            <Td>{item.project_id}</Td>
+            <Td>{date}</Td>
+            <Td>{item.status}</Td>
+            <Td>{item.priority}</Td>
+          </Tr>
+        );
+      });
+    setTableRows(taskList);
+    // })
+    // .catch((err) => console.log("err:", err));
+  }, [userTasks]);
 
   return (
     <TableContainer>
@@ -52,7 +60,7 @@ export default function Tasks() {
             <Th>Priority</Th>
           </Tr>
         </Thead>
-        <Tbody>{userTasks}</Tbody>
+        <Tbody>{tableRows}</Tbody>
       </Table>
     </TableContainer>
   );
