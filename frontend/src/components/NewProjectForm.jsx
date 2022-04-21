@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef, useContext, useState } from "react";
 import {
   Editable,
   EditableInput,
@@ -12,6 +12,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { projectsContext } from "../Providers/ProjectsProvider";
 
 export default function NewProjectForm(props) {
   const testProjectValues = {
@@ -25,10 +26,10 @@ export default function NewProjectForm(props) {
     category_id: 1,
   };
 
-  const [projectFormValues, setProjectFormValues] =
-    React.useState(testProjectValues);
-  const { setModalState, setUserProjects } = props;
-  const initialRef = React.useRef();
+  const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
+  const { setModalState } = props;
+  const initialRef = useRef();
+  const { setUserProjects } = useContext(projectsContext);
 
   function createProject(projectFormValues) {
     axios

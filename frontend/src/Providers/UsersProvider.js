@@ -42,6 +42,7 @@ export default function UsersProvider(props) {
   const userData = {
     cookies,
     allUsers,
+    setAllUsers,
     login,
     logout,
     getUserByID,

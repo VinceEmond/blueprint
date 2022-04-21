@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Carousel.css";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,8 +6,10 @@ import { CCarousel } from "@coreui/react";
 import { CCarouselItem } from "@coreui/react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import SocialProfileSimple from "./ProjectCard";
+import { projectsContext } from "../../Providers/ProjectsProvider";
 
-export default function ProjectsCarousel({ userProjects }) {
+export default function ProjectsCarousel() {
+  const { userProjects } = useContext(projectsContext);
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
