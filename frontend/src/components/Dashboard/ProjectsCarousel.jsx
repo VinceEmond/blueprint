@@ -13,7 +13,12 @@ export default function ProjectsCarousel({ userProjects }) {
   useEffect(() => {
     const allProjects = userProjects ? userProjects : [];
     const boxes = allProjects.map((project) => {
-      return <SocialProfileSimple key={`p${project.id}`} project={project} />;
+      return (
+        <SocialProfileSimple
+          key={`p${project.id || project.description.length * 100}`}
+          project={project}
+        />
+      );
     });
     setProjectBoxes(boxes);
   }, [userProjects]);
@@ -38,7 +43,8 @@ export default function ProjectsCarousel({ userProjects }) {
             alignContent="center"
             height="100%"
             width={`${count % 3 === 0 ? 100 : count % 3 === 2 ? 66 : 33}%`}
-            key={`f${count}`}>
+            key={`f${count}`}
+          >
             {boxes}
           </Flex>
         );
@@ -56,7 +62,8 @@ export default function ProjectsCarousel({ userProjects }) {
         dark={true}
         wrap={true}
         pause={"hover"}
-        key={`carousel${1}`}>
+        key={`carousel${1}`}
+      >
         {flexes.map((flex, index) => {
           return (
             <CCarouselItem key={`flex${index}`} className="w-100">

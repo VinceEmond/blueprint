@@ -1,28 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Tr, Td, Heading } from "@chakra-ui/react";
+import { Tr, Td, Heading, Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import axios from "axios";
 // package that allows conversion of date data
 import moment from "moment";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
-import { getProjectName } from "../helpers/selectors";
 import { usersContext } from "../Providers/UsersProvider";
+import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
 
 export default function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
   const [userProjects, setUserProjects] = useState(null);
-
-  const {
-    login,
-    logout,
-    cookies,
-    currentUser,
-    getUserByID,
-    allUsers,
-    setCurrentUser,
-  } = useContext(usersContext);
+  const { currentUser } = useContext(usersContext);
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -46,15 +37,61 @@ export default function Tasks() {
       })
       .catch((err) => console.log("err:", err));
   }, [viewValue]);
-
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
 
     let projectName = getProjectName(item.project_id, userProjects);
 
+    let generatedDefaultValue = [];
+    function defaultChecks() {
+      if (item.status === "Complete") {
+        generatedDefaultValue.push(item.name);
+      }
+      return generatedDefaultValue;
+    }
+    const checkValues = defaultChecks();
+
+    function completeStatusBool() {
+      if (item.status === "Complete") return "grey";
+    }
+
+    function checkClick(e, id) {
+      console.log("OLDSTATUS: ", item.status);
+      console.log("OLDITEM: ", item);
+      console.log("CHECKBOX CLICKED", e.target.checked);
+      console.log("CHECKBOX EVENT", e);
+      console.log("ITEMID CHECK", id);
+      const updatedTasks = updateUserTaskStatus(
+        userTasks,
+        id,
+        e.target.checked
+      );
+
+      const filteredTasks = updatedTasks.filter((project) => {
+        return project.id === id;
+      });
+      console.log("FILTEREDPROJECT: ", filteredTasks);
+      console.log("NEWSTATUS: ", item.status);
+      console.log("NEWITEM: ", item);
+
+      axios.put(`/api/tasks/${id}`, filteredTasks[0]).then(() => {
+        console.log("SUCCESSFUL!");
+        setUserTasks(updatedTasks);
+      });
+    }
+
     return (
-      <Tr key={item.id}>
+      <Tr key={item.id} bg={completeStatusBool}>
+        <Td size="sm">
+          <CheckboxGroup defaultValue={checkValues}>
+            <Checkbox
+              ml="2em"
+              value={item.name}
+              onChange={(e) => checkClick(e, item.id)}
+            ></Checkbox>
+          </CheckboxGroup>
+        </Td>
         <Td>{item.name}</Td>
         <Td>{projectName}</Td>
         <Td>{date}</Td>
@@ -64,6 +101,7 @@ export default function Tasks() {
     );
   });
 
+  // returns component based on view option
   function View() {
     if (viewValue === "List") {
       return <TaskTable taskList={taskList} />;
@@ -71,12 +109,10 @@ export default function Tasks() {
       return <TrelloTasks />;
     }
   }
-
   return (
     <div>
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
         Tasks
-        <p>{currentUser && currentUser.first_name}</p>
       </Heading>
       <ViewSelect setViewValue={setViewValue} />
       {View()}

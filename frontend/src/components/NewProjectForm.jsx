@@ -14,18 +14,19 @@ import {
 import axios from "axios";
 
 export default function NewProjectForm(props) {
-  // const testProjectValues = {
-  //   owner_id: 1,
-  //   name: "New 69 Project",
-  //   description: "Test Project Description Herrreeeeeasdasd",
-  //   start_date: '1969-04-20',
-  //   due_date: '1969-04-20',
-  //   modified_date: '2022-04-15',
-  //   status: 'Not Started',
-  //   category_id: 1
-  // }
+  const testProjectValues = {
+    owner_id: 1,
+    name: "New 69 Project",
+    description: "Test Project Description Herrreeeeeasdasd",
+    start_date: "1969-04-20",
+    due_date: "1969-04-20",
+    modified_date: "2022-04-15",
+    status: "Not Started",
+    category_id: 1,
+  };
 
-  const [projectFormValues, setProjectFormValues] = React.useState({});
+  const [projectFormValues, setProjectFormValues] =
+    React.useState(testProjectValues);
   const { setModalState, setUserProjects } = props;
   const initialRef = React.useRef();
 
