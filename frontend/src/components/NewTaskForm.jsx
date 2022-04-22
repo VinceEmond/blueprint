@@ -58,6 +58,7 @@ export default function NewTaskForm(props) {
         .put(`/api/tasks/${editTask.id}`, taskFormValues)
         .then((response) => {
           const updatedTasks = updateProjects(userTasks, taskFormValues);
+          console.log(updatedTasks);
           setUserTasks(updatedTasks);
           console.log("Succesfully added a new Task to database");
         })

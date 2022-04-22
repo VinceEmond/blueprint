@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -19,7 +19,7 @@ import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 
-export default function TaskTable({ onEdit }) {
+export default function TaskTable({ onEdit, setViewValue }) {
   // const { taskList } = props;
   const taskColumn = [
     "Complete",

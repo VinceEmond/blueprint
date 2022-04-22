@@ -117,7 +117,7 @@ export default function Tasks() {
 
   function View() {
     if (viewValue === "List") {
-      return <TaskTable onEdit={triggerEditTask} />;
+      return <TaskTable onEdit={triggerEditTask} setViewValue={setViewValue} />;
     } else if (viewValue === "Board") {
       return <TrelloTasks />;
     }
@@ -140,8 +140,6 @@ export default function Tasks() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        setUserTasks={setUserTasks}
-        setUserProjects={null}
         editTask={editTask}
         setEditTask={setEditTask}
         editProject={editProject}
