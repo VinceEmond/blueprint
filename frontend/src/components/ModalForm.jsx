@@ -17,11 +17,19 @@ export default function ModalForm({
   onClose,
   editTask,
   setEditTask,
+  editProject,
+  setEditProject,
 }) {
   const clearEditTask = () => {
     onClose();
     setEditTask(null);
-    console.log("I'm firing");
+    console.log("I'm clearing editTask");
+  };
+
+  const clearEditProject = () => {
+    onClose();
+    setEditProject(null);
+    console.log("I'm clearing editProject");
   };
 
   return (
@@ -45,13 +53,17 @@ export default function ModalForm({
       )}
 
       {modalState === "projects" && (
-        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={() => clearEditProject()}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader margin="10px">New Project</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewProjectForm setModalState={setModalState} />
+              <NewProjectForm
+                setModalState={setModalState}
+                editProject={editProject}
+                setEditProject={setEditProject}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

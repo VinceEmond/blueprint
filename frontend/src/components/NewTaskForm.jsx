@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import { tasksContext } from "../Providers/TasksProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
-import { updateUserProjectStatus } from "../helpers/selectors";
+import { updateProjects } from "../helpers/selectors";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {
@@ -36,21 +36,33 @@ export default function NewTaskForm(props) {
     category_id: 1,
   });
   const { setModalState, editTask, setEditTask } = props;
-  const { setUserTasks } = useContext(tasksContext);
+  const { userTasks, setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
   const lowPriorityButton = useRef(null);
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
-    axios
-      .post("/api/tasks", taskFormValues)
-      .then((response) => {
-        setUserTasks((prev) => {
-          return [...prev, taskFormValues];
-        });
-        console.log("Succesfully added a new Task to database");
-      })
-      .catch((err) => console.log("err:", err));
+    if (!editTask) {
+      axios
+        .post("/api/tasks", taskFormValues)
+        .then((response) => {
+          const returnedTask = response.data.task[0];
+          setUserTasks((prev) => {
+            return [...prev, returnedTask];
+          });
+          console.log("Succesfully added a new Task to database");
+        })
+        .catch((err) => console.log("err:", err));
+    } else {
+      axios
+        .put(`/api/tasks/${editTask.id}`, taskFormValues)
+        .then((response) => {
+          const updatedTasks = updateProjects(userTasks, taskFormValues);
+          setUserTasks(updatedTasks);
+          console.log("Succesfully added a new Task to database");
+        })
+        .catch((err) => console.log("err:", err));
+    }
   }
 
   function handleNameChange(event) {

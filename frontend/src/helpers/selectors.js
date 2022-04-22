@@ -116,3 +116,15 @@ export function updateUserTaskStatus(userTasks, task_id, checkBoxBool) {
   // console.log("FILTEREDPROJ ", filteredProject);
   // return filteredProject;
 }
+
+export function updateProjects(allProjects, newProject) {
+  const updatedProjects = [];
+  allProjects.forEach((project) => {
+    if (project.id === newProject.id) {
+      updatedProjects.push(newProject);
+    } else {
+      updatedProjects.push(project);
+    }
+  });
+  return updatedProjects;
+}
