@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { tasksContext } from "../Providers/TasksProvider";
+import { projectsContext } from "../Providers/ProjectsProvider";
+import { updateUserProjectStatus } from "../helpers/selectors";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {
@@ -35,13 +37,16 @@ export default function NewTaskForm(props) {
   });
   const { setModalState } = props;
   const { setUserTasks } = useContext(tasksContext);
+  const { userProjects } = useContext(projectsContext);
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
     axios
       .post("/api/tasks", taskFormValues)
       .then((response) => {
-        setUserTasks((prev) => [...prev, taskFormValues]);
+        setUserTasks((prev) => {
+          return [...prev, taskFormValues];
+        });
         console.log("Succesfully added a new Task to database");
       })
       .catch((err) => console.log("err:", err));
@@ -54,10 +59,16 @@ export default function NewTaskForm(props) {
     setTaskFormValues({ ...taskFormValues, status: event.target.value });
   }
   function handleProjectIDChange(event) {
-    setTaskFormValues({ ...taskFormValues, project_id: event.target.value });
+    setTaskFormValues({
+      ...taskFormValues,
+      project_id: Number(event.target.value),
+    });
   }
   function handleAssigneeChange(event) {
-    setTaskFormValues({ ...taskFormValues, assignee_id: event.target.value });
+    setTaskFormValues({
+      ...taskFormValues,
+      assignee_id: Number(event.target.value),
+    });
   }
   function handleDateChange(event) {
     setTaskFormValues({ ...taskFormValues, due_date: event.target.value });
@@ -111,9 +122,13 @@ export default function NewTaskForm(props) {
           display="flex"
           onChange={(e) => handleProjectIDChange(e)}
         >
-          <option value="1">Project 1</option>
-          <option value="2">Project 2</option>
-          <option value="3">Project 3</option>
+          {userProjects.map((project) => {
+            return (
+              <option key={project.id} value={project.id}>
+                {project.name}
+              </option>
+            );
+          })}
         </Select>
       </HStack>
 
@@ -126,9 +141,9 @@ export default function NewTaskForm(props) {
           display="flex"
           onChange={(e) => handleAssigneeChange(e)}
         >
-          <option value="1">Dylan</option>
-          <option value="2">Pablo</option>
-          <option value="3">Vince</option>
+          <option value={1}>Dylan</option>
+          <option value={2}>Pablo</option>
+          <option value={3}>Vince</option>
         </Select>
       </HStack>
       <HStack mt="1em">

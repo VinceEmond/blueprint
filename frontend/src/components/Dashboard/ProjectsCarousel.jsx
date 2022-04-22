@@ -7,14 +7,29 @@ import { CCarouselItem } from "@coreui/react";
 import { Flex, Spacer } from "@chakra-ui/react";
 import SocialProfileSimple from "./ProjectCard";
 import { projectsContext } from "../../Providers/ProjectsProvider";
+import { usersContext } from "../../Providers/UsersProvider";
+import { tasksContext } from "../../Providers/TasksProvider";
+import {
+  getUserSpecificProjects,
+  getUserSpecificTasks,
+} from "../../helpers/selectors";
 
 export default function ProjectsCarousel() {
   const { userProjects } = useContext(projectsContext);
+  const { cookies } = useContext(usersContext);
+  const { userTasks } = useContext(tasksContext);
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
+    const user_id = Number(cookies.id);
     const allProjects = userProjects ? userProjects : [];
-    const boxes = allProjects.map((project) => {
+    const userSpecificTasks = getUserSpecificTasks(userTasks, user_id);
+    const userSpecificProjects = getUserSpecificProjects(
+      allProjects,
+      userSpecificTasks,
+      user_id
+    );
+    const boxes = userSpecificProjects.map((project) => {
       return (
         <SocialProfileSimple
           key={`p${project.id || project.description.length * 100}`}
@@ -23,7 +38,7 @@ export default function ProjectsCarousel() {
       );
     });
     setProjectBoxes(boxes);
-  }, [userProjects]);
+  }, [userProjects, userTasks]);
 
   const listProjectFlexes = () => {
     const flexes = [];

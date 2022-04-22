@@ -47,7 +47,7 @@ export default function NewProjectForm(props) {
   function handleOwnerChange(event) {
     setProjectFormValues({
       ...projectFormValues,
-      owner_id: event.target.value,
+      owner_id: Number(event.target.value),
     });
   }
   function handleStatusChange(event) {
