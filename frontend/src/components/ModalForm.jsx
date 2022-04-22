@@ -15,6 +15,7 @@ export default function ModalForm({
   modalState,
   isOpen,
   onClose,
+  editTask,
 }) {
   return (
     <>
@@ -25,7 +26,7 @@ export default function ModalForm({
             <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm setModalState={setModalState} />
+              <NewTaskForm setModalState={setModalState} editTask={editTask} />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

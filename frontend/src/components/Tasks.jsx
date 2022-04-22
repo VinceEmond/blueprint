@@ -26,31 +26,31 @@ export default function Tasks() {
   const { currentUser } = useContext(usersContext);
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { userProjects } = useContext(projectsContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
   const { userTasks, setUserTasks } = useContext(tasksContext);
 
   // Retrieve all projects (eventually user specific projects)
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/projects")
-  //     .then((response) => {
-  //       const allProjects = response.data.projects;
-  //       setUserProjects(allProjects);
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/tasks")
-  //     .then((response) => {
-  //       const allTasks = response.data.tasks;
-  //       setUserTasks(allTasks);
-  //       // console.log(allTasks)
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, [viewValue]);
+  useEffect(() => {
+    axios
+      .get("/api/tasks")
+      .then((response) => {
+        const allTasks = response.data.tasks;
+        setUserTasks(allTasks);
+        // console.log(allTasks)
+      })
+      .catch((err) => console.log("err:", err));
+  }, [viewValue]);
 
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
@@ -61,18 +61,19 @@ export default function Tasks() {
 
     let projectName = getProjectName(item.project_id, userProjects);
 
-    let generatedDefaultValue = [];
     function defaultChecks() {
+      let generatedDefaultValue = [];
       if (item.status === "Complete") {
         generatedDefaultValue.push(item.name);
       }
       return generatedDefaultValue;
     }
-    const checkValues = defaultChecks();
 
     function completeStatusBool() {
       if (item.status === "Complete") return "grey";
     }
+
+    const checkValues = defaultChecks();
 
     function checkClick(e, id) {
       // console.log("OLDSTATUS: ", item.status);

@@ -49,17 +49,17 @@ export default function Projects() {
   //     .catch((err) => console.log("err:", err));
   // }, []);
 
-  // // Retrieve all tasks (eventually user specific tasks)
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/projects")
-  //     .then((response) => {
-  //       const allProjects = response.data.projects;
-  //       setUserProjects(allProjects);
-  //       // console.log("ALLPROJECTS: ", allProjects);
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, [viewValue]);
+  // Retrieve all tasks (eventually user specific tasks)
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+        // console.log("ALLPROJECTS: ", allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, [viewValue]);
 
   // Generates list of projects in table row format
   const projectList = userProjects.map((item) => {

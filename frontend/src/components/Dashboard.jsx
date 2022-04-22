@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -16,11 +16,13 @@ import {
 import Tasks from "./Dashboard/DashboardTasks";
 import Projects from "./Dashboard/DashboardProjects";
 import ModalForm from "./ModalForm";
+import { usersContext } from "../Providers/UsersProvider";
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [editTask, setEditTask] = useState(null);
+  const { currentUser } = useContext(usersContext);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -61,6 +63,13 @@ export default function Dashboard() {
     return message;
   }
 
+  const triggerEdit = (task) => {
+    console.log(task);
+    setEditTask(task);
+    setModalState("tasks");
+    onOpen();
+  };
+
   return (
     <div>
       <Center mt="3em">
@@ -70,7 +79,7 @@ export default function Dashboard() {
           </Box>
           <Heading size="md" my="2">
             <LinkOverlay>
-              {timeMessage()}, {userData && userData.first_name}
+              {timeMessage()}, {currentUser && currentUser.first_name}
             </LinkOverlay>
           </Heading>
         </LinkBox>
@@ -78,7 +87,11 @@ export default function Dashboard() {
 
       <Container width="50%" maxWidth="100%">
         {/* Import dashboard tasks */}
-        <Tasks setModalState={setModalState} onOpen={onOpen} />
+        <Tasks
+          setModalState={setModalState}
+          onOpen={onOpen}
+          onEdit={triggerEdit}
+        />
         {/* Import dashboard projects */}
         <Projects setModalState={setModalState} onOpen={onOpen} />
       </Container>
@@ -88,6 +101,7 @@ export default function Dashboard() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
+        editTask={editTask}
       />
     </div>
   );
