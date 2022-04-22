@@ -143,7 +143,7 @@ module.exports = (db) => {
     // `;
 
     const queryStr = `INSERT INTO tasks (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;
   `;
 
     db.query(queryStr, queryParams)

@@ -126,7 +126,7 @@ module.exports = (db) => {
     ];
     const queryStr = `INSERT INTO projects
       (owner_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8);
+      ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;
     `;
 
     db.query(queryStr, queryParams)
