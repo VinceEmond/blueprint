@@ -9,6 +9,10 @@ import SocialProfileSimple from "./ProjectCard";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
+import {
+  getUserSpecificProjects,
+  getUserSpecificTasks,
+} from "../../helpers/selectors";
 
 export default function ProjectsCarousel() {
   const { userProjects } = useContext(projectsContext);
@@ -17,25 +21,22 @@ export default function ProjectsCarousel() {
   const [projectBoxes, setProjectBoxes] = useState([]);
 
   useEffect(() => {
+    const user_id = Number(cookies.id);
     const allProjects = userProjects ? userProjects : [];
-    const userAssignedProjectsByTask = userTasks
-      .filter((task) => task.assignee_id === Number(cookies.id))
-      .map((task) => task.project_id);
-    const boxes = allProjects
-      .filter((project) => {
-        return (
-          project.owner_id === Number(cookies.id) ||
-          userAssignedProjectsByTask.includes(project.id)
-        );
-      })
-      .map((project) => {
-        return (
-          <SocialProfileSimple
-            key={`p${project.id || project.description.length * 100}`}
-            project={project}
-          />
-        );
-      });
+    const userSpecificTasks = getUserSpecificTasks(userTasks, user_id);
+    const userSpecificProjects = getUserSpecificProjects(
+      allProjects,
+      userSpecificTasks,
+      user_id
+    );
+    const boxes = userSpecificProjects.map((project) => {
+      return (
+        <SocialProfileSimple
+          key={`p${project.id || project.description.length * 100}`}
+          project={project}
+        />
+      );
+    });
     setProjectBoxes(boxes);
   }, [userProjects, userTasks]);
 

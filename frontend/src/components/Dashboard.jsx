@@ -10,7 +10,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import {
-  getUserName,
   getUserSpecificTasks,
   getUserSpecificProjects,
 } from "../helpers/selectors";
@@ -22,8 +21,6 @@ export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [userTasks, setUserTasks] = useState(null);
-  const [userProjects, setUserProjects] = useState(null);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -64,80 +61,6 @@ export default function Dashboard() {
     return message;
   }
 
-  // When mounted, API call for DB query for all users and specific user's name when component renders
-  // useEffect(() => {
-  //   const controller = new AbortController();
-  //   axios
-  //     .get("/api/users")
-  //     .then((response) => {
-  //       const allUsers = response.data.users;
-  //       // console.log(allUsers);
-  //       const specificUser = getUserName(allUsers, 3);
-  //       setUserData(specificUser);
-
-  //       return () => {
-  //         controller.abort();
-  //       };
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, []);
-
-  // Retrieve all projects (eventually user specific projects)
-  useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const userID = 1;
-        const allProjects = response.data.projects;
-        const usersTasks = getUserSpecificTasks(userTasks, userID);
-        const usersProjects = getUserSpecificProjects(
-          allProjects,
-          usersTasks,
-          userID
-        );
-        setUserProjects(usersProjects);
-      })
-      .catch((err) => console.log("err:", err));
-  }, [userTasks]);
-
-  // Retrieve all tasks (eventually user specific tasks)
-  useEffect(() => {
-    axios
-      .get("/api/tasks")
-      .then((response) => {
-        const allTasks = response.data.tasks;
-        const usersTasks = getUserSpecificTasks(allTasks, 1);
-        setUserTasks(usersTasks);
-      })
-      .catch((err) => console.log("err:", err));
-  }, []);
-
-  // // Onsubmit helper function for add tasks
-  // const addTask = (e, filter = "Not Started") => {
-  //   e.preventDefault();
-  //   const newTask = e.target[0].value.trim();
-  //   e.target[0].value = "";
-  //   if (newTask) {
-  //     const taskFormValues = {
-  //       name: newTask,
-  //       status: filter,
-  //       project_id: "1",
-  //       assignee_id: "1",
-  //       due_date: "2022-04-29",
-  //       description: "Describe task",
-  //       priority: "Low",
-  //     };
-
-  //     axios
-  //       .post("/api/tasks", taskFormValues)
-  //       .then((response) => {
-  //         setUserTasks((prev) => [...prev, taskFormValues]);
-  //         console.log("Succesfully added new Task to database");
-  //       })
-  //       .catch((err) => console.log("err:", err));
-  //   }
-  // };
-
   return (
     <div>
       <Center mt="3em">
@@ -155,12 +78,7 @@ export default function Dashboard() {
 
       <Container width="50%" maxWidth="100%">
         {/* Import dashboard tasks */}
-        <Tasks
-          // userTasks={userTasks}
-          // addTask={addTask}
-          setModalState={setModalState}
-          onOpen={onOpen}
-        />
+        <Tasks setModalState={setModalState} onOpen={onOpen} />
         {/* Import dashboard projects */}
         <Projects setModalState={setModalState} onOpen={onOpen} />
       </Container>
@@ -170,7 +88,6 @@ export default function Dashboard() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        // setUserTasks={setUserTasks}
       />
     </div>
   );
