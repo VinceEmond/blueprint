@@ -148,6 +148,8 @@ export default function TrelloTasks() {
         .put(`/api/tasks/${movedItemId}`, removed)
         .then((response) => {
           // const allTasks = response.data.task;
+          // console.log(userTasks);
+          // setUserTasks(userTasks);
           // let allTaskObj = [];
           // console.log("ALLTASKS: ", allTasks);
           // console.log("SUCCESSFUL EDIT RQST: ", allTasks);
