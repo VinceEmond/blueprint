@@ -39,7 +39,6 @@ export default function NewProjectForm(props) {
         .then((response) => {
           console.log(`Response: ${response.data.project[0]}`);
           const returnedProject = response.data.project[0];
-          // const updatedProjects = updateProjects(userProjects, returnedProject)
           setUserProjects((prev) => [...prev, returnedProject]);
           console.log("Succesfully added a new Project to database");
         })
