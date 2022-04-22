@@ -17,8 +17,9 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 
 export default function Tasks({ setModalState, onOpen, onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);
@@ -35,9 +36,12 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         status: filter,
         project_id: 1,
         assignee_id: Number(cookies.id),
-        due_date: "2022-04-29",
+        due_date: moment(new Date()).add(2, "days").format("YYYY-MM-DD"),
         description: "Describe task",
         priority: "Low",
+        start_date: "2000-01-01",
+        modified_date: "2022-04-18",
+        category_id: 1,
       };
 
       axios
