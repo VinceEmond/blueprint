@@ -123,6 +123,7 @@ export default function NewProjectForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleOwnerChange(e)}
+          value={projectFormValues.owner_id}
         >
           <option value="1">Dylan</option>
           <option value="2">Pablo</option>
