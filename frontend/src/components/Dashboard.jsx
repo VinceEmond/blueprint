@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -16,11 +16,13 @@ import {
 import Tasks from "./Dashboard/DashboardTasks";
 import Projects from "./Dashboard/DashboardProjects";
 import ModalForm from "./ModalForm";
+import { usersContext } from "../Providers/UsersProvider";
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const { getUserByID, allUsers, cookies, currentUser } =
+    useContext(usersContext);
 
   // State for current time and date
   const [date, setDate] = useState(new Date());
@@ -70,7 +72,7 @@ export default function Dashboard() {
           </Box>
           <Heading size="md" my="2">
             <LinkOverlay>
-              {timeMessage()}, {userData && userData.first_name}
+              {timeMessage()}, {currentUser && currentUser.first_name}
             </LinkOverlay>
           </Heading>
         </LinkBox>
