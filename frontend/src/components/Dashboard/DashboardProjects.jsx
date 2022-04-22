@@ -2,7 +2,7 @@ import { Container, Heading, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ProjectsCarousel from "./ProjectsCarousel";
 
-export default function Projects({ setModalState, onOpen }) {
+export default function Projects({ setModalState, onOpen, onEdit }) {
   return (
     <Container
       border="2px"
@@ -31,7 +31,7 @@ export default function Projects({ setModalState, onOpen }) {
           }}
         />
       </Container>
-      <ProjectsCarousel />
+      <ProjectsCarousel onEdit={onEdit} />
     </Container>
   );
 }

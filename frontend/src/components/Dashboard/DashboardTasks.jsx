@@ -47,7 +47,10 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
-          setUserTasks((prev) => [...prev, taskFormValues]);
+          const returnedTask = response.data.task[0];
+          setUserTasks((prev) => {
+            return [...prev, returnedTask];
+          });
           console.log("Succesfully added new Task to database");
         })
         .catch((err) => console.log("err:", err));

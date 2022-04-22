@@ -9,7 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-export default function SocialProfileSimple({ project }) {
+export default function SocialProfileSimple({ project, onEdit }) {
   return (
     <Center py={6} flex="7" height="285px" width="33%">
       <Box
@@ -18,26 +18,31 @@ export default function SocialProfileSimple({ project }) {
         boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
-        textAlign={"center"}>
-        <Heading fontSize={"2xl"} fontFamily={"body"}>
-          {project.name}
-        </Heading>
-        <Text fontWeight={600} color={"gray.500"} mb={4}>
-          {project.status}
-        </Text>
-        <Text
-          textAlign={"center"}
-          color={useColorModeValue("gray.700", "gray.400")}
-          px={3}
-          noOfLines={3}>
-          {project.description}
-        </Text>
+        textAlign={"center"}
+      >
+        <Box onClick={(e) => onEdit(project)}>
+          <Heading fontSize={"2xl"} fontFamily={"body"}>
+            {project.name}
+          </Heading>
+          <Text fontWeight={600} color={"gray.500"} mb={4}>
+            {project.status}
+          </Text>
+          <Text
+            textAlign={"center"}
+            color={useColorModeValue("gray.700", "gray.400")}
+            px={3}
+            noOfLines={3}
+          >
+            {project.description}
+          </Text>
+        </Box>
 
         <Stack mt={8} direction={"row"} spacing={4} justifyContent="center">
           <Link
             _hover={{ textDecoration: "none" }}
             width="50%"
-            href={`/projects/${project.id}`}>
+            href={`/projects/${project.id}`}
+          >
             <Button
               fontSize={"sm"}
               rounded={"full"}
@@ -52,7 +57,8 @@ export default function SocialProfileSimple({ project }) {
               }}
               _focus={{
                 bg: "blue.500",
-              }}>
+              }}
+            >
               View Project
             </Button>
           </Link>

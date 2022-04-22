@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import {
   Editable,
   EditableInput,
@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { projectsContext } from "../Providers/ProjectsProvider";
+import { updateProjects } from "../helpers/selectors";
 
 export default function NewProjectForm(props) {
   const testProjectValues = {
@@ -27,18 +28,36 @@ export default function NewProjectForm(props) {
   };
 
   const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
-  const { setModalState } = props;
+  const { setModalState, editProject, setEditProject } = props;
   const initialRef = useRef();
-  const { setUserProjects } = useContext(projectsContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
 
   function createProject(projectFormValues) {
-    axios
-      .post("/api/projects", projectFormValues)
-      .then((response) => {
-        setUserProjects((prev) => [...prev, projectFormValues]);
-        console.log("Succesfully added a new Project to database");
-      })
-      .catch((err) => console.log("err:", err));
+    if (!editProject) {
+      axios
+        .post("/api/projects", projectFormValues)
+        .then((response) => {
+          console.log(`Response: ${response.data.project[0]}`);
+          const returnedProject = response.data.project[0];
+          setUserProjects((prev) => [...prev, returnedProject]);
+          console.log("Succesfully added a new Project to database");
+        })
+        .catch((err) => console.log("err:", err));
+    } else {
+      axios
+        .put(`/api/projects/${editProject.id}`, projectFormValues)
+        .then((response) => {
+          const updatedProjects = updateProjects(
+            userProjects,
+            projectFormValues
+          );
+          console.log(updatedProjects);
+          setUserProjects(updatedProjects);
+          console.log("Succesfully added a new Project to database");
+        })
+        .catch((err) => console.log("err:", err));
+    }
+    console.log(`Userprojects after request: ${userProjects}`);
   }
 
   function handleProjectChange(event) {
@@ -70,7 +89,19 @@ export default function NewProjectForm(props) {
     // console.log('projectFormValues', projectFormValues);
     createProject(projectFormValues);
     setModalState(null);
+    setEditProject(null);
   }
+
+  useEffect(() => {
+    if (editProject) {
+      setProjectFormValues({
+        ...editProject,
+        due_date: editProject.due_date.slice(0, 10),
+        modified_date: editProject.modified_date.slice(0, 10),
+        start_date: editProject.start_date.slice(0, 10),
+      });
+    }
+  }, [editProject]);
 
   return (
     <Container>
@@ -111,6 +142,7 @@ export default function NewProjectForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleOwnerChange(e)}
+          value={projectFormValues.owner_id}
         >
           <option value="1">Dylan</option>
           <option value="2">Pablo</option>
