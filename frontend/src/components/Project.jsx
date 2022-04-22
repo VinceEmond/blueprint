@@ -22,6 +22,7 @@ import { projectsContext } from "../Providers/ProjectsProvider";
 import { usersContext } from "../Providers/UsersProvider";
 import {
   updateUserProjectStatus,
+  getProjectName,
   getProjectOwnerName,
   updateUserTaskStatus,
 } from "../helpers/selectors";
@@ -123,10 +124,12 @@ export default function Tasks() {
     // .catch((err) => console.log("err:", err));
   }, [userTasks]);
 
+  const projectName = getProjectName(id, userProjects);
+
   return (
     <div>
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
-        Tasks
+        Tasks for Project {projectName}
       </Heading>
       <Center>
         <Container borderWidth="1px" borderRadius="lg" maxW="8xl">
