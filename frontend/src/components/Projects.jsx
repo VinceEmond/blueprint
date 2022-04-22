@@ -16,6 +16,8 @@ export default function Projects() {
   // const [userData, setUserData] = useState(null);
   const { viewValue, setViewValue } = useContext(viewsContext);
   const { setUserProjects } = useContext(projectsContext);
+  const [editTask, setEditTask] = useState(null);
+  const [editProject, setEditProject] = useState(null);
   // const { allUsers } = useContext(usersContext);
 
   // When mounted, API call for DB query for all users and specific user's name when component renders
@@ -120,10 +122,18 @@ export default function Projects() {
   // });
 
   // returns component based on view option
+  const triggerEditProject = (project) => {
+    console.log(project);
+    setEditProject(project);
+    setModalState("projects");
+    onOpen();
+  };
+
+  // returns component based on view option
   function view() {
     if (viewValue === "List") {
       // setViewValue("List");
-      return <ProjectTable />;
+      return <ProjectTable onEdit={triggerEditProject} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
       return <TrelloProjects />;
@@ -147,8 +157,10 @@ export default function Projects() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        setUserTasks={null}
-        setUserProjects={setUserProjects}
+        editTask={editTask}
+        setEditTask={setEditTask}
+        editProject={editProject}
+        setEditProject={setEditProject}
       />
     </div>
   );

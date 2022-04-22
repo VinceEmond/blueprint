@@ -24,6 +24,22 @@ export function getProjectOwnerName(ownerId, users) {
   return filteredUserName;
 }
 
+/* Gets specific user name from assignee_id */
+export function getAssigneeName(assignee_id, users) {
+  const filteredUser = users.filter((user) => {
+    return user.id == assignee_id;
+  });
+  // console.log("FILTEREDUSER: ", filteredUser);
+
+  if (!filteredUser[0]) {
+    return "";
+  }
+
+  const filteredUserName = filteredUser[0].first_name;
+  console.log("FILTEREDUSERNAME: ", filteredUserName);
+  return filteredUserName;
+}
+
 /* Gets project name from project id */
 export function getProjectName(projectId, projects) {
   const filteredProject = projects.filter((project) => {

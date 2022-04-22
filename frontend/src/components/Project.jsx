@@ -21,8 +21,8 @@ import { tasksContext } from "../Providers/TasksProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
 import { usersContext } from "../Providers/UsersProvider";
 import {
-  updateUserProjectStatus,
   getProjectName,
+  getAssigneeName,
   getProjectOwnerName,
   updateUserTaskStatus,
 } from "../helpers/selectors";
@@ -55,8 +55,10 @@ export default function Tasks() {
         }
         // converting date data to more readable data
         let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-
-        let ownerName = getProjectOwnerName(item.owner_id, allUsers);
+        let assigneeName = getAssigneeName(item.assignee_id, allUsers);
+        console.log("ALLUSERS: ", allUsers);
+        console.log("ASSIGNEEID: ", item.assignee_id);
+        // console.log("OWNERNAME: ", assigneeName);
 
         let generatedDefaultValue = [];
         function defaultChecks() {
@@ -111,7 +113,7 @@ export default function Tasks() {
               </CheckboxGroup>
             </Td>
             <Td>{item.name}</Td>
-            <Td>{ownerName}</Td>
+            <Td>{assigneeName}</Td>
             <Td>{date}</Td>
             <Td>{item.status}</Td>
             <Td>{item.priority}</Td>
@@ -122,7 +124,7 @@ export default function Tasks() {
     setTableRows(taskList);
     // })
     // .catch((err) => console.log("err:", err));
-  }, [userTasks]);
+  }, [userTasks, allUsers]);
 
   const projectName = getProjectName(id, userProjects);
 
@@ -139,7 +141,7 @@ export default function Tasks() {
                 <Tr>
                   <Th>Complete</Th>
                   <Th>Name</Th>
-                  <Th>Owner</Th>
+                  <Th>Assignee</Th>
                   <Th>Due Date</Th>
                   <Th>Status</Th>
                   <Th>Priority</Th>

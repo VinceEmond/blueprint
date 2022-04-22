@@ -22,7 +22,7 @@ import {
 import { usersContext } from "../../Providers/UsersProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 
-export default function ProjectTable(props) {
+export default function ProjectTable({ onEdit }) {
   // const { projectList } = props;
   const projectColumn = ["Complete", "Name", "Owner", "Due Date", "Status"];
 
@@ -98,10 +98,10 @@ export default function ProjectTable(props) {
             ></Checkbox>
           </CheckboxGroup>
         </Td>
-        <Td>{item.name}</Td>
-        <Td>{ownerName}</Td>
-        <Td>{date}</Td>
-        <Td>{item.status}</Td>
+        <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
+        <Td onClick={(e) => onEdit(item)}>{ownerName}</Td>
+        <Td onClick={(e) => onEdit(item)}>{date}</Td>
+        <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
       </Tr>
     );
   });

@@ -117,7 +117,7 @@ export default function Tasks() {
 
   function View() {
     if (viewValue === "List") {
-      return <TaskTable onEdit={triggerEditTask} setViewValue={setViewValue} />;
+      return <TaskTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
       return <TrelloTasks />;
     }
