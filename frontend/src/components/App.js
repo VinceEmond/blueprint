@@ -13,7 +13,6 @@ import Login from "./User/Login";
 import Register from "./User/Register";
 import { useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
-import SortTable from "./Tables/SortTable";
 
 // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
 
@@ -95,7 +94,6 @@ function App() {
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/table" element={<SortTable />} />
             </Routes>
           </div>
           {redirect && setRedirectUrl(null)}
