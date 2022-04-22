@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import TrelloTasksCard from "./TrelloTasksCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { preventOverflow } from "@popperjs/core";
+import { tasksContext } from "../../Providers/TasksProvider";
 
 const Container = styled.div`
   display: flex;
@@ -38,7 +38,8 @@ const Title = styled.span`
 `;
 
 export default function TrelloTasks() {
-  const [userTasks, setUserTasks] = useState([]);
+  // const [userTasks, setUserTasks] = useState([]);
+  const { userTasks, setUserTasks } = useContext(tasksContext);
 
   const trelloColumns = {
     [uuidv4()]: {
@@ -62,51 +63,51 @@ export default function TrelloTasks() {
   const [columns, setColumns] = useState(trelloColumns);
 
   useEffect(() => {
-    axios
-      .get("/api/tasks")
-      .then((response) => {
-        const allTasks = response.data.tasks;
+    // axios
+    //   .get("/api/tasks")
+    //   .then((response) => {
+    //     const allTasks = response.data.tasks;
 
-        // console.log("ALLTASKS: ", allTasks);
+    // console.log("ALLTASKS: ", allTasks);
 
-        const cards = allTasks.map((task) => {
-          return {
-            project_id: String(task.project_id),
-            priority: String(task.priority),
-            assignee_id: String(task.assignee_id),
-            name: String(task.name),
-            description: String(task.description),
-            start_date: String(task.start_date),
-            due_date: String(task.due_date),
-            modified_date: String(task.modified_date),
-            status: String(task.status),
-            category_id: String(task.category_id),
-            is_active: String(task.is_active),
-            id: String(task.id),
-          };
-        });
+    const cards = userTasks.map((task) => {
+      return {
+        project_id: String(task.project_id),
+        priority: String(task.priority),
+        assignee_id: String(task.assignee_id),
+        name: String(task.name),
+        description: String(task.description),
+        start_date: String(task.start_date),
+        due_date: String(task.due_date),
+        modified_date: String(task.modified_date),
+        status: String(task.status),
+        category_id: String(task.category_id),
+        is_active: String(task.is_active),
+        id: String(task.id),
+      };
+    });
 
-        // console.log("allTaskObj: ", allTaskObj);
+    // console.log("allTaskObj: ", allTaskObj);
 
-        for (let column in trelloColumns) {
-          for (let j = 0; j < cards.length; j++) {
-            // console.log(trelloColumns[column].title);
-            // console.log(allTaskObj[j].progress);
-            if (trelloColumns[column].title === cards[j].status)
-              trelloColumns[column].items.push(cards[j]);
-          }
-        }
+    for (let column in trelloColumns) {
+      for (let j = 0; j < cards.length; j++) {
+        // console.log(trelloColumns[column].title);
+        // console.log(allTaskObj[j].progress);
+        if (trelloColumns[column].title === cards[j].status)
+          trelloColumns[column].items.push(cards[j]);
+      }
+    }
 
-        // console.log("trelloColumns: ", trelloColumns);
+    // console.log("trelloColumns: ", trelloColumns);
 
-        setUserTasks((prev) => [...prev, cards.status]);
-      })
-      .catch((err) => console.log("err:", err));
+    setUserTasks(cards);
+    // });
+    //     .catch((err) => console.log("err:", err));
   }, []);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
-    const { source, destination, draggableId } = result;
+    const { source, destination } = result;
 
     if (!destination) {
       return;

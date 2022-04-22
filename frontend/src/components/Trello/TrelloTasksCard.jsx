@@ -46,7 +46,11 @@ const TaskInformation = styled.div`
 
 export default function TrelloTasksCard({ item, index }) {
   return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
+    <Draggable
+      key={String(item.id)}
+      draggableId={String(item.id)}
+      index={index}
+    >
       {(provided, snapshot) => (
         <NaturalDragAnimation
           style={provided.draggableProps.style}

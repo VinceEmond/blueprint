@@ -5,7 +5,7 @@ import App from "./components/App";
 // cookies
 import { CookiesProvider } from "react-cookie";
 import UsersProvider from "./Providers/UsersProvider";
-import ViewsProvider from "./Providers/ViewProvider";
+import ViewsProvider from "./Providers/ViewsProvider";
 import ProjectsProvider from "./Providers/ProjectsProvider";
 import TasksProvider from "./Providers/TasksProvider";
 

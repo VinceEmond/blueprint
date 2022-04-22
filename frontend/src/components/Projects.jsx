@@ -1,38 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Tr,
-  Td,
-  Heading,
-  useDisclosure,
-  Checkbox,
-  CheckboxGroup,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
-import moment from "moment";
 import TrelloProjects from "./Trello/TrelloProjects";
 import ProjectTable from "./Tables/ProjectTable";
 import ViewSelect from "./ViewSelect";
 import ModalForm from "./ModalForm";
-import {
-  getProjectOwnerName,
-  updateUserProjectStatus,
-} from "../helpers/selectors";
-// import { viewsContext } from "../Providers/UsersProvider";
+import { viewsContext } from "../Providers/ViewsProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
-import { usersContext } from "../Providers/UsersProvider";
 
 export default function Projects() {
   // const [userProjects, setUserProjects] = useState([]);
-  const [viewValue, setViewValue] = useState("List");
+  // const [viewValue, setViewValue] = useState("List");
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [userData, setUserData] = useState(null);
-  // const { view, viewValue } = useContext(viewsContext);
-  const { userProjects, setUserProjects } = useContext(projectsContext);
-  const { allUsers } = useContext(usersContext);
+  const { viewValue, setViewValue } = useContext(viewsContext);
+  const { setUserProjects } = useContext(projectsContext);
+  // const { allUsers } = useContext(usersContext);
 
-  // // When mounted, API call for DB query for all users and specific user's name when component renders
+  // When mounted, API call for DB query for all users and specific user's name when component renders
   // useEffect(() => {
   //   const controller = new AbortController();
   //   axios
@@ -50,94 +36,96 @@ export default function Projects() {
   // }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
-  useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const allProjects = response.data.projects;
-        setUserProjects(allProjects);
-        // console.log("ALLPROJECTS: ", allProjects);
-      })
-      .catch((err) => console.log("err:", err));
-  }, [viewValue]);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/projects")
+  //     .then((response) => {
+  //       const allProjects = response.data.projects;
+  //       setUserProjects(allProjects);
+  //       // console.log("ALLPROJECTS: ", allProjects);
+  //     })
+  //     .catch((err) => console.log("err:", err));
+  // }, [viewValue]);
 
   // Generates list of projects in table row format
-  const projectList = userProjects.map((item) => {
-    // converting date data to more readable data
-    let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-    // console.log("OWNERID: ", item.owner_id);
-    // console.log("USERDATA:", userData);
-    let ownerName = getProjectOwnerName(item.owner_id, allUsers);
+  // const projectList = userProjects.map((item) => {
+  //   // converting date data to more readable data
+  //   let date = moment(item.due_date).utc().format("YYYY-MM-DD");
+  //   // console.log("OWNERID: ", item.owner_id);
+  //   // console.log("USERDATA:", userData);
+  //   let ownerName = getProjectOwnerName(item.owner_id, allUsers);
 
-    // Adds all projects with Complete status so that it can be populated on the list with checkbox marked
-    let generatedDefaultValue = [];
-    function defaultChecks() {
-      if (item.status === "Complete") {
-        generatedDefaultValue.push(item.name);
-      }
-      return generatedDefaultValue;
-    }
-    const checkValues = defaultChecks();
+  //   // Adds all projects with Complete status so that it can be populated on the list with checkbox marked
+  //   let generatedDefaultValue = [];
+  //   function defaultChecks() {
+  //     if (item.status === "Complete") {
+  //       generatedDefaultValue.push(item.name);
+  //     }
+  //     return generatedDefaultValue;
+  //   }
+  //   const checkValues = defaultChecks();
 
-    // For tasks with Complete status, it returns grey so it can be marked
-    function completeStatusBool() {
-      if (item.status === "Complete") return "grey";
-    }
+  //   // For tasks with Complete status, it returns grey so it can be marked
+  //   function completeStatusBool() {
+  //     if (item.status === "Complete") return "grey";
+  //   }
 
-    // function that updates status when checkbox is clicked
-    function checkClick(e, id) {
-      // console.log("OLDSTATUS: ", item.status);
-      // console.log("OLDITEM: ", item);
-      // console.log("CHECKBOX CLICKED", e.target.checked);
-      // console.log("CHECKBOX EVENT", e);
-      // console.log("ITEMID CHECK", id);
+  //   // function that updates status when checkbox is clicked
+  //   function checkClick(e, id) {
+  //     // console.log("OLDSTATUS: ", item.status);
+  //     // console.log("OLDITEM: ", item);
+  //     // console.log("CHECKBOX CLICKED", e.target.checked);
+  //     // console.log("CHECKBOX EVENT", e);
+  //     // console.log("ITEMID CHECK", id);
 
-      // updates the project status and returns array of all userProjects with update
-      const updatedProjects = updateUserProjectStatus(
-        userProjects,
-        id,
-        e.target.checked
-      );
+  //     // updates the project status and returns array of all userProjects with update
+  //     const updatedProjects = updateUserProjectStatus(
+  //       userProjects,
+  //       id,
+  //       e.target.checked
+  //     );
 
-      // filter updated userProjects with status change
-      const filteredProject = updatedProjects.filter((project) => {
-        return project.id == id;
-      });
-      // console.log("FILTEREDPROJECT: ", filteredProject);
-      // console.log("NEWSTATUS: ", item.status);
-      // console.log("NEWITEM: ", item);
+  //     // filter updated userProjects with status change
+  //     const filteredProject = updatedProjects.filter((project) => {
+  //       return project.id == id;
+  //     });
+  //     // console.log("FILTEREDPROJECT: ", filteredProject);
+  //     // console.log("NEWSTATUS: ", item.status);
+  //     // console.log("NEWITEM: ", item);
 
-      axios.put(`/api/projects/${id}`, filteredProject[0]).then(() => {
-        // console.log("SUCCESSFUL!");
-        setUserProjects(updatedProjects);
-      });
-    }
+  //     axios.put(`/api/projects/${id}`, filteredProject[0]).then(() => {
+  //       setUserProjects(updatedProjects);
+  //       // console.log("SUCCESSFUL!");
+  //     });
+  //   }
 
-    return (
-      // Temporary hack for freshly added projects without database id (until page refresh)
-      <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
-        <Td size="sm">
-          <CheckboxGroup defaultValue={checkValues}>
-            <Checkbox
-              ml="2em"
-              value={item.name}
-              onChange={(e) => checkClick(e, item.id)}
-            ></Checkbox>
-          </CheckboxGroup>
-        </Td>
-        <Td>{item.name}</Td>
-        <Td>{ownerName}</Td>
-        <Td>{date}</Td>
-        <Td>{item.status}</Td>
-      </Tr>
-    );
-  });
+  //   return (
+  //     // Temporary hack for freshly added projects without database id (until page refresh)
+  //     <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
+  //       <Td size="sm">
+  //         <CheckboxGroup defaultValue={checkValues}>
+  //           <Checkbox
+  //             ml="2em"
+  //             value={item.name}
+  //             onChange={(e) => checkClick(e, item.id)}
+  //           ></Checkbox>
+  //         </CheckboxGroup>
+  //       </Td>
+  //       <Td>{item.name}</Td>
+  //       <Td>{ownerName}</Td>
+  //       <Td>{date}</Td>
+  //       <Td>{item.status}</Td>
+  //     </Tr>
+  //   );
+  // });
 
   // returns component based on view option
   function view() {
     if (viewValue === "List") {
-      return <ProjectTable projectList={projectList} />;
+      // setViewValue("List");
+      return <ProjectTable />;
     } else if (viewValue === "Board") {
+      // setViewValue("Board");
       return <TrelloProjects />;
     }
   }
