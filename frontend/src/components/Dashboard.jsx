@@ -22,6 +22,7 @@ export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
   const [editTask, setEditTask] = useState(null);
+  const [editProject, setEditProject] = useState(null);
   const { currentUser } = useContext(usersContext);
 
   // State for current time and date
@@ -63,10 +64,17 @@ export default function Dashboard() {
     return message;
   }
 
-  const triggerEdit = (task) => {
+  const triggerEditTask = (task) => {
     console.log(task);
     setEditTask(task);
     setModalState("tasks");
+    onOpen();
+  };
+
+  const triggerEditProject = (project) => {
+    console.log(project);
+    setEditProject(project);
+    setModalState("projects");
     onOpen();
   };
 
@@ -90,10 +98,15 @@ export default function Dashboard() {
         <Tasks
           setModalState={setModalState}
           onOpen={onOpen}
-          onEdit={triggerEdit}
+          onEdit={triggerEditTask}
         />
         {/* Import dashboard projects */}
-        <Projects setModalState={setModalState} onOpen={onOpen} />
+        <Projects
+          setModalState={setModalState}
+          onOpen={onOpen}
+          setEditProject={setEditProject}
+          onEdit={triggerEditProject}
+        />
       </Container>
 
       <ModalForm
@@ -103,6 +116,8 @@ export default function Dashboard() {
         setModalState={setModalState}
         editTask={editTask}
         setEditTask={setEditTask}
+        editProject={editProject}
+        setEditProject={setEditProject}
       />
     </div>
   );

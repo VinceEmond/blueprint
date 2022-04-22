@@ -14,7 +14,7 @@ import {
   getUserSpecificTasks,
 } from "../../helpers/selectors";
 
-export default function ProjectsCarousel() {
+export default function ProjectsCarousel({ onEdit }) {
   const { userProjects } = useContext(projectsContext);
   const { cookies } = useContext(usersContext);
   const { userTasks } = useContext(tasksContext);
@@ -34,6 +34,7 @@ export default function ProjectsCarousel() {
         <SocialProfileSimple
           key={`p${project.id || project.description.length * 100}`}
           project={project}
+          onEdit={onEdit}
         />
       );
     });

@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import {
   Editable,
   EditableInput,
@@ -27,7 +27,7 @@ export default function NewProjectForm(props) {
   };
 
   const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
-  const { setModalState } = props;
+  const { setModalState, editProject, setEditProject } = props;
   const initialRef = useRef();
   const { setUserProjects } = useContext(projectsContext);
 
@@ -70,7 +70,19 @@ export default function NewProjectForm(props) {
     // console.log('projectFormValues', projectFormValues);
     createProject(projectFormValues);
     setModalState(null);
+    setEditProject(null);
   }
+
+  useEffect(() => {
+    if (editProject) {
+      setProjectFormValues({
+        ...editProject,
+        due_date: editProject.due_date.slice(0, 10),
+        modified_date: editProject.modified_date.slice(0, 10),
+        start_date: editProject.start_date.slice(0, 10),
+      });
+    }
+  }, [editProject]);
 
   return (
     <Container>
