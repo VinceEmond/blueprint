@@ -49,6 +49,10 @@ export default function DrawerExample() {
     }
   }, [messages]);
 
+  // useEffect(() => {
+  //   console.log("Date test", moment(new Date()).format("YYYY-MM-DD HH:mm:ss"));
+  // }, []);
+
   // When mounted, API call for DB query for all messages
   useEffect(() => {
     axios
@@ -62,10 +66,30 @@ export default function DrawerExample() {
 
   const handleMessageBox = (event) => setMessageBox(event.target.value);
   const handleSendMessage = () => {
-    setMessages((prev) => [
-      ...prev,
-      { message: messageBox, sender_id: currentUser },
-    ]);
+    const newMessageObj = {
+      sender_id: 1,
+      content: messageBox,
+      // sender_id: currentUser || 'unknown user',
+      time_stamp: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+    };
+
+    // console.log("Sending via axios", newMessageObj);
+
+    axios
+      .post("/api/messages", newMessageObj)
+      .then((response) => {
+        // setUserTasks((prev) => {
+        //   return [...prev, taskFormValues];
+        // });
+        setMessages((prev) => [...prev, newMessageObj]);
+
+        console.log(
+          "Succesfully added the following message to the database:",
+          newMessageObj
+        );
+      })
+      .catch((err) => console.log("err:", err));
+
     setMessageBox("");
   };
 
@@ -79,6 +103,9 @@ export default function DrawerExample() {
     let avatar = "";
     let userName = "";
     // let messageTimestamp = moment().format("MMMM Do, h:mma");
+
+    // console.log("Time from database:", message.time_stamp);
+
     let messageTimestamp = formatDate(message.time_stamp);
     let senderName = "Unknown Sender";
 
@@ -203,6 +230,7 @@ export default function DrawerExample() {
             </Button>
           </ButtonGroup>
         </DrawerContent>
+        <DrawerFooter></DrawerFooter>
       </Drawer>
     </>
   );
