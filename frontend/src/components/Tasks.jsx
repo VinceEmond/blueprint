@@ -24,6 +24,11 @@ export default function Tasks() {
   const { currentUser } = useContext(usersContext);
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
+<<<<<<< HEAD
+=======
+  const { userProjects, setUserProjects } = useContext(projectsContext);
+  const { userTasks, setUserTasks } = useContext(tasksContext);
+>>>>>>> main
 
   // Retrieve all projects (eventually user specific projects)
   useEffect(() => {
@@ -57,18 +62,19 @@ export default function Tasks() {
 
     let projectName = getProjectName(item.project_id, userProjects);
 
-    let generatedDefaultValue = [];
     function defaultChecks() {
+      let generatedDefaultValue = [];
       if (item.status === "Complete") {
         generatedDefaultValue.push(item.name);
       }
       return generatedDefaultValue;
     }
-    const checkValues = defaultChecks();
 
     function completeStatusBool() {
       if (item.status === "Complete") return "grey";
     }
+
+    const checkValues = defaultChecks();
 
     function checkClick(e, id) {
       console.log("OLDSTATUS: ", item.status);

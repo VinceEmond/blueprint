@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Editable,
   EditableInput,
@@ -35,7 +35,7 @@ export default function NewTaskForm(props) {
     modified_date: "2022-04-18",
     category_id: 1,
   });
-  const { setModalState } = props;
+  const { setModalState, editTask } = props;
   const { setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
 
@@ -86,6 +86,15 @@ export default function NewTaskForm(props) {
     setModalState(null);
   }
 
+  useEffect(() => {
+    setTaskFormValues({
+      ...editTask,
+      due_date: editTask.due_date.slice(0, 10),
+      modified_date: editTask.modified_date.slice(0, 10),
+      start_date: editTask.start_date.slice(0, 10),
+    });
+  }, [editTask]);
+
   return (
     <Container>
       <HStack mt="1em">
@@ -121,6 +130,7 @@ export default function NewTaskForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleProjectIDChange(e)}
+          value={taskFormValues.project_id}
         >
           {userProjects.map((project) => {
             return (
@@ -140,6 +150,7 @@ export default function NewTaskForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleAssigneeChange(e)}
+          value={taskFormValues.assignee_id}
         >
           <option value={1}>Dylan</option>
           <option value={2}>Pablo</option>
