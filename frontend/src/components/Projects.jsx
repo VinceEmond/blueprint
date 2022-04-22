@@ -1,25 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Tr,
-  Td,
-  Heading,
-  useDisclosure,
-  Checkbox,
-  CheckboxGroup,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
-import moment from "moment";
 import TrelloProjects from "./Trello/TrelloProjects";
 import ProjectTable from "./Tables/ProjectTable";
 import ViewSelect from "./ViewSelect";
 import ModalForm from "./ModalForm";
-import {
-  getProjectOwnerName,
-  updateUserProjectStatus,
-} from "../helpers/selectors";
 import { viewsContext } from "../Providers/ViewsProvider";
-import { usersContext } from "../Providers/UsersProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
 
 export default function Projects() {
@@ -29,7 +15,7 @@ export default function Projects() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [userData, setUserData] = useState(null);
   const { viewValue, setViewValue } = useContext(viewsContext);
-  const { userProjects, setUserProjects } = useContext(projectsContext);
+  const { setUserProjects } = useContext(projectsContext);
   // const { allUsers } = useContext(usersContext);
 
   // When mounted, API call for DB query for all users and specific user's name when component renders

@@ -5,7 +5,6 @@ import TrelloProjectsCard from "./TrelloProjectsCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { projectsContext } from "../../Providers/ProjectsProvider";
-import moment from "moment";
 
 const Container = styled.div`
   display: flex;
