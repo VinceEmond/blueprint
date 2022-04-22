@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import TrelloProjectsCard from "./TrelloProjectsCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import moment from "moment";
 
 const Container = styled.div`
   display: flex;
@@ -36,8 +38,9 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloProjects() {
-  const [userProjects, setUserProjects] = useState([]);
+export default function TrelloTasks() {
+  // const [userTasks, setUserTasks] = useState([]);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
 
   const trelloColumns = {
     [uuidv4()]: {
@@ -61,44 +64,45 @@ export default function TrelloProjects() {
   const [columns, setColumns] = useState(trelloColumns);
 
   useEffect(() => {
-    axios
-      .get("/api/projects")
-      .then((response) => {
-        const allProjects = response.data.projects;
+    // axios
+    //   .get("/api/projects")
+    //   .then((response) => {
+    //     const allProjects = response.data.projects;
 
-        // console.log("ALLTASKS: ", allTasks);
+    // console.log("ALLTASKS: ", allTasks);
 
-        const cards = allProjects.map((project) => {
-          return {
-            id: String(project.id),
-            category_id: String(project.category_id),
-            owner_id: String(project.owner_id),
-            name: String(project.name),
-            description: String(project.description),
-            start_date: String(project.start_date),
-            due_date: String(project.due_date),
-            modified_date: String(project.modified_date),
-            status: String(project.status),
-            is_active: String(project.is_active),
-          };
-        });
+    const cards = userProjects.map((project) => {
+      // console.log("cards PDUEDATE1: ", project.due_date);
+      return {
+        id: String(project.id),
+        category_id: String(project.category_id),
+        owner_id: String(project.owner_id),
+        name: String(project.name),
+        description: String(project.description),
+        start_date: String(project.start_date),
+        due_date: String(project.due_date),
+        modified_date: String(project.modified_date),
+        status: String(project.status),
+        is_active: String(project.is_active),
+      };
+    });
 
-        // console.log("allProjectsObj: ", allProjectsObj);
+    // console.log("allProjectsObj: ", allProjectsObj);
 
-        for (let column in trelloColumns) {
-          for (let j = 0; j < cards.length; j++) {
-            // console.log(trelloColumns[column].title);
-            // console.log(allProjectsObj[j].status);
-            if (trelloColumns[column].title === cards[j].status)
-              trelloColumns[column].items.push(cards[j]);
-          }
-        }
+    for (let column in trelloColumns) {
+      for (let j = 0; j < cards.length; j++) {
+        // console.log(trelloColumns[column].title);
+        // console.log(allProjectsObj[j].status);
+        if (trelloColumns[column].title === cards[j].status)
+          trelloColumns[column].items.push(cards[j]);
+      }
+    }
 
-        // console.log("trelloColumns: ", trelloColumns);
+    // console.log("trelloColumns: ", trelloColumns);
 
-        setUserProjects((prev) => [...prev, cards.status]);
-      })
-      .catch((err) => console.log("err:", err));
+    setUserProjects(cards);
+    // })
+    // .catch((err) => console.log("err:", err));
   }, []);
 
   const onDragEnd = (result, columns, setColumns) => {

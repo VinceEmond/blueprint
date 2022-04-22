@@ -8,17 +8,20 @@ export default function ViewsProvider(props) {
   const [viewValue, setViewValue] = useState("List");
 
   // returns component based on view option
-  function View() {
-    //   if (viewValue === "List") {
-    //     return <ProjectTable projectList={projectList} />;
-    //   } else if (viewValue === "Board") {
-    //     return <TrelloProjects />;
-    //   }
-  }
+  // function view() {
+  //   if (viewValue === "List") {
+  //     setViewValue("List");
+  //     return <ProjectTable />;
+  //   } else if (viewValue === "Board") {
+  //     setViewValue("Board");
+  //     return <TrelloProjects />;
+  //   }
+  // }
 
   const userData = {
     // view,
-    // viewValue,
+    viewValue,
+    setViewValue,
   };
 
   return (

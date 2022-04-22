@@ -16,41 +16,37 @@ import ViewSelect from "./ViewSelect";
 import { usersContext } from "../Providers/UsersProvider";
 import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
 import ModalForm from "./ModalForm";
-import { projectsContext } from "../Providers/ProjectsProvider";
-import { tasksContext } from "../Providers/TasksProvider";
 
 export default function Tasks() {
-  // const [userTasks, setUserTasks] = useState([]);
+  const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
-  // const [userProjects, setUserProjects] = useState(null);
+  const [userProjects, setUserProjects] = useState(null);
   const { currentUser } = useContext(usersContext);
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { userProjects } = useContext(projectsContext);
-  const { userTasks, setUserTasks } = useContext(tasksContext);
 
   // Retrieve all projects (eventually user specific projects)
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/projects")
-  //     .then((response) => {
-  //       const allProjects = response.data.projects;
-  //       setUserProjects(allProjects);
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        const allProjects = response.data.projects;
+        setUserProjects(allProjects);
+      })
+      .catch((err) => console.log("err:", err));
+  }, []);
 
   // Retrieve all tasks (eventually user specific tasks)
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/tasks")
-  //     .then((response) => {
-  //       const allTasks = response.data.tasks;
-  //       setUserTasks(allTasks);
-  //       // console.log(allTasks)
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // }, [viewValue]);
+  useEffect(() => {
+    axios
+      .get("/api/tasks")
+      .then((response) => {
+        const allTasks = response.data.tasks;
+        setUserTasks(allTasks);
+        // console.log(allTasks)
+      })
+      .catch((err) => console.log("err:", err));
+  }, [viewValue]);
 
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
@@ -75,11 +71,11 @@ export default function Tasks() {
     }
 
     function checkClick(e, id) {
-      // console.log("OLDSTATUS: ", item.status);
-      // console.log("OLDITEM: ", item);
-      // console.log("CHECKBOX CLICKED", e.target.checked);
-      // console.log("CHECKBOX EVENT", e);
-      // console.log("ITEMID CHECK", id);
+      console.log("OLDSTATUS: ", item.status);
+      console.log("OLDITEM: ", item);
+      console.log("CHECKBOX CLICKED", e.target.checked);
+      console.log("CHECKBOX EVENT", e);
+      console.log("ITEMID CHECK", id);
       const updatedTasks = updateUserTaskStatus(
         userTasks,
         id,
@@ -89,13 +85,13 @@ export default function Tasks() {
       const filteredTasks = updatedTasks.filter((project) => {
         return project.id === id;
       });
-      // console.log("FILTEREDPROJECT: ", filteredTasks);
-      // console.log("NEWSTATUS: ", item.status);
-      // console.log("NEWITEM: ", item);
+      console.log("FILTEREDPROJECT: ", filteredTasks);
+      console.log("NEWSTATUS: ", item.status);
+      console.log("NEWITEM: ", item);
 
-      setUserTasks(updatedTasks);
       axios.put(`/api/tasks/${id}`, filteredTasks[0]).then(() => {
         console.log("SUCCESSFUL!");
+        setUserTasks(updatedTasks);
       });
     }
 
@@ -145,6 +141,8 @@ export default function Tasks() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
+        setUserTasks={setUserTasks}
+        setUserProjects={null}
       />
     </div>
   );
