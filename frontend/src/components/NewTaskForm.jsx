@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   Editable,
   EditableInput,
@@ -35,9 +35,10 @@ export default function NewTaskForm(props) {
     modified_date: "2022-04-18",
     category_id: 1,
   });
-  const { setModalState, editTask } = props;
+  const { setModalState, editTask, setEditTask } = props;
   const { setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
+  const lowPriorityButton = useRef(null);
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
@@ -84,16 +85,23 @@ export default function NewTaskForm(props) {
     // console.log('taskFormValues', taskFormValues);
     createTask(taskFormValues);
     setModalState(null);
+    setEditTask(null);
   }
 
   useEffect(() => {
-    setTaskFormValues({
-      ...editTask,
-      due_date: editTask.due_date.slice(0, 10),
-      modified_date: editTask.modified_date.slice(0, 10),
-      start_date: editTask.start_date.slice(0, 10),
-    });
+    if (editTask) {
+      setTaskFormValues({
+        ...editTask,
+        due_date: editTask.due_date.slice(0, 10),
+        modified_date: editTask.modified_date.slice(0, 10),
+        start_date: editTask.start_date.slice(0, 10),
+      });
+    }
   }, [editTask]);
+
+  // useEffect(() => {
+  //   lowPriorityButton.current.focus();
+  // }, [editTask]);
 
   return (
     <Container>
@@ -185,6 +193,7 @@ export default function NewTaskForm(props) {
           name="Low"
           onClick={(e) => handlePriorityChange(e)}
           width="100px"
+          ref={lowPriorityButton}
         >
           low
         </Button>

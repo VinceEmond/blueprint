@@ -102,6 +102,7 @@ export default function Dashboard() {
         modalState={modalState}
         setModalState={setModalState}
         editTask={editTask}
+        setEditTask={setEditTask}
       />
     </div>
   );

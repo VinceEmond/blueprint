@@ -16,17 +16,28 @@ export default function ModalForm({
   isOpen,
   onClose,
   editTask,
+  setEditTask,
 }) {
+  const clearEditTask = () => {
+    onClose();
+    setEditTask(null);
+    console.log("I'm firing");
+  };
+
   return (
     <>
       {modalState === "tasks" && (
-        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        <Modal isCentered isOpen={isOpen} onClose={() => clearEditTask()}>
           <ModalOverlay />
           <ModalContent mw="60%">
             <ModalHeader margin="10px">New Task</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <NewTaskForm setModalState={setModalState} editTask={editTask} />
+              <NewTaskForm
+                setModalState={setModalState}
+                editTask={editTask}
+                setEditTask={setEditTask}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>
