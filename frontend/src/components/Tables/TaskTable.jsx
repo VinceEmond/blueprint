@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -19,7 +19,7 @@ import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 
-export default function TaskTable(props) {
+export default function TaskTable({ onEdit, setViewValue }) {
   // const { taskList } = props;
   const taskColumn = [
     "Complete",
@@ -41,7 +41,6 @@ export default function TaskTable(props) {
   const taskList = userTasks.map((item) => {
     // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-
     // console.log(`UserProjects: ${userProjects}`);
     // console.log(`item.project_id: ${item.project_id}`);
 
@@ -97,11 +96,11 @@ export default function TaskTable(props) {
             ></Checkbox>
           </CheckboxGroup>
         </Td>
-        <Td>{item.name}</Td>
-        <Td>{projectName}</Td>
-        <Td>{date}</Td>
-        <Td>{item.status}</Td>
-        <Td>{item.priority}</Td>
+        <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
+        <Td onClick={(e) => onEdit(item)}>{projectName}</Td>
+        <Td onClick={(e) => onEdit(item)}>{date}</Td>
+        <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
+        <Td onClick={(e) => onEdit(item)}>{item.priority}</Td>
       </Tr>
     );
   });
