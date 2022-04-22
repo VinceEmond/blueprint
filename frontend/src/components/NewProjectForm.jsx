@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { projectsContext } from "../Providers/ProjectsProvider";
+import { updateProjects } from "../helpers/selectors";
 
 export default function NewProjectForm(props) {
   const testProjectValues = {
@@ -29,16 +30,32 @@ export default function NewProjectForm(props) {
   const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
   const { setModalState, editProject, setEditProject } = props;
   const initialRef = useRef();
-  const { setUserProjects } = useContext(projectsContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
 
   function createProject(projectFormValues) {
-    axios
-      .post("/api/projects", projectFormValues)
-      .then((response) => {
-        setUserProjects((prev) => [...prev, projectFormValues]);
-        console.log("Succesfully added a new Project to database");
-      })
-      .catch((err) => console.log("err:", err));
+    if (!editProject) {
+      axios
+        .post("/api/projects", projectFormValues)
+        .then((response) => {
+          setUserProjects((prev) => [...prev, projectFormValues]);
+          console.log("Succesfully added a new Project to database");
+        })
+        .catch((err) => console.log("err:", err));
+    } else {
+      axios
+        .put(`/api/projects/${editProject.id}`, projectFormValues)
+        .then((response) => {
+          const updatedProjects = updateProjects(
+            userProjects,
+            projectFormValues
+          );
+          console.log(updatedProjects);
+          setUserProjects(updatedProjects);
+          console.log("Succesfully added a new Project to database");
+        })
+        .catch((err) => console.log("err:", err));
+    }
+    console.log(`Userprojects after put request: ${userProjects}`);
   }
 
   function handleProjectChange(event) {
