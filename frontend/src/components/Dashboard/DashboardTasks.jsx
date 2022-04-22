@@ -17,10 +17,10 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import axios from "axios";
 
-export default function Tasks({ setModalState, onOpen }) {
+export default function Tasks({ setModalState, onOpen, onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { cookies } = useContext(usersContext);
 
@@ -85,7 +85,7 @@ export default function Tasks({ setModalState, onOpen }) {
         // For freshly rendered tasks, id will be undefined so make up temp key
         const key = `${filter}+${task.id || task.name.length * 1000}`;
         return (
-          <Tr key={key}>
+          <Tr key={key} onClick={(e) => onEdit(task)}>
             <Td>{task.name}</Td>
           </Tr>
         );

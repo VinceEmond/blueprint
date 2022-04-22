@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Editable,
   EditableInput,
@@ -35,7 +35,7 @@ export default function NewTaskForm(props) {
     modified_date: "2022-04-18",
     category_id: 1,
   });
-  const { setModalState } = props;
+  const { setModalState, editTask } = props;
   const { setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
 
@@ -85,6 +85,10 @@ export default function NewTaskForm(props) {
     createTask(taskFormValues);
     setModalState(null);
   }
+
+  useEffect(() => {
+    setTaskFormValues(editTask);
+  }, [editTask]);
 
   return (
     <Container>
