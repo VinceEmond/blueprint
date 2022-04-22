@@ -87,7 +87,12 @@ export default function NewTaskForm(props) {
   }
 
   useEffect(() => {
-    setTaskFormValues(editTask);
+    setTaskFormValues({
+      ...editTask,
+      due_date: editTask.due_date.slice(0, 10),
+      modified_date: editTask.modified_date.slice(0, 10),
+      start_date: editTask.start_date.slice(0, 10),
+    });
   }, [editTask]);
 
   return (
@@ -125,6 +130,7 @@ export default function NewTaskForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleProjectIDChange(e)}
+          value={taskFormValues.project_id}
         >
           {userProjects.map((project) => {
             return (
@@ -144,6 +150,7 @@ export default function NewTaskForm(props) {
           width="60%"
           display="flex"
           onChange={(e) => handleAssigneeChange(e)}
+          value={taskFormValues.assignee_id}
         >
           <option value={1}>Dylan</option>
           <option value={2}>Pablo</option>
