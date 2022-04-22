@@ -37,7 +37,10 @@ export default function NewProjectForm(props) {
       axios
         .post("/api/projects", projectFormValues)
         .then((response) => {
-          setUserProjects((prev) => [...prev, projectFormValues]);
+          console.log(`Response: ${response.data.project[0]}`);
+          const returnedProject = response.data.project[0];
+          // const updatedProjects = updateProjects(userProjects, returnedProject)
+          setUserProjects((prev) => [...prev, returnedProject]);
           console.log("Succesfully added a new Project to database");
         })
         .catch((err) => console.log("err:", err));
@@ -55,7 +58,7 @@ export default function NewProjectForm(props) {
         })
         .catch((err) => console.log("err:", err));
     }
-    console.log(`Userprojects after put request: ${userProjects}`);
+    console.log(`Userprojects after request: ${userProjects}`);
   }
 
   function handleProjectChange(event) {
