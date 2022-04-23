@@ -14,6 +14,13 @@ export default function UsersProvider(props) {
     return arraySingleUser[0];
   };
 
+  // useEffect(() => {
+  //   if (!cookies.id) {
+  //     navigate("/welcome");
+  //     console.log("Access denied: login required");
+  //   }
+  // }, []);
+
   // When mounted, API call for DB query for all users and specific user's name when component renders
   useEffect(() => {
     axios

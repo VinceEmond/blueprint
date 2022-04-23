@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
@@ -11,8 +11,9 @@ import Project from "./Project";
 import AboutUs from "./AboutUs/AboutUs";
 import Login from "./User/Login";
 import Register from "./User/Register";
-import { useCookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 import { useSpeechRecognition } from "react-speech-recognition";
+import { usersContext } from "../Providers/UsersProvider";
 
 // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
 
@@ -29,6 +30,7 @@ function App() {
   // const [cookies, setCookie, removeCookie] = useCookies(null);
 
   const [redirectUrl, setRedirectUrl] = useState("");
+  const { cookies } = useContext(usersContext);
 
   const commands = [
     {
@@ -75,6 +77,10 @@ function App() {
 
   let redirect = "";
 
+  const loggedIn = () => {
+    return cookies.id ? false : <LandingPage />;
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -86,12 +92,12 @@ function App() {
 
           <div className="content">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={loggedIn() || <Dashboard />} />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:id" element={<Project />} />
-              <Route path="/tasks" element={<Tasks />} />
+              <Route path="/projects" element={loggedIn() || <Projects />} />
+              <Route path="/projects/:id" element={loggedIn() || <Project />} />
+              <Route path="/tasks" element={loggedIn() || <Tasks />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
