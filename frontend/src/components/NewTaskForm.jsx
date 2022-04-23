@@ -46,7 +46,7 @@ export default function NewTaskForm(props) {
   const { userProjects } = useContext(projectsContext);
   const lowPriorityButton = useRef(null);
 
-  function formDataValid(formValues) {
+  function taskFormDataValidation(formValues) {
     const mandatoryFields = [
       "project_id",
       "priority",
@@ -70,7 +70,7 @@ export default function NewTaskForm(props) {
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
-    if (formDataValid(taskFormValues)) {
+    if (taskFormDataValidation(taskFormValues)) {
       axios
         .post("/api/tasks", taskFormValues)
         .then((response) => {
