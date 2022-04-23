@@ -144,3 +144,13 @@ export function updateProjects(allProjects, newProject) {
   });
   return updatedProjects;
 }
+
+export function updateTrelloProjectStatus(allProjects, updatedProject) {
+  const updatedProjects = allProjects.map((project) => {
+    if (project.id === Number(updatedProject.id)) {
+      project.status = updatedProject.status;
+    }
+    return project;
+  });
+  return updatedProjects;
+}
