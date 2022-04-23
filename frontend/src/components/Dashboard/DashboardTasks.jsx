@@ -96,10 +96,12 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         const key = `${filter}+${task.id || task.name.length * 1000}`;
         return (
           <Tr key={key}>
-            <Td>
+            <Td width="5px" padding="2px">
               <Checkbox></Checkbox>
             </Td>
-            <Td onClick={(e) => onEdit(task)}>{task.name}</Td>
+            <Td onClick={(e) => onEdit(task)} padding="7px">
+              {task.name}
+            </Td>
           </Tr>
         );
       });
