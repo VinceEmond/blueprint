@@ -130,7 +130,7 @@ export default function TrelloTasks({ modalState, onEdit }) {
     const { source, destination } = result;
     // console.log("RESULT: ", result);
     // console.log("DESTINATION INDEX: ", result.destination.index);
-    console.log("COLUMNS: ", columns);
+    // console.log("COLUMNS: ", columns);
 
     if (!destination) {
       return;

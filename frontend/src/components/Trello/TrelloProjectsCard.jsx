@@ -74,9 +74,23 @@ export default function TrelloProjectsCard({ item, index, onEdit }) {
               style={style}
             >
               <TaskInformation>
-                <div>
-                  <HStack>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
                     <p>{item.name}</p>
+                  </div>
+                  <div>
                     <Menu>
                       <MenuButton bg="white" as={Button}>
                         {<EditIcon />}
@@ -86,7 +100,7 @@ export default function TrelloProjectsCard({ item, index, onEdit }) {
                         <MenuItem>Delete</MenuItem>
                       </MenuList>
                     </Menu>
-                  </HStack>
+                  </div>
                 </div>
                 <Divider />
                 <p>Description: {item.description}</p>
