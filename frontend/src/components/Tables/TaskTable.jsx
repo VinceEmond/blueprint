@@ -97,7 +97,9 @@ export default function TaskTable({ onEdit }) {
           </CheckboxGroup>
         </Td>
         <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
-        <Td onClick={(e) => onEdit(item)}>{projectName}</Td>
+        <Td onClick={(e) => onEdit(item)}>
+          {projectName ? projectName : "Uncategorized"}
+        </Td>
         <Td onClick={(e) => onEdit(item)}>{date}</Td>
         <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
         <Td onClick={(e) => onEdit(item)}>{item.priority}</Td>

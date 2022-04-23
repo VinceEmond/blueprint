@@ -35,15 +35,15 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     e.target[0].value = "";
     if (newTask) {
       const taskFormValues = {
-        name: newTask,
-        status: filter,
         project_id: 1,
-        assignee_id: Number(cookies.id),
-        due_date: moment(new Date()).add(2, "days").format("YYYY-MM-DD"),
-        description: "Describe task",
         priority: "Low",
-        start_date: "2000-01-01",
-        modified_date: "2022-04-18",
+        assignee_id: Number(cookies.id),
+        name: newTask,
+        description: "",
+        start_date: moment(new Date()).format("YYYY-MM-DD"),
+        due_date: moment(new Date()).add(2, "days").format("YYYY-MM-DD"),
+        modified_date: moment(new Date()).format("YYYY-MM-DD"),
+        status: filter,
         category_id: 1,
       };
 

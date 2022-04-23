@@ -14,26 +14,41 @@ import {
 import axios from "axios";
 import { projectsContext } from "../Providers/ProjectsProvider";
 import { updateProjects } from "../helpers/selectors";
+import { usersContext } from "../Providers/UsersProvider";
+import moment from "moment";
 
 export default function NewProjectForm(props) {
-  const testProjectValues = {
-    owner_id: 1,
-    name: "New 69 Project",
-    description: "Test Project Description Herrreeeeeasdasd",
-    start_date: "1969-04-20",
-    due_date: "1969-04-20",
-    modified_date: "2022-04-15",
+  const { cookies } = useContext(usersContext);
+  const defaultProjectValues = {
+    owner_id: Number(cookies.id),
+    name: "",
+    description: "",
+    start_date: moment(new Date()).format("YYYY-MM-DD"),
+    due_date: moment(new Date()).add(7, "days").format("YYYY-MM-DD"),
+    modified_date: moment(new Date()).format("YYYY-MM-DD"),
     status: "Not Started",
     category_id: 1,
   };
 
-  const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
+  const [projectFormValues, setProjectFormValues] =
+    useState(defaultProjectValues);
   const { setModalState, editProject, setEditProject } = props;
   const initialRef = useRef();
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
+  function projectFormDataValidation(formValues) {
+    const mandatoryFields = ["name", "owner_id"];
+
+    for (const key of mandatoryFields) {
+      if (!formValues[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   function createProject(projectFormValues) {
-    if (!editProject) {
+    if (projectFormDataValidation(projectFormValues)) {
       axios
         .post("/api/projects", projectFormValues)
         .then((response) => {
@@ -44,6 +59,12 @@ export default function NewProjectForm(props) {
         })
         .catch((err) => console.log("err:", err));
     } else {
+      console.log("Invalid Data in form!");
+    }
+  }
+
+  function updateProject(projectFormValues) {
+    if (projectFormDataValidation(projectFormValues)) {
       axios
         .put(`/api/projects/${editProject.id}`, projectFormValues)
         .then((response) => {
@@ -53,11 +74,12 @@ export default function NewProjectForm(props) {
           );
           console.log(updatedProjects);
           setUserProjects(updatedProjects);
-          console.log("Succesfully added a new Project to database");
+          console.log("Succesfully updated Project in database");
         })
         .catch((err) => console.log("err:", err));
+    } else {
+      console.log("Invalid Data in form!");
     }
-    console.log(`Userprojects after request: ${userProjects}`);
   }
 
   function handleProjectChange(event) {
@@ -109,8 +131,11 @@ export default function NewProjectForm(props) {
   }
 
   function handleSave(event) {
-    // console.log('projectFormValues', projectFormValues);
-    createProject(projectFormValues);
+    if (editProject) {
+      updateProject(projectFormValues);
+    } else {
+      createProject(projectFormValues);
+    }
     setModalState(null);
     setEditProject(null);
   }

@@ -13,8 +13,11 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { tasksContext } from "../Providers/TasksProvider";
+import { usersContext } from "../Providers/UsersProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
 import { updateProjects } from "../helpers/selectors";
+import { Cookies } from "react-cookie";
+import moment from "moment";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {
@@ -30,28 +33,55 @@ export default function NewTaskForm(props) {
 
   // const arrayOfUserNames = ["Vince", "Dylan", "Pablo"];
 
+  const { cookies } = useContext(usersContext);
   const [taskFormValues, setTaskFormValues] = useState({
     start_date: "2000-01-01",
     modified_date: "2022-04-18",
     category_id: 1,
+    description: "",
+    assignee_id: cookies.id,
   });
   const { setModalState, editTask, setEditTask } = props;
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
   const lowPriorityButton = useRef(null);
 
+  function formDataValid(formValues) {
+    const mandatoryFields = [
+      "project_id",
+      "priority",
+      "assignee_id",
+      "name",
+      "start_date",
+      "due_date",
+      "modified_date",
+      "status",
+      "category_id",
+    ];
+
+    for (const key of mandatoryFields) {
+      if (!formValues[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
-    axios
-      .post("/api/tasks", taskFormValues)
-      .then((response) => {
-        const returnedTask = response.data.task[0];
-        setUserTasks((prev) => {
-          return [...prev, returnedTask];
-        });
-        console.log("Succesfully added a new Task to database");
-      })
-      .catch((err) => console.log("err:", err));
+    if (formDataValid(taskFormValues)) {
+      axios
+        .post("/api/tasks", taskFormValues)
+        .then((response) => {
+          const returnedTask = response.data.task[0];
+          setUserTasks((prev) => {
+            return [...prev, returnedTask];
+          });
+          console.log("Succesfully added a new Task to database");
+        })
+        .catch((err) => console.log("err:", err));
+    }
   }
 
   function updateTask(taskFormValues) {
