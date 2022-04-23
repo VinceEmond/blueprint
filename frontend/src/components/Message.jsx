@@ -261,13 +261,6 @@ export default function DrawerExample() {
             >
               Post Message
             </Button>
-            <Button
-              colorScheme="blue"
-              width="150px"
-              onClick={() => scrollToBottom()}
-            >
-              To Bottom
-            </Button>
           </ButtonGroup>
         </DrawerContent>
       </Drawer>
