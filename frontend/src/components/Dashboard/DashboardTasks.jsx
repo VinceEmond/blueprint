@@ -86,8 +86,13 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     const userSpecificTasks = userTasks.filter(
       (task) => task.assignee_id === Number(cookies.id)
     );
+
     return userSpecificTasks
-      .filter((task) => task.status === filter || filter === "all")
+      .filter(
+        (task) =>
+          task.status === filter ||
+          (filter === "all" && task.status !== "Complete")
+      )
       .map((task) => {
         // For freshly rendered tasks, id will be undefined so make up temp key
         const key = `${filter}+${task.id || task.name.length * 1000}`;

@@ -63,7 +63,7 @@ export default function NewTaskForm(props) {
         const updatedTasks = updateProjects(userTasks, taskFormValues);
         // console.log(updatedTasks);
         setUserTasks(updatedTasks);
-        console.log("Succesfully updated Task to database");
+        console.log("Succesfully updated Task in database");
       })
       .catch((err) => console.log("err:", err));
   }

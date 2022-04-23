@@ -93,8 +93,8 @@ export default function NewProjectForm(props) {
           (project) => project.id !== editProject.id
         );
         setUserProjects(updatedProjects);
-        console.log("Succesfully deleted project from database");
-        console.log("Deleted Project: ", response.data.deleted);
+        // console.log("Succesfully deleted project from database");
+        // console.log("Deleted Project: ", response.data.deleted);
       })
       .catch((err) => console.log("err:", err));
   }
