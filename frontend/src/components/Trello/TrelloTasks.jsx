@@ -5,6 +5,7 @@ import TrelloTasksCard from "./TrelloTasksCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { tasksContext } from "../../Providers/TasksProvider";
+import { updateTrelloTaskStatus } from "../../helpers/selectors";
 
 const Container = styled.div`
   display: flex;
@@ -37,30 +38,30 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks() {
+export default function TrelloTasks({ modalState }) {
   // const [userTasks, setUserTasks] = useState([]);
   const { userTasks, setUserTasks } = useContext(tasksContext);
 
-  const trelloColumns = {
-    [uuidv4()]: {
-      title: "Not Started",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "In Progress",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "Pending",
-      items: [],
-    },
-    [uuidv4()]: {
-      title: "Complete",
-      items: [],
-    },
-  };
+  // const trelloColumns = {
+  //   [uuidv4()]: {
+  //     title: "Not Started",
+  //     items: [],
+  //   },
+  //   [uuidv4()]: {
+  //     title: "In Progress",
+  //     items: [],
+  //   },
+  //   [uuidv4()]: {
+  //     title: "Pending",
+  //     items: [],
+  //   },
+  //   [uuidv4()]: {
+  //     title: "Complete",
+  //     items: [],
+  //   },
+  // };
 
-  const [columns, setColumns] = useState(trelloColumns);
+  const [columns, setColumns] = useState({});
 
   useEffect(() => {
     // axios
@@ -89,21 +90,40 @@ export default function TrelloTasks() {
 
     // console.log("allTaskObj: ", allTaskObj);
 
-    for (let column in trelloColumns) {
+    const updatedTrelloColumns = {
+      [uuidv4()]: {
+        title: "Not Started",
+        items: [],
+      },
+      [uuidv4()]: {
+        title: "In Progress",
+        items: [],
+      },
+      [uuidv4()]: {
+        title: "Pending",
+        items: [],
+      },
+      [uuidv4()]: {
+        title: "Complete",
+        items: [],
+      },
+    };
+
+    for (let column in updatedTrelloColumns) {
       for (let j = 0; j < cards.length; j++) {
         // console.log(trelloColumns[column].title);
         // console.log(allTaskObj[j].progress);
-        if (trelloColumns[column].title === cards[j].status)
-          trelloColumns[column].items.push(cards[j]);
+        if (updatedTrelloColumns[column].title === cards[j].status)
+          updatedTrelloColumns[column].items.push(cards[j]);
       }
     }
 
     // console.log("trelloColumns: ", trelloColumns);
 
-    setUserTasks(cards);
+    setColumns(updatedTrelloColumns);
     // });
     //     .catch((err) => console.log("err:", err));
-  }, []);
+  }, [modalState, userTasks]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
@@ -147,6 +167,8 @@ export default function TrelloTasks() {
       axios
         .put(`/api/tasks/${movedItemId}`, removed)
         .then((response) => {
+          const updatedTaskArr = updateTrelloTaskStatus(userTasks, removed);
+          setUserTasks(updatedTaskArr);
           // const allTasks = response.data.task;
           // console.log(userTasks);
           // setUserTasks(userTasks);

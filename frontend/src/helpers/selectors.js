@@ -154,3 +154,13 @@ export function updateTrelloProjectStatus(allProjects, updatedProject) {
   });
   return updatedProjects;
 }
+
+export function updateTrelloTaskStatus(allTasks, updatedTask) {
+  const updatedTasks = allTasks.map((task) => {
+    if (task.id === Number(updatedTask.id)) {
+      task.status = updatedTask.status;
+    }
+    return task;
+  });
+  return updatedTasks;
+}
