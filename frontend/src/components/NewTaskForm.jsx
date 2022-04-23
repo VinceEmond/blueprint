@@ -17,6 +17,7 @@ import { usersContext } from "../Providers/UsersProvider";
 import { projectsContext } from "../Providers/ProjectsProvider";
 import { updateProjects } from "../helpers/selectors";
 import { Cookies } from "react-cookie";
+import moment from "moment";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {

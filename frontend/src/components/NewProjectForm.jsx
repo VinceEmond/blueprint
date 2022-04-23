@@ -14,35 +14,41 @@ import {
 import axios from "axios";
 import { projectsContext } from "../Providers/ProjectsProvider";
 import { updateProjects } from "../helpers/selectors";
+import { usersContext } from "../Providers/UsersProvider";
+import moment from "moment";
 
 export default function NewProjectForm(props) {
-  const testProjectValues = {
-    owner_id: 1,
-    name: "New 69 Project",
-    description: "Test Project Description Herrreeeeeasdasd",
-    start_date: "1969-04-20",
-    due_date: "1969-04-20",
-    modified_date: "2022-04-15",
+  const { cookies } = useContext(usersContext);
+  const defaultProjectValues = {
+    owner_id: Number(cookies.id),
+    name: "",
+    description: "",
+    start_date: moment(new Date()).format("YYYY-MM-DD"),
+    due_date: moment(new Date()).add(7, "days").format("YYYY-MM-DD"),
+    modified_date: moment(new Date()).format("YYYY-MM-DD"),
     status: "Not Started",
     category_id: 1,
   };
 
-  const [projectFormValues, setProjectFormValues] = useState(testProjectValues);
+  const [projectFormValues, setProjectFormValues] =
+    useState(defaultProjectValues);
   const { setModalState, editProject, setEditProject } = props;
   const initialRef = useRef();
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
   function createProject(projectFormValues) {
     if (!editProject) {
-      axios
-        .post("/api/projects", projectFormValues)
-        .then((response) => {
-          console.log(`Response: ${response.data.project[0]}`);
-          const returnedProject = response.data.project[0];
-          setUserProjects((prev) => [...prev, returnedProject]);
-          console.log("Succesfully added a new Project to database");
-        })
-        .catch((err) => console.log("err:", err));
+      if (projectFormValues.name && projectFormValues.owner_id) {
+        axios
+          .post("/api/projects", projectFormValues)
+          .then((response) => {
+            console.log(`Response: ${response.data.project[0]}`);
+            const returnedProject = response.data.project[0];
+            setUserProjects((prev) => [...prev, returnedProject]);
+            console.log("Succesfully added a new Project to database");
+          })
+          .catch((err) => console.log("err:", err));
+      }
     } else {
       axios
         .put(`/api/projects/${editProject.id}`, projectFormValues)
