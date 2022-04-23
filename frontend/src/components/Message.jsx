@@ -92,6 +92,7 @@ export default function DrawerExample() {
           setMessages((prev) => [...prev, newMessageObj]);
           setMessageBox("");
           inputRef.current.focus();
+          sendTextMessage();
         })
         .catch((err) => console.log("err:", err));
     }
@@ -245,6 +246,21 @@ export default function DrawerExample() {
   };
 
   const messagesComponents = createMessageComponents(messages);
+
+  const sendTextMessage = () => {
+    const queryParams = {
+      msg: "You have a new alert!",
+      subscribedArr: [1, 2, 3],
+    };
+    // const msg = e.target[0].value;
+    // e.target[0].value = "";
+    axios
+      .post("/api/sms/", queryParams)
+      .then((response) => {
+        console.log("Twillio message sent successfully");
+      })
+      .catch((err) => console.log("err:", err));
+  };
 
   return (
     <>
