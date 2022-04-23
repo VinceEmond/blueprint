@@ -72,12 +72,12 @@ export default function NewTaskForm(props) {
     axios
       .put(`/api/tasks/${editTask.id}/delete`, taskFormValues)
       .then((response) => {
-        const updatedTasks = updateProjects(userTasks, taskFormValues).filter(
+        const updatedTasks = userTasks.filter(
           (task) => task.id !== editTask.id
         );
         setUserTasks(updatedTasks);
-        console.log("Succesfully deleted task from database");
-        console.log("Deleted Task", response.data.deleted);
+        // console.log("Succesfully deleted task from database");
+        // console.log("Deleted Task", response.data.deleted);
       })
       .catch((err) => console.log("err:", err));
   }

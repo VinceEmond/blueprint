@@ -89,8 +89,9 @@ export default function NewProjectForm(props) {
     axios
       .put(`/api/projects/${editProject.id}/delete`, projectFormValues)
       .then((response) => {
-        const updatedProjects = updateProjects(userProjects, projectFormValues);
-        // console.log(updatedProjects);
+        const updatedProjects = userProjects.filter(
+          (project) => project.id !== editProject.id
+        );
         setUserProjects(updatedProjects);
         console.log("Succesfully deleted project from database");
         console.log("Deleted Project: ", response.data.deleted);
