@@ -5,7 +5,7 @@ import axios from "axios";
 export const usersContext = createContext();
 
 export default function UsersProvider(props) {
-  const [currentUser, setCurrentUser] = useState({ name: "default" });
+  const [currentUser, setCurrentUser] = useState({});
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const [allUsers, setAllUsers] = useState([]);
 

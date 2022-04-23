@@ -15,6 +15,9 @@ import {
   Textarea,
   HStack,
   Image,
+  Switch,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
@@ -22,7 +25,8 @@ import { usersContext } from "../Providers/UsersProvider";
 
 export default function DrawerExample() {
   const divRef = useRef(null);
-  const { cookies, currentUser, getUserByID } = useContext(usersContext);
+  const { cookies, currentUser, getUserByID, allUsers, setAllUsers } =
+    useContext(usersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const inputRef = React.useRef();
   const [messages, setMessages] = useState([]);
@@ -88,6 +92,7 @@ export default function DrawerExample() {
           setMessages((prev) => [...prev, newMessageObj]);
           setMessageBox("");
           inputRef.current.focus();
+          sendTextMessage();
         })
         .catch((err) => console.log("err:", err));
     }
@@ -95,6 +100,42 @@ export default function DrawerExample() {
 
   const handleVideoChat = () => {
     window.open("https://meet.google.com/new");
+  };
+
+  const updateUserTextAlert = (id, switchValue) => {
+    return allUsers.map((user) => {
+      if (user.id === id) {
+        user.text_alert = switchValue;
+      }
+      return user;
+    });
+  };
+
+  const handleAlertSwitch = (e) => {
+    console.log("Current User Text Alert", currentUser.text_alert);
+
+    const queryParams = {
+      text_alert: e.target.checked,
+    };
+
+    axios
+      .put(`/api/users/${cookies.id}`, queryParams)
+      .then((response) => {
+        // console.log("Response User", response.data.user);
+        // const updatedTasks = updateProjects(userTasks, taskFormValues);
+        // console.log(updatedTasks);
+        // setUserTasks(updatedTasks);
+        // console.log("Succesfully updated Task in database");
+
+        const updatedUsers = updateUserTextAlert(
+          Number(cookies.id),
+          e.target.checked
+        );
+
+        setAllUsers(updatedUsers);
+        // console.log("updatedUsers", updatedUsers);
+      })
+      .catch((err) => console.log("err:", err));
   };
 
   const createMessageComponents = (messages) => {
@@ -203,6 +244,30 @@ export default function DrawerExample() {
 
   const messagesComponents = createMessageComponents(messages);
 
+  const sendTextMessage = () => {
+    const subscribedUsers = [];
+
+    allUsers.forEach((user) => {
+      if (user.text_alert && user.id !== Number(cookies.id)) {
+        subscribedUsers.push(user.id);
+      }
+    });
+
+    if (subscribedUsers.length > 0) {
+      const queryParams = {
+        msg: "You have a new alert!",
+        subscribedArr: subscribedUsers,
+      };
+
+      axios
+        .post("/api/sms/", queryParams)
+        .then((response) => {
+          console.log("Twillio message sent successfully");
+        })
+        .catch((err) => console.log("err:", err));
+    }
+  };
+
   return (
     <>
       <Button colorScheme="teal" onClick={onOpen}>
@@ -241,9 +306,9 @@ export default function DrawerExample() {
           </HStack>
 
           <ButtonGroup
-            padding="15px"
+            // padding="15px"
             spacing="6"
-            mt="1em"
+            m="1em"
             display="flex"
             justifyContent="center"
           >
@@ -262,6 +327,19 @@ export default function DrawerExample() {
               Post Message
             </Button>
           </ButtonGroup>
+          <FormControl
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mb="10px"
+          >
+            <FormLabel mb="0">Enable text alerts?</FormLabel>
+            <Switch
+              defaultChecked={currentUser ? currentUser.text_alert : false}
+              id="text-alerts"
+              onChange={(e) => handleAlertSwitch(e)}
+            />
+          </FormControl>
         </DrawerContent>
       </Drawer>
     </>

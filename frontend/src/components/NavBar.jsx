@@ -112,61 +112,10 @@ export default function NavBar(props) {
                 <p>Logged in as: {currentUser && currentUser.first_name}</p>
               </div>
             </HStack>
-            <HStack>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const msg = e.target[0].value;
-                  e.target[0].value = "";
-                  axios
-                    .post("/api/sms/1", { msg })
-                    .then((response) => {
-                      console.log("Message sent successfully");
-                    })
-                    .catch((err) => console.log("err:", err));
-                }}
-              >
-                <Input placeholder="Say hi to Dylan" />
-              </form>
-            </HStack>
-            <HStack>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const msg = e.target[0].value;
-                  e.target[0].value = "";
-                  axios
-                    .post("/api/sms/2", { msg })
-                    .then((response) => {
-                      console.log("Message sent successfully");
-                    })
-                    .catch((err) => console.log("err:", err));
-                }}
-              >
-                <Input placeholder="Say hi to Pablo" />
-              </form>
-            </HStack>
-            <HStack>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const msg = e.target[0].value;
-                  e.target[0].value = "";
-                  axios
-                    .post("/api/sms/3", { msg })
-                    .then((response) => {
-                      console.log("Message sent successfully");
-                    })
-                    .catch((err) => console.log("err:", err));
-                }}
-              >
-                <Input placeholder="Say hi to Vince" />
-              </form>
-            </HStack>
           </HStack>
 
           <Flex alignItems={"center"}>
-            <Message />
+            {cookies.id && <Message />}
             <Menu>
               <MenuButton
                 as={Button}

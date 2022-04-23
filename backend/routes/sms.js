@@ -1,15 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-const { sendMsg } = require("../lib/twilioCalls");
+const { sendAlert } = require("../lib/twilioAlert");
 
 module.exports = (db) => {
-  // POST: Trigger text message
-  router.post("/:user_id", (req, res) => {
-    const { user_id } = req.params;
-    console.log(`user_id: ${user_id}`);
-    const { msg } = req.body;
-    console.log(`message: ${msg}`);
-    sendMsg(msg, user_id);
+  router.post("/", (req, res) => {
+    const { msg, subscribedArr } = req.body;
+    sendAlert(msg, subscribedArr);
   });
 
   return router;
