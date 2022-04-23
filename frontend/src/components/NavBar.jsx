@@ -21,6 +21,7 @@ import { useEffect, useContext } from "react";
 import Message from "./Message";
 import { usersContext } from "../Providers/UsersProvider";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -99,19 +100,21 @@ export default function NavBar(props) {
                 blueprint.
               </Link>
             </Box>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-              <div style={{ marginLeft: "2em" }}>
-                <p>Command Transcript History: {transcript}</p>
-                <p>Logged in as: {currentUser && currentUser.first_name}</p>
-              </div>
-            </HStack>
+            {cookies.id && (
+              <HStack
+                as={"nav"}
+                spacing={4}
+                display={{ base: "none", md: "flex" }}
+              >
+                {Links.map((link) => (
+                  <NavLink key={link}>{link}</NavLink>
+                ))}
+                <div style={{ marginLeft: "2em" }}>
+                  <p>Command Transcript History: {transcript}</p>
+                  <p>Logged in as: {currentUser && currentUser.first_name}</p>
+                </div>
+              </HStack>
+            )}
           </HStack>
 
           <Flex alignItems={"center"}>
