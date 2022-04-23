@@ -8,5 +8,6 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   avatar VARCHAR(255) NOT NULL,
+  text_alert BOOLEAN DEFAULT FALSE,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
 );
