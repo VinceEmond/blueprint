@@ -119,7 +119,7 @@ export default function Tasks() {
     if (viewValue === "List") {
       return <TaskTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
-      return <TrelloTasks />;
+      return <TrelloTasks modalState={modalState} />;
     }
   }
 
