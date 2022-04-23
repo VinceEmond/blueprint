@@ -36,7 +36,7 @@ export function getAssigneeName(assignee_id, users) {
   }
 
   const filteredUserName = filteredUser[0].first_name;
-  console.log("FILTEREDUSERNAME: ", filteredUserName);
+  // console.log("FILTEREDUSERNAME: ", filteredUserName);
   return filteredUserName;
 }
 

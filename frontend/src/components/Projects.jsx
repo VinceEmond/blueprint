@@ -2,11 +2,10 @@ import React, { useState, useContext } from "react";
 import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
 import TrelloProjects from "./Trello/TrelloProjects";
-import ProjectTable from "./Tables/ProjectTable";
+import ProjectsTable from "./Tables/ProjectsTable";
 import ViewSelect from "./ViewSelect";
 import ModalForm from "./ModalForm";
 import { viewsContext } from "../Providers/ViewsProvider";
-import { projectsContext } from "../Providers/ProjectsProvider";
 
 export default function Projects() {
   // const [userProjects, setUserProjects] = useState([]);
@@ -15,7 +14,6 @@ export default function Projects() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [userData, setUserData] = useState(null);
   const { viewValue, setViewValue } = useContext(viewsContext);
-  const { setUserProjects } = useContext(projectsContext);
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
   // const { allUsers } = useContext(usersContext);
@@ -133,7 +131,7 @@ export default function Projects() {
   function view() {
     if (viewValue === "List") {
       // setViewValue("List");
-      return <ProjectTable onEdit={triggerEditProject} />;
+      return <ProjectsTable onEdit={triggerEditProject} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
       return <TrelloProjects />;
