@@ -13,6 +13,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Checkbox,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
@@ -74,8 +75,10 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
                   </form>
                 </Td>
               </Tr>
-              {tasks}
             </Tbody>
+          </Table>
+          <Table size="sm">
+            <Tbody>{tasks}</Tbody>
           </Table>
         </TableContainer>
       </TabPanel>
@@ -86,19 +89,17 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     const userSpecificTasks = userTasks.filter(
       (task) => task.assignee_id === Number(cookies.id)
     );
-
     return userSpecificTasks
-      .filter(
-        (task) =>
-          task.status === filter ||
-          (filter === "all" && task.status !== "Complete")
-      )
+      .filter((task) => task.status === filter || filter === "all")
       .map((task) => {
         // For freshly rendered tasks, id will be undefined so make up temp key
         const key = `${filter}+${task.id || task.name.length * 1000}`;
         return (
-          <Tr key={key} onClick={(e) => onEdit(task)}>
-            <Td>{task.name}</Td>
+          <Tr key={key}>
+            <Td>
+              <Checkbox></Checkbox>
+            </Td>
+            <Td onClick={(e) => onEdit(task)}>{task.name}</Td>
           </Tr>
         );
       });
