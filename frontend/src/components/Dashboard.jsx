@@ -65,7 +65,7 @@ export default function Dashboard() {
   }
 
   const triggerEditTask = (task) => {
-    console.log(task);
+    // console.log(task);
     setEditTask(task);
     setModalState("tasks");
     onOpen();
