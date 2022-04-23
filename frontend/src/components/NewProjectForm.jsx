@@ -36,20 +36,35 @@ export default function NewProjectForm(props) {
   const initialRef = useRef();
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
-  function createProject(projectFormValues) {
-    if (!editProject) {
-      if (projectFormValues.name && projectFormValues.owner_id) {
-        axios
-          .post("/api/projects", projectFormValues)
-          .then((response) => {
-            console.log(`Response: ${response.data.project[0]}`);
-            const returnedProject = response.data.project[0];
-            setUserProjects((prev) => [...prev, returnedProject]);
-            console.log("Succesfully added a new Project to database");
-          })
-          .catch((err) => console.log("err:", err));
+  function projectFormDataValidation(formValues) {
+    const mandatoryFields = ["name", "owner_id"];
+
+    for (const key of mandatoryFields) {
+      if (!formValues[key]) {
+        return false;
       }
+    }
+    return true;
+  }
+
+  function createProject(projectFormValues) {
+    if (projectFormDataValidation(projectFormValues)) {
+      axios
+        .post("/api/projects", projectFormValues)
+        .then((response) => {
+          console.log(`Response: ${response.data.project[0]}`);
+          const returnedProject = response.data.project[0];
+          setUserProjects((prev) => [...prev, returnedProject]);
+          console.log("Succesfully added a new Project to database");
+        })
+        .catch((err) => console.log("err:", err));
     } else {
+      console.log("Invalid Data in form!");
+    }
+  }
+
+  function updateProject(projectFormValues) {
+    if (projectFormDataValidation(projectFormValues)) {
       axios
         .put(`/api/projects/${editProject.id}`, projectFormValues)
         .then((response) => {
@@ -59,11 +74,12 @@ export default function NewProjectForm(props) {
           );
           console.log(updatedProjects);
           setUserProjects(updatedProjects);
-          console.log("Succesfully added a new Project to database");
+          console.log("Succesfully updated Project in database");
         })
         .catch((err) => console.log("err:", err));
+    } else {
+      console.log("Invalid Data in form!");
     }
-    console.log(`Userprojects after request: ${userProjects}`);
   }
 
   function handleProjectChange(event) {
@@ -115,8 +131,11 @@ export default function NewProjectForm(props) {
   }
 
   function handleSave(event) {
-    // console.log('projectFormValues', projectFormValues);
-    createProject(projectFormValues);
+    if (editProject) {
+      updateProject(projectFormValues);
+    } else {
+      createProject(projectFormValues);
+    }
     setModalState(null);
     setEditProject(null);
   }
