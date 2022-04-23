@@ -38,7 +38,9 @@ export default function ModalForm({
         <Modal isCentered isOpen={isOpen} onClose={() => clearEditTask()}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader margin="10px">New Task</ModalHeader>
+            <ModalHeader margin="10px">
+              {editTask ? "Edit Task" : "New Task"}
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewTaskForm
@@ -56,7 +58,9 @@ export default function ModalForm({
         <Modal isCentered isOpen={isOpen} onClose={() => clearEditProject()}>
           <ModalOverlay />
           <ModalContent mw="60%">
-            <ModalHeader margin="10px">New Project</ModalHeader>
+            <ModalHeader margin="10px">
+              {editProject ? "Edit Project" : "New Project"}
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <NewProjectForm
