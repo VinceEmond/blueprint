@@ -248,12 +248,19 @@ export default function DrawerExample() {
   const messagesComponents = createMessageComponents(messages);
 
   const sendTextMessage = () => {
+    const subscribedUsers = [];
+
+    allUsers.forEach((user) => {
+      if (user.text_alert && user.id !== Number(cookies.id)) {
+        subscribedUsers.push(user.id);
+      }
+    });
+
     const queryParams = {
       msg: "You have a new alert!",
-      subscribedArr: [1, 2, 3],
+      subscribedArr: subscribedUsers,
     };
-    // const msg = e.target[0].value;
-    // e.target[0].value = "";
+
     axios
       .post("/api/sms/", queryParams)
       .then((response) => {
