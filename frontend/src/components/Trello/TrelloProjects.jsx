@@ -37,7 +37,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks() {
+export default function TrelloTasks({ modalState }) {
   // const [userTasks, setUserTasks] = useState([]);
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
@@ -100,9 +100,10 @@ export default function TrelloTasks() {
     // console.log("trelloColumns: ", trelloColumns);
 
     setUserProjects(cards);
+
     // })
     // .catch((err) => console.log("err:", err));
-  }, []);
+  }, [modalState]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
