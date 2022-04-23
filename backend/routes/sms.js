@@ -7,7 +7,7 @@ const authToken = process.env.TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 const sendAlert = (msg, subscribedArr) => {
-  users = {
+  const users = {
     1: process.env.DYLAN_PHONE,
     2: process.env.PABLO_PHONE,
     3: process.env.VINCE_PHONE,

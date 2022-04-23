@@ -307,9 +307,9 @@ export default function DrawerExample() {
           </HStack>
 
           <ButtonGroup
-            padding="15px"
+            // padding="15px"
             spacing="6"
-            mt="1em"
+            m="1em"
             display="flex"
             justifyContent="center"
           >
@@ -328,13 +328,16 @@ export default function DrawerExample() {
               Post Message
             </Button>
           </ButtonGroup>
-          <FormControl display="flex" alignItems="center">
-            <FormLabel htmlFor="email-alerts" mb="0">
-              Enable email alerts?
-            </FormLabel>
+          <FormControl
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mb="10px"
+          >
+            <FormLabel mb="0">Enable text alerts?</FormLabel>
             <Switch
               defaultChecked={currentUser ? currentUser.text_alert : false}
-              id="email-alerts"
+              id="text-alerts"
               onChange={(e) => handleAlertSwitch(e)}
             />
           </FormControl>
