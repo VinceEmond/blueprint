@@ -42,28 +42,50 @@ export default function NewTaskForm(props) {
 
   // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
-    if (!editTask) {
-      axios
-        .post("/api/tasks", taskFormValues)
-        .then((response) => {
-          const returnedTask = response.data.task[0];
-          setUserTasks((prev) => {
-            return [...prev, returnedTask];
-          });
-          console.log("Succesfully added a new Task to database");
-        })
-        .catch((err) => console.log("err:", err));
-    } else {
-      axios
-        .put(`/api/tasks/${editTask.id}`, taskFormValues)
-        .then((response) => {
-          const updatedTasks = updateProjects(userTasks, taskFormValues);
-          console.log(updatedTasks);
-          setUserTasks(updatedTasks);
-          console.log("Succesfully added a new Task to database");
-        })
-        .catch((err) => console.log("err:", err));
-    }
+    axios
+      .post("/api/tasks", taskFormValues)
+      .then((response) => {
+        const returnedTask = response.data.task[0];
+        setUserTasks((prev) => {
+          return [...prev, returnedTask];
+        });
+        console.log("Succesfully added a new Task to database");
+      })
+      .catch((err) => console.log("err:", err));
+  }
+
+  function updateTask(taskFormValues) {
+    // console.log("task form values", taskFormValues);
+
+    axios
+      .put(`/api/tasks/${editTask.id}`, taskFormValues)
+      .then((response) => {
+        const updatedTasks = updateProjects(userTasks, taskFormValues);
+        // console.log(updatedTasks);
+        setUserTasks(updatedTasks);
+        console.log("Succesfully updated Task in database");
+      })
+      .catch((err) => console.log("err:", err));
+  }
+
+  function deleteTask() {
+    axios
+      .put(`/api/tasks/${editTask.id}/delete`, taskFormValues)
+      .then((response) => {
+        const updatedTasks = userTasks.filter(
+          (task) => task.id !== editTask.id
+        );
+        setUserTasks(updatedTasks);
+        // console.log("Succesfully deleted task from database");
+        // console.log("Deleted Task", response.data.deleted);
+      })
+      .catch((err) => console.log("err:", err));
+  }
+
+  function handleDelete(event) {
+    deleteTask();
+    setModalState(null);
+    setEditTask(null);
   }
 
   function handleNameChange(event) {
@@ -96,7 +118,12 @@ export default function NewTaskForm(props) {
 
   function handleSave(event) {
     // console.log('taskFormValues', taskFormValues);
-    createTask(taskFormValues);
+
+    if (editTask) {
+      updateTask(taskFormValues);
+    } else {
+      createTask(taskFormValues);
+    }
     setModalState(null);
     setEditTask(null);
   }
@@ -234,6 +261,15 @@ export default function NewTaskForm(props) {
         display="flex"
         justifyContent="center"
       >
+        {editTask && (
+          <Button
+            colorScheme="red"
+            onClick={(e) => handleDelete(e)}
+            width="200px"
+          >
+            Delete
+          </Button>
+        )}
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>

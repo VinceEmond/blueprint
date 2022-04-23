@@ -65,14 +65,14 @@ export default function Dashboard() {
   }
 
   const triggerEditTask = (task) => {
-    console.log(task);
+    // console.log(task);
     setEditTask(task);
     setModalState("tasks");
     onOpen();
   };
 
   const triggerEditProject = (project) => {
-    console.log(project);
+    // console.log(project);
     setEditProject(project);
     setModalState("projects");
     onOpen();

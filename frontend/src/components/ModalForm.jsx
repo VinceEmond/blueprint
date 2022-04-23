@@ -23,7 +23,7 @@ export default function ModalForm({
   const clearEditTask = () => {
     onClose();
     setEditTask(null);
-    console.log("I'm clearing editTask");
+    // console.log("I'm clearing editTask");
   };
 
   const clearEditProject = () => {

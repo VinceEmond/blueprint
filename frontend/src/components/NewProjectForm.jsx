@@ -85,6 +85,29 @@ export default function NewProjectForm(props) {
     });
   }
 
+  function deleteProject() {
+    axios
+      .put(`/api/projects/${editProject.id}/delete`, projectFormValues)
+      .then((response) => {
+        const updatedProjects = userProjects.filter(
+          (project) => project.id !== editProject.id
+        );
+        setUserProjects(updatedProjects);
+        // console.log("Succesfully deleted project from database");
+        // console.log("Deleted Project: ", response.data.deleted);
+      })
+      .catch((err) => console.log("err:", err));
+  }
+
+  function handleDelete(event) {
+    console.log("Delete button clicked");
+    // deleteTask();
+    deleteProject();
+    setModalState(null);
+    setEditProject(null);
+    // setEditTask(null);
+  }
+
   function handleSave(event) {
     // console.log('projectFormValues', projectFormValues);
     createProject(projectFormValues);
@@ -176,6 +199,15 @@ export default function NewProjectForm(props) {
         display="flex"
         justifyContent="center"
       >
+        {editProject && (
+          <Button
+            colorScheme="red"
+            onClick={(e) => handleDelete(e)}
+            width="200px"
+          >
+            Delete
+          </Button>
+        )}
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
