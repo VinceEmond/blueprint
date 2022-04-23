@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import {
   Table,
   Thead,
@@ -14,97 +15,107 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import moment from "moment";
-import {
-  getProjectOwnerName,
-  updateUserProjectStatus,
-} from "../../helpers/selectors";
+import { getAssigneeName, updateUserTaskStatus } from "../../helpers/selectors";
 // import { viewsContext } from "../../Providers/ViewsProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { projectsContext } from "../../Providers/ProjectsProvider";
+import { tasksContext } from "../../Providers/TasksProvider";
 
 export default function ProjectTable({ onEdit }) {
-  // const { projectList } = props;
-  const projectColumn = ["Complete", "Name", "Owner", "Due Date", "Status"];
-
-  const { userProjects, setUserProjects } = useContext(projectsContext);
   const { allUsers } = useContext(usersContext);
+  const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { id } = useParams();
 
-  const projectHeader = projectColumn.map((column, index) => {
+  const taskColumn = [
+    "Complete",
+    "Name",
+    "Assignee",
+    "Due Date",
+    "Status",
+    "Priority",
+  ];
+
+  const taskHeader = taskColumn.map((column, index) => {
     return <Th key={index}>{column}</Th>;
   });
 
-  // Generates list of projects in table row format
-  const projectList = userProjects.map((item) => {
-    // converting date data to more readable data
-    // console.log("ITEMDUEDATE: ", item.due_date);
-    let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-    // console.log("OWNERID: ", item.owner_id);
-    // console.log("USERDATA:", userData);
-    let ownerName = getProjectOwnerName(item.owner_id, allUsers);
+  const taskList = userTasks
+    .filter((task) => {
+      // console.log("FILTER: ", task);
+      return task.project_id == id;
+    })
+    .map((item) => {
+      // console.log("MAP: ", item);
+      // converting date data to more readable data
+      let date = moment(item.due_date).utc().format("YYYY-MM-DD");
+      let assigneeName = getAssigneeName(item.assignee_id, allUsers);
+      // console.log("ALLUSERS: ", allUsers);
+      // console.log("ASSIGNEEID: ", item.assignee_id);
+      // console.log("OWNERNAME: ", assigneeName);
 
-    // Adds all projects with Complete status so that it can be populated on the list with checkbox marked
-    let generatedDefaultValue = [];
-    function defaultChecks() {
-      if (item.status === "Complete") {
-        generatedDefaultValue.push(item.name);
+      let generatedDefaultValue = [];
+      function defaultChecks() {
+        if (item.status === "Complete") {
+          generatedDefaultValue.push(item.name);
+        }
+        return generatedDefaultValue;
       }
-      return generatedDefaultValue;
-    }
-    const checkValues = defaultChecks();
+      const checkValues = defaultChecks();
 
-    // For tasks with Complete status, it returns grey so it can be marked
-    function completeStatusBool() {
-      if (item.status === "Complete") return "grey";
-    }
+      function completeStatusBool() {
+        if (item.status === "Complete") return "grey";
+      }
 
-    // function that updates status when checkbox is clicked
-    function checkClick(e, id) {
-      // console.log("OLDSTATUS: ", item.status);
-      // console.log("OLDITEM: ", item);
-      // console.log("CHECKBOX CLICKED", e.target.checked);
-      // console.log("CHECKBOX EVENT", e);
-      // console.log("ITEMID CHECK", id);
+      function checkClick(e, id) {
+        // console.log("OLDSTATUS: ", item.status);
+        // console.log("OLDITEM: ", item);
+        // console.log("CHECKBOX CLICKED", e.target.checked);
+        // console.log("CHECKBOX EVENT", e);
+        // console.log("ITEMID CHECK", id);
 
-      // updates the project status and returns array of all userProjects with update
-      const updatedProjects = updateUserProjectStatus(
-        userProjects,
-        id,
-        e.target.checked
+        // updates the project status and returns array of all userProjects with update
+        const updatedTasks = updateUserTaskStatus(
+          userTasks,
+          id,
+          e.target.checked
+        );
+        // console.log("UPDATEDTASKS: ", updatedTasks);
+
+        // filter updated userProjects with status change
+        const filteredTask = updatedTasks.filter((project) => {
+          return project.id == id;
+        });
+        // console.log("FILTEREDTASKS: ", filteredTask);
+
+        // console.log(filteredTask[0]);
+        // console.log("FILTEREDPROJECT: ", filteredProject);
+        // console.log("NEWSTATUS: ", item.status);
+        // console.log("NEWITEM: ", item);
+
+        axios.put(`/api/tasks/${id}`, filteredTask[0]).then(() => {
+          setUserTasks(updatedTasks);
+          // console.log("SUCCESSFUL!");
+        });
+      }
+
+      return (
+        <Tr key={item.id} bg={completeStatusBool}>
+          <Td size="sm">
+            <CheckboxGroup defaultValue={checkValues}>
+              <Checkbox
+                ml="2em"
+                value={item.name}
+                onChange={(e) => checkClick(e, item.id)}
+              ></Checkbox>
+            </CheckboxGroup>
+          </Td>
+          <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
+          <Td onClick={(e) => onEdit(item)}>{assigneeName}</Td>
+          <Td onClick={(e) => onEdit(item)}>{date}</Td>
+          <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
+          <Td onClick={(e) => onEdit(item)}>{item.priority}</Td>
+        </Tr>
       );
-
-      // filter updated userProjects with status change
-      const filteredProject = updatedProjects.filter((project) => {
-        return project.id == id;
-      });
-      // console.log("FILTEREDPROJECT: ", filteredProject);
-      // console.log("NEWSTATUS: ", item.status);
-      // console.log("NEWITEM: ", item);
-
-      axios.put(`/api/projects/${id}`, filteredProject[0]).then(() => {
-        setUserProjects(updatedProjects);
-        // console.log("SUCCESSFUL!");
-      });
-    }
-
-    return (
-      // Temporary hack for freshly added projects without database id (until page refresh)
-      <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
-        <Td size="sm">
-          <CheckboxGroup defaultValue={checkValues}>
-            <Checkbox
-              ml="2em"
-              value={item.name}
-              onChange={(e) => checkClick(e, item.id)}
-            ></Checkbox>
-          </CheckboxGroup>
-        </Td>
-        <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
-        <Td onClick={(e) => onEdit(item)}>{ownerName}</Td>
-        <Td onClick={(e) => onEdit(item)}>{date}</Td>
-        <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
-      </Tr>
-    );
-  });
+    });
 
   return (
     <Center>
@@ -112,9 +123,9 @@ export default function ProjectTable({ onEdit }) {
         <TableContainer>
           <Table size="lg">
             <Thead>
-              <Tr>{projectHeader}</Tr>
+              <Tr>{taskHeader}</Tr>
             </Thead>
-            <Tbody>{projectList}</Tbody>
+            <Tbody>{taskList}</Tbody>
           </Table>
         </TableContainer>
       </Container>
