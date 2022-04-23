@@ -112,9 +112,6 @@ export default function DrawerExample() {
   };
 
   const handleAlertSwitch = (e) => {
-    // console.log("Switch Flipped");
-    // console.log("e.target.checked", e.target.checked);
-    // console.log("Cookies.id", cookies.id);
     console.log("Current User Text Alert", currentUser.text_alert);
 
     const queryParams = {
@@ -256,17 +253,19 @@ export default function DrawerExample() {
       }
     });
 
-    const queryParams = {
-      msg: "You have a new alert!",
-      subscribedArr: subscribedUsers,
-    };
+    if (subscribedUsers.length > 0) {
+      const queryParams = {
+        msg: "You have a new alert!",
+        subscribedArr: subscribedUsers,
+      };
 
-    axios
-      .post("/api/sms/", queryParams)
-      .then((response) => {
-        console.log("Twillio message sent successfully");
-      })
-      .catch((err) => console.log("err:", err));
+      axios
+        .post("/api/sms/", queryParams)
+        .then((response) => {
+          console.log("Twillio message sent successfully");
+        })
+        .catch((err) => console.log("err:", err));
+    }
   };
 
   return (
