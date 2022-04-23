@@ -38,7 +38,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks({ modalState }) {
+export default function TrelloTasks({ modalState, onEdit }) {
   // const [userTasks, setUserTasks] = useState([]);
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
@@ -224,6 +224,7 @@ export default function TrelloTasks({ modalState }) {
                         key={item.id}
                         item={item}
                         index={index}
+                        onEdit={onEdit}
                       />
                     ))}
                     {provided.placeholder}

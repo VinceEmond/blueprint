@@ -6,6 +6,16 @@ import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 import HighPriorityIcon from "../../assets/icons/HighPriorityIcon.png";
 import MediumPriorityIcon from "../../assets/icons/MediumPriorityIcon.png";
 import LowPriorityIcon from "../../assets/icons/LowPriorityIcon.png";
+import { EditIcon } from "@chakra-ui/icons";
+import {
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  HStack,
+  Divider,
+} from "@chakra-ui/react";
 
 const TaskInformation = styled.div`
   display: flex;
@@ -43,7 +53,8 @@ const TaskInformation = styled.div`
    } 
 `;
 
-export default function TrelloProjectsCard({ item, index }) {
+export default function TrelloProjectsCard({ item, index, onEdit }) {
+  // returns component based on view option
   return (
     <Draggable
       key={String(item.id)}
@@ -63,7 +74,21 @@ export default function TrelloProjectsCard({ item, index }) {
               style={style}
             >
               <TaskInformation>
-                <p>{item.name}</p>
+                <div>
+                  <HStack>
+                    <p>{item.name}</p>
+                    <Menu>
+                      <MenuButton bg="white" as={Button}>
+                        {<EditIcon />}
+                      </MenuButton>
+                      <MenuList>
+                        <MenuItem onClick={(e) => onEdit(item)}>Edit</MenuItem>
+                        <MenuItem>Delete</MenuItem>
+                      </MenuList>
+                    </Menu>
+                  </HStack>
+                </div>
+                <Divider />
                 <p>Description: {item.description}</p>
                 <div className="secondary-details">
                   <p>

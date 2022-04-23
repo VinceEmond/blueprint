@@ -141,7 +141,7 @@ export default function Project() {
       return <ProjectTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
-      return <TrelloProject />;
+      return <TrelloProject onEdit={triggerEditTask} />;
     }
   }
 

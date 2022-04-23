@@ -134,7 +134,9 @@ export default function Projects() {
       return <ProjectsTable onEdit={triggerEditProject} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
-      return <TrelloProjects modalState={modalState} />;
+      return (
+        <TrelloProjects modalState={modalState} onEdit={triggerEditProject} />
+      );
     }
   }
 
