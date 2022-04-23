@@ -267,13 +267,15 @@ export default function NewTaskForm(props) {
         display="flex"
         justifyContent="center"
       >
-        <Button
-          colorScheme="red"
-          onClick={(e) => handleDelete(e)}
-          width="200px"
-        >
-          Delete
-        </Button>
+        {editTask && (
+          <Button
+            colorScheme="red"
+            onClick={(e) => handleDelete(e)}
+            width="200px"
+          >
+            Delete
+          </Button>
+        )}
         <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
