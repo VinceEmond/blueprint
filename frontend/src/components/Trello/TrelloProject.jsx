@@ -38,7 +38,7 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloProject() {
+export default function TrelloProject({ onEdit }) {
   // const [userTasks, setUserTasks] = useState([]);
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { id } = useParams();
@@ -206,6 +206,7 @@ export default function TrelloProject() {
                         key={item.id}
                         item={item}
                         index={index}
+                        onEdit={onEdit}
                       />
                     ))}
                     {provided.placeholder}

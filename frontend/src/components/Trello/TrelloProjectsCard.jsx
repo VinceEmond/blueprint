@@ -53,7 +53,8 @@ const TaskInformation = styled.div`
    } 
 `;
 
-export default function TrelloProjectsCard({ item, index }) {
+export default function TrelloProjectsCard({ item, index, onEdit }) {
+  // returns component based on view option
   return (
     <Draggable
       key={String(item.id)}
@@ -74,14 +75,14 @@ export default function TrelloProjectsCard({ item, index }) {
             >
               <TaskInformation>
                 <div>
-                  <HStack spacing="7em">
+                  <HStack>
                     <p>{item.name}</p>
-                    <Menu bg="white">
+                    <Menu>
                       <MenuButton bg="white" as={Button}>
                         {<EditIcon />}
                       </MenuButton>
                       <MenuList>
-                        <MenuItem>Edit</MenuItem>
+                        <MenuItem onClick={(e) => onEdit(item)}>Edit</MenuItem>
                         <MenuItem>Delete</MenuItem>
                       </MenuList>
                     </Menu>

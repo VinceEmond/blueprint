@@ -54,7 +54,7 @@ const TaskInformation = styled.div`
    } 
 `;
 
-export default function TrelloTasksCard({ item, index }) {
+export default function TrelloTasksCard({ item, index, onEdit }) {
   return (
     <Draggable
       key={String(item.id)}
@@ -82,7 +82,7 @@ export default function TrelloTasksCard({ item, index }) {
                         {<EditIcon />}
                       </MenuButton>
                       <MenuList>
-                        <MenuItem>Edit</MenuItem>
+                        <MenuItem onClick={(e) => onEdit(item)}>Edit</MenuItem>
                         <MenuItem>Delete</MenuItem>
                       </MenuList>
                     </Menu>
