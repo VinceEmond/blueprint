@@ -155,6 +155,7 @@ export default function TrelloTasks() {
       axios
         .put(`/api/projects/${movedItemId}`, removed)
         .then((response) => {
+          // setUserProjects(userProjects);
           // const allProjects = response.data.project;
           // let allProjectsObj = [];
           // console.log("ALLPROJECTS: ", allProjects);

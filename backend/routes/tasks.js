@@ -63,7 +63,7 @@ module.exports = (db) => {
       status,
       category_id,
       is_active,
-      id,
+      Number(id),
     ];
     console.log("PARAMS: ", queryParams);
     const queryStr = `UPDATE tasks SET

@@ -1,30 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Tr,
-  Td,
-  Heading,
-  Checkbox,
-  CheckboxGroup,
-  useDisclosure,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
-import moment from "moment";
 import TrelloTasks from "./Trello/TrelloTasks";
 import TaskTable from "./Tables/TaskTable";
 import ViewSelect from "./ViewSelect";
-import { usersContext } from "../Providers/UsersProvider";
-import { getProjectName, updateUserTaskStatus } from "../helpers/selectors";
 import ModalForm from "./ModalForm";
+import { tasksContext } from "../Providers/TasksProvider";
 
 export default function Tasks() {
-  const [userTasks, setUserTasks] = useState([]);
+  // const [userTasks, setUserTasks] = useState([]);
   const [viewValue, setViewValue] = useState("List");
-  const [userProjects, setUserProjects] = useState(null);
-  const { currentUser } = useContext(usersContext);
+  // const [userProjects, setUserProjects] = useState(null);
   const [modalState, setModalState] = useState("hide");
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const { setUserTasks } = useContext(tasksContext);
+  const [editTask, setEditTask] = useState(null);
+  const [editProject, setEditProject] = useState(null);
   // Retrieve all projects (eventually user specific projects)
   // useEffect(() => {
   //   axios
@@ -117,13 +108,21 @@ export default function Tasks() {
   // });
 
   // returns component based on view option
+  const triggerEditTask = (task) => {
+    console.log(task);
+    setEditTask(task);
+    setModalState("tasks");
+    onOpen();
+  };
+
   function View() {
     if (viewValue === "List") {
-      return <TaskTable />;
+      return <TaskTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
       return <TrelloTasks />;
     }
   }
+
   return (
     <div>
       <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
@@ -141,8 +140,10 @@ export default function Tasks() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        setUserTasks={setUserTasks}
-        setUserProjects={null}
+        editTask={editTask}
+        setEditTask={setEditTask}
+        editProject={editProject}
+        setEditProject={setEditProject}
       />
     </div>
   );

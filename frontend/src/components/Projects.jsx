@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
 import TrelloProjects from "./Trello/TrelloProjects";
-import ProjectTable from "./Tables/ProjectTable";
+import ProjectsTable from "./Tables/ProjectsTable";
 import ViewSelect from "./ViewSelect";
 import ModalForm from "./ModalForm";
 import { viewsContext } from "../Providers/ViewsProvider";
-import { projectsContext } from "../Providers/ProjectsProvider";
 
 export default function Projects() {
   // const [userProjects, setUserProjects] = useState([]);
@@ -15,7 +14,8 @@ export default function Projects() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [userData, setUserData] = useState(null);
   const { viewValue, setViewValue } = useContext(viewsContext);
-  const { setUserProjects } = useContext(projectsContext);
+  const [editTask, setEditTask] = useState(null);
+  const [editProject, setEditProject] = useState(null);
   // const { allUsers } = useContext(usersContext);
 
   // When mounted, API call for DB query for all users and specific user's name when component renders
@@ -120,10 +120,18 @@ export default function Projects() {
   // });
 
   // returns component based on view option
+  const triggerEditProject = (project) => {
+    console.log(project);
+    setEditProject(project);
+    setModalState("projects");
+    onOpen();
+  };
+
+  // returns component based on view option
   function view() {
     if (viewValue === "List") {
       // setViewValue("List");
-      return <ProjectTable />;
+      return <ProjectsTable onEdit={triggerEditProject} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
       return <TrelloProjects />;
@@ -147,8 +155,10 @@ export default function Projects() {
         onClose={onClose}
         modalState={modalState}
         setModalState={setModalState}
-        setUserTasks={null}
-        setUserProjects={setUserProjects}
+        editTask={editTask}
+        setEditTask={setEditTask}
+        editProject={editProject}
+        setEditProject={setEditProject}
       />
     </div>
   );

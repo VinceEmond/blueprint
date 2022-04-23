@@ -24,6 +24,22 @@ export function getProjectOwnerName(ownerId, users) {
   return filteredUserName;
 }
 
+/* Gets specific user name from assignee_id */
+export function getAssigneeName(assignee_id, users) {
+  const filteredUser = users.filter((user) => {
+    return user.id == assignee_id;
+  });
+  // console.log("FILTEREDUSER: ", filteredUser);
+
+  if (!filteredUser[0]) {
+    return "";
+  }
+
+  const filteredUserName = filteredUser[0].first_name;
+  // console.log("FILTEREDUSERNAME: ", filteredUserName);
+  return filteredUserName;
+}
+
 /* Gets project name from project id */
 export function getProjectName(projectId, projects) {
   const filteredProject = projects.filter((project) => {
@@ -115,4 +131,16 @@ export function updateUserTaskStatus(userTasks, task_id, checkBoxBool) {
   // const filteredProject = filteredState[0];
   // console.log("FILTEREDPROJ ", filteredProject);
   // return filteredProject;
+}
+
+export function updateProjects(allProjects, newProject) {
+  const updatedProjects = [];
+  allProjects.forEach((project) => {
+    if (project.id === newProject.id) {
+      updatedProjects.push(newProject);
+    } else {
+      updatedProjects.push(project);
+    }
+  });
+  return updatedProjects;
 }
