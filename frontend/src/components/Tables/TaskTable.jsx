@@ -88,7 +88,7 @@ export default function TaskTable({ onEdit }) {
       // Dylan's temp hack to make sure new task gets unique key
       <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
         <Td size="sm">
-          <CheckboxGroup defaultValue={checkValues}>
+          <CheckboxGroup value={checkValues}>
             <Checkbox
               ml="2em"
               value={item.name}

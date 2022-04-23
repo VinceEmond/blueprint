@@ -40,6 +40,9 @@ export default function ProjectsTable({ onEdit }) {
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
     // console.log("OWNERID: ", item.owner_id);
     // console.log("USERDATA:", userData);
+
+    // BACKEND QUERY SELECT p.*, u.first_name AS user_first_name FROM projects p LEFT JOIN users u ON u.id = p.owner_id
+    // less secure, should make specific queries, slower * something to know in future
     let ownerName = getProjectOwnerName(item.owner_id, allUsers);
 
     // Adds all projects with Complete status so that it can be populated on the list with checkbox marked
@@ -90,7 +93,7 @@ export default function ProjectsTable({ onEdit }) {
       // Temporary hack for freshly added projects without database id (until page refresh)
       <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
         <Td size="sm">
-          <CheckboxGroup defaultValue={checkValues}>
+          <CheckboxGroup value={checkValues}>
             <Checkbox
               ml="2em"
               value={item.name}

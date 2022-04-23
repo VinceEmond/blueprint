@@ -100,7 +100,7 @@ export default function ProjectTable({ onEdit }) {
       return (
         <Tr key={item.id} bg={completeStatusBool}>
           <Td size="sm">
-            <CheckboxGroup defaultValue={checkValues}>
+            <CheckboxGroup value={checkValues}>
               <Checkbox
                 ml="2em"
                 value={item.name}
