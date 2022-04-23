@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -18,31 +18,30 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
+import { usersContext } from "../Providers/UsersProvider";
 
 export default function DrawerExample() {
+  const divRef = useRef(null);
+  const { cookies, currentUser, getUserByID } = useContext(usersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef(null);
-  const initialFocusRef = React.useRef();
+  const inputRef = React.useRef();
+  const [messages, setMessages] = useState([]);
+  const [messageBox, setMessageBox] = useState("");
 
   const divStyle = {
     overflowY: "scroll",
     position: "relative",
   };
 
-  const [messages, setMessages] = useState([]);
-  const [messageBox, setMessageBox] = useState("");
-  const [currentUser, setCurrentUser] = useState(1);
-  const divRef = useRef(null);
-
   const scrollToBottom = () => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   const formatDate = (dateString) => {
-    return moment(dateString, "YYYY-MM-DD HH:mm:ss").format("MMMM Do, h:mma");
+    return moment(dateString).format("MMMM Do, h:mma");
   };
 
-  // Scrolls the chats up when the limi is reached
+  // Scrolls the chats up when the limit is reached
   useEffect(() => {
     if (divRef.current) {
       scrollToBottom();
@@ -60,104 +59,163 @@ export default function DrawerExample() {
       .catch((err) => console.log("err:", err));
   }, []);
 
-  const handleMessageBox = (event) => setMessageBox(event.target.value);
-  const handleSendMessage = () => {
-    setMessages((prev) => [
-      ...prev,
-      { message: messageBox, sender_id: currentUser },
-    ]);
-    setMessageBox("");
+  const handleMessageBox = (event) => {
+    setMessageBox(event.target.value);
   };
 
-  const handleVideoChat = (event) => {
+  const validMessage = (message) => {
+    return message.trim();
+  };
+
+  // const resetMessageBoxInput = () => {};
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (validMessage(messageBox)) {
+      const currentUserId = Number(cookies.id);
+      const messageBoxContent = messageBox.trim();
+      const currentTimeStamp = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+
+      const newMessageObj = {
+        sender_id: currentUserId,
+        content: messageBoxContent,
+        time_stamp: currentTimeStamp,
+      };
+
+      axios
+        .post("/api/messages", newMessageObj)
+        .then((response) => {
+          setMessages((prev) => [...prev, newMessageObj]);
+          setMessageBox("");
+          inputRef.current.focus();
+        })
+        .catch((err) => console.log("err:", err));
+    }
+  };
+
+  const handleVideoChat = () => {
     window.open("https://meet.google.com/new");
   };
 
-  const messagesComponents = messages.map((message, index) => {
-    let color = "#3182CE";
-    let justify = "left";
-    let avatar = "";
-    let userName = "";
-    // let messageTimestamp = moment().format("MMMM Do, h:mma");
-    let messageTimestamp = formatDate(message.time_stamp);
-    let senderName = "Unknown Sender";
+  const createMessageComponents = (messages) => {
+    return messages.map((message, index) => {
+      let color = "#3182CE";
+      let avatar = "";
+      let messageTimestamp = formatDate(message.time_stamp);
+      let senderName = "Unknown Sender";
+      let receiver = true;
+      let justify = "flex-start";
 
-    if (message.sender_id === 1) {
-      senderName = "Dylan";
-    } else if (message.sender_id === 2) {
-      senderName = "Pablo";
-    } else if (message.sender_id === 3) {
-      senderName = "Vince";
-    }
+      // ******* THIS IS TO MAKE SURE IT ONLY RETRIEVES ONCE STATE IS READY
+      if (currentUser) {
+        // senderName = getUserByID(1).first_name;
+        // console.log("Get user:", getUserByID(1).first_name);
+        // console.log("Current user.first_name", currentUser.first_name);
+        // senderName = currentUser.first_name;
+        // console.log("Get user by id", getUserByID(message.sender_id).first_name);
+        // console.log("Avatar for user", getUserByID(message.sender_id).avatar);
 
-    if (index % 2 === 0) {
-      color = "#3182CE";
-      avatar =
-        "https://i.ibb.co/4WXcywP/Screenshot-of-maya-photo-of-me-35mm.png";
-      userName = "Vince";
-      // justify = 'left'
-    } else {
-      color = "#63B3ED";
-      avatar = "https://bit.ly/dan-abramov";
-      userName = "Dan";
-      // justify = 'right'
-    }
+        // if (getUserByID(message.sender_id).id === 1){
+        //   color = "#3182CE";
+        // } else if (getUserByID(message.sender_id).id === 1){
 
-    return (
-      // <HStack display="flex" flexDirection="column">
-      <div key={index}>
-        <HStack display="flex" justifyContent="center">
-          <p>{messageTimestamp}</p>
-        </HStack>
+        senderName = getUserByID(message.sender_id).first_name;
+        avatar = getUserByID(message.sender_id).avatar;
+      }
 
-        <HStack
-          key={index}
-          // justifyContent={justify}
-          marginLeft="10px"
-          marginRight="10px"
-          marginTop="4px"
-          display="flex"
-          flexDirection="row"
-          alignContent="flex-start"
-          justifyContent="flex-start"
-        >
-          <Box boxSize="50px">
-            <Image src={avatar} alt="Avatar" borderRadius="full" />
-          </Box>
+      // Set specific color by user's ID
+      // if (message.sender_id === 1) {
+      //   // Dylan
+      //   color = "#2b6cb0";
+      // } else if (message.sender_id === 2) {
+      //   // Pablo
+      //   color = "#90cdf4";
+      // } else if (message.sender_id === 3) {
+      //   color = "#4299e1";
+      //   // Vince
+      // }
 
-          <div>
-            <p>{senderName} Says:</p>
-            <Box
-              key={index}
-              borderRadius="lg"
-              marginBottom="5px"
-              bg={color}
-              // w='95%'
-              p={4}
-              color="white"
-            >
-              <p>{message.content}</p>
+      // Alternate colors for messages regardless of userID
+      if (index % 2 === 0) {
+        color = "#3182CE";
+      } else {
+        color = "#63B3ED";
+      }
+
+      // Checks: Is current user the sender?
+      // if (currentUser && message) {
+      //   console.log("currentUser.id", currentUser.id);
+      //   console.log("message.sender_id", message.sender_id);
+      //   if (currentUser.id === message.sender_id) {
+      //     // console.log("cur");
+      //     justify = "flex-end";
+      //     avatar = "";
+      //     receiver = false;
+      //   }
+      // }
+
+      return (
+        <div key={index}>
+          <HStack display="flex" justifyContent="center">
+            <p>{messageTimestamp}</p>
+          </HStack>
+
+          <HStack
+            key={index}
+            marginLeft="10px"
+            marginRight="10px"
+            marginTop="4px"
+            display="flex"
+            flexDirection="row"
+            justifyContent={justify}
+          >
+            <Box boxSize="50px">
+              {receiver && (
+                <Image
+                  src={avatar}
+                  alt="Avatar"
+                  borderRadius="full"
+                  boxSize="50px"
+                  maxW="50px"
+                  ratio={1}
+                />
+              )}
             </Box>
-          </div>
-        </HStack>
-      </div>
-    );
-  });
+
+            <div>
+              <p>{senderName} Says:</p>
+              <Box
+                key={index}
+                borderRadius="lg"
+                marginBottom="5px"
+                bg={color}
+                p={4}
+                color="white"
+              >
+                <p>{message.content}</p>
+              </Box>
+            </div>
+          </HStack>
+        </div>
+      );
+    });
+  };
+
+  const messagesComponents = createMessageComponents(messages);
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+      <Button colorScheme="teal" onClick={onOpen}>
         Message Board
       </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
-        initialFocusRef={initialFocusRef}
+        initialFocusRef={inputRef}
         onClose={onClose}
-        finalFocusRef={btnRef}
         size="md"
       >
-        <DrawerOverlay /* This creates the modal effect */ />
+        <DrawerOverlay />
 
         <DrawerContent>
           <DrawerCloseButton />
@@ -171,13 +229,15 @@ export default function DrawerExample() {
           </div>
 
           <HStack display="flex" justifyContent="center">
-            <Textarea
-              ref={initialFocusRef}
-              width="100%"
-              placeholder="Type your message here..."
-              value={messageBox}
-              onChange={(e) => handleMessageBox(e)}
-            />
+            <form onSubmit={(e) => handleSendMessage(e)}>
+              <Input
+                ref={inputRef}
+                width="500px"
+                placeholder="Type your message here..."
+                value={messageBox}
+                onChange={(e) => handleMessageBox(e)}
+              />
+            </form>
           </HStack>
 
           <ButtonGroup
@@ -197,7 +257,7 @@ export default function DrawerExample() {
             <Button
               colorScheme="blue"
               width="150px"
-              onClick={() => handleSendMessage()}
+              onClick={(e) => handleSendMessage(e)}
             >
               Post Message
             </Button>
