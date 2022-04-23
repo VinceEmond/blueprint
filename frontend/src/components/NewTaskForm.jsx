@@ -69,26 +69,20 @@ export default function NewTaskForm(props) {
   }
 
   function deleteTask() {
-    // console.log("WTF#@%@$%: ", taskFormValues);
-    // setTaskFormValues({ ...taskFormValues, is_active: false });
-
     axios
       .put(`/api/tasks/${editTask.id}/delete`, taskFormValues)
       .then((response) => {
-        const updatedTasks = updateProjects(userTasks, taskFormValues);
-        // console.log(updatedTasks);
+        const updatedTasks = updateProjects(userTasks, taskFormValues).filter(
+          (task) => task.id !== editTask.id
+        );
         setUserTasks(updatedTasks);
         console.log("Succesfully deleted task from database");
-        console.log("Response", response.data.deleted);
+        console.log("Deleted Task", response.data.deleted);
       })
       .catch((err) => console.log("err:", err));
   }
 
   function handleDelete(event) {
-    // Update the is_active to false in formValues
-    // deleteTask(taskFormValues);
-
-    // updateTask(taskFormValues);
     deleteTask();
     setModalState(null);
     setEditTask(null);

@@ -140,7 +140,7 @@ module.exports = (db) => {
   });
 
   // POST:DELETE - PROJECTS --- SET EXISTING PROJECT TO INACTIVE IN DB
-  router.delete("/:id/delete", (req, res) => {
+  router.put("/:id/delete", (req, res) => {
     const { id } = req.params;
     const queryParams = [id];
     const queryStr = `UPDATE projects SET
@@ -151,7 +151,8 @@ module.exports = (db) => {
 
     db.query(queryStr, queryParams)
       .then((data) => {
-        res.json({});
+        const deleted = data.rows[0];
+        res.json({ deleted });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

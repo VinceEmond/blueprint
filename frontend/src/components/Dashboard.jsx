@@ -72,7 +72,7 @@ export default function Dashboard() {
   };
 
   const triggerEditProject = (project) => {
-    console.log(project);
+    // console.log(project);
     setEditProject(project);
     setModalState("projects");
     onOpen();
