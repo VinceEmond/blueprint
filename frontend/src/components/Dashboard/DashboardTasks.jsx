@@ -74,9 +74,16 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     }
   }
 
-  function tabPanel(tasks, filter = "Not Started") {
+  function tabPanel(tasks, filter = "Not Started", tabName) {
     return (
-      <TabPanel>
+      <TabPanel
+        style={{
+          backgroundColor: "RGBA(0,128,129,1)",
+          borderRadius: `${tabName ? "0 10px 10px 10px" : "10px"}`,
+          borderTop: "2px solid white",
+          boxShadow: "0 0 2px 5px black",
+        }}
+      >
         <TableContainer>
           <Table size="sm">
             <Tbody>
@@ -152,9 +159,14 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
       width="100%"
       maxWidth="100%"
       border="2px"
-      borderRadius="5px"
+      borderRadius="2em"
       mt="4em"
-      style={{ backgroundColor: "#03403A", opacity: "1", color: "white" }}
+      pb="1em"
+      style={{
+        backgroundColor: "rgba(0,122,110, 0.3)",
+        opacity: "1",
+        color: "white",
+      }}
     >
       <Container
         display="flex"
@@ -176,15 +188,60 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         />
       </Container>
       <Tabs>
-        <TabList>
-          <Tab>All</Tab>
-          <Tab>Not started</Tab>
-          <Tab>In progress</Tab>
-          <Tab>Pending</Tab>
-          <Tab>Complete</Tab>
+        <TabList style={{ borderBottom: "none" }}>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _selected={{
+              color: "white",
+              bg: "RGBA(242,171,39,0.7)",
+              borderRadius: "10px 10px 0 0",
+              border: "none",
+            }}
+          >
+            All
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _selected={{
+              color: "white",
+              bg: "RGBA(242,171,39,0.7)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          >
+            Not started
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _selected={{
+              color: "white",
+              bg: "RGBA(242,171,39,0.7)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          >
+            In progress
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _selected={{
+              color: "white",
+              bg: "RGBA(242,171,39,0.7)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          >
+            Pending
+          </Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bg: "RGBA(242,171,39,0.7)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          >
+            Complete
+          </Tab>
         </TabList>
         <TabPanels>
-          {userTasks && tabPanel(tabList())}
+          {userTasks && tabPanel(tabList(), "all", "all")}
           {userTasks && tabPanel(tabList("Not Started"))}
           {userTasks && tabPanel(tabList("In Progress"), "In Progress")}
           {userTasks && tabPanel(tabList("Pending"), "Pending")}
