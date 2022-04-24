@@ -14,18 +14,19 @@ import Register from "../User/Register";
 import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
 
-// let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
-
-// let projectButton = document.querySelectorAll("div.css-1mrikgh > button");
-
-// function taskClick() {
-//   taskButton.click();
-// }
-// function projectClick() {
-//   projectButton.click();
-// }
-
 function App() {
+  // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
+
+  // let projectButton = document.querySelectorAll("div.css-1mrikgh > button");
+
+  // function taskClick() {
+  //   console.log("task command fired");
+  //   taskButton.click();
+  // }
+  // function projectClick() {
+  //   console.log("project command fired");
+  //   projectButton.click();
+  // }
   // const [cookies, setCookie, removeCookie] = useCookies(null);
 
   const [redirectUrl, setRedirectUrl] = useState("");
@@ -37,13 +38,13 @@ function App() {
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
     // {
-    //   command: "add task",
+    //   command: ["add task"],
     //   callback: () => {
     //     taskClick();
     //   },
     // },
     // {
-    //   command: "add project",
+    //   command: ["add project"],
     //   callback: () => {
     //     projectClick();
     //   },
