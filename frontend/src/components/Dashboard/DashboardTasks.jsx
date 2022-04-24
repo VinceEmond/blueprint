@@ -69,7 +69,6 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           setUserTasks((prev) => {
             return [...prev, returnedTask];
           });
-          console.log("Succesfully added new Task to database");
         })
         .catch((error) => displayServerError(error));
     }
