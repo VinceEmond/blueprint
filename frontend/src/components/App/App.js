@@ -40,12 +40,39 @@ function App() {
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
     {
-      command: ["add task"],
-      callback: () => {
-        // taskClick();
+      command: [
+        "add task",
+        "add tasks",
+        "new task",
+        "new tasks",
+        "create task",
+        "create tasks",
+      ],
+      callback: (speech) => {
+        console.log(speech.command);
         setModalState("tasks");
         onOpen();
-        console.log(modalState);
+        setTimeout(() => {
+          resetTranscript();
+        }, 3000);
+      },
+    },
+    {
+      command: [
+        "add project",
+        "add projects",
+        "new project",
+        "new projects",
+        "create project",
+        "create projects",
+      ],
+      callback: (speech) => {
+        console.log(speech.command);
+        setModalState("tasks");
+        onOpen();
+        setTimeout(() => {
+          resetTranscript();
+        }, 3000);
       },
     },
     // {
@@ -57,7 +84,6 @@ function App() {
   ];
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-
   const pages = ["home", "welcome", "about us", "projects", "tasks"];
 
   const urls = {
@@ -113,9 +139,48 @@ function App() {
               />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/projects" element={loggedIn() || <Projects />} />
-              <Route path="/projects/:id" element={loggedIn() || <Project />} />
-              <Route path="/tasks" element={loggedIn() || <Tasks />} />
+              <Route
+                path="/projects"
+                element={
+                  loggedIn() || (
+                    <Projects
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/projects/:id"
+                element={
+                  loggedIn() || (
+                    <Project
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/tasks"
+                element={
+                  loggedIn() || (
+                    <Tasks
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
