@@ -15,20 +15,6 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
 
 function App() {
-  // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
-
-  // let projectButton = document.querySelectorAll("div.css-1mrikgh > button");
-
-  // function taskClick() {
-  //   console.log("task command fired");
-  //   taskButton.click();
-  // }
-  // function projectClick() {
-  //   console.log("project command fired");
-  //   projectButton.click();
-  // }
-  // const [cookies, setCookie, removeCookie] = useCookies(null);
-
   const [redirectUrl, setRedirectUrl] = useState("");
   const { cookies } = useContext(usersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
