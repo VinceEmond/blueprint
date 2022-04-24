@@ -1,24 +1,3 @@
-/* .carousel-status {
-  display: none;
-}
-
-.carousel-slider {
-  padding-bottom: 20px;
-}
-
-.control-dots {
-  margin-bottom: -20px !important;
-  padding: 20px !important;
-}
-
-.dot {
-  background: rgb(148, 148, 148) !important;
-}
-
-.dot.selected {
-  background: black !important;
-} */
-
 .carousel {
   margin-left: 50px;
   margin-right: 50px;
