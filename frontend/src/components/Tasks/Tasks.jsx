@@ -69,6 +69,7 @@ export default function Tasks({
           >
             <ViewSelect
               setViewValue={setViewValue}
+              viewValue={viewValue}
               setModalState={setModalState}
               onOpen={onOpen}
               state="tasks"

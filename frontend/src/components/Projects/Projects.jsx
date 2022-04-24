@@ -74,6 +74,7 @@ export default function Projects({
               onOpen={onOpen}
               state="projects"
               setModalState={setModalState}
+              viewValue={viewValue}
               setViewValue={setViewValue}
             />
           </div>
