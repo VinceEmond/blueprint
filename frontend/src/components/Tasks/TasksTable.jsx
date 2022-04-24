@@ -84,7 +84,14 @@ export default function TasksTable({ onEdit }) {
     }
 
     return (
-      <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
+      <Tr
+        key={item.id || item.description.length * 10}
+        bg={completeStatusBool}
+        _hover={{
+          backgroundColor: "rgba(3, 140, 140, 0.3)",
+          cursor: "pointer",
+        }}
+      >
         <Td size="sm">
           <CheckboxGroup value={checkValues}>
             <Checkbox

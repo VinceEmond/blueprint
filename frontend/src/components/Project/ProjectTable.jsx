@@ -82,7 +82,14 @@ export default function ProjectTable({ onEdit }) {
       }
 
       return (
-        <Tr key={item.id} bg={completeStatusBool}>
+        <Tr
+          key={item.id}
+          bg={completeStatusBool}
+          _hover={{
+            backgroundColor: "rgba(3, 140, 140, 0.3)",
+            cursor: "pointer",
+          }}
+        >
           <Td size="sm">
             <CheckboxGroup value={checkValues}>
               <Checkbox
