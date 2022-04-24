@@ -15,7 +15,7 @@ import axios from "axios";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
-import { updateProjects } from "../../helpers/selectors";
+import { updateTasks } from "../../helpers/selectors";
 import { Cookies } from "react-cookie";
 import moment from "moment";
 
@@ -90,8 +90,7 @@ export default function NewTaskForm(props) {
     axios
       .put(`/api/tasks/${editTask.id}`, taskFormValues)
       .then((response) => {
-        const updatedTasks = updateProjects(userTasks, taskFormValues);
-        // console.log(updatedTasks);
+        const updatedTasks = updateTasks(userTasks, taskFormValues);
         setUserTasks(updatedTasks);
         console.log("Succesfully updated Task in database");
       })
