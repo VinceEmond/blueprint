@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./App.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import NavBar from "../Layout/NavBar";
 import LandingPage from "../LandingPage/LandingPage";
@@ -31,18 +31,23 @@ function App() {
 
   const [redirectUrl, setRedirectUrl] = useState("");
   const { cookies } = useContext(usersContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalState, setModalState] = useState(null);
 
   const commands = [
     {
       command: ["Open *"],
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
-    // {
-    //   command: ["add task"],
-    //   callback: () => {
-    //     taskClick();
-    //   },
-    // },
+    {
+      command: ["add task"],
+      callback: () => {
+        // taskClick();
+        setModalState("tasks");
+        onOpen();
+        console.log(modalState);
+      },
+    },
     // {
     //   command: ["add project"],
     //   callback: () => {
@@ -92,7 +97,20 @@ function App() {
 
           <div className="content">
             <Routes>
-              <Route path="/" element={loggedIn() || <Dashboard />} />
+              <Route
+                path="/"
+                element={
+                  loggedIn() || (
+                    <Dashboard
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
               <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/projects" element={loggedIn() || <Projects />} />

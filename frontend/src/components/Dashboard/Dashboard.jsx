@@ -7,16 +7,21 @@ import {
   LinkBox,
   LinkOverlay,
   Container,
-  useDisclosure,
 } from "@chakra-ui/react";
 import Tasks from "./DashboardTasks";
 import Projects from "./DashboardProjects";
 import ModalForm from "../Layout/ModalForm";
 import { usersContext } from "../../Providers/UsersProvider";
 
-export default function Dashboard() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalState, setModalState] = useState(null);
+export default function Dashboard({
+  modalState,
+  setModalState,
+  isOpen,
+  onOpen,
+  onClose,
+}) {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [modalState, setModalState] = useState(null);
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
   const { currentUser } = useContext(usersContext);
