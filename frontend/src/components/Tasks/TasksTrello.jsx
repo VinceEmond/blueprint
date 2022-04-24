@@ -39,38 +39,10 @@ const Title = styled.span`
 `;
 
 export default function TasksTrello({ modalState, onEdit }) {
-  // const [userTasks, setUserTasks] = useState([]);
+  const [columns, setColumns] = useState({});
   const { userTasks, setUserTasks } = useContext(tasksContext);
 
-  // const trelloColumns = {
-  //   [uuidv4()]: {
-  //     title: "Not Started",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "In Progress",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Pending",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Complete",
-  //     items: [],
-  //   },
-  // };
-
-  const [columns, setColumns] = useState({});
-
   useEffect(() => {
-    // axios
-    //   .get("/api/tasks")
-    //   .then((response) => {
-    //     const allTasks = response.data.tasks;
-
-    // console.log("ALLTASKS: ", allTasks);
-
     const cards = userTasks.map((task) => {
       return {
         project_id: String(task.project_id),
@@ -87,8 +59,6 @@ export default function TasksTrello({ modalState, onEdit }) {
         id: String(task.id),
       };
     });
-
-    // console.log("allTaskObj: ", allTaskObj);
 
     const updatedTrelloColumns = {
       [uuidv4()]: {
@@ -111,18 +81,12 @@ export default function TasksTrello({ modalState, onEdit }) {
 
     for (let column in updatedTrelloColumns) {
       for (let j = 0; j < cards.length; j++) {
-        // console.log(trelloColumns[column].title);
-        // console.log(allTaskObj[j].progress);
         if (updatedTrelloColumns[column].title === cards[j].status)
           updatedTrelloColumns[column].items.push(cards[j]);
       }
     }
 
-    // console.log("trelloColumns: ", trelloColumns);
-
     setColumns(updatedTrelloColumns);
-    // });
-    //     .catch((err) => console.log("err:", err));
   }, [modalState, userTasks]);
 
   const onDragEnd = (result, columns, setColumns) => {
@@ -141,7 +105,6 @@ export default function TasksTrello({ modalState, onEdit }) {
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
 
-      // updates status for particular task being moved to different column
       removed.status = destColumn.title;
       setColumns({
         ...columns,
@@ -155,26 +118,12 @@ export default function TasksTrello({ modalState, onEdit }) {
         },
       });
       const movedItemId = removed.id;
-      // const movedStatus = removed.status;
-      // console.log("SOURCEITEMS: ", sourceItems);
-      // console.log("DESTITEMS: ", destItems);
-      // console.log("ITEM STATUS THAT CHANGES: ", movedStatus);
-      // console.log("SOURCECOLUMN: ", sourceColumn);
-      // console.log("DESTCOLUMN: ", destColumn);
-      // console.log("ITEMID THAT CHANGES: ", movedItemId);
-      // console.log("REMOVED: ", removed);
 
       axios
         .put(`/api/tasks/${movedItemId}`, removed)
         .then((response) => {
           const updatedTaskArr = updateTrelloTaskStatus(userTasks, removed);
           setUserTasks(updatedTaskArr);
-          // const allTasks = response.data.task;
-          // console.log(userTasks);
-          // setUserTasks(userTasks);
-          // let allTaskObj = [];
-          // console.log("ALLTASKS: ", allTasks);
-          // console.log("SUCCESSFUL EDIT RQST: ", allTasks);
         })
         .catch((err) => console.log("err:", err));
     } else {

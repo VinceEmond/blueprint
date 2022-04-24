@@ -15,12 +15,13 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { getProjectName, updateUserTaskStatus } from "../../helpers/selectors";
-import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 
 export default function TasksTable({ onEdit }) {
-  // const { taskList } = props;
+  const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { userProjects } = useContext(projectsContext);
+
   const taskColumn = [
     "Complete",
     "Name",
@@ -30,24 +31,18 @@ export default function TasksTable({ onEdit }) {
     "Priority",
   ];
 
-  const { userTasks, setUserTasks } = useContext(tasksContext);
-  const { allUsers } = useContext(usersContext);
-  const { userProjects } = useContext(projectsContext);
-
   const taskHeader = taskColumn.map((column, index) => {
     return <Th key={`${index}${column}`}>{column}</Th>;
   });
 
   const taskList = userTasks.map((item) => {
-    // converting date data to more readable data
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-    // console.log(`UserProjects: ${userProjects}`);
-    // console.log(`item.project_id: ${item.project_id}`);
 
     let projectName = getProjectName(item.project_id, userProjects);
 
-    let generatedDefaultValue = [];
+    // consider moving to helper function file
     function defaultChecks() {
+      let generatedDefaultValue = [];
       if (item.status === "Complete") {
         generatedDefaultValue.push(item.name);
       }
@@ -55,16 +50,13 @@ export default function TasksTable({ onEdit }) {
     }
     const checkValues = defaultChecks();
 
+    // consider moving to helper function file
     function completeStatusBool() {
       if (item.status === "Complete") return "grey";
     }
 
+    // consider moving to helper function file
     function checkClick(e, id) {
-      // console.log("OLDSTATUS: ", item.status);
-      // console.log("OLDITEM: ", item);
-      // console.log("CHECKBOX CLICKED", e.target.checked);
-      // console.log("CHECKBOX EVENT", e);
-      // console.log("ITEMID CHECK", id);
       const updatedTasks = updateUserTaskStatus(
         userTasks,
         id,
@@ -74,18 +66,13 @@ export default function TasksTable({ onEdit }) {
       const filteredTasks = updatedTasks.filter((project) => {
         return project.id === id;
       });
-      // console.log("FILTEREDPROJECT: ", filteredTasks);
-      // console.log("NEWSTATUS: ", item.status);
-      // console.log("NEWITEM: ", item);
 
       axios.put(`/api/tasks/${id}`, filteredTasks[0]).then(() => {
-        // console.log("SUCCESSFUL!");
         setUserTasks(updatedTasks);
       });
     }
 
     return (
-      // Dylan's temp hack to make sure new task gets unique key
       <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
         <Td size="sm">
           <CheckboxGroup value={checkValues}>
@@ -96,13 +83,13 @@ export default function TasksTable({ onEdit }) {
             ></Checkbox>
           </CheckboxGroup>
         </Td>
-        <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
-        <Td onClick={(e) => onEdit(item)}>
+        <Td onClick={() => onEdit(item)}>{item.name}</Td>
+        <Td onClick={() => onEdit(item)}>
           {projectName ? projectName : "Uncategorized"}
         </Td>
-        <Td onClick={(e) => onEdit(item)}>{date}</Td>
-        <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
-        <Td onClick={(e) => onEdit(item)}>{item.priority}</Td>
+        <Td onClick={() => onEdit(item)}>{date}</Td>
+        <Td onClick={() => onEdit(item)}>{item.status}</Td>
+        <Td onClick={() => onEdit(item)}>{item.priority}</Td>
       </Tr>
     );
   });

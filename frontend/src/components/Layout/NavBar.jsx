@@ -5,7 +5,6 @@ import {
   HStack,
   Link,
   IconButton,
-  Input,
   Button,
   Menu,
   MenuButton,
@@ -18,7 +17,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext } from "react";
-import Message from "../Message/Message";
+import MessageBoard from "../MessageBoard/MessageBoard";
 import { usersContext } from "../../Providers/UsersProvider";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
@@ -32,23 +31,15 @@ const NavLink = ({ children }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    // Set url based on Links array
     href={`/${children === "Dashboard" ? "" : children.toLowerCase()}`}
   >
     {children}
   </Link>
 );
 
-export default function NavBar(props) {
+export default function NavBar({ transcript, resetTranscript }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { transcript, resetTranscript } = props;
-  const { login, logout, cookies, currentUser, getUserByID } =
-    useContext(usersContext);
-
-  // const testGetUser = () => {
-  //   setCurrentUser(getUserByID(cookies.id));
-  //   console.log("The user:", getUserByID(cookies.id));
-  // };
+  const { login, logout, cookies, currentUser } = useContext(usersContext);
 
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
@@ -60,12 +51,6 @@ export default function NavBar(props) {
       }
     });
   }, []);
-
-  // const testGetUser = () => {
-  //   console.log("Retreived user from ID", getUserByID(cookies.id));
-  // };
-
-  // console.log("Current user", currentUser);
 
   return (
     <>
@@ -107,7 +92,7 @@ export default function NavBar(props) {
           </HStack>
 
           <Flex alignItems={"center"}>
-            {cookies.id && <Message />}
+            {cookies.id && <MessageBoard />}
             <Menu>
               <MenuButton
                 as={Button}
@@ -152,8 +137,6 @@ export default function NavBar(props) {
           </Box>
         ) : null}
       </Box>
-
-      {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );
 }

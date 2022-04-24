@@ -5,8 +5,8 @@ const { sendAlert } = require("../lib/twilioAlert");
 
 module.exports = (db) => {
   router.post("/", (req, res) => {
-    const { msg, subscribedArr } = req.body;
-    sendAlert(msg, subscribedArr);
+    const { message, recipients } = req.body;
+    sendAlert(message, recipients);
   });
 
   return router;

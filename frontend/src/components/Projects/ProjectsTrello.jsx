@@ -39,40 +39,11 @@ const Title = styled.span`
 `;
 
 export default function ProjectsTrello({ modalState, onEdit }) {
-  // const [userTasks, setUserTasks] = useState([]);
+  const [columns, setColumns] = useState({});
   const { userProjects, setUserProjects } = useContext(projectsContext);
 
-  // const initialTrelloColumns = {
-  //   [uuidv4()]: {
-  //     title: "Not Started",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "In Progress",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Pending",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Complete",
-  //     items: [],
-  //   },
-  // };
-
-  const [columns, setColumns] = useState({});
-
   useEffect(() => {
-    // axios
-    //   .get("/api/projects")
-    //   .then((response) => {
-    //     const allProjects = response.data.projects;
-
-    // console.log("ALLTASKS: ", allTasks);
-
     const cards = userProjects.map((project) => {
-      // console.log("cards PDUEDATE1: ", project.due_date);
       return {
         id: String(project.id),
         category_id: String(project.category_id),
@@ -87,9 +58,7 @@ export default function ProjectsTrello({ modalState, onEdit }) {
       };
     });
 
-    // console.log("allProjectsObj: ", allProjectsObj);
-
-    const UpdatedTrelloColumns = {
+    const updatedTrelloColumns = {
       [uuidv4()]: {
         title: "Not Started",
         items: [],
@@ -108,29 +77,19 @@ export default function ProjectsTrello({ modalState, onEdit }) {
       },
     };
 
-    for (let column in UpdatedTrelloColumns) {
+    for (let column in updatedTrelloColumns) {
       for (let j = 0; j < cards.length; j++) {
-        // console.log(trelloColumns[column].title);
-        // console.log(allProjectsObj[j].status);
-        if (UpdatedTrelloColumns[column].title === cards[j].status)
-          UpdatedTrelloColumns[column].items.push(cards[j]);
+        if (updatedTrelloColumns[column].title === cards[j].status)
+          updatedTrelloColumns[column].items.push(cards[j]);
       }
     }
 
-    // console.log("trelloColumns: ", trelloColumns);
-    setColumns(UpdatedTrelloColumns);
-    // setUserProjects(cards);
-
-    // })
-    // .catch((err) => console.log("err:", err));
+    setColumns(updatedTrelloColumns);
   }, [modalState, userProjects]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
-    // console.log("RESULT: ", result);
-    // console.log("DESTINATION INDEX: ", result.destination.index);
-    // console.log("COLUMNS: ", columns);
 
     if (!destination) {
       return;
@@ -144,13 +103,6 @@ export default function ProjectsTrello({ modalState, onEdit }) {
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
 
-      // TEST START
-      // result.source.index = result.destination.index;
-      // result.destination.index = null;
-      // console.log("NEWRESULT: ", result);
-      // TEST END
-
-      // updates status for particular task being moved to different column
       removed.status = destColumn.title;
       setColumns({
         ...columns,
@@ -164,29 +116,15 @@ export default function ProjectsTrello({ modalState, onEdit }) {
         },
       });
       const movedItemId = removed.id;
-      // const movedStatus = removed.status;
-      // console.log("SOURCEITEMS: ", sourceItems);
-      // console.log("DESTITEMS: ", destItems);
-      // console.log("ITEM STATUS THAT CHANGES: ", movedStatus);
-      // console.log("SOURCECOLUMN: ", sourceColumn);
-      // console.log("DESTCOLUMN: ", destColumn);
-      // console.log("ITEMID THAT CHANGES: ", movedItemId);
-      // console.log("REMOVED: ", removed);
 
       axios
         .put(`/api/projects/${movedItemId}`, removed)
         .then((response) => {
-          // console.log(removed);
           const updatedProjectArr = updateTrelloProjectStatus(
             userProjects,
             removed
           );
           setUserProjects(updatedProjectArr);
-          // setUserProjects(userProjects);
-          // const allProjects = response.data.project;
-          // let allProjectsObj = [];
-          // console.log("ALLPROJECTS: ", allProjects);
-          // console.log("SUCCESSFUL EDIT RQST: ", allProjects);
         })
         .catch((err) => console.log("err:", err));
     } else {

@@ -11,10 +11,10 @@ import NewTaskForm from "../Forms/NewTaskForm";
 import NewProjectForm from "../Forms/NewProjectForm";
 
 export default function ModalForm({
-  setModalState,
-  modalState,
   isOpen,
   onClose,
+  modalState,
+  setModalState,
   editTask,
   setEditTask,
   editProject,
