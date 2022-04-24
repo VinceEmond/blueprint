@@ -31,7 +31,7 @@ const NavLink = ({ children }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={`/${children === "Dashboard" ? "" : children.toLowerCase()}`}
+    href={`/${children === "Dashboard" ? "welcome" : children.toLowerCase()}`}
   >
     {children}
   </Link>
@@ -66,7 +66,7 @@ export default function NavBar({ transcript, resetTranscript }) {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <Link
-                href="/welcome"
+                href="/"
                 rounded={"md"}
                 _focus={{ boxShadow: "none" }}
                 _hover={{ textDecoration: "none" }}
@@ -110,16 +110,16 @@ export default function NavBar({ transcript, resetTranscript }) {
               </MenuButton>
 
               <MenuList>
-                <a href="/">
+                <a href="/welcome">
                   <MenuItem onClick={() => login(1)}>Dylan</MenuItem>
                 </a>
-                <a href="/">
+                <a href="/welcome">
                   <MenuItem onClick={() => login(3)}>Vince</MenuItem>
                 </a>
-                <a href="/">
+                <a href="/welcome">
                   <MenuItem onClick={() => login(2)}>Pablo</MenuItem>
                 </a>
-                <a href="/welcome">
+                <a href="/">
                   <MenuItem onClick={() => logout()}>Logout</MenuItem>
                 </a>
               </MenuList>

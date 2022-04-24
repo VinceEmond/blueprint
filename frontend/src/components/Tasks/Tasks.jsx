@@ -1,16 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Heading, useDisclosure } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Heading } from "@chakra-ui/react";
 import TasksTrello from "./TasksTrello";
 import TasksTable from "./TasksTable";
 import ViewSelect from "../Layout/ViewSelect";
 import ModalForm from "../Layout/ModalForm";
 
-export default function Tasks() {
+export default function Tasks({
+  modalState,
+  setModalState,
+  isOpen,
+  onOpen,
+  onClose,
+}) {
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
-  const [modalState, setModalState] = useState("hide");
   const [viewValue, setViewValue] = useState("List");
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // consider moving to helper function file
   function triggerEditTask(task) {

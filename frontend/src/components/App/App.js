@@ -36,7 +36,7 @@ function App() {
 
   const commands = [
     {
-      command: ["Open *"],
+      command: ["open *", "go to *"],
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
     {
@@ -47,11 +47,12 @@ function App() {
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }
-        setModalState("tasks");
-        onOpen();
+        console.log("Testing");
         setTimeout(() => {
           resetTranscript();
         }, 3000);
+        setModalState("tasks");
+        onOpen();
       },
     },
     {
@@ -62,11 +63,11 @@ function App() {
         if (currentURL === "tasks") {
           return;
         }
-        setModalState("projects");
-        onOpen();
         setTimeout(() => {
           resetTranscript();
         }, 3000);
+        setModalState("projects");
+        onOpen();
       },
     },
     // {
@@ -81,8 +82,8 @@ function App() {
   const pages = ["home", "welcome", "about us", "projects", "tasks"];
 
   const urls = {
-    home: "/",
-    welcome: "/welcome",
+    home: "/welcome",
+    welcome: "/",
     "about us": "/aboutus",
     projects: "/projects",
     tasks: "/tasks",
@@ -117,8 +118,9 @@ function App() {
 
           <div className="content">
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route
-                path="/"
+                path="/welcome"
                 element={
                   loggedIn() || (
                     <Dashboard
@@ -131,7 +133,6 @@ function App() {
                   )
                 }
               />
-              <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route
                 path="/projects"
