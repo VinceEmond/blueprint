@@ -17,7 +17,9 @@ const sendAlert = (msg, subscribedArr) => {
         messagingServiceSid: "MG6248f8f8c8d88ad9b21408be2fe96eb7",
         to: users[id],
       })
-      .then((message) => console.log("Message sent", message.sid))
+      .then((message) =>
+        console.log("Twillio message sent succesfully : ", message.sid)
+      )
       .done();
   });
 };
