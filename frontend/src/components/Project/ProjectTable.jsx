@@ -25,7 +25,7 @@ export default function ProjectTable({ onEdit }) {
   const { id } = useParams();
 
   const taskColumn = [
-    "Complete",
+    "Task Complete",
     "Name",
     "Assignee",
     "Due Date",

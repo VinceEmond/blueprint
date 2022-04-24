@@ -37,7 +37,6 @@ module.exports = (db) => {
   router.put("/:id", (req, res) => {
     const { id } = req.params;
     const { text_alert } = req.body;
-    // console.log("Req.body", req.body);
     const queryParams = [id, text_alert];
     const queryStr = `UPDATE users SET text_alert = $2 WHERE id = $1 RETURNING *;`;
 

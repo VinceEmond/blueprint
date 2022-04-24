@@ -33,26 +33,9 @@ module.exports = (db) => {
       });
   });
 
-  // GET: BROWSE --- RETRIEVE ALL TASKS FOR SPECIFIC PROJECT ID
-  // router.get("/:id/tasks", (req, res) => {
-  //   const { id } = req.params;
-  //   const queryParams = [id];
-  //   const queryStr = `SELECT * FROM tasks WHERE project_id = $1 AND is_active = true;`;
-
-  //   db.query(queryStr, queryParams)
-  //     .then((data) => {
-  //       const tasks = data.rows;
-  //       res.json({ tasks });
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // });
-
   // POST: EDIT - PROJECTS --- EDIT/UPDATE DATA FOR SPECIFIC PROJECT
   router.put("/:id", (req, res) => {
     const { id } = req.params;
-    console.log("REQ.BODY: ", req.body);
     const {
       owner_id,
       name,
@@ -76,7 +59,6 @@ module.exports = (db) => {
       is_active,
       Number(id),
     ];
-    console.log("PARAMS: ", queryParams);
     const queryStr = `UPDATE projects SET
     owner_id = $1,
     name = $2,
@@ -94,7 +76,6 @@ module.exports = (db) => {
     db.query(queryStr, queryParams)
       .then((data) => {
         const project = data.rows;
-        console.log("QUERY SUCCESS");
         res.json({ project });
       })
       .catch((err) => {
