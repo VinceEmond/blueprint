@@ -1,3 +1,5 @@
+import NewTaskForm from "../Forms/NewTaskForm";
+import NewProjectForm from "../Forms/NewProjectForm";
 import {
   Modal,
   ModalOverlay,
@@ -7,8 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import NewTaskForm from "../Forms/NewTaskForm";
-import NewProjectForm from "../Forms/NewProjectForm";
 
 export default function ModalForm({
   isOpen,
@@ -20,17 +20,15 @@ export default function ModalForm({
   editProject,
   setEditProject,
 }) {
-  const clearEditTask = () => {
+  function clearEditTask() {
     onClose();
     setEditTask(null);
-    // console.log("I'm clearing editTask");
-  };
+  }
 
-  const clearEditProject = () => {
+  function clearEditProject() {
     onClose();
     setEditProject(null);
-    console.log("I'm clearing editProject");
-  };
+  }
 
   return (
     <>

@@ -4,13 +4,17 @@ import ProjectsTable from "./ProjectsTable";
 import ViewSelect from "../Layout/ViewSelect";
 import ModalForm from "../Layout/ModalForm";
 import { viewsContext } from "../../Providers/ViewsProvider";
-import { Heading, useDisclosure } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 
-export default function Projects() {
-  const [modalState, setModalState] = useState("hide");
+export default function Projects({
+  modalState,
+  setModalState,
+  isOpen,
+  onOpen,
+  onClose,
+}) {
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { viewValue, setViewValue } = useContext(viewsContext);
 
   function triggerEditProject(project) {

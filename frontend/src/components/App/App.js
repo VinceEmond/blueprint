@@ -15,20 +15,6 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
 
 function App() {
-  // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
-
-  // let projectButton = document.querySelectorAll("div.css-1mrikgh > button");
-
-  // function taskClick() {
-  //   console.log("task command fired");
-  //   taskButton.click();
-  // }
-  // function projectClick() {
-  //   console.log("project command fired");
-  //   projectButton.click();
-  // }
-  // const [cookies, setCookie, removeCookie] = useCookies(null);
-
   const [redirectUrl, setRedirectUrl] = useState("");
   const { cookies } = useContext(usersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,49 +22,52 @@ function App() {
 
   const commands = [
     {
-      command: ["Open *"],
+      command: ["open *", "go to *"],
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
     {
-      command: ["add task"],
-      callback: () => {
-        // taskClick();
+      command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
+      callback: (speech) => {
+        console.log(window.location.pathname);
+        const currentURL = window.location.pathname;
+        if (currentURL === "projects" || currentURL === "project") {
+          return;
+        }
+        console.log("Testing");
+        setTimeout(() => {
+          resetTranscript();
+        }, 3000);
         setModalState("tasks");
         onOpen();
-        console.log(modalState);
       },
     },
-    // {
-    //   command: ["add project"],
-    //   callback: () => {
-    //     projectClick();
-    //   },
-    // },
+    {
+      command: [/.*add.*project.*/, /.*new.*project.*/, /.*create.*project.*/],
+      callback: (speech) => {
+        console.log(speech.command);
+        const currentURL = window.location.pathname;
+        if (currentURL === "tasks") {
+          return;
+        }
+        setTimeout(() => {
+          resetTranscript();
+        }, 3000);
+        setModalState("projects");
+        onOpen();
+      },
+    },
   ];
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-
   const pages = ["home", "welcome", "about us", "projects", "tasks"];
 
   const urls = {
-    home: "/",
-    welcome: "/welcome",
+    home: "/welcome",
+    welcome: "/",
     "about us": "/aboutus",
     projects: "/projects",
     tasks: "/tasks",
   };
-
-  // if speech recognition is not supported, won't do anything
-  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-  //   return null;
-  // }
-
-  // continous speech recognition
-  // if (SpeechRecognition.browserSupportsContinuousListening) {
-  //   SpeechRecognition.startListening({ continuous: true })
-  // } else {
-  //   return
-  // }
 
   let redirect = "";
 
@@ -97,8 +86,9 @@ function App() {
 
           <div className="content">
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route
-                path="/"
+                path="/welcome"
                 element={
                   loggedIn() || (
                     <Dashboard
@@ -111,11 +101,49 @@ function App() {
                   )
                 }
               />
-              <Route path="/welcome" element={<LandingPage />} />
               <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/projects" element={loggedIn() || <Projects />} />
-              <Route path="/projects/:id" element={loggedIn() || <Project />} />
-              <Route path="/tasks" element={loggedIn() || <Tasks />} />
+              <Route
+                path="/projects"
+                element={
+                  loggedIn() || (
+                    <Projects
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/projects/:id"
+                element={
+                  loggedIn() || (
+                    <Project
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/tasks"
+                element={
+                  loggedIn() || (
+                    <Tasks
+                      modalState={modalState}
+                      setModalState={setModalState}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  )
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
