@@ -12,7 +12,6 @@ export default function Tasks() {
   const [viewValue, setViewValue] = useState("List");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // consider moving to helper function file
   function triggerEditTask(task) {
     console.log(task);
     setEditTask(task);
@@ -20,7 +19,6 @@ export default function Tasks() {
     onOpen();
   }
 
-  // consider moving to helper function file
   function viewTasks() {
     if (viewValue === "List") {
       return <TasksTable onEdit={triggerEditTask} />;

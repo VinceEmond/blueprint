@@ -45,7 +45,6 @@ export default function ProjectTable({ onEdit }) {
       let date = moment(item.due_date).utc().format("YYYY-MM-DD");
       let assigneeName = getAssigneeName(item.assignee_id, allUsers);
 
-      // consider moving to helper function file
       function defaultChecks() {
         let generatedDefaultValue = [];
         if (item.status === "Complete") {
@@ -55,12 +54,10 @@ export default function ProjectTable({ onEdit }) {
       }
       const checkValues = defaultChecks();
 
-      // consider moving to helper function file
       function completeStatusBool() {
         if (item.status === "Complete") return "grey";
       }
 
-      // consider moving to helper function file
       function checkClick(e, id) {
         const updatedTasks = updateUserTaskStatus(
           userTasks,
