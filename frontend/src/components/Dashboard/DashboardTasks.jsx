@@ -128,11 +128,8 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           (filter === "all" && task.status !== "Complete")
       )
       .map((task) => {
-        // For freshly rendered tasks, id will be undefined so make up temp key
         const key = `${filter}+${task.id}`;
-
         const checkValues = task.status === "Complete" ? [task.id] : [];
-
         return (
           <Tr key={key}>
             <Td width="5px" padding="2px">
