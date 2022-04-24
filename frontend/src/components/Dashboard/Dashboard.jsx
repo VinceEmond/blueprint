@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import {
   Box,
   Heading,
@@ -20,8 +19,6 @@ export default function Dashboard({
   onOpen,
   onClose,
 }) {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [modalState, setModalState] = useState(null);
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
   const { currentUser } = useContext(usersContext);
@@ -65,19 +62,17 @@ export default function Dashboard({
     return message;
   }
 
-  const triggerEditTask = (task) => {
-    // console.log(task);
+  function triggerEditTask(task) {
     setEditTask(task);
     setModalState("tasks");
     onOpen();
-  };
+  }
 
-  const triggerEditProject = (project) => {
-    // console.log(project);
+  function triggerEditProject(project) {
     setEditProject(project);
     setModalState("projects");
     onOpen();
-  };
+  }
 
   return (
     <div>

@@ -19,32 +19,47 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { updateUserTaskStatus } from "../../helpers/selectors";
 import axios from "axios";
 import moment from "moment";
 
+////////////////////////////////////////////////////////
+// DELETE THIS ONCE IT'S AVAILABLE IN HELPER FUNCTION //
+////////////////////////////////////////////////////////
+function displayServerError(error) {
+  console.log("Server Error:", error);
+}
+
 export default function Tasks({ setModalState, onOpen, onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { cookies } = useContext(usersContext);
+  const PROJECT_ID = 1;
+  const PRIORITY = "Low";
+  const CURRENT_USER_ID = Number(cookies.id);
+  const DESCRIPTION = "";
+  const START_DATE = moment(new Date()).format("YYYY-MM-DD");
+  const DUE_DATE = moment(new Date()).add(2, "days").format("YYYY-MM-DD");
+  const MODIFIED_DATE = moment(new Date()).format("YYYY-MM-DD");
+  const CATEGORY_ID = 1;
 
   // Onsubmit helper function for add tasks
-  const addTask = (e, filter = "Not Started") => {
+  function addTask(e, filter = "Not Started") {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
     e.target[0].value = "";
     if (newTask) {
       const taskFormValues = {
-        project_id: 1,
-        priority: "Low",
-        assignee_id: Number(cookies.id),
+        project_id: PROJECT_ID,
+        priority: PRIORITY,
+        assignee_id: CURRENT_USER_ID,
         name: newTask,
-        description: "",
-        start_date: moment(new Date()).format("YYYY-MM-DD"),
-        due_date: moment(new Date()).add(2, "days").format("YYYY-MM-DD"),
-        modified_date: moment(new Date()).format("YYYY-MM-DD"),
+        description: DESCRIPTION,
+        start_date: START_DATE,
+        due_date: DUE_DATE,
+        modified_date: MODIFIED_DATE,
         status: filter,
-        category_id: 1,
+        category_id: CATEGORY_ID,
       };
 
       axios
@@ -56,11 +71,11 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           });
           console.log("Succesfully added new Task to database");
         })
-        .catch((err) => console.log("err:", err));
+        .catch((error) => displayServerError(error));
     }
-  };
+  }
 
-  const tabPanel = (tasks, filter = "Not Started") => {
+  function tabPanel(tasks, filter = "Not Started") {
     return (
       <TabPanel>
         <TableContainer>
@@ -85,29 +100,26 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         </TableContainer>
       </TabPanel>
     );
-  };
+  }
 
   function checkClick(e, id) {
-    console.log("id", id);
-    console.log("CHECKBOX CLICKED", e.target.checked);
-
     const updatedTasks = updateUserTaskStatus(userTasks, id, e.target.checked);
 
     const filteredTasks = updatedTasks.filter((project) => {
       return project.id === id;
     });
 
-    // console.log("FILTEREDPROJECT: ", filteredTasks);
-
-    axios.put(`/api/tasks/${id}`, filteredTasks[0]).then(() => {
-      // console.log("SUCCESSFUL!");
-      setUserTasks(updatedTasks);
-    });
+    axios
+      .put(`/api/tasks/${id}`, filteredTasks[0])
+      .then(() => {
+        setUserTasks(updatedTasks);
+      })
+      .catch((error) => displayServerError(error));
   }
 
-  const tabList = (filter = "all") => {
+  function tabList(filter = "all") {
     const userSpecificTasks = userTasks.filter(
-      (task) => task.assignee_id === Number(cookies.id)
+      (task) => task.assignee_id === CURRENT_USER_ID
     );
     return userSpecificTasks
       .filter(
@@ -117,16 +129,9 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
       )
       .map((task) => {
         // For freshly rendered tasks, id will be undefined so make up temp key
-        const key = `${filter}+${task.id || task.name.length * 1000}`;
+        const key = `${filter}+${task.id}`;
 
-        let generatedDefaultValue = [];
-        function defaultChecks() {
-          if (task.status === "Complete") {
-            generatedDefaultValue.push(task.id);
-          }
-          return generatedDefaultValue;
-        }
-        const checkValues = defaultChecks();
+        const checkValues = task.status === "Complete" ? [task.id] : [];
 
         return (
           <Tr key={key}>
@@ -144,7 +149,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           </Tr>
         );
       });
-  };
+  }
 
   return (
     <Container
