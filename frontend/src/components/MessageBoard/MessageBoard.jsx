@@ -190,7 +190,7 @@ export default function MessageBoard() {
       };
 
       axios
-        .post("/api/sms/", queryParams)
+        .post("/api/notification/", queryParams)
         .then(() => {})
         .catch((error) => displayServerError(error));
     }
