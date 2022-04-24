@@ -42,6 +42,14 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
   const DUE_DATE = moment(new Date()).add(2, "days").format("YYYY-MM-DD");
   const MODIFIED_DATE = moment(new Date()).format("YYYY-MM-DD");
   const CATEGORY_ID = 1;
+  const DASHBOARD_TAB_STYLE = {
+    color: "white",
+    bg: "RGBA(242,171,39,0.4)",
+    borderRadius: "10px 10px 0 0",
+    borderRight: "2px solid white",
+    borderLeft: "2px solid white",
+    borderTop: "2px solid white",
+  };
 
   // Onsubmit helper function for add tasks
   function addTask(e, filter = "Not Started") {
@@ -74,9 +82,18 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     }
   }
 
-  function tabPanel(tasks, filter = "Not Started") {
+  function tabPanel(tasks, filter = "Not Started", tabName) {
     return (
-      <TabPanel>
+      <TabPanel
+        style={{
+          backgroundColor: "#0a171e",
+          opacity: "1",
+          borderRadius: `${tabName ? "0 10px 10px 10px" : "10px"}`,
+          border: "2px solid white",
+          // borderTop: "2px solid white",
+          // boxShadow: "0 0 3px 2px white",
+        }}
+      >
         <TableContainer>
           <Table size="sm">
             <Tbody>
@@ -130,7 +147,13 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         const key = `${filter}+${task.id}`;
         const checkValues = task.status === "Complete" ? [task.id] : [];
         return (
-          <Tr key={key}>
+          <Tr
+            key={key}
+            _hover={{
+              backgroundColor: "rgba(3, 140, 140, 0.3)",
+              cursor: "pointer",
+            }}
+          >
             <Td width="5px" padding="2px">
               <CheckboxGroup value={checkValues}>
                 <Checkbox
@@ -151,16 +174,21 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     <Container
       width="100%"
       maxWidth="100%"
-      border="2px"
-      borderRadius="5px"
+      border="2px solid white"
+      borderRadius="2em"
       mt="4em"
-      style={{ backgroundColor: "#03403A", opacity: "1", color: "white" }}
+      pb="1em"
+      style={{
+        backgroundColor: "rgba(10,23,30,0.8)",
+        color: "white",
+      }}
     >
       <Container
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         maxWidth="100%"
+        paddingTop="1rem"
       >
         <Heading size="md" textAlign="left">
           My Priorities
@@ -168,6 +196,14 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         <IconButton
           aria-label="Search database"
           borderRadius="50%"
+          border="2px solid white"
+          backgroundColor="RGBA(242,171,39,0.4)"
+          _hover={{
+            bg: "RGBA(242,171,39,0.6)",
+          }}
+          _active={{
+            bg: "RGBA(242,171,39,0.8)",
+          }}
           icon={<AddIcon />}
           onClick={() => {
             setModalState("tasks");
@@ -176,15 +212,45 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         />
       </Container>
       <Tabs>
-        <TabList>
-          <Tab>All</Tab>
-          <Tab>Not started</Tab>
-          <Tab>In progress</Tab>
-          <Tab>Pending</Tab>
-          <Tab>Complete</Tab>
+        <TabList style={{ borderBottom: "none" }}>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _active={{ bg: "RGBA(242,171,39,0.5)" }}
+            _selected={DASHBOARD_TAB_STYLE}
+          >
+            All
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _active={{ bg: "RGBA(242,171,39,0.5)" }}
+            _selected={DASHBOARD_TAB_STYLE}
+          >
+            Not started
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _active={{ bg: "RGBA(242,171,39,0.5)" }}
+            _selected={DASHBOARD_TAB_STYLE}
+          >
+            In progress
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _active={{ bg: "RGBA(242,171,39,0.5)" }}
+            _selected={DASHBOARD_TAB_STYLE}
+          >
+            Pending
+          </Tab>
+          <Tab
+            _focus={{ boxShadow: "none" }}
+            _active={{ bg: "RGBA(242,171,39,0.5)" }}
+            _selected={DASHBOARD_TAB_STYLE}
+          >
+            Complete
+          </Tab>
         </TabList>
         <TabPanels>
-          {userTasks && tabPanel(tabList())}
+          {userTasks && tabPanel(tabList(), "all", "all")}
           {userTasks && tabPanel(tabList("Not Started"))}
           {userTasks && tabPanel(tabList("In Progress"), "In Progress")}
           {userTasks && tabPanel(tabList("Pending"), "Pending")}
