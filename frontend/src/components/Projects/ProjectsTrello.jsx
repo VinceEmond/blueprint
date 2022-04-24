@@ -15,12 +15,12 @@ const TaskList = styled.div`
   min-height: 100px;
   display: flex;
   flex-direction: column;
-  background: rgba(10, 23, 30, 0.8);
+  background: rgba(10, 23, 30, 1);
   min-width: 341px;
   border-radius: 5px;
   padding: 15px 15px;
-  margin: 0.3em;
-  border: ridge white 1px;
+  margin: 0.4em;
+  border: solid white 2px;
   border-radius: 5px;
 `;
 

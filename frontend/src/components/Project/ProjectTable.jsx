@@ -127,6 +127,7 @@ export default function ProjectTable({ onEdit }) {
         maxW="8xl"
         style={{
           backgroundColor: "transparent",
+          border: "solid white 2px",
         }}
       >
         <TableContainer>

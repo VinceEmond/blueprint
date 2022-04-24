@@ -67,6 +67,7 @@ export default function Project() {
               flexDirection: "column",
               justifyContent: "end",
               marginBottom: "0.6em",
+              marginRight: "1em",
             }}
           >
             <ViewSelect

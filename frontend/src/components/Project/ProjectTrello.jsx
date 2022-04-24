@@ -22,7 +22,7 @@ const TaskList = styled.div`
   border-radius: 5px;
   padding: 15px 15px;
   margin: 0.3em;
-  border: ridge white 1px;
+  border: solid white 2px;
   border-radius: 5px;
 `;
 

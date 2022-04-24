@@ -29,6 +29,14 @@ export default function ViewSelect(props) {
             setModalState(state);
             onOpen();
           }}
+          border="2px solid white"
+          backgroundColor="RGBA(242,171,39,0.4)"
+          _hover={{
+            bg: "RGBA(242,171,39,0.6)",
+          }}
+          _active={{
+            bg: "RGBA(242,171,39,0.8)",
+          }}
         />
         <Button
           colorScheme="red"

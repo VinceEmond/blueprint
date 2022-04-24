@@ -64,6 +64,7 @@ export default function Tasks({
               flexDirection: "column",
               justifyContent: "end",
               marginBottom: "0.6em",
+              marginRight: "1em",
             }}
           >
             <ViewSelect
