@@ -20,14 +20,12 @@ export default function Project() {
 
   const projectName = getProjectName(id, userProjects);
 
-  // consider moving to helper function file
   function triggerEditTask(task) {
     setEditTask(task);
     setModalState("tasks");
     onOpen();
   }
 
-  // consider moving to helper function file
   function viewProject() {
     if (viewValue === "List") {
       return <ProjectTable onEdit={triggerEditTask} />;
