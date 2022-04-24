@@ -14,17 +14,24 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import moment from "moment";
-import { getProjectName, updateUserTaskStatus } from "../../helpers/selectors";
+import {
+  getProjectName,
+  updateUserTaskStatus,
+  getAssigneeName,
+} from "../../helpers/selectors";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
+import { usersContext } from "../../Providers/UsersProvider";
 
 export default function TasksTable({ onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
+  const { allUsers } = useContext(usersContext);
 
   const taskColumn = [
     "Complete",
-    "Name",
+    "Task Name",
+    "Assignee",
     "Project Name",
     "Due Date",
     "Status",
@@ -37,7 +44,7 @@ export default function TasksTable({ onEdit }) {
 
   const taskList = userTasks.map((item) => {
     let date = moment(item.due_date).utc().format("YYYY-MM-DD");
-
+    let assigneeName = getAssigneeName(item.assignee_id, allUsers);
     let projectName = getProjectName(item.project_id, userProjects);
 
     function defaultChecks() {
@@ -81,6 +88,7 @@ export default function TasksTable({ onEdit }) {
           </CheckboxGroup>
         </Td>
         <Td onClick={() => onEdit(item)}>{item.name}</Td>
+        <Td onClick={() => onEdit(item)}>{assigneeName}</Td>
         <Td onClick={() => onEdit(item)}>
           {projectName ? projectName : "Uncategorized"}
         </Td>
