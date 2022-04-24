@@ -40,16 +40,13 @@ function App() {
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
     {
-      command: [
-        "add task",
-        "add tasks",
-        "new task",
-        "new tasks",
-        "create task",
-        "create tasks",
-      ],
+      command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
       callback: (speech) => {
-        console.log(speech.command);
+        console.log(window.location.pathname);
+        const currentURL = window.location.pathname;
+        if (currentURL === "projects" || currentURL === "project") {
+          return;
+        }
         setModalState("tasks");
         onOpen();
         setTimeout(() => {
@@ -58,17 +55,14 @@ function App() {
       },
     },
     {
-      command: [
-        "add project",
-        "add projects",
-        "new project",
-        "new projects",
-        "create project",
-        "create projects",
-      ],
+      command: [/.*add.*project.*/, /.*new.*project.*/, /.*create.*project.*/],
       callback: (speech) => {
         console.log(speech.command);
-        setModalState("tasks");
+        const currentURL = window.location.pathname;
+        if (currentURL === "tasks") {
+          return;
+        }
+        setModalState("projects");
         onOpen();
         setTimeout(() => {
           resetTranscript();
