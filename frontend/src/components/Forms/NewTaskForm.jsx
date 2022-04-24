@@ -1,4 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { tasksContext } from "../../Providers/TasksProvider";
+import { usersContext } from "../../Providers/UsersProvider";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { updateTasks } from "../../helpers/selectors";
+import { Cookies } from "react-cookie";
+import moment from "moment";
 import {
   Editable,
   EditableInput,
@@ -11,13 +18,6 @@ import {
   ButtonGroup,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { tasksContext } from "../../Providers/TasksProvider";
-import { usersContext } from "../../Providers/UsersProvider";
-import { projectsContext } from "../../Providers/ProjectsProvider";
-import { updateTasks } from "../../helpers/selectors";
-import { Cookies } from "react-cookie";
-import moment from "moment";
 
 export default function NewTaskForm(props) {
   // const testTaskValues = {
