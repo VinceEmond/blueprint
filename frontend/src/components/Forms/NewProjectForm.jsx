@@ -22,8 +22,6 @@ export default function NewProjectForm(props) {
   const { setModalState, editProject, setEditProject } = props;
   const { cookies } = useContext(usersContext);
   const { userProjects, setUserProjects } = useContext(projectsContext);
-  const [projectFormValues, setProjectFormValues] =
-    useState(defaultProjectValues);
 
   const defaultProjectValues = {
     owner_id: Number(cookies.id),
@@ -35,6 +33,9 @@ export default function NewProjectForm(props) {
     status: "Not Started",
     category_id: 1,
   };
+
+  const [projectFormValues, setProjectFormValues] =
+    useState(defaultProjectValues);
 
   function projectFormDataValidation(formValues) {
     const mandatoryFields = ["name", "owner_id"];
