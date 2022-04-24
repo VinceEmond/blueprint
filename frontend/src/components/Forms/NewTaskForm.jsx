@@ -12,10 +12,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { tasksContext } from "../Providers/TasksProvider";
-import { usersContext } from "../Providers/UsersProvider";
-import { projectsContext } from "../Providers/ProjectsProvider";
-import { updateProjects } from "../helpers/selectors";
+import { tasksContext } from "../../Providers/TasksProvider";
+import { usersContext } from "../../Providers/UsersProvider";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { updateProjects } from "../../helpers/selectors";
 import { Cookies } from "react-cookie";
 import moment from "moment";
 

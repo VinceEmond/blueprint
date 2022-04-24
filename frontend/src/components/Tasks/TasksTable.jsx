@@ -19,7 +19,7 @@ import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 
-export default function TaskTable({ onEdit }) {
+export default function TasksTable({ onEdit }) {
   // const { taskList } = props;
   const taskColumn = [
     "Complete",

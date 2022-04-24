@@ -54,7 +54,7 @@ const TaskInformation = styled.div`
    } 
 `;
 
-export default function TrelloTasksCard({ item, index, onEdit }) {
+export default function TasksTrelloCard({ item, index, onEdit }) {
   return (
     <Draggable
       key={String(item.id)}

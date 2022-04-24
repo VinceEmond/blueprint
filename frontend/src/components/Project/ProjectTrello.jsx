@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import TrelloProjectsCard from "./TrelloProjectsCard";
+import ProjectTrelloCard from "./ProjectTrelloCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { projectsContext } from "../../Providers/ProjectsProvider";
-import { updateTrelloProjectStatus } from "../../helpers/selectors";
+import { tasksContext } from "../../Providers/TasksProvider";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -38,30 +38,31 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks({ modalState, onEdit }) {
+export default function ProjectTrello({ onEdit }) {
   // const [userTasks, setUserTasks] = useState([]);
-  const { userProjects, setUserProjects } = useContext(projectsContext);
+  const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { id } = useParams();
 
-  // const initialTrelloColumns = {
-  //   [uuidv4()]: {
-  //     title: "Not Started",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "In Progress",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Pending",
-  //     items: [],
-  //   },
-  //   [uuidv4()]: {
-  //     title: "Complete",
-  //     items: [],
-  //   },
-  // };
+  const trelloColumns = {
+    [uuidv4()]: {
+      title: "Not Started",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "In Progress",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "Pending",
+      items: [],
+    },
+    [uuidv4()]: {
+      title: "Complete",
+      items: [],
+    },
+  };
 
-  const [columns, setColumns] = useState({});
+  const [columns, setColumns] = useState(trelloColumns);
 
   useEffect(() => {
     // axios
@@ -71,59 +72,46 @@ export default function TrelloTasks({ modalState, onEdit }) {
 
     // console.log("ALLTASKS: ", allTasks);
 
-    const cards = userProjects.map((project) => {
-      // console.log("cards PDUEDATE1: ", project.due_date);
-      return {
-        id: String(project.id),
-        category_id: String(project.category_id),
-        owner_id: String(project.owner_id),
-        name: String(project.name),
-        description: String(project.description),
-        start_date: String(project.start_date),
-        due_date: String(project.due_date),
-        modified_date: String(project.modified_date),
-        status: String(project.status),
-        is_active: String(project.is_active),
-      };
-    });
+    const cards = userTasks
+      .filter((task) => {
+        // console.log("FILTER: ", task);
+        return task.project_id == Number(id);
+      })
+      .map((task) => {
+        // console.log("cards PDUEDATE1: ", project.due_date);
+        return {
+          project_id: String(task.project_id),
+          priority: String(task.priority),
+          assignee_id: String(task.assignee_id),
+          name: String(task.name),
+          description: String(task.description),
+          start_date: String(task.start_date),
+          due_date: String(task.due_date),
+          modified_date: String(task.modified_date),
+          status: String(task.status),
+          category_id: String(task.category_id),
+          is_active: String(task.is_active),
+          id: String(task.id),
+        };
+      });
 
     // console.log("allProjectsObj: ", allProjectsObj);
 
-    const UpdatedTrelloColumns = {
-      [uuidv4()]: {
-        title: "Not Started",
-        items: [],
-      },
-      [uuidv4()]: {
-        title: "In Progress",
-        items: [],
-      },
-      [uuidv4()]: {
-        title: "Pending",
-        items: [],
-      },
-      [uuidv4()]: {
-        title: "Complete",
-        items: [],
-      },
-    };
-
-    for (let column in UpdatedTrelloColumns) {
+    for (let column in trelloColumns) {
       for (let j = 0; j < cards.length; j++) {
         // console.log(trelloColumns[column].title);
         // console.log(allProjectsObj[j].status);
-        if (UpdatedTrelloColumns[column].title === cards[j].status)
-          UpdatedTrelloColumns[column].items.push(cards[j]);
+        if (trelloColumns[column].title === cards[j].status)
+          trelloColumns[column].items.push(cards[j]);
       }
     }
 
     // console.log("trelloColumns: ", trelloColumns);
-    setColumns(UpdatedTrelloColumns);
-    // setUserProjects(cards);
 
+    setUserTasks(cards);
     // })
     // .catch((err) => console.log("err:", err));
-  }, [modalState, userProjects]);
+  }, []);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
@@ -145,8 +133,8 @@ export default function TrelloTasks({ modalState, onEdit }) {
       destItems.splice(destination.index, 0, removed);
 
       // TEST START
-      // result.source.index = result.destination.index;
-      // result.destination.index = null;
+      result.source.index = result.destination.index;
+      result.destination.index = null;
       // console.log("NEWRESULT: ", result);
       // TEST END
 
@@ -174,14 +162,8 @@ export default function TrelloTasks({ modalState, onEdit }) {
       // console.log("REMOVED: ", removed);
 
       axios
-        .put(`/api/projects/${movedItemId}`, removed)
+        .put(`/api/tasks/${movedItemId}`, removed)
         .then((response) => {
-          // console.log(removed);
-          const updatedProjectArr = updateTrelloProjectStatus(
-            userProjects,
-            removed
-          );
-          setUserProjects(updatedProjectArr);
           // setUserProjects(userProjects);
           // const allProjects = response.data.project;
           // let allProjectsObj = [];
@@ -220,7 +202,7 @@ export default function TrelloTasks({ modalState, onEdit }) {
                   >
                     <Title>{column.title}</Title>
                     {column.items.map((item, index) => (
-                      <TrelloProjectsCard
+                      <ProjectTrelloCard
                         key={item.id}
                         item={item}
                         index={index}

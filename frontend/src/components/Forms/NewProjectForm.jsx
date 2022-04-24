@@ -12,9 +12,9 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { projectsContext } from "../Providers/ProjectsProvider";
-import { updateProjects } from "../helpers/selectors";
-import { usersContext } from "../Providers/UsersProvider";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { updateProjects } from "../../helpers/selectors";
+import { usersContext } from "../../Providers/UsersProvider";
 import moment from "moment";
 
 export default function NewProjectForm(props) {

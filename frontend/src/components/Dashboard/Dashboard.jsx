@@ -9,14 +9,10 @@ import {
   Container,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  getUserSpecificTasks,
-  getUserSpecificProjects,
-} from "../helpers/selectors";
-import Tasks from "./Dashboard/DashboardTasks";
-import Projects from "./Dashboard/DashboardProjects";
-import ModalForm from "./ModalForm";
-import { usersContext } from "../Providers/UsersProvider";
+import Tasks from "./DashboardTasks";
+import Projects from "./DashboardProjects";
+import ModalForm from "../Layout/ModalForm";
+import { usersContext } from "../../Providers/UsersProvider";
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();

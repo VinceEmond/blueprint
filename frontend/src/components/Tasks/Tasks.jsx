@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
-import TrelloTasks from "./Trello/TrelloTasks";
-import TaskTable from "./Tables/TaskTable";
-import ViewSelect from "./ViewSelect";
-import ModalForm from "./ModalForm";
-import { tasksContext } from "../Providers/TasksProvider";
+import TasksTrello from "./TasksTrello";
+import TasksTable from "./TasksTable";
+import ViewSelect from "../Layout/ViewSelect";
+import ModalForm from "../Layout/ModalForm";
+import { tasksContext } from "../../Providers/TasksProvider";
 
 export default function Tasks() {
   // const [userTasks, setUserTasks] = useState([]);
@@ -117,9 +117,9 @@ export default function Tasks() {
 
   function View() {
     if (viewValue === "List") {
-      return <TaskTable onEdit={triggerEditTask} />;
+      return <TasksTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
-      return <TrelloTasks modalState={modalState} onEdit={triggerEditTask} />;
+      return <TasksTrello modalState={modalState} onEdit={triggerEditTask} />;
     }
   }
 

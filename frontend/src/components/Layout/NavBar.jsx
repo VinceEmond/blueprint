@@ -18,10 +18,8 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext } from "react";
-import Message from "./Message";
-import { usersContext } from "../Providers/UsersProvider";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Message from "../Message/Message";
+import { usersContext } from "../../Providers/UsersProvider";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -44,17 +42,8 @@ const NavLink = ({ children }) => (
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { transcript, resetTranscript } = props;
-  const {
-    login,
-    logout,
-    cookies,
-    currentUser,
-    getUserByID,
-    allUsers,
-    setCurrentUser,
-  } = useContext(usersContext);
-
-  const userObj = getUserByID(cookies.id);
+  const { login, logout, cookies, currentUser, getUserByID } =
+    useContext(usersContext);
 
   // const testGetUser = () => {
   //   setCurrentUser(getUserByID(cookies.id));

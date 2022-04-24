@@ -1,6 +1,4 @@
 import { createContext, useState } from "react";
-import ProjectTable from "../components/Tables/ProjectsTable";
-import TrelloProjects from "../components/Trello/TrelloProjects";
 
 export const viewsContext = createContext();
 
