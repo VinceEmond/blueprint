@@ -17,7 +17,6 @@ export default function Projects({
   const [editProject, setEditProject] = useState(null);
   const { viewValue, setViewValue } = useContext(viewsContext);
 
-  // consider moving to helper function file
   function triggerEditProject(project) {
     console.log(project);
     setEditProject(project);
@@ -25,7 +24,6 @@ export default function Projects({
     onOpen();
   }
 
-  // consider moving to helper function file
   function viewProjects() {
     if (viewValue === "List") {
       return <ProjectsTable onEdit={triggerEditProject} />;

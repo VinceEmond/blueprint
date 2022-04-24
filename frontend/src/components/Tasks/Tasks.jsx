@@ -16,7 +16,6 @@ export default function Tasks({
   const [editProject, setEditProject] = useState(null);
   const [viewValue, setViewValue] = useState("List");
 
-  // consider moving to helper function file
   function triggerEditTask(task) {
     console.log(task);
     setEditTask(task);
@@ -24,7 +23,6 @@ export default function Tasks({
     onOpen();
   }
 
-  // consider moving to helper function file
   function viewTasks() {
     if (viewValue === "List") {
       return <TasksTable onEdit={triggerEditTask} />;

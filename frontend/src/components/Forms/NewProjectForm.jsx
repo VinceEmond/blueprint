@@ -1,4 +1,9 @@
 import { useRef, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { updateProjects } from "../../helpers/selectors";
+import { usersContext } from "../../Providers/UsersProvider";
+import moment from "moment";
 import {
   Editable,
   EditableInput,
@@ -11,14 +16,15 @@ import {
   ButtonGroup,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { projectsContext } from "../../Providers/ProjectsProvider";
-import { updateProjects } from "../../helpers/selectors";
-import { usersContext } from "../../Providers/UsersProvider";
-import moment from "moment";
 
 export default function NewProjectForm(props) {
+  const initialRef = useRef();
+  const { setModalState, editProject, setEditProject } = props;
   const { cookies } = useContext(usersContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
+  const [projectFormValues, setProjectFormValues] =
+    useState(defaultProjectValues);
+
   const defaultProjectValues = {
     owner_id: Number(cookies.id),
     name: "",
@@ -29,12 +35,6 @@ export default function NewProjectForm(props) {
     status: "Not Started",
     category_id: 1,
   };
-
-  const [projectFormValues, setProjectFormValues] =
-    useState(defaultProjectValues);
-  const { setModalState, editProject, setEditProject } = props;
-  const initialRef = useRef();
-  const { userProjects, setUserProjects } = useContext(projectsContext);
 
   function projectFormDataValidation(formValues) {
     const mandatoryFields = ["name", "owner_id"];
@@ -52,10 +52,8 @@ export default function NewProjectForm(props) {
       axios
         .post("/api/projects", projectFormValues)
         .then((response) => {
-          console.log(`Response: ${response.data.project[0]}`);
           const returnedProject = response.data.project[0];
           setUserProjects((prev) => [...prev, returnedProject]);
-          console.log("Succesfully added a new Project to database");
         })
         .catch((err) => console.log("err:", err));
     } else {
@@ -72,9 +70,7 @@ export default function NewProjectForm(props) {
             userProjects,
             projectFormValues
           );
-          console.log(updatedProjects);
           setUserProjects(updatedProjects);
-          console.log("Succesfully updated Project in database");
         })
         .catch((err) => console.log("err:", err));
     } else {
@@ -115,22 +111,18 @@ export default function NewProjectForm(props) {
           (project) => project.id !== editProject.id
         );
         setUserProjects(updatedProjects);
-        // console.log("Succesfully deleted project from database");
-        // console.log("Deleted Project: ", response.data.deleted);
       })
       .catch((err) => console.log("err:", err));
   }
 
   function handleDelete(event) {
     console.log("Delete button clicked");
-    // deleteTask();
     deleteProject();
     setModalState(null);
     setEditProject(null);
-    // setEditTask(null);
   }
 
-  function handleSave(event) {
+  function handleSave(e) {
     if (editProject) {
       updateProject(projectFormValues);
     } else {
