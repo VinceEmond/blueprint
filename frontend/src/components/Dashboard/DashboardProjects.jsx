@@ -6,11 +6,15 @@ export default function Projects({ setModalState, onOpen, onEdit }) {
   return (
     <Container
       border="2px"
-      borderRadius="5px"
+      borderRadius="2em"
       mt="3em"
       mb="3em"
       width="100%"
       maxWidth="100%"
+      style={{
+        backgroundColor: "rgba(10,23,30,0.8)",
+        color: "white",
+      }}
     >
       <Container
         display="flex"

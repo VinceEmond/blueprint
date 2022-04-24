@@ -42,6 +42,15 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
   const DUE_DATE = moment(new Date()).add(2, "days").format("YYYY-MM-DD");
   const MODIFIED_DATE = moment(new Date()).format("YYYY-MM-DD");
   const CATEGORY_ID = 1;
+  const DASHBOARD_TAB_STYLE = {
+    color: "white",
+    bg: "RGBA(242,171,39,0.2)",
+    borderRadius: "10px 10px 0 0",
+    borderRight: "2px solid white",
+    borderLeft: "2px solid white",
+    borderTop: "2px solid white",
+    // boxShadow: "0 0 3px 2px white",
+  };
 
   // Onsubmit helper function for add tasks
   function addTask(e, filter = "Not Started") {
@@ -78,10 +87,12 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     return (
       <TabPanel
         style={{
-          backgroundColor: "RGBA(0,128,129,1)",
+          backgroundColor: "#0a171e",
+          opacity: "1",
           borderRadius: `${tabName ? "0 10px 10px 10px" : "10px"}`,
-          borderTop: "2px solid white",
-          boxShadow: "0 0 2px 5px black",
+          border: "2px solid white",
+          // borderTop: "2px solid white",
+          // boxShadow: "0 0 3px 2px white",
         }}
       >
         <TableContainer>
@@ -163,8 +174,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
       mt="4em"
       pb="1em"
       style={{
-        backgroundColor: "rgba(0,122,110, 0.3)",
-        opacity: "1",
+        backgroundColor: "rgba(10,23,30,0.8)",
         color: "white",
       }}
     >
@@ -189,54 +199,19 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
       </Container>
       <Tabs>
         <TabList style={{ borderBottom: "none" }}>
-          <Tab
-            _focus={{ boxShadow: "none" }}
-            _selected={{
-              color: "white",
-              bg: "RGBA(242,171,39,0.7)",
-              borderRadius: "10px 10px 0 0",
-              border: "none",
-            }}
-          >
+          <Tab _focus={{ boxShadow: "none" }} _selected={DASHBOARD_TAB_STYLE}>
             All
           </Tab>
-          <Tab
-            _focus={{ boxShadow: "none" }}
-            _selected={{
-              color: "white",
-              bg: "RGBA(242,171,39,0.7)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          >
+          <Tab _focus={{ boxShadow: "none" }} _selected={DASHBOARD_TAB_STYLE}>
             Not started
           </Tab>
-          <Tab
-            _focus={{ boxShadow: "none" }}
-            _selected={{
-              color: "white",
-              bg: "RGBA(242,171,39,0.7)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          >
+          <Tab _focus={{ boxShadow: "none" }} _selected={DASHBOARD_TAB_STYLE}>
             In progress
           </Tab>
-          <Tab
-            _focus={{ boxShadow: "none" }}
-            _selected={{
-              color: "white",
-              bg: "RGBA(242,171,39,0.7)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          >
+          <Tab _focus={{ boxShadow: "none" }} _selected={DASHBOARD_TAB_STYLE}>
             Pending
           </Tab>
-          <Tab
-            _selected={{
-              color: "white",
-              bg: "RGBA(242,171,39,0.7)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          >
+          <Tab _focus={{ boxShadow: "none" }} _selected={DASHBOARD_TAB_STYLE}>
             Complete
           </Tab>
         </TabList>
