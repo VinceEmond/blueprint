@@ -1,3 +1,14 @@
+import React, { useState, useEffect, useRef, useContext } from "react";
+import moment from "moment";
+import axios from "axios";
+import Message from "./Message";
+import { displayServerError } from "../../helpers/main_helpers";
+import { usersContext } from "../../Providers/UsersProvider";
+import {
+  formatDate,
+  scrollToBottom,
+  validMessage,
+} from "../../helpers/messageboard_helpers";
 import {
   Drawer,
   DrawerBody,
@@ -14,38 +25,27 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
-import React, { useState, useEffect, useRef, useContext } from "react";
-import moment from "moment";
-import axios from "axios";
-import Message from "./Message";
-import { usersContext } from "../../Providers/UsersProvider";
 
 export default function MessageBoard() {
   const newestMessageDivRef = useRef(null);
   const messageInputRef = React.useRef();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [messages, setMessages] = useState([]);
   const [messageBox, setMessageBox] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { cookies, currentUser, getUserByID, allUsers, setAllUsers } =
     useContext(usersContext);
 
-  const divStyle = {
-    overflowY: "scroll",
-    position: "relative",
-  };
-
-  function scrollToBottom() {
-    newestMessageDivRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-
-  function formatDate(dateString) {
-    return moment(dateString).format("MMMM Do, h:mma");
-  }
+  const DEFAULT_SENDER_AVATAR = "";
+  const DEFAULT_SENDER_NAME = "Unknown Sender";
+  const MESSAGE_BUBBLE_COLOR_1 = "#3182CE";
+  const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
+  const TWILIO_ALERT_MESSAGE =
+    "Blueprint Notification: You've got an unread message on your team message board!";
 
   useEffect(() => {
-    // Scrolls the chats up when the limit is reached
+    // Auto-Scrolls the chats messages upwards
     if (newestMessageDivRef.current) {
-      scrollToBottom();
+      scrollToBottom(newestMessageDivRef);
     }
   }, [messages]);
 
@@ -56,15 +56,11 @@ export default function MessageBoard() {
         const allMessages = response.data.messages;
         setMessages(allMessages);
       })
-      .catch((err) => console.log("err:", err));
+      .catch((error) => displayServerError(error));
   }, []);
 
   function handleMessageBox(e) {
     setMessageBox(e.target.value);
-  }
-
-  function validMessage(message) {
-    return message.trim();
   }
 
   function resetMessageBox() {
@@ -109,10 +105,6 @@ export default function MessageBoard() {
     });
   };
 
-  function displayServerError(error) {
-    console.log("Server Error:", error);
-  }
-
   function handleAlertSwitch(e) {
     const textAlertSwitch = e.target.checked;
     const currentUserID = Number(cookies.id);
@@ -131,11 +123,6 @@ export default function MessageBoard() {
       })
       .catch((error) => displayServerError(error));
   }
-
-  const DEFAULT_SENDER_AVATAR = "";
-  const DEFAULT_SENDER_NAME = "Unknown Sender";
-  const MESSAGE_BUBBLE_COLOR_1 = "#3182CE";
-  const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
 
   function createMessageComponents(messages) {
     return messages.map((message, index) => {
@@ -170,8 +157,6 @@ export default function MessageBoard() {
   }
 
   const messageComponents = createMessageComponents(messages);
-  const TWILIO_ALERT_MESSAGE =
-    "Blueprint Notification: You've got an unread message on your team message board!";
 
   function sendTextMessage() {
     const subscribedUsers = [];
@@ -216,7 +201,7 @@ export default function MessageBoard() {
 
           <DrawerBody></DrawerBody>
 
-          <div style={divStyle}>
+          <div style={{ overflowY: "scroll", position: "relative" }}>
             {messageComponents}
             <div ref={newestMessageDivRef}></div>
           </div>

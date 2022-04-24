@@ -37,7 +37,6 @@ module.exports = (db) => {
   // PUT: EDIT - TASKS --- EDIT/UPDATE DATA FOR SPECIFIC TASK - USE PUT
   router.put("/:id", (req, res) => {
     const { id } = req.params;
-    console.log("REQ.BODY: ", req.body);
     const {
       project_id,
       priority,
@@ -65,7 +64,6 @@ module.exports = (db) => {
       is_active,
       Number(id),
     ];
-    console.log("PARAMS: ", queryParams);
     const queryStr = `UPDATE tasks SET
       project_id = $1,
       priority = $2,
@@ -88,15 +86,12 @@ module.exports = (db) => {
         res.json({ task });
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).json({ error: err.message });
       });
   });
 
   // POST: ADD - TASKS --- ADD/CREATE A NEW TASK
   router.post("/", (req, res) => {
-    // console.log("REQBODY:", req.body)
-
     const {
       project_id,
       priority,
@@ -135,7 +130,6 @@ module.exports = (db) => {
     //        'Not Started',
     //         1
     // ];
-    console.log("QUERYPARAMS: ", queryParams);
 
     // const queryStr = `INSERT INTO tasks
     //   (project_id, priority, assignee_id, name, description, start_date, due_date, modified_date, status, category_id) VALUES
@@ -149,7 +143,6 @@ module.exports = (db) => {
     db.query(queryStr, queryParams)
       .then((data) => {
         const task = data.rows;
-        // console.log('SUCCESSFUL')
         res.json({ task });
       })
       .catch((err) => {

@@ -6,6 +6,7 @@ import { projectsContext } from "../../Providers/ProjectsProvider";
 import { updateTasks } from "../../helpers/selectors";
 import { Cookies } from "react-cookie";
 import moment from "moment";
+import { displayServerError } from "../../helpers/main_helpers";
 import {
   Editable,
   EditableInput,
@@ -20,31 +21,24 @@ import {
 } from "@chakra-ui/react";
 
 export default function NewTaskForm(props) {
-  // const testTaskValues = {
-  //   name: "New 69 Task",
-  //   priority: 'low',
-  //   status: 'Complete',
-  //   description: "Tasks description 420 69",
-  //   start_date: '1969-04-20',
-  //   due_date: '1969-04-20',
-  //   modified_date: '2022-04-15',
-  //   category_id: 1
-  // }
-
-  // const arrayOfUserNames = ["Vince", "Dylan", "Pablo"];
-
+  const NEW_TASK_START_DATE = moment(new Date()).format("YYYY-MM-DD");
+  const NEW_TASK_MODIFIED_DATE = moment(new Date()).format("YYYY-MM-DD");
+  const NEW_TASK_CATEGORY_ID = 1;
+  const NEW_TASK_DESCRIPTION = "";
   const { cookies } = useContext(usersContext);
-  const [taskFormValues, setTaskFormValues] = useState({
-    start_date: "2000-01-01",
-    modified_date: "2022-04-18",
-    category_id: 1,
-    description: "",
+
+  const defaultTaskObj = {
+    start_date: NEW_TASK_START_DATE,
+    modified_date: NEW_TASK_MODIFIED_DATE,
+    category_id: NEW_TASK_CATEGORY_ID,
+    description: NEW_TASK_DESCRIPTION,
     assignee_id: cookies.id,
-  });
+  };
+
+  const [taskFormValues, setTaskFormValues] = useState(defaultTaskObj);
   const { setModalState, editTask, setEditTask } = props;
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { userProjects } = useContext(projectsContext);
-  const lowPriorityButton = useRef(null);
 
   function taskFormDataValidation(formValues) {
     const mandatoryFields = [
@@ -59,8 +53,8 @@ export default function NewTaskForm(props) {
       "category_id",
     ];
 
-    for (const key of mandatoryFields) {
-      if (!formValues[key]) {
+    for (const field of mandatoryFields) {
+      if (!formValues[field]) {
         return false;
       }
     }
@@ -68,7 +62,6 @@ export default function NewTaskForm(props) {
     return true;
   }
 
-  // {project_id: 1, priority: "Low", assignee_id: 1, name: "Plant Seeds", description: "I need to plant seeds", start_date: '1969-04-20', due_date: '1969-04-20', modified_date: '2022-04-15', status: 'Not Started', category_id: 1}
   function createTask(taskFormValues) {
     if (taskFormDataValidation(taskFormValues)) {
       axios
@@ -78,40 +71,34 @@ export default function NewTaskForm(props) {
           setUserTasks((prev) => {
             return [...prev, returnedTask];
           });
-          console.log("Succesfully added a new Task to database");
         })
-        .catch((err) => console.log("err:", err));
+        .catch((error) => displayServerError(error));
     }
   }
 
   function updateTask(taskFormValues) {
-    // console.log("task form values", taskFormValues);
-
     axios
       .put(`/api/tasks/${editTask.id}`, taskFormValues)
       .then((response) => {
         const updatedTasks = updateTasks(userTasks, taskFormValues);
         setUserTasks(updatedTasks);
-        console.log("Succesfully updated Task in database");
       })
-      .catch((err) => console.log("err:", err));
+      .catch((error) => displayServerError(error));
   }
 
   function deleteTask() {
     axios
       .put(`/api/tasks/${editTask.id}/delete`, taskFormValues)
-      .then((response) => {
+      .then(() => {
         const updatedTasks = userTasks.filter(
           (task) => task.id !== editTask.id
         );
         setUserTasks(updatedTasks);
-        // console.log("Succesfully deleted task from database");
-        // console.log("Deleted Task", response.data.deleted);
       })
-      .catch((err) => console.log("err:", err));
+      .catch((error) => displayServerError(error));
   }
 
-  function handleDelete(event) {
+  function handleDelete() {
     deleteTask();
     setModalState(null);
     setEditTask(null);
@@ -120,34 +107,38 @@ export default function NewTaskForm(props) {
   function handleNameChange(event) {
     setTaskFormValues({ ...taskFormValues, name: event.target.value });
   }
+
   function handleStatusChange(event) {
     setTaskFormValues({ ...taskFormValues, status: event.target.value });
   }
+
+  function handleDateChange(event) {
+    setTaskFormValues({ ...taskFormValues, due_date: event.target.value });
+  }
+
+  function handleDescriptionChange(event) {
+    setTaskFormValues({ ...taskFormValues, description: event.target.value });
+  }
+
+  function handlePriorityChange(event) {
+    setTaskFormValues({ ...taskFormValues, priority: event.target.name });
+  }
+
   function handleProjectIDChange(event) {
     setTaskFormValues({
       ...taskFormValues,
       project_id: Number(event.target.value),
     });
   }
+
   function handleAssigneeChange(event) {
     setTaskFormValues({
       ...taskFormValues,
       assignee_id: Number(event.target.value),
     });
   }
-  function handleDateChange(event) {
-    setTaskFormValues({ ...taskFormValues, due_date: event.target.value });
-  }
-  function handleDescriptionChange(event) {
-    setTaskFormValues({ ...taskFormValues, description: event.target.value });
-  }
-  function handlePriorityChange(event) {
-    setTaskFormValues({ ...taskFormValues, priority: event.target.name });
-  }
 
-  function handleSave(event) {
-    // console.log('taskFormValues', taskFormValues);
-
+  function handleSave() {
     if (editTask) {
       updateTask(taskFormValues);
     } else {
@@ -168,10 +159,6 @@ export default function NewTaskForm(props) {
     }
   }, [editTask]);
 
-  // useEffect(() => {
-  //   lowPriorityButton.current.focus();
-  // }, [editTask]);
-
   return (
     <Container>
       <HStack mt="1em">
@@ -186,7 +173,6 @@ export default function NewTaskForm(props) {
           <EditableInput display="flex" onChange={(e) => handleNameChange(e)} />
         </Editable>
         <Select
-          // placeholder="Select Status"
           value={taskFormValues.status || "Not Started"}
           width="40%"
           display="flex"
@@ -203,7 +189,6 @@ export default function NewTaskForm(props) {
         <p>Project:</p>
         <Select
           placeholder="Select Project"
-          // value={'Not Started'}
           width="60%"
           display="flex"
           onChange={(e) => handleProjectIDChange(e)}
@@ -223,7 +208,6 @@ export default function NewTaskForm(props) {
         <p>Assignee: </p>
         <Select
           placeholder="Select Assignee"
-          // value={'Not Started'}
           width="60%"
           display="flex"
           onChange={(e) => handleAssigneeChange(e)}
@@ -262,7 +246,6 @@ export default function NewTaskForm(props) {
           name="Low"
           onClick={(e) => handlePriorityChange(e)}
           width="100px"
-          ref={lowPriorityButton}
         >
           low
         </Button>
@@ -299,7 +282,7 @@ export default function NewTaskForm(props) {
             Delete
           </Button>
         )}
-        <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
+        <Button colorScheme="blue" onClick={() => handleSave()} width="200px">
           Save
         </Button>
       </ButtonGroup>
