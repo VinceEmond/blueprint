@@ -2,7 +2,6 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "@emotion/styled";
 import NaturalDragAnimation from "natural-drag-animation-rbdnd";
-// import CustomAvatar from "../TableComponents/CustomAvatar";
 import HighPriorityIcon from "../../assets/icons/HighPriorityIcon.png";
 import MediumPriorityIcon from "../../assets/icons/MediumPriorityIcon.png";
 import LowPriorityIcon from "../../assets/icons/LowPriorityIcon.png";
@@ -13,7 +12,6 @@ import {
   Button,
   MenuList,
   MenuItem,
-  HStack,
   Divider,
 } from "@chakra-ui/react";
 
@@ -95,7 +93,7 @@ export default function ProjectTrelloCard({ item, index, onEdit }) {
                         {<EditIcon />}
                       </MenuButton>
                       <MenuList>
-                        <MenuItem onClick={(e) => onEdit(item)}>Edit</MenuItem>
+                        <MenuItem onClick={() => onEdit(item)}>Edit</MenuItem>
                         <MenuItem>Delete</MenuItem>
                       </MenuList>
                     </Menu>
@@ -144,8 +142,3 @@ export default function ProjectTrelloCard({ item, index, onEdit }) {
     </Draggable>
   );
 }
-
-// <span className="priority">
-// {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}
-// </span>
-// <div><CustomAvatar name={item.Assignee} isTable={false} size={16} /></div>
