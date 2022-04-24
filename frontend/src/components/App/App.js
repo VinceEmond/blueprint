@@ -13,6 +13,7 @@ import Login from "../User/Login";
 import Register from "../User/Register";
 import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
+import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 
 function App() {
   const [redirectUrl, setRedirectUrl] = useState("");
@@ -84,7 +85,21 @@ function App() {
             <Navigate to={urls[redirectUrl]} />
           )}
 
-          <div className="content">
+          <div
+            className="content"
+            style={{
+              backgroundImage: `url(${Background})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              // opacity: "0.5",
+              // width: "100%",
+              height: "100vh",
+              // position: "absolute",
+              // top: 0,
+              // left: 0,
+              paddingTop: "3em",
+            }}
+          >
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route

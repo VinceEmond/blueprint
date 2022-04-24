@@ -37,7 +37,14 @@ export default function ProjectsTable({ onEdit }) {
     "Status",
   ];
   const projectsHeader = projectsColumn.map((column, index) => {
-    return <Th key={index}>{column}</Th>;
+    return (
+      <Th
+        key={index}
+        style={{ color: "white", backgroundColor: "transparent" }}
+      >
+        {column}
+      </Th>
+    );
   });
 
   const projectList = userProjects.map((item) => {
@@ -55,7 +62,7 @@ export default function ProjectsTable({ onEdit }) {
     const checkValues = defaultChecks();
 
     function completeStatusBool() {
-      if (item.status === "Complete") return "grey";
+      if (item.status === "Complete") return "#03403A";
     }
 
     function checkClick(e, id) {
@@ -84,30 +91,57 @@ export default function ProjectsTable({ onEdit }) {
               ml="2em"
               value={item.name}
               onChange={(e) => checkClick(e, item.id)}
+              colorScheme="yellow"
             ></Checkbox>
           </CheckboxGroup>
         </Td>
-        <Td onClick={() => onEdit(item)}>{item.name}</Td>
-        <Td onClick={() => onEdit(item)}>{taskCountResult}</Td>
-        <Td onClick={() => onEdit(item)}>{ownerName}</Td>
-        <Td onClick={() => onEdit(item)}>{date}</Td>
-        <Td onClick={() => onEdit(item)}>{item.status}</Td>
+        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+          {item.name}
+        </Td>
+        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+          {taskCountResult}
+        </Td>
+        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+          {ownerName}
+        </Td>
+        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+          {date}
+        </Td>
+        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+          {item.status}
+        </Td>
       </Tr>
     );
   });
 
   return (
-    <Center>
-      <Container borderWidth="1px" borderRadius="lg" maxW="8xl">
-        <TableContainer>
-          <Table size="lg">
-            <Thead>
-              <Tr>{projectsHeader}</Tr>
-            </Thead>
-            <Tbody>{projectList}</Tbody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </Center>
+    <div>
+      <Center>
+        <Container
+          borderWidth="1px"
+          borderRadius="lg"
+          maxW="8xl"
+          style={{
+            backgroundColor: "transparent",
+            // opacity: "0.9",
+          }}
+        >
+          <TableContainer>
+            <Table
+              size="lg"
+              style={{
+                backgroundColor: "rgba(10,23,30,0.8)",
+                marginBottom: "1em",
+              }}
+            >
+              <Thead>
+                <Tr>{projectsHeader}</Tr>
+              </Thead>
+              <Tbody>{projectList}</Tbody>
+            </Table>
+          </TableContainer>
+        </Container>
+      </Center>
+    </div>
   );
 }
