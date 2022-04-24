@@ -29,6 +29,7 @@ export default function ProjectsCarousel({ onEdit }) {
       userSpecificTasks,
       USER_ID
     );
+
     const cards = userSpecificProjects.map((project) => {
       return (
         <SocialProfileSimple

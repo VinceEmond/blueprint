@@ -1,3 +1,10 @@
+import { AddIcon } from "@chakra-ui/icons";
+import { tasksContext } from "../../Providers/TasksProvider";
+import { usersContext } from "../../Providers/UsersProvider";
+import { useContext } from "react";
+import { updateUserTaskStatus } from "../../helpers/selectors";
+import axios from "axios";
+import moment from "moment";
 import {
   Container,
   Heading,
@@ -16,13 +23,6 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { tasksContext } from "../../Providers/TasksProvider";
-import { usersContext } from "../../Providers/UsersProvider";
-import { useContext } from "react";
-import { updateUserTaskStatus } from "../../helpers/selectors";
-import axios from "axios";
-import moment from "moment";
 
 ////////////////////////////////////////////////////////
 // DELETE THIS ONCE IT'S AVAILABLE IN HELPER FUNCTION //
