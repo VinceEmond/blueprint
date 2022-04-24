@@ -7,66 +7,85 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import Background from "../../assets/images/AdobeStock_415876411-no-text-flipped.jpg";
 
 export default function LandingPage() {
   return (
-    <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
-      <Flex p={8} flex={1} align={"center"} justify={"center"}>
-        <Stack spacing={6} w={"full"} maxW={"lg"}>
-          <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
-            <Text
-              as={"span"}
-              position={"relative"}
-              _after={{
-                content: "''",
-                width: "full",
-                height: useBreakpointValue({ base: "20%", md: "30%" }),
-                position: "absolute",
-                bottom: 1,
-                left: 0,
-                bg: "blue.400",
-                zIndex: -1,
-              }}
-            >
-              Pace
-            </Text>
-            <br />{" "}
-            <Text color={"blue.400"} as={"span"}>
-              Your Projects
-            </Text>{" "}
-          </Heading>
-          <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
-            blueprint. is an exclusive resource for project management. It's
-            perfect for freelancers, agencies, and moonlighters.
-          </Text>
-          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-            <a href="/login">
-            <Button
-              rounded={"full"}
-              bg={"blue.400"}
-              color={"white"}
-              _hover={{
-                bg: "blue.500",
-              }}
-            >
-              Create Project
-            </Button>
-            </a>
-            <a href="/aboutus">
-            <Button rounded={"full"}>About Us</Button>
-            </a>
+    <div
+      style={{
+        // backgroundImage: `url(${Background})`,
+        backgroundColor: "black",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        // position: "absolute",
+        // top: 0,
+        // left: 0,
+      }}
+    >
+      <div
+        style={{
+          backgroundImage: `url(${Background})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          // opacity: "0.5",
+          // width: "100vh",
+          // position: "absolute",
+          // top: 0,
+          // left: 0,
+        }}
+      >
+        <div style={{ opacity: "1" }}>
+          <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
+            <Flex p={8} flex={1} align={"center"} justify={"center"}>
+              <Stack spacing={6} w={"full"} maxW={"lg"}>
+                <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
+                  <Text
+                    as={"span"}
+                    position={"relative"}
+                    _after={{
+                      content: "''",
+                      width: "full",
+                      height: useBreakpointValue({ base: "20%", md: "30%" }),
+                      position: "absolute",
+                      bottom: 1,
+                      left: 0,
+                      bg: "blue.400",
+                      zIndex: -1,
+                    }}
+                  >
+                    Pace
+                  </Text>
+                  <br />{" "}
+                  <Text color={"blue.400"} as={"span"}>
+                    Your Projects
+                  </Text>{" "}
+                </Heading>
+                <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
+                  blueprint. is an exclusive resource for project management.
+                  It's perfect for freelancers, agencies, and moonlighters.
+                </Text>
+                <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+                  <a href="/login">
+                    <Button
+                      rounded={"full"}
+                      bg={"blue.400"}
+                      color={"white"}
+                      _hover={{
+                        bg: "blue.500",
+                      }}
+                    >
+                      Create Project
+                    </Button>
+                  </a>
+                  <a href="/aboutus">
+                    <Button rounded={"full"}>About Us</Button>
+                  </a>
+                </Stack>
+              </Stack>
+            </Flex>
           </Stack>
-        </Stack>
-      </Flex>
-      <Flex flex={1}>
-        <Image
-          alt={"Login Image"}
-          objectFit={"cover"}
-          src={
-            "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-          }
-        />
-      </Flex>
-    </Stack>
+        </div>
+      </div>
+    </div>
   );
 }
