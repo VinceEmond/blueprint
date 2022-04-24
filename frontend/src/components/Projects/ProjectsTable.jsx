@@ -98,9 +98,14 @@ export default function ProjectsTable({ onEdit }) {
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
           {item.name}
         </Td>
-        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+
+        <Td
+          onClick={() => onEdit(item)}
+          style={{ color: "white", textAlign: "center" }}
+        >
           {taskCountResult}
         </Td>
+
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
           {ownerName}
         </Td>
@@ -123,7 +128,6 @@ export default function ProjectsTable({ onEdit }) {
           maxW="8xl"
           style={{
             backgroundColor: "transparent",
-            // opacity: "0.9",
           }}
         >
           <TableContainer>

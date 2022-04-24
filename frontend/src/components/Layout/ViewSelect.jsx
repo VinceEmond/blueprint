@@ -10,7 +10,6 @@ export default function ViewSelect(props) {
       justify="end"
       style={{
         backgroundColor: "#0a171e",
-        // opacity: "0.9",
         color: "white",
       }}
     >
@@ -19,7 +18,6 @@ export default function ViewSelect(props) {
         spacing="6"
         style={{
           backgroundColor: "#0a171e",
-          // opacity: "0.9",
           color: "white",
         }}
       >
