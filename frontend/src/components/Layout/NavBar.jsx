@@ -55,10 +55,11 @@ export default function NavBar({ transcript, resetTranscript }) {
   return (
     <div
       style={{
-        backgroundColor: "black",
+        backgroundColor: "#0a171e",
+        color: "white",
       }}
     >
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box bg={"0a171e"} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
