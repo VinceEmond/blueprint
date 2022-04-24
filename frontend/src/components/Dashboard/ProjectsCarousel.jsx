@@ -19,59 +19,63 @@ export default function ProjectsCarousel({ onEdit }) {
   const { cookies } = useContext(usersContext);
   const { userTasks } = useContext(tasksContext);
   const [projectBoxes, setProjectBoxes] = useState([]);
+  const USER_ID = Number(cookies.id);
 
   useEffect(() => {
-    const user_id = Number(cookies.id);
-    const allProjects = userProjects ? userProjects : [];
-    const userSpecificTasks = getUserSpecificTasks(userTasks, user_id);
+    const allProjects = userProjects || [];
+    const userSpecificTasks = getUserSpecificTasks(userTasks, USER_ID);
     const userSpecificProjects = getUserSpecificProjects(
       allProjects,
       userSpecificTasks,
-      user_id
+      USER_ID
     );
-    const boxes = userSpecificProjects.map((project) => {
+    const cards = userSpecificProjects.map((project) => {
       return (
         <SocialProfileSimple
-          key={`p${project.id || project.description.length * 100}`}
+          key={`p${project.id}`}
           project={project}
           onEdit={onEdit}
         />
       );
     });
-    setProjectBoxes(boxes);
+    setProjectBoxes(cards);
   }, [userProjects, userTasks]);
 
-  const listProjectFlexes = () => {
+  function listProjectFlexes() {
     const flexes = [];
-    let boxes;
+    let cards;
     let count = 0;
     for (const box of projectBoxes) {
       count++;
       if (count % 3 === 1) {
-        boxes = [];
+        cards = [];
       }
-      boxes.push(box);
+      cards.push(box);
       if (count % 3 === 0 || count === projectBoxes.length) {
+        const MARGIN = count % 3 !== 0 ? "auto" : 0;
+        const WIDTH =
+          count % 3 === 0 ? "100%" : count % 3 === 2 ? "66%" : "33%";
         const flex = (
           <Flex
             mt={5}
-            marginLeft={`${count % 3 !== 0 ? "auto" : 0}`}
-            marginRight={`${count % 3 !== 0 ? "auto" : 0}`}
+            marginLeft={MARGIN}
+            marginRight={MARGIN}
             display="flex"
             alignContent="center"
             height="100%"
-            width={`${count % 3 === 0 ? 100 : count % 3 === 2 ? 66 : 33}%`}
+            width={WIDTH}
             key={`f${count}`}
           >
-            {boxes}
+            {cards}
           </Flex>
         );
         flexes.push(flex);
       } else {
         const spacer = <Spacer key={`spacer${count}`} />;
-        boxes.push(spacer);
+        cards.push(spacer);
       }
     }
+
     return (
       <CCarousel
         indicators={true}
@@ -80,7 +84,6 @@ export default function ProjectsCarousel({ onEdit }) {
         dark={true}
         wrap={true}
         pause={"hover"}
-        key={`carousel${1}`}
       >
         {flexes.map((flex, index) => {
           return (
@@ -91,7 +94,7 @@ export default function ProjectsCarousel({ onEdit }) {
         })}
       </CCarousel>
     );
-  };
+  }
 
   return <div>{listProjectFlexes()}</div>;
 }
