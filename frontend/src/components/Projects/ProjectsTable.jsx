@@ -84,7 +84,14 @@ export default function ProjectsTable({ onEdit }) {
     let taskCountResult = taskCount(item.id, userTasks);
 
     return (
-      <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
+      <Tr
+        key={item.id || item.description.length * 10}
+        bg={completeStatusBool}
+        _hover={{
+          backgroundColor: "rgba(3, 140, 140, 0.3)",
+          cursor: "pointer",
+        }}
+      >
         <Td size="sm">
           <CheckboxGroup value={checkValues}>
             <Checkbox
@@ -98,9 +105,14 @@ export default function ProjectsTable({ onEdit }) {
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
           {item.name}
         </Td>
-        <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+
+        <Td
+          onClick={() => onEdit(item)}
+          style={{ color: "white", textAlign: "center" }}
+        >
           {taskCountResult}
         </Td>
+
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
           {ownerName}
         </Td>
@@ -123,7 +135,7 @@ export default function ProjectsTable({ onEdit }) {
           maxW="8xl"
           style={{
             backgroundColor: "transparent",
-            // opacity: "0.9",
+            border: "solid white 2px",
           }}
         >
           <TableContainer>

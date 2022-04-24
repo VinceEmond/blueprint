@@ -5,7 +5,6 @@ import ViewSelect from "../Layout/ViewSelect";
 import ModalForm from "../Layout/ModalForm";
 import { viewsContext } from "../../Providers/ViewsProvider";
 import { Heading, Center } from "@chakra-ui/react";
-import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 
 export default function Projects({
   modalState,
@@ -55,7 +54,6 @@ export default function Projects({
             isTruncated
             style={{
               backgroundColor: "#0a171e",
-              // opacity: "0.9",
               color: "white",
               paddingBottom: "0.4em",
               marginBottom: "0.2em",
@@ -69,12 +67,14 @@ export default function Projects({
               flexDirection: "column",
               justifyContent: "end",
               marginBottom: "0.6em",
+              marginRight: "1em",
             }}
           >
             <ViewSelect
               onOpen={onOpen}
               state="projects"
               setModalState={setModalState}
+              viewValue={viewValue}
               setViewValue={setViewValue}
             />
           </div>

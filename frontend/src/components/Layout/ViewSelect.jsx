@@ -3,14 +3,13 @@ import { Button, Flex, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 export default function ViewSelect(props) {
-  const { setViewValue, setModalState, onOpen, state } = props;
+  const { setViewValue, setModalState, onOpen, state, viewValue } = props;
 
   return (
     <Flex
       justify="end"
       style={{
         backgroundColor: "#0a171e",
-        // opacity: "0.9",
         color: "white",
       }}
     >
@@ -19,7 +18,6 @@ export default function ViewSelect(props) {
         spacing="6"
         style={{
           backgroundColor: "#0a171e",
-          // opacity: "0.9",
           color: "white",
         }}
       >
@@ -31,9 +29,17 @@ export default function ViewSelect(props) {
             setModalState(state);
             onOpen();
           }}
+          border="2px solid white"
+          backgroundColor="RGBA(242,171,39,0.4)"
+          _hover={{
+            bg: "RGBA(242,171,39,0.6)",
+          }}
+          _active={{
+            bg: "RGBA(242,171,39,0.8)",
+          }}
         />
         <Button
-          colorScheme="blue"
+          backgroundColor="rgba(3,64,58,1)"
           value="List"
           size="md"
           onClick={() => setViewValue("List")}
@@ -41,7 +47,7 @@ export default function ViewSelect(props) {
           List
         </Button>
         <Button
-          colorScheme="teal"
+          backgroundColor="rgba(3,64,58,1)"
           value="Board"
           size="md"
           onClick={() => setViewValue("Board")}

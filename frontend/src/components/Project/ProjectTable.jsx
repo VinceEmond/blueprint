@@ -34,7 +34,14 @@ export default function ProjectTable({ onEdit }) {
   ];
 
   const taskHeader = taskColumn.map((column, index) => {
-    return <Th key={index}>{column}</Th>;
+    return (
+      <Th
+        key={index}
+        style={{ color: "white", backgroundColor: "transparent" }}
+      >
+        {column}
+      </Th>
+    );
   });
 
   const taskList = userTasks
@@ -55,7 +62,7 @@ export default function ProjectTable({ onEdit }) {
       const checkValues = defaultChecks();
 
       function completeStatusBool() {
-        if (item.status === "Complete") return "grey";
+        if (item.status === "Complete") return "#03403A";
       }
 
       function checkClick(e, id) {
@@ -75,30 +82,62 @@ export default function ProjectTable({ onEdit }) {
       }
 
       return (
-        <Tr key={item.id} bg={completeStatusBool}>
+        <Tr
+          key={item.id}
+          bg={completeStatusBool}
+          _hover={{
+            backgroundColor: "rgba(3, 140, 140, 0.3)",
+            cursor: "pointer",
+          }}
+        >
           <Td size="sm">
             <CheckboxGroup value={checkValues}>
               <Checkbox
                 ml="2em"
                 value={item.name}
                 onChange={(e) => checkClick(e, item.id)}
+                colorScheme="yellow"
               ></Checkbox>
             </CheckboxGroup>
           </Td>
-          <Td onClick={() => onEdit(item)}>{item.name}</Td>
-          <Td onClick={() => onEdit(item)}>{assigneeName}</Td>
-          <Td onClick={() => onEdit(item)}>{date}</Td>
-          <Td onClick={() => onEdit(item)}>{item.status}</Td>
-          <Td onClick={() => onEdit(item)}>{item.priority}</Td>
+          <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+            {item.name}
+          </Td>
+          <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+            {assigneeName}
+          </Td>
+          <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+            {date}
+          </Td>
+          <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+            {item.status}
+          </Td>
+          <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
+            {item.priority}
+          </Td>
         </Tr>
       );
     });
 
   return (
     <Center>
-      <Container borderWidth="1px" borderRadius="lg" maxW="8xl">
+      <Container
+        borderWidth="1px"
+        borderRadius="lg"
+        maxW="8xl"
+        style={{
+          backgroundColor: "transparent",
+          border: "solid white 2px",
+        }}
+      >
         <TableContainer>
-          <Table size="lg">
+          <Table
+            size="lg"
+            style={{
+              backgroundColor: "rgba(10,23,30,0.8)",
+              marginBottom: "1em",
+            }}
+          >
             <Thead>
               <Tr>{taskHeader}</Tr>
             </Thead>

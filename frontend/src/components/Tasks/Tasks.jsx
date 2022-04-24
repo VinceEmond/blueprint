@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heading } from "@chakra-ui/react";
+import { Heading, Center } from "@chakra-ui/react";
 import TasksTrello from "./TasksTrello";
 import TasksTable from "./TasksTable";
 import ViewSelect from "../Layout/ViewSelect";
@@ -32,27 +32,62 @@ export default function Tasks({
   }
 
   return (
-    <div>
-      <Heading display="flex" as="h1" size="3xl" isTruncated m="0.5em">
-        Tasks
-      </Heading>
-      <ViewSelect
-        setViewValue={setViewValue}
-        setModalState={setModalState}
-        onOpen={onOpen}
-        state="tasks"
-      />
-      {viewTasks()}
-      <ModalForm
-        isOpen={isOpen}
-        onClose={onClose}
-        modalState={modalState}
-        setModalState={setModalState}
-        editTask={editTask}
-        setEditTask={setEditTask}
-        editProject={editProject}
-        setEditProject={setEditProject}
-      />
-    </div>
+    <Center>
+      <div
+        style={{
+          maxWidth: "2000px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Heading
+            display="flex"
+            as="h1"
+            size="3xl"
+            isTruncated
+            style={{
+              backgroundColor: "#0a171e",
+              color: "white",
+              paddingBottom: "0.4em",
+              marginBottom: "0.2em",
+            }}
+          >
+            Tasks
+          </Heading>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "end",
+              marginBottom: "0.6em",
+              marginRight: "1em",
+            }}
+          >
+            <ViewSelect
+              setViewValue={setViewValue}
+              viewValue={viewValue}
+              setModalState={setModalState}
+              onOpen={onOpen}
+              state="tasks"
+            />
+          </div>
+        </div>
+        {viewTasks()}
+        <ModalForm
+          isOpen={isOpen}
+          onClose={onClose}
+          modalState={modalState}
+          setModalState={setModalState}
+          editTask={editTask}
+          setEditTask={setEditTask}
+          editProject={editProject}
+          setEditProject={setEditProject}
+        />
+      </div>
+    </Center>
   );
 }
