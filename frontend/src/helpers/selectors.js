@@ -145,6 +145,18 @@ export function updateProjects(allProjects, newProject) {
   return updatedProjects;
 }
 
+export function updateTasks(allTasks, newTask) {
+  const updatedTasks = [];
+  allTasks.forEach((task) => {
+    if (task.id === newTask.id) {
+      updatedTasks.push(newTask);
+    } else {
+      updatedTasks.push(task);
+    }
+  });
+  return updatedTasks;
+}
+
 export function updateTrelloProjectStatus(allProjects, updatedProject) {
   const updatedProjects = allProjects.map((project) => {
     if (project.id === Number(updatedProject.id)) {
