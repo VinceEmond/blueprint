@@ -4,9 +4,11 @@ import moment from "moment";
 import {
   getProjectOwnerName,
   updateUserProjectStatus,
+  taskCount,
 } from "../../helpers/selectors";
 import { usersContext } from "../../Providers/UsersProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
+import { tasksContext } from "../../Providers/TasksProvider";
 import {
   Table,
   Thead,
@@ -23,10 +25,17 @@ import {
 
 export default function ProjectsTable({ onEdit }) {
   const { userProjects, setUserProjects } = useContext(projectsContext);
+  const { userTasks } = useContext(tasksContext);
   const { allUsers } = useContext(usersContext);
 
-  const projectsColumn = ["Complete", "Name", "Owner", "Due Date", "Status"];
-
+  const projectsColumn = [
+    "Complete",
+    "Project Name",
+    "No. of Tasks",
+    "Owner",
+    "Due Date",
+    "Status",
+  ];
   const projectsHeader = projectsColumn.map((column, index) => {
     return <Th key={index}>{column}</Th>;
   });
@@ -65,6 +74,8 @@ export default function ProjectsTable({ onEdit }) {
       });
     }
 
+    let taskCountResult = taskCount(item.id, userTasks);
+
     return (
       <Tr key={item.id || item.description.length * 10} bg={completeStatusBool}>
         <Td size="sm">
@@ -77,6 +88,7 @@ export default function ProjectsTable({ onEdit }) {
           </CheckboxGroup>
         </Td>
         <Td onClick={() => onEdit(item)}>{item.name}</Td>
+        <Td onClick={() => onEdit(item)}>{taskCountResult}</Td>
         <Td onClick={() => onEdit(item)}>{ownerName}</Td>
         <Td onClick={() => onEdit(item)}>{date}</Td>
         <Td onClick={() => onEdit(item)}>{item.status}</Td>

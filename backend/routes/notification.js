@@ -6,6 +6,7 @@ const authToken = process.env.TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 module.exports = () => {
+  // POST: ADD - NOTIFICATION --- SEND NEW MESSAGE
   router.post("/", (req, res) => {
     const { message, recipients } = req.body;
 

@@ -1,7 +1,7 @@
-/* Gets specific user */
-export function getUserName(users, id) {
-  const filteredUser = users.filter((user) => {
-    return user.id === id;
+/* Gets specific user object from user id */
+export function getUserName(allUsers, userId) {
+  const filteredUser = allUsers.filter((user) => {
+    return user.id === userId;
   });
 
   const user = filteredUser[0];
@@ -10,8 +10,8 @@ export function getUserName(users, id) {
 }
 
 /* Gets specific user name from project owner id */
-export function getProjectOwnerName(ownerId, users) {
-  const filteredUser = users.filter((user) => {
+export function getProjectOwnerName(ownerId, allUsers) {
+  const filteredUser = allUsers.filter((user) => {
     return user.id === Number(ownerId);
   });
 
@@ -24,19 +24,17 @@ export function getProjectOwnerName(ownerId, users) {
   return filteredUserName;
 }
 
-/* Gets specific user name from assignee_id */
-export function getAssigneeName(assignee_id, users) {
-  const filteredUser = users.filter((user) => {
-    return user.id == assignee_id;
+/* Gets specific user name from task assignee_id */
+export function getAssigneeName(assigneeId, allUsers) {
+  const filteredUser = allUsers.filter((user) => {
+    return user.id == assigneeId;
   });
-  // console.log("FILTEREDUSER: ", filteredUser);
 
   if (!filteredUser[0]) {
     return "";
   }
 
   const filteredUserName = filteredUser[0].first_name;
-  // console.log("FILTEREDUSERNAME: ", filteredUserName);
   return filteredUserName;
 }
 
@@ -55,14 +53,14 @@ export function getProjectName(projectId, projects) {
   return filteredProjectName;
 }
 
-/* Gets all tasks assigned to a specific userID */
-export function getUserSpecificTasks(allTasks, user_id) {
+/* Gets all tasks for a specific user id */
+export function getUserSpecificTasks(allTasks, userId) {
   if (!allTasks) {
     return;
   }
 
   return allTasks.filter((task) => {
-    return task.assignee_id === user_id;
+    return task.assignee_id === userId;
   });
 }
 
@@ -95,18 +93,14 @@ export function updateUserProjectStatus(
     newStatus = "Not Started";
   }
 
+  /* Generates all projects with a specific project updated */
   const updateState = userProjects.map((project) => {
     if (project.id === project_id) {
       project.status = newStatus;
     }
-    // console.log("PROJECT: ", project);
     return project;
   });
   return updateState;
-
-  // const filteredProject = filteredState[0];
-  // console.log("FILTEREDPROJ ", filteredProject);
-  // return filteredProject;
 }
 
 /* Updates user task status */
@@ -119,20 +113,16 @@ export function updateUserTaskStatus(userTasks, task_id, checkBoxBool) {
     newStatus = "Not Started";
   }
 
+  /* Generates all tasks with a specific task updated */
   const updateState = userTasks.map((task) => {
     if (task.id === task_id) {
       task.status = newStatus;
     }
-    // console.log("PROJECT: ", project);
     return task;
   });
   return updateState;
-
-  // const filteredProject = filteredState[0];
-  // console.log("FILTEREDPROJ ", filteredProject);
-  // return filteredProject;
 }
-
+/* Generates all projects with a specific project updated */
 export function updateProjects(allProjects, newProject) {
   const updatedProjects = [];
   allProjects.forEach((project) => {
@@ -145,6 +135,7 @@ export function updateProjects(allProjects, newProject) {
   return updatedProjects;
 }
 
+/* Generates all tasks with a specific task updated */
 export function updateTasks(allTasks, newTask) {
   const updatedTasks = [];
   allTasks.forEach((task) => {
@@ -157,6 +148,7 @@ export function updateTasks(allTasks, newTask) {
   return updatedTasks;
 }
 
+/* Updates trello project status */
 export function updateTrelloProjectStatus(allProjects, updatedProject) {
   const updatedProjects = allProjects.map((project) => {
     if (project.id === Number(updatedProject.id)) {
@@ -167,6 +159,7 @@ export function updateTrelloProjectStatus(allProjects, updatedProject) {
   return updatedProjects;
 }
 
+/* Updates trello task status */
 export function updateTrelloTaskStatus(allTasks, updatedTask) {
   const updatedTasks = allTasks.map((task) => {
     if (task.id === Number(updatedTask.id)) {
@@ -175,4 +168,15 @@ export function updateTrelloTaskStatus(allTasks, updatedTask) {
     return task;
   });
   return updatedTasks;
+}
+
+/* Gets task count for specific project */
+export function taskCount(projectId, allTasks) {
+  let taskCounterArr = [];
+  for (let task of allTasks) {
+    if (task.project_id === projectId) {
+      taskCounterArr.push(task.name);
+    }
+  }
+  return taskCounterArr.length;
 }
