@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
+import { getAssigneeName, updateUserTaskStatus } from "../../helpers/selectors";
+import { usersContext } from "../../Providers/UsersProvider";
+import { tasksContext } from "../../Providers/TasksProvider";
 import {
   Table,
   Thead,
@@ -13,16 +18,10 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-import axios from "axios";
-import moment from "moment";
-import { getAssigneeName, updateUserTaskStatus } from "../../helpers/selectors";
-// import { viewsContext } from "../../Providers/ViewsProvider";
-import { usersContext } from "../../Providers/UsersProvider";
-import { tasksContext } from "../../Providers/TasksProvider";
 
 export default function ProjectTable({ onEdit }) {
-  const { allUsers } = useContext(usersContext);
   const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { allUsers } = useContext(usersContext);
   const { id } = useParams();
 
   const taskColumn = [
@@ -40,20 +39,15 @@ export default function ProjectTable({ onEdit }) {
 
   const taskList = userTasks
     .filter((task) => {
-      // console.log("FILTER: ", task);
       return task.project_id == id;
     })
     .map((item) => {
-      // console.log("MAP: ", item);
-      // converting date data to more readable data
       let date = moment(item.due_date).utc().format("YYYY-MM-DD");
       let assigneeName = getAssigneeName(item.assignee_id, allUsers);
-      // console.log("ALLUSERS: ", allUsers);
-      // console.log("ASSIGNEEID: ", item.assignee_id);
-      // console.log("OWNERNAME: ", assigneeName);
 
-      let generatedDefaultValue = [];
+      // consider moving to helper function file
       function defaultChecks() {
+        let generatedDefaultValue = [];
         if (item.status === "Complete") {
           generatedDefaultValue.push(item.name);
         }
@@ -61,39 +55,25 @@ export default function ProjectTable({ onEdit }) {
       }
       const checkValues = defaultChecks();
 
+      // consider moving to helper function file
       function completeStatusBool() {
         if (item.status === "Complete") return "grey";
       }
 
+      // consider moving to helper function file
       function checkClick(e, id) {
-        // console.log("OLDSTATUS: ", item.status);
-        // console.log("OLDITEM: ", item);
-        // console.log("CHECKBOX CLICKED", e.target.checked);
-        // console.log("CHECKBOX EVENT", e);
-        // console.log("ITEMID CHECK", id);
-
-        // updates the project status and returns array of all userProjects with update
         const updatedTasks = updateUserTaskStatus(
           userTasks,
           id,
           e.target.checked
         );
-        // console.log("UPDATEDTASKS: ", updatedTasks);
 
-        // filter updated userProjects with status change
         const filteredTask = updatedTasks.filter((project) => {
           return project.id == id;
         });
-        // console.log("FILTEREDTASKS: ", filteredTask);
-
-        // console.log(filteredTask[0]);
-        // console.log("FILTEREDPROJECT: ", filteredProject);
-        // console.log("NEWSTATUS: ", item.status);
-        // console.log("NEWITEM: ", item);
 
         axios.put(`/api/tasks/${id}`, filteredTask[0]).then(() => {
           setUserTasks(updatedTasks);
-          // console.log("SUCCESSFUL!");
         });
       }
 
@@ -108,11 +88,11 @@ export default function ProjectTable({ onEdit }) {
               ></Checkbox>
             </CheckboxGroup>
           </Td>
-          <Td onClick={(e) => onEdit(item)}>{item.name}</Td>
-          <Td onClick={(e) => onEdit(item)}>{assigneeName}</Td>
-          <Td onClick={(e) => onEdit(item)}>{date}</Td>
-          <Td onClick={(e) => onEdit(item)}>{item.status}</Td>
-          <Td onClick={(e) => onEdit(item)}>{item.priority}</Td>
+          <Td onClick={() => onEdit(item)}>{item.name}</Td>
+          <Td onClick={() => onEdit(item)}>{assigneeName}</Td>
+          <Td onClick={() => onEdit(item)}>{date}</Td>
+          <Td onClick={() => onEdit(item)}>{item.status}</Td>
+          <Td onClick={() => onEdit(item)}>{item.priority}</Td>
         </Tr>
       );
     });
