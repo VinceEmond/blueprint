@@ -70,12 +70,6 @@ function App() {
         onOpen();
       },
     },
-    // {
-    //   command: ["add project"],
-    //   callback: () => {
-    //     projectClick();
-    //   },
-    // },
   ];
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
@@ -88,18 +82,6 @@ function App() {
     projects: "/projects",
     tasks: "/tasks",
   };
-
-  // if speech recognition is not supported, won't do anything
-  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-  //   return null;
-  // }
-
-  // continous speech recognition
-  // if (SpeechRecognition.browserSupportsContinuousListening) {
-  //   SpeechRecognition.startListening({ continuous: true })
-  // } else {
-  //   return
-  // }
 
   let redirect = "";
 
