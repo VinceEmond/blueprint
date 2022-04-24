@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
-import { usersContext } from "../Providers/UsersProvider";
+import { usersContext } from "../../Providers/UsersProvider";
 
 export default function DrawerExample() {
   const divRef = useRef(null);

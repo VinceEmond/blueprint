@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "@emotion/styled";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import TrelloTasksCard from "./TrelloTasksCard";
+import ProjectsTrelloCard from "./ProjectsTrelloCard";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { tasksContext } from "../../Providers/TasksProvider";
-import { updateTrelloTaskStatus } from "../../helpers/selectors";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { updateTrelloProjectStatus } from "../../helpers/selectors";
 
 const Container = styled.div`
   display: flex;
@@ -38,11 +38,11 @@ const Title = styled.span`
   align-self: flex-start;
 `;
 
-export default function TrelloTasks({ modalState, onEdit }) {
+export default function ProjectsTrello({ modalState, onEdit }) {
   // const [userTasks, setUserTasks] = useState([]);
-  const { userTasks, setUserTasks } = useContext(tasksContext);
+  const { userProjects, setUserProjects } = useContext(projectsContext);
 
-  // const trelloColumns = {
+  // const initialTrelloColumns = {
   //   [uuidv4()]: {
   //     title: "Not Started",
   //     items: [],
@@ -65,32 +65,31 @@ export default function TrelloTasks({ modalState, onEdit }) {
 
   useEffect(() => {
     // axios
-    //   .get("/api/tasks")
+    //   .get("/api/projects")
     //   .then((response) => {
-    //     const allTasks = response.data.tasks;
+    //     const allProjects = response.data.projects;
 
     // console.log("ALLTASKS: ", allTasks);
 
-    const cards = userTasks.map((task) => {
+    const cards = userProjects.map((project) => {
+      // console.log("cards PDUEDATE1: ", project.due_date);
       return {
-        project_id: String(task.project_id),
-        priority: String(task.priority),
-        assignee_id: String(task.assignee_id),
-        name: String(task.name),
-        description: String(task.description),
-        start_date: String(task.start_date),
-        due_date: String(task.due_date),
-        modified_date: String(task.modified_date),
-        status: String(task.status),
-        category_id: String(task.category_id),
-        is_active: String(task.is_active),
-        id: String(task.id),
+        id: String(project.id),
+        category_id: String(project.category_id),
+        owner_id: String(project.owner_id),
+        name: String(project.name),
+        description: String(project.description),
+        start_date: String(project.start_date),
+        due_date: String(project.due_date),
+        modified_date: String(project.modified_date),
+        status: String(project.status),
+        is_active: String(project.is_active),
       };
     });
 
-    // console.log("allTaskObj: ", allTaskObj);
+    // console.log("allProjectsObj: ", allProjectsObj);
 
-    const updatedTrelloColumns = {
+    const UpdatedTrelloColumns = {
       [uuidv4()]: {
         title: "Not Started",
         items: [],
@@ -109,25 +108,29 @@ export default function TrelloTasks({ modalState, onEdit }) {
       },
     };
 
-    for (let column in updatedTrelloColumns) {
+    for (let column in UpdatedTrelloColumns) {
       for (let j = 0; j < cards.length; j++) {
         // console.log(trelloColumns[column].title);
-        // console.log(allTaskObj[j].progress);
-        if (updatedTrelloColumns[column].title === cards[j].status)
-          updatedTrelloColumns[column].items.push(cards[j]);
+        // console.log(allProjectsObj[j].status);
+        if (UpdatedTrelloColumns[column].title === cards[j].status)
+          UpdatedTrelloColumns[column].items.push(cards[j]);
       }
     }
 
     // console.log("trelloColumns: ", trelloColumns);
+    setColumns(UpdatedTrelloColumns);
+    // setUserProjects(cards);
 
-    setColumns(updatedTrelloColumns);
-    // });
-    //     .catch((err) => console.log("err:", err));
-  }, [modalState, userTasks]);
+    // })
+    // .catch((err) => console.log("err:", err));
+  }, [modalState, userProjects]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
+    // console.log("RESULT: ", result);
+    // console.log("DESTINATION INDEX: ", result.destination.index);
+    // console.log("COLUMNS: ", columns);
 
     if (!destination) {
       return;
@@ -140,6 +143,12 @@ export default function TrelloTasks({ modalState, onEdit }) {
       const destItems = [...destColumn.items];
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
+
+      // TEST START
+      // result.source.index = result.destination.index;
+      // result.destination.index = null;
+      // console.log("NEWRESULT: ", result);
+      // TEST END
 
       // updates status for particular task being moved to different column
       removed.status = destColumn.title;
@@ -165,16 +174,19 @@ export default function TrelloTasks({ modalState, onEdit }) {
       // console.log("REMOVED: ", removed);
 
       axios
-        .put(`/api/tasks/${movedItemId}`, removed)
+        .put(`/api/projects/${movedItemId}`, removed)
         .then((response) => {
-          const updatedTaskArr = updateTrelloTaskStatus(userTasks, removed);
-          setUserTasks(updatedTaskArr);
-          // const allTasks = response.data.task;
-          // console.log(userTasks);
-          // setUserTasks(userTasks);
-          // let allTaskObj = [];
-          // console.log("ALLTASKS: ", allTasks);
-          // console.log("SUCCESSFUL EDIT RQST: ", allTasks);
+          // console.log(removed);
+          const updatedProjectArr = updateTrelloProjectStatus(
+            userProjects,
+            removed
+          );
+          setUserProjects(updatedProjectArr);
+          // setUserProjects(userProjects);
+          // const allProjects = response.data.project;
+          // let allProjectsObj = [];
+          // console.log("ALLPROJECTS: ", allProjects);
+          // console.log("SUCCESSFUL EDIT RQST: ", allProjects);
         })
         .catch((err) => console.log("err:", err));
     } else {
@@ -208,7 +220,7 @@ export default function TrelloTasks({ modalState, onEdit }) {
                   >
                     <Title>{column.title}</Title>
                     {column.items.map((item, index) => (
-                      <TrelloTasksCard
+                      <ProjectsTrelloCard
                         key={item.id}
                         item={item}
                         index={index}

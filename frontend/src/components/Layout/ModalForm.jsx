@@ -7,8 +7,8 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import NewTaskForm from "./NewTaskForm";
-import NewProjectForm from "./NewProjectForm";
+import NewTaskForm from "../Forms/NewTaskForm";
+import NewProjectForm from "../Forms/NewProjectForm";
 
 export default function ModalForm({
   setModalState,

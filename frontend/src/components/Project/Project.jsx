@@ -2,13 +2,13 @@ import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Heading, useDisclosure } from "@chakra-ui/react";
 // package that allows conversion of date data
-import { projectsContext } from "../Providers/ProjectsProvider";
-import { viewsContext } from "../Providers/ViewsProvider";
-import { getProjectName } from "../helpers/selectors";
-import ViewSelect from "./ViewSelect";
-import ProjectTable from "./Tables/ProjectTable";
-import TrelloProject from "./Trello/TrelloProject";
-import ModalForm from "./ModalForm";
+import { projectsContext } from "../../Providers/ProjectsProvider";
+import { viewsContext } from "../../Providers/ViewsProvider";
+import { getProjectName } from "../../helpers/selectors";
+import ViewSelect from "../Layout/ViewSelect";
+import ProjectTable from "./ProjectTable";
+import ProjectTrello from "./ProjectTrello";
+import ModalForm from "../Layout/ModalForm";
 
 export default function Project() {
   // const [userTasks, setUserTasks] = useState([]);
@@ -141,7 +141,7 @@ export default function Project() {
       return <ProjectTable onEdit={triggerEditTask} />;
     } else if (viewValue === "Board") {
       // setViewValue("Board");
-      return <TrelloProject onEdit={triggerEditTask} />;
+      return <ProjectTrello onEdit={triggerEditTask} />;
     }
   }
 

@@ -2,18 +2,17 @@ import React, { useContext, useState } from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
-import NavBar from "./NavBar";
-import LandingPage from "./LandingPage";
-import Dashboard from "./Dashboard";
-import Projects from "./Projects";
-import Tasks from "./Tasks";
-import Project from "./Project";
-import AboutUs from "./AboutUs/AboutUs";
-import Login from "./User/Login";
-import Register from "./User/Register";
-import { Cookies, useCookies } from "react-cookie";
+import NavBar from "../Layout/NavBar";
+import LandingPage from "../LandingPage/LandingPage";
+import Dashboard from "../Dashboard/Dashboard";
+import Projects from "../Projects/Projects";
+import Tasks from "../Tasks/Tasks";
+import Project from "../Project/Project";
+import AboutUs from "../AboutUs/AboutUs";
+import Login from "../User/Login";
+import Register from "../User/Register";
 import { useSpeechRecognition } from "react-speech-recognition";
-import { usersContext } from "../Providers/UsersProvider";
+import { usersContext } from "../../Providers/UsersProvider";
 
 // let taskButton = document.querySelectorAll("div.css-1n0cvlj > button");
 
