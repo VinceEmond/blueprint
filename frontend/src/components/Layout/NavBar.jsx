@@ -18,6 +18,8 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext } from "react";
 import MessageBoard from "../MessageBoard/MessageBoard";
+import Login from "../User/Login";
+import Register from "../User/Register";
 import { usersContext } from "../../Providers/UsersProvider";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
@@ -98,6 +100,29 @@ export default function NavBar({ transcript, resetTranscript }) {
 
           <Flex alignItems={"center"}>
             {cookies.id && <MessageBoard />}
+            {!cookies.id && (
+              <Button
+                colorScheme="teal"
+                onClick={onOpen}
+                m="10px"
+                as="a"
+                href="/login"
+              >
+                Login
+              </Button>
+            )}
+            {!cookies.id && (
+              <Button
+                colorScheme="teal"
+                onClick={onOpen}
+                m="10px"
+                style={{ marginRight: "1em" }}
+                as="a"
+                href="/register"
+              >
+                Register
+              </Button>
+            )}
             <Menu>
               <MenuButton
                 as={Button}
@@ -116,16 +141,24 @@ export default function NavBar({ transcript, resetTranscript }) {
 
               <MenuList>
                 <a href="/welcome">
-                  <MenuItem onClick={() => login(1)}>Dylan</MenuItem>
+                  <MenuItem onClick={() => login(1)} style={{ color: "black" }}>
+                    Dylan
+                  </MenuItem>
                 </a>
                 <a href="/welcome">
-                  <MenuItem onClick={() => login(3)}>Vince</MenuItem>
+                  <MenuItem onClick={() => login(3)} style={{ color: "black" }}>
+                    Vince
+                  </MenuItem>
                 </a>
                 <a href="/welcome">
-                  <MenuItem onClick={() => login(2)}>Pablo</MenuItem>
+                  <MenuItem onClick={() => login(2)} style={{ color: "black" }}>
+                    Pablo
+                  </MenuItem>
                 </a>
                 <a href="/">
-                  <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                  <MenuItem onClick={() => logout()} style={{ color: "black" }}>
+                    Logout
+                  </MenuItem>
                 </a>
               </MenuList>
             </Menu>

@@ -1,3 +1,4 @@
+import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 import {
   Flex,
   Box,
@@ -16,14 +17,26 @@ import {
 export default function Login() {
   return (
     <Flex
-      minH={"100vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
+      style={{
+        backgroundImage: `url(${Background})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "80vh",
+      }}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Heading
+            fontSize={"4xl"}
+            style={{
+              color: "white",
+            }}
+          >
+            Sign in to your account
+          </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
             to enjoy all of our cool{" "}
             <Link color={"blue.400"} to="/welcome">
