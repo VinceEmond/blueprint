@@ -31,7 +31,7 @@ export default function ViewSelect(props) {
           }}
         />
         <Button
-          colorScheme="blue"
+          colorScheme="red"
           value="List"
           size="md"
           onClick={() => setViewValue("List")}
@@ -39,7 +39,7 @@ export default function ViewSelect(props) {
           List
         </Button>
         <Button
-          colorScheme="teal"
+          colorScheme="yellow"
           value="Board"
           size="md"
           onClick={() => setViewValue("Board")}

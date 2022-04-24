@@ -36,7 +36,7 @@ const TaskInformation = styled.div`
     width: 100%;
     font-size: 12px;
     font-weight: 400px;
-    color: #7d7d7d;
+    color: #F2AB27;
   }
   .status{
     display: flex;
@@ -71,7 +71,11 @@ export default function TasksTrelloCard({ item, index, onEdit }) {
               {...provided.dragHandleProps}
               style={style}
             >
-              <TaskInformation>
+              <TaskInformation
+                style={{
+                  backgroundColor: "white",
+                }}
+              >
                 <div
                   style={{
                     display: "flex",

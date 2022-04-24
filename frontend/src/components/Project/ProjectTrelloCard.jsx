@@ -36,7 +36,7 @@ const TaskInformation = styled.div`
     width: 100%;
     font-size: 12px;
     font-weight: 400px;
-    color: #7d7d7d;
+    color: #F2AB27;
   }
   .status{
     display: flex;
@@ -46,7 +46,7 @@ const TaskInformation = styled.div`
       width: 20px !important;
       height: 20px !important;
       margin-right: 12px; */
-   margin-top: 2px; */
+      margin-top: 2px; */
    } 
    } 
 `;
@@ -70,7 +70,11 @@ export default function ProjectTrelloCard({ item, index, onEdit }) {
               {...provided.dragHandleProps}
               style={style}
             >
-              <TaskInformation>
+              <TaskInformation
+                style={{
+                  backgroundColor: "white",
+                }}
+              >
                 <div
                   style={{
                     display: "flex",
