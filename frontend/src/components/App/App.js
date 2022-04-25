@@ -129,86 +129,91 @@ function App() {
               paddingBottom: "2em",
               backgroundRepeat: "no-repeat",
               paddingTop: "3em",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route
-                path="/welcome"
-                element={
-                  loggedIn() || (
-                    <Dashboard
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      onOpen={onOpen}
-                      transcript={transcript}
-                      voiceCommand={voiceCommand}
-                      isAccepted={isAccepted}
-                      setIsAccepted={setIsAccepted}
-                    />
-                  )
-                }
-              />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route
-                path="/projects"
-                element={
-                  loggedIn() || (
-                    <Projects
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      onOpen={onOpen}
-                      transcript={transcript}
-                      voiceCommand={voiceCommand}
-                      isAccepted={isAccepted}
-                      setIsAccepted={setIsAccepted}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/projects/:id"
-                element={
-                  loggedIn() || (
-                    <Project
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      onOpen={onOpen}
-                      transcript={transcript}
-                      voiceCommand={voiceCommand}
-                      isAccepted={isAccepted}
-                      setIsAccepted={setIsAccepted}
-                    />
-                  )
-                }
-              />
-              <Route
-                path="/tasks"
-                element={
-                  loggedIn() || (
-                    <Tasks
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                      onOpen={onOpen}
-                      transcript={transcript}
-                      voiceCommand={voiceCommand}
-                      isAccepted={isAccepted}
-                      setIsAccepted={setIsAccepted}
-                    />
-                  )
-                }
-              />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
+            <div>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route
+                  path="/welcome"
+                  element={
+                    loggedIn() || (
+                      <Dashboard
+                        modalState={modalState}
+                        setModalState={setModalState}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        onOpen={onOpen}
+                        transcript={transcript}
+                        voiceCommand={voiceCommand}
+                        isAccepted={isAccepted}
+                        setIsAccepted={setIsAccepted}
+                      />
+                    )
+                  }
+                />
+                <Route path="/aboutus" element={<AboutUs />} />
+                <Route
+                  path="/projects"
+                  element={
+                    loggedIn() || (
+                      <Projects
+                        modalState={modalState}
+                        setModalState={setModalState}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        onOpen={onOpen}
+                        transcript={transcript}
+                        voiceCommand={voiceCommand}
+                        isAccepted={isAccepted}
+                        setIsAccepted={setIsAccepted}
+                      />
+                    )
+                  }
+                />
+                <Route
+                  path="/projects/:id"
+                  element={
+                    loggedIn() || (
+                      <Project
+                        modalState={modalState}
+                        setModalState={setModalState}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        onOpen={onOpen}
+                        transcript={transcript}
+                        voiceCommand={voiceCommand}
+                        isAccepted={isAccepted}
+                        setIsAccepted={setIsAccepted}
+                      />
+                    )
+                  }
+                />
+                <Route
+                  path="/tasks"
+                  element={
+                    loggedIn() || (
+                      <Tasks
+                        modalState={modalState}
+                        setModalState={setModalState}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        onOpen={onOpen}
+                        transcript={transcript}
+                        voiceCommand={voiceCommand}
+                        isAccepted={isAccepted}
+                        setIsAccepted={setIsAccepted}
+                      />
+                    )
+                  }
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            </div>
             <Footer />
           </div>
 

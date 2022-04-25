@@ -51,6 +51,7 @@
 
 .content {
   height: fit-content;
+  padding-bottom: 0 !important;
 }
 
 .css-k7r2wc > option {
