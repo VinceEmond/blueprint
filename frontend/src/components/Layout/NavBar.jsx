@@ -19,7 +19,6 @@ import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext } from "react";
 import MessageBoard from "../MessageBoard/MessageBoard";
 import { usersContext } from "../../Providers/UsersProvider";
-import { ArrowDownIcon } from "@chakra-ui/icons";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -133,7 +132,7 @@ export default function NavBar({ transcript, resetTranscript }) {
                 <Avatar
                   size={"sm"}
                   src={
-                    "https://img.icons8.com/ios/344/login-rounded-right--v1.png"
+                    "https://cdn5.vectorstock.com/i/thumb-large/71/34/user-icon-line-outline-person-symbol-vector-22867134.jpg"
                   }
                 />
               </MenuButton>
