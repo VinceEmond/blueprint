@@ -30,9 +30,12 @@ const Logo = (props) => {
 export default function Footer() {
   return (
     <Box
+      className="footer"
+      mt={"auto"}
       style={{
         backgroundColor: "rgba(10, 23, 30, 0.1)",
         color: "white",
+        border: "0",
       }}
     >
       <Container
@@ -41,10 +44,9 @@ export default function Footer() {
         py={4}
         direction={{ base: "column", md: "row" }}
         spacing={4}
-        justify={{ base: "center", md: "space-between" }}
+        justify={{ base: "center" }}
         align={{ base: "center", md: "center" }}
       >
-        <Logo />
         <Text>© 2022 blueprint. All rights reserved</Text>
       </Container>
     </Box>
