@@ -1,3 +1,12 @@
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import SpeechRecognition from "react-speech-recognition";
+import { useEffect, useContext, useState } from "react";
+import MessageBoard from "../MessageBoard/MessageBoard";
+import { usersContext } from "../../Providers/UsersProvider";
+import AvatarIcon from "../../assets/images/avatar.jpg";
+import DylanPirrottaAvatar from "../../assets/images/DylanPirrottaAvatar.jpg";
+import PabloTackAvatar from "../../assets/images/PabloTackAvatar.jpg";
+import VinceEmondAvatar from "../../assets/images/VinceEmondAvatar.jpg";
 import {
   Box,
   Flex,
@@ -14,13 +23,6 @@ import {
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import SpeechRecognition from "react-speech-recognition";
-import { useEffect, useContext, useState } from "react";
-import MessageBoard from "../MessageBoard/MessageBoard";
-import { usersContext } from "../../Providers/UsersProvider";
-import AvatarIcon from "../../assets/images/avatar.jpg";
-import VoiceModal from "./VoiceModal";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -39,26 +41,50 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function NavBar({ transcript, resetTranscript }) {
+export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { login, logout, cookies } = useContext(usersContext);
-  const [voiceCommand, setVoiceCommand] = useState(false);
-  const [modalState, setModalState] = useState(null);
+  // const [voiceCommand, setVoiceCommand] = useState(false);
+  // const [modalState, setModalState] = useState(null);
 
-  useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "1") {
-        // setModalState("voice");
-        SpeechRecognition.startListening();
-        setVoiceCommand(true);
-      } else if (e.key === "2") {
-        SpeechRecognition.stopListening();
-        resetTranscript();
-        // setModalState(null);
-        setVoiceCommand(false);
-      }
-    });
-  }, []);
+  function avatarIcon(cookiesId) {
+    if (cookiesId === "1") {
+      return DylanPirrottaAvatar;
+    } else if (cookiesId === "2") {
+      return PabloTackAvatar;
+    } else if (cookiesId === "3") {
+      return VinceEmondAvatar;
+    } else if (!cookiesId) {
+      return AvatarIcon;
+    }
+  }
+
+  function avatarName(cookiesId) {
+    if (cookiesId === "1") {
+      return "Dylan Pirrotta";
+    } else if (cookiesId === "2") {
+      return "Pablo Tack";
+    } else if (cookiesId === "3") {
+      return "Vince Emond";
+    } else if (!cookiesId) {
+      return "Avatar Icon";
+    }
+  }
+
+  // useEffect(() => {
+  //   window.addEventListener("keypress", (e) => {
+  //     if (e.key === "1") {
+  //       // setModalState("voice");
+  //       SpeechRecognition.startListening();
+  //       setVoiceCommand(true);
+  //     } else if (e.key === "2") {
+  //       SpeechRecognition.stopListening();
+  //       resetTranscript();
+  //       // setModalState(null);
+  //       setVoiceCommand(false);
+  //     }
+  //   });
+  // }, [resetTranscript]);
 
   return (
     <div
@@ -102,14 +128,14 @@ export default function NavBar({ transcript, resetTranscript }) {
             </HStack>
           </div>
           <div>
-            <VoiceModal
+            {/* <VoiceModal
               modalState={modalState}
               setModalState={setModalState}
               voiceCommand={voiceCommand}
               setVoiceCommand={setVoiceCommand}
               transcript={transcript}
               resetTranscript={resetTranscript}
-            />
+            /> */}
             {/* {voiceCommand && (
               <p style={{ marginRight: "10em", color: "red" }}>
                 Listening: {transcript}
@@ -150,7 +176,10 @@ export default function NavBar({ transcript, resetTranscript }) {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"sm"} src={AvatarIcon} />
+                  <Avatar
+                    name={avatarName(cookies.id)}
+                    src={avatarIcon(cookies.id)}
+                  />
                 </MenuButton>
 
                 <MenuList>

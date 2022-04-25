@@ -26,7 +26,6 @@ export default function SocialProfileSimple({ project, onEdit }) {
         border={"2px solid white"}
         color={"white"}
         boxShadow={"2xl"}
-        // rounded={"lg"}
         borderRadius={"30px"}
         p={4}
         textAlign={"center"}

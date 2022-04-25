@@ -21,6 +21,9 @@ export default function ModalForm({
   editProject,
   setEditProject,
   transcript,
+  voiceCommand,
+  isAccepted,
+  setIsAccepted,
 }) {
   function clearEditTask() {
     onClose();
@@ -88,7 +91,7 @@ export default function ModalForm({
         </Modal>
       )}
 
-      {/* {modalState === "voice" && (
+      {modalState === "voice" && (
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent
@@ -102,14 +105,21 @@ export default function ModalForm({
             <ModalCloseButton />
             <ModalBody>
               <p>
-                <strong>Open</strong> *Home, *Dashboard, *Tasks, *Projects
+                <strong>Open Page </strong>"Open *Home, *Dashboard, *Tasks,
+                *Projects"
               </p>
               <br />
               <p>
-                <strong>Add</strong> *Task/Tasks, *Project/Projects
+                <strong>Add Project/Task </strong>"Add *Task/Tasks,
+                *Project/Projects"
               </p>
+
+              <br />
+              <p>Press 1 to give commands, 2 to stop giving commands</p>
               <br />
               <br />
+              {isAccepted && <p style={{ fontSize: "1.5em" }}>IS ACCEPTED</p>}
+
               <p style={{ color: "red", fontSize: "1.5em" }}>
                 Listening: {transcript}
               </p>
@@ -124,7 +134,7 @@ export default function ModalForm({
             </ModalFooter>
           </ModalContent>
         </Modal>
-      )} */}
+      )}
     </>
   );
 }

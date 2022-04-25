@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./App.css";
 import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
@@ -14,17 +14,29 @@ import Register from "../User/Register";
 import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
 import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
+import SpeechRecognition from "react-speech-recognition";
 
 function App() {
   const [redirectUrl, setRedirectUrl] = useState("");
   const { cookies } = useContext(usersContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalState, setModalState] = useState(null);
+  const [voiceCommand, setVoiceCommand] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
 
   const commands = [
     {
       command: ["open *", "go to *"],
-      callback: (redirectPage) => setRedirectUrl(redirectPage),
+      callback: (redirectPage) => {
+        console.log("COMMAND ACCEPTED");
+        setIsAccepted(true);
+
+        setTimeout(() => {
+          setIsAccepted(false);
+          setModalState(null);
+          setRedirectUrl(redirectPage);
+        }, 1000);
+      },
     },
     {
       command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
@@ -33,11 +45,15 @@ function App() {
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }
+        console.log("COMMAND ACCEPTED");
+        setIsAccepted(true);
         setTimeout(() => {
+          setIsAccepted(false);
+          setModalState(null);
           resetTranscript();
-        }, 3000);
-        setModalState("tasks");
-        onOpen();
+          setModalState("tasks");
+          onOpen();
+        }, 1000);
       },
     },
     {
@@ -47,11 +63,15 @@ function App() {
         if (currentURL === "tasks") {
           return;
         }
+        console.log("COMMAND ACCEPTED");
+        setIsAccepted(true);
         setTimeout(() => {
+          setIsAccepted(false);
+          setModalState(null);
           resetTranscript();
-        }, 3000);
-        setModalState("projects");
-        onOpen();
+          setModalState("projects");
+          onOpen();
+        }, 1000);
       },
     },
   ];
@@ -72,6 +92,22 @@ function App() {
   const loggedIn = () => {
     return cookies.id ? false : <LandingPage />;
   };
+
+  useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if (e.key === "1") {
+        setModalState("voice");
+        onOpen();
+        setVoiceCommand(true);
+        SpeechRecognition.startListening();
+      } else if (e.key === "2") {
+        SpeechRecognition.stopListening();
+        resetTranscript();
+        setModalState(null);
+        setVoiceCommand(false);
+      }
+    });
+  }, [resetTranscript]);
 
   return (
     <div className="App">
@@ -109,7 +145,10 @@ function App() {
                       isOpen={isOpen}
                       onClose={onClose}
                       onOpen={onOpen}
-                      // transcript={transcript}
+                      transcript={transcript}
+                      voiceCommand={voiceCommand}
+                      isAccepted={isAccepted}
+                      setIsAccepted={setIsAccepted}
                     />
                   )
                 }
@@ -125,6 +164,10 @@ function App() {
                       isOpen={isOpen}
                       onClose={onClose}
                       onOpen={onOpen}
+                      transcript={transcript}
+                      voiceCommand={voiceCommand}
+                      isAccepted={isAccepted}
+                      setIsAccepted={setIsAccepted}
                     />
                   )
                 }
@@ -139,6 +182,10 @@ function App() {
                       isOpen={isOpen}
                       onClose={onClose}
                       onOpen={onOpen}
+                      transcript={transcript}
+                      voiceCommand={voiceCommand}
+                      isAccepted={isAccepted}
+                      setIsAccepted={setIsAccepted}
                     />
                   )
                 }
@@ -153,6 +200,10 @@ function App() {
                       isOpen={isOpen}
                       onClose={onClose}
                       onOpen={onOpen}
+                      transcript={transcript}
+                      voiceCommand={voiceCommand}
+                      isAccepted={isAccepted}
+                      setIsAccepted={setIsAccepted}
                     />
                   )
                 }

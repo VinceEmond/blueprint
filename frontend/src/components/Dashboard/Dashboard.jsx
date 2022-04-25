@@ -19,6 +19,8 @@ export default function Dashboard({
   onOpen,
   onClose,
   transcript,
+  isAccepted,
+  setIsAccepted,
 }) {
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
@@ -134,7 +136,9 @@ export default function Dashboard({
         setEditTask={setEditTask}
         editProject={editProject}
         setEditProject={setEditProject}
-        // transcript={transcript}
+        transcript={transcript}
+        isAccepted={isAccepted}
+        setIsAccepted={setIsAccepted}
       />
     </div>
   );
