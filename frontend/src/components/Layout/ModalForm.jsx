@@ -38,7 +38,7 @@ export default function ModalForm({
           <ModalContent
             mw="60%"
             style={{
-              backgroundColor: "rgba(7, 30, 43,1)",
+              backgroundColor: "rgba(7, 30, 43,0.9)",
               color: "white",
               border: "3px solid white",
             }}
@@ -65,7 +65,7 @@ export default function ModalForm({
           <ModalContent
             mw="60%"
             style={{
-              backgroundColor: "rgba(7, 30, 43,1)",
+              backgroundColor: "rgba(7, 30, 43,0.9)",
               color: "white",
               border: "3px solid white",
             }}

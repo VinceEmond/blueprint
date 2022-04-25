@@ -4,6 +4,8 @@
 }
 .carousel-inner {
   height: 360px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .carousel-indicators [data-coreui-target] {
@@ -22,29 +24,46 @@
   width: 50px !important;
 }
 
-.carousel-control-prev:hover {
-  background-color: black;
-  animation: slide 500ms ease;
-  animation-fill-mode: forwards;
+.carousel-dark .carousel-control-prev-icon {
+  background-color: rgba(242, 171, 39, 1);
+  filter: none !important;
+  border-radius: 50% 5px 5px 50%;
+  height: 3rem;
+}
 
-  opacity: 0.2;
+.carousel-control-prev:hover {
+  animation: slidePrev 600ms ease-in-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
   z-index: 0;
 }
 
 .carousel-control-prev:hover > .carousel-control-prev-icon {
-  background-color: black;
-  z-index: -1;
-  border-radius: 50%;
+  background-color: rgba(242, 171, 39, 1);
+  z-index: 1;
 }
 
-@keyframes slide {
-  from {
-    opacity: 0;
+@keyframes slidePrev {
+  0% {
+    transform: translateX(0px);
   }
-  to {
-    background-color: black;
-    opacity: 0.2;
-    border-radius: 20px;
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideNext {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
   }
 }
 
@@ -54,19 +73,57 @@
   margin-top: auto;
   margin-bottom: auto;
   width: 50px !important;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-dark .carousel-control-next-icon {
+  background-color: rgba(242, 171, 39, 1);
+  filter: none !important;
+  border-radius: 5px 50% 50% 5px;
+  height: 3rem;
 }
 
 .carousel-control-next:hover {
-  background-color: rgb(100, 100, 100);
-  animation: slide 300ms ease;
+  animation: slideNext 600ms ease-in-out;
   animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
   height: 200px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
 .carousel-control-next:hover > .carousel-control-next-icon {
-  background-color: black;
-  z-index: -1;
-  border-radius: 50%;
+  background-color: rgba(242, 171, 39, 1);
+  z-index: 1;
+}
+
+.css-0 {
+  cursor: pointer;
+}
+
+.css-oc0iw3 {
+  background-color: #007d7f !important;
+  box-shadow: 0px 0px 5px -5px rgb(66 153 225 / 57%),
+    0 0px 5px -5px rgb(66 153 225 / 43%) !important;
+}
+
+.css-oc0iw3:hover {
+  background-color: #009fa2 !important;
+  box-shadow: 0px 0px 10px -2px rgb(66 153 225 / 57%),
+    0 5px 10px -5px rgb(66 153 225 / 43%) !important;
+}
+
+.css-z5ksy:hover {
+  animation-name: grow;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes grow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
 }

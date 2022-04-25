@@ -10,29 +10,35 @@ import {
 } from "@chakra-ui/react";
 
 export default function SocialProfileSimple({ project, onEdit }) {
+  const STATUS_TEXT_COLOR =
+    project.status === "Complete"
+      ? "green"
+      : project.status === "In Progress"
+      ? "orange"
+      : project.status === "Pending"
+      ? "red"
+      : "grey";
   return (
     <Center py={6} flex="7" height="285px" width="33%">
       <Box
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"rgba(10,23,30,1)"}
+        border={"2px solid white"}
+        color={"white"}
         boxShadow={"2xl"}
-        rounded={"lg"}
-        p={6}
+        // rounded={"lg"}
+        borderRadius={"30px"}
+        p={4}
         textAlign={"center"}
       >
         <Box onClick={(e) => onEdit(project)}>
           <Heading fontSize={"2xl"} fontFamily={"body"}>
             {project.name}
           </Heading>
-          <Text fontWeight={600} color={"gray.500"} mb={4}>
+          <Text fontWeight={600} color={STATUS_TEXT_COLOR} mb={4}>
             {project.status}
           </Text>
-          <Text
-            textAlign={"center"}
-            color={useColorModeValue("gray.700", "gray.400")}
-            px={3}
-            noOfLines={3}
-          >
+          <Text textAlign={"center"} color={"white"} px={3} noOfLines={3}>
             {project.description}
           </Text>
         </Box>
@@ -40,7 +46,7 @@ export default function SocialProfileSimple({ project, onEdit }) {
         <Stack mt={8} direction={"row"} spacing={4} justifyContent="center">
           <Link
             _hover={{ textDecoration: "none" }}
-            width="50%"
+            width={"fit-content"}
             href={`/projects/${project.id}`}
           >
             <Button

@@ -76,34 +76,40 @@ export default function Dashboard({
   }
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${Background})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        // opacity: "0.5",
-        // width: "100%",
-        height: "100vh",
-        // position: "absolute",
-        // top: 0,
-        // left: 0,
-        paddingTop: "3em",
-      }}
-    >
+    <div style={{}}>
       <Center>
-        <LinkBox as="article" maxW="sm" p="5" borderWidth="1px" rounded="md">
-          <Box as="time" dateTime="2021-01-15 15:30:00 +0000 UTC">
-            <p>{currentDate}</p>
+        <LinkBox
+          as="article"
+          p="5"
+          borderWidth="1px"
+          rounded="md"
+          style={{
+            width: "26em",
+          }}
+        >
+          <Box
+            style={{
+              height: "3em",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignContent: "end",
+              margin: "0",
+            }}
+          >
+            <p style={{ color: "white", fontSize: "1em", margin: "0" }}>
+              {currentDate}
+            </p>
           </Box>
           <Heading size="md" my="2">
-            <LinkOverlay>
+            <LinkOverlay style={{ color: "white", fontSize: "1.4em" }}>
               {timeMessage()}, {currentUser && currentUser.first_name}
             </LinkOverlay>
           </Heading>
         </LinkBox>
       </Center>
 
-      <Container width="50%" maxWidth="100%">
+      <Container width="60%" maxWidth="100%">
         {/* Import dashboard tasks */}
         <Tasks
           setModalState={setModalState}

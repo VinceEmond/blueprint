@@ -87,16 +87,16 @@ function App() {
 
           <div
             className="content"
+            height="fit-content"
             style={{
               backgroundImage: `url(${Background})`,
               backgroundSize: "cover",
+              backgroundRepeat: "repeat-y",
+              width: "100%",
+              minHeight: "100vh",
+              paddingTop: "3em",
+              paddingBottom: "2em",
               backgroundRepeat: "no-repeat",
-              // opacity: "0.5",
-              // width: "100%",
-              height: "100vh",
-              // position: "absolute",
-              // top: 0,
-              // left: 0,
               paddingTop: "3em",
             }}
           >

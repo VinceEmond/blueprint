@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 import { updateTasks } from "../../helpers/selectors";
-import { Cookies } from "react-cookie";
 import moment from "moment";
 import { displayServerError } from "../../helpers/main_helpers";
 import {
