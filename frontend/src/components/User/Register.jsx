@@ -1,3 +1,4 @@
+import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 import {
   Flex,
   Box,
@@ -22,14 +23,25 @@ export default function Register() {
 
   return (
     <Flex
-      minH={"100vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
+      style={{
+        backgroundImage: `url(${Background})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "80vh",
+      }}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
+          <Heading
+            fontSize={"4xl"}
+            textAlign={"center"}
+            style={{
+              color: "white",
+            }}
+          >
             Sign up
           </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
