@@ -29,12 +29,10 @@ function App() {
     {
       command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
       callback: (speech) => {
-        console.log(window.location.pathname);
         const currentURL = window.location.pathname;
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }
-        console.log("Testing");
         setTimeout(() => {
           resetTranscript();
         }, 3000);
@@ -45,7 +43,6 @@ function App() {
     {
       command: [/.*add.*project.*/, /.*new.*project.*/, /.*create.*project.*/],
       callback: (speech) => {
-        console.log(speech.command);
         const currentURL = window.location.pathname;
         if (currentURL === "tasks") {
           return;
@@ -60,11 +57,11 @@ function App() {
   ];
 
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-  const pages = ["home", "welcome", "about us", "projects", "tasks"];
+  const pages = ["home", "dashboard", "about us", "projects", "tasks"];
 
   const urls = {
-    home: "/welcome",
-    welcome: "/",
+    home: "/",
+    dashboard: "/welcome",
     "about us": "/aboutus",
     projects: "/projects",
     tasks: "/tasks",
@@ -112,6 +109,7 @@ function App() {
                       isOpen={isOpen}
                       onClose={onClose}
                       onOpen={onOpen}
+                      // transcript={transcript}
                     />
                   )
                 }

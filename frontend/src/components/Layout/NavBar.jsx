@@ -20,6 +20,7 @@ import { useEffect, useContext, useState } from "react";
 import MessageBoard from "../MessageBoard/MessageBoard";
 import { usersContext } from "../../Providers/UsersProvider";
 import AvatarIcon from "../../assets/images/avatar.jpg";
+import VoiceModal from "./VoiceModal";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -42,15 +43,18 @@ export default function NavBar({ transcript, resetTranscript }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { login, logout, cookies } = useContext(usersContext);
   const [voiceCommand, setVoiceCommand] = useState(false);
+  const [modalState, setModalState] = useState(null);
 
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
       if (e.key === "1") {
+        // setModalState("voice");
         SpeechRecognition.startListening();
         setVoiceCommand(true);
       } else if (e.key === "2") {
         SpeechRecognition.stopListening();
         resetTranscript();
+        // setModalState(null);
         setVoiceCommand(false);
       }
     });
@@ -98,11 +102,19 @@ export default function NavBar({ transcript, resetTranscript }) {
             </HStack>
           </div>
           <div>
-            {voiceCommand && (
+            <VoiceModal
+              modalState={modalState}
+              setModalState={setModalState}
+              voiceCommand={voiceCommand}
+              setVoiceCommand={setVoiceCommand}
+              transcript={transcript}
+              resetTranscript={resetTranscript}
+            />
+            {/* {voiceCommand && (
               <p style={{ marginRight: "10em", color: "red" }}>
                 Listening: {transcript}
               </p>
-            )}
+            )} */}
           </div>
           <div>
             <Flex alignItems={"center"}>

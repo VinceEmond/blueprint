@@ -8,6 +8,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Button,
 } from "@chakra-ui/react";
 
 export default function ModalForm({
@@ -19,6 +20,7 @@ export default function ModalForm({
   setEditTask,
   editProject,
   setEditProject,
+  transcript,
 }) {
   function clearEditTask() {
     onClose();
@@ -85,6 +87,44 @@ export default function ModalForm({
           </ModalContent>
         </Modal>
       )}
+
+      {/* {modalState === "voice" && (
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent
+            style={{
+              backgroundColor: "rgba(7, 30, 43,0.9)",
+              color: "white",
+              border: "3px solid white",
+            }}
+          >
+            <ModalHeader>Voice Commands</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <p>
+                <strong>Open</strong> *Home, *Dashboard, *Tasks, *Projects
+              </p>
+              <br />
+              <p>
+                <strong>Add</strong> *Task/Tasks, *Project/Projects
+              </p>
+              <br />
+              <br />
+              <p style={{ color: "red", fontSize: "1.5em" }}>
+                Listening: {transcript}
+              </p>
+            </ModalBody>
+            <br />
+            <br />
+            <br />
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )} */}
     </>
   );
 }
