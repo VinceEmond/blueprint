@@ -44,7 +44,8 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
   const CATEGORY_ID = 1;
   const DASHBOARD_TAB_STYLE = {
     color: "white",
-    bg: "RGBA(242,171,39,0.4)",
+    // bg: "RGBA(242,171,39,0.4)",
+    bg: "rgb(201, 142, 31,0.8)",
     borderRadius: "10px 10px 0 0",
     borderRight: "2px solid white",
     borderLeft: "2px solid white",
@@ -197,7 +198,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           aria-label="Search database"
           borderRadius="50%"
           border="2px solid white"
-          backgroundColor="RGBA(242,171,39,0.4)"
+          backgroundColor="RGBA(242,171,39,0.8)"
           _hover={{
             bg: "RGBA(242,171,39,0.6)",
           }}

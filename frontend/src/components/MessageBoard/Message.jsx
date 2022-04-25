@@ -11,7 +11,7 @@ export default function MessageBoard(props) {
   } = props;
 
   return (
-    <div key={index}>
+    <div style={{ color: "white" }} key={index}>
       <HStack display="flex" justifyContent="center">
         <p>{messageTimestamp}</p>
       </HStack>

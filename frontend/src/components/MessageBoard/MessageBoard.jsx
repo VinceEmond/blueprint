@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import moment from "moment";
 import axios from "axios";
 import Message from "./Message";
+import "../App/App.css";
+import Background from "../../assets/images/AdobeStock_415876411-no-text-70-highs.jpg";
 import { displayServerError } from "../../helpers/main_helpers";
 import { usersContext } from "../../Providers/UsersProvider";
 import {
@@ -37,8 +39,12 @@ export default function MessageBoard() {
 
   const DEFAULT_SENDER_AVATAR = "";
   const DEFAULT_SENDER_NAME = "Unknown Sender";
-  const MESSAGE_BUBBLE_COLOR_1 = "#3182CE";
-  const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
+  // const MESSAGE_BUBBLE_COLOR_1 = "#3182CE";
+  // const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
+  const MESSAGE_BUBBLE_COLOR_1 = "#c98e1f";
+  const MESSAGE_BUBBLE_COLOR_2 = "#6b4e19";
+  const MESSAGE_BOARD_BACKGROUND = "rgba(10,23,30,0.8)";
+  // const MESSAGE_BOARD_BACKGROUND = "#222b3c";
   const TWILIO_ALERT_MESSAGE =
     "Blueprint Notification: You've got an unread message on your team message board!";
 
@@ -182,7 +188,7 @@ export default function MessageBoard() {
   }
 
   return (
-    <>
+    <div style={{ color: "white" }}>
       <Button colorScheme="teal" onClick={onOpen} m="10px">
         Message Board
       </Button>
@@ -193,11 +199,32 @@ export default function MessageBoard() {
         onClose={onClose}
         size="md"
       >
-        <DrawerOverlay />
+        <DrawerOverlay backdropFilter="blur(5px)" />
 
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Team Message Board</DrawerHeader>
+        <DrawerContent
+          style={{
+            backgroundColor: MESSAGE_BOARD_BACKGROUND,
+            // backgroundImage: `url(${Background})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            borderWidth: "3px",
+            borderRadius: "6px",
+          }}
+        >
+          <DrawerCloseButton colorScheme="white" />
+          <DrawerHeader
+            // borderBottomWidth="3px"
+            // borderTopWidth="3px"
+            // borderWidth="5px"
+            // borderRadius="6px"
+            borderBottom="3px solid white"
+            style={{
+              textAlign: "center",
+              color: "white",
+            }}
+          >
+            Team Message Board
+          </DrawerHeader>
 
           <DrawerBody></DrawerBody>
 
@@ -214,6 +241,7 @@ export default function MessageBoard() {
                 placeholder="Type your message here..."
                 value={messageBox}
                 onChange={(e) => handleMessageBox(e)}
+                color="white"
               />
             </form>
           </HStack>
@@ -225,14 +253,14 @@ export default function MessageBoard() {
             justifyContent="center"
           >
             <Button
-              colorScheme="blue"
+              colorScheme="teal"
               width="150px"
               onClick={() => handleVideoChat()}
             >
               Video Chat
             </Button>
             <Button
-              colorScheme="blue"
+              colorScheme="teal"
               width="150px"
               onClick={(e) => handleSendMessage(e)}
             >
@@ -245,15 +273,18 @@ export default function MessageBoard() {
             alignItems="center"
             mb="10px"
           >
-            <FormLabel mb="0">Enable text alerts?</FormLabel>
+            <FormLabel style={{ color: "white" }} mb="0">
+              Enable text alerts?
+            </FormLabel>
             <Switch
               defaultChecked={currentUser ? currentUser.text_alert : false}
               id="text-alerts"
               onChange={(e) => handleAlertSwitch(e)}
+              colorScheme="yellow"
             />
           </FormControl>
         </DrawerContent>
       </Drawer>
-    </>
+    </div>
   );
 }
