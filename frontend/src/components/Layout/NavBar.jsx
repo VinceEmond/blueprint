@@ -6,6 +6,7 @@ import { usersContext } from "../../Providers/UsersProvider";
 import AvatarIcon from "../../assets/images/avatar.jpg";
 import DylanPirrottaAvatar from "../../assets/images/DylanPirrottaAvatar.jpg";
 import PabloTackAvatar from "../../assets/images/PabloTackAvatar.jpg";
+import BlueprintLogo from "../../assets/images/blueprint-logo.png";
 import VinceEmondAvatar from "../../assets/images/VinceEmondAvatar.jpg";
 import {
   Box,
@@ -32,10 +33,14 @@ const NavLink = ({ children }) => (
     py={1}
     rounded={"md"}
     _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
+      // textDecoration: "none",
+      // bg: useColorModeValue(lightModeValue, darkModeValue),
+      color: "white",
+      boxShadow: "inset 0 0 100px 100px rgba(255, 255, 255, 0.3)",
     }}
     href={`/${children === "Dashboard" ? "welcome" : children.toLowerCase()}`}
+    fontWeight="500"
+    fontSize="1.1em"
   >
     {children}
   </Link>
@@ -104,15 +109,15 @@ export default function NavBar() {
           />
           <div>
             <HStack spacing={8} alignItems={"center"}>
-              <Box>
-                <Link
-                  href="/"
-                  rounded={"md"}
-                  _focus={{ boxShadow: "none" }}
-                  _hover={{ textDecoration: "none" }}
-                >
-                  blueprint.
-                </Link>
+              <Box
+                width="180px"
+                paddingTop="25px"
+                paddingBottom="20px"
+                paddingLeft="20px"
+              >
+                <a href="/">
+                  <img src={BlueprintLogo} alt="blueprint logo"></img>
+                </a>
               </Box>
               {cookies.id && (
                 <HStack
@@ -147,27 +152,24 @@ export default function NavBar() {
               {cookies.id && <MessageBoard />}
               {!cookies.id && (
                 <Button
-                  colorScheme="teal"
+                  colorScheme={"white"}
+                  bg={"teal.400"}
+                  rounded={"full"}
+                  px={6}
+                  _hover={{
+                    bg: "teal.500",
+                    color: "white",
+                  }}
                   onClick={onOpen}
-                  m="10px"
+                  // m="10px"
                   as="a"
+                  marginRight="10px"
                   href="/login"
                 >
                   Login
                 </Button>
               )}
-              {!cookies.id && (
-                <Button
-                  colorScheme="teal"
-                  onClick={onOpen}
-                  m="10px"
-                  style={{ marginRight: "1em" }}
-                  as="a"
-                  href="/register"
-                >
-                  Register
-                </Button>
-              )}
+
               <Menu>
                 <MenuButton
                   as={Button}
