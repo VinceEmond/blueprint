@@ -9,7 +9,10 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
+import checkmark from "../../assets/images/checkmark2.png";
 
 export default function ModalForm({
   isOpen,
@@ -21,9 +24,7 @@ export default function ModalForm({
   editProject,
   setEditProject,
   transcript,
-  voiceCommand,
   isAccepted,
-  setIsAccepted,
 }) {
   function clearEditTask() {
     onClose();
@@ -93,7 +94,7 @@ export default function ModalForm({
 
       {modalState === "voice" && (
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
+          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(5px)" />
           <ModalContent
             style={{
               backgroundColor: "rgba(7, 30, 43,0.9)",
@@ -101,10 +102,17 @@ export default function ModalForm({
               border: "3px solid white",
             }}
           >
-            <ModalHeader>Voice Commands</ModalHeader>
+            <ModalHeader
+              style={{
+                fontSize: "1.5em",
+              }}
+            >
+              Listening...
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <p>
+              <Center>
+                {/* <p>
                 <strong>Open Page </strong>"Open *Home, *Dashboard, *Tasks,
                 *Projects"
               </p>
@@ -117,16 +125,30 @@ export default function ModalForm({
               <br />
               <p>Press 1 to give commands, 2 to stop giving commands</p>
               <br />
-              <br />
-              {isAccepted && <p style={{ fontSize: "1.5em" }}>IS ACCEPTED</p>}
+              <br /> */}
 
-              <p style={{ color: "red", fontSize: "1.5em" }}>
-                Listening: {transcript}
-              </p>
+                <div style={{ maxWidth: "50px" }}>
+                  {isAccepted && <img src={checkmark} />}
+                  {!isAccepted && (
+                    <p>
+                      <Spinner
+                        thickness="4px"
+                        speed="0.65s"
+                        emptyColor="gray.200"
+                        color="blue.500"
+                        size="xl"
+                      />
+                    </p>
+                  )}
+                </div>
+              </Center>
+              <Center>
+                <p style={{ color: "white", fontSize: "1.5em" }}>
+                  {transcript}
+                </p>
+              </Center>
             </ModalBody>
-            <br />
-            <br />
-            <br />
+
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close

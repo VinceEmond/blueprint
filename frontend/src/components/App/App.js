@@ -28,7 +28,6 @@ function App() {
     {
       command: ["open *", "go to *"],
       callback: (redirectPage) => {
-        console.log("COMMAND ACCEPTED");
         setIsAccepted(true);
 
         setTimeout(() => {
@@ -45,7 +44,6 @@ function App() {
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }
-        console.log("COMMAND ACCEPTED");
         setIsAccepted(true);
         setTimeout(() => {
           setIsAccepted(false);
@@ -63,7 +61,6 @@ function App() {
         if (currentURL === "tasks") {
           return;
         }
-        console.log("COMMAND ACCEPTED");
         setIsAccepted(true);
         setTimeout(() => {
           setIsAccepted(false);
@@ -94,13 +91,13 @@ function App() {
   };
 
   useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "1") {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "~") {
         setModalState("voice");
         onOpen();
         setVoiceCommand(true);
         SpeechRecognition.startListening();
-      } else if (e.key === "2") {
+      } else if (e.key === "\\") {
         SpeechRecognition.stopListening();
         resetTranscript();
         setModalState(null);
