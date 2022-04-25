@@ -76,20 +76,7 @@ export default function Dashboard({
   }
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${Background})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        // opacity: "0.5",
-        // width: "100%",
-        height: "100vh",
-        // position: "absolute",
-        // top: 0,
-        // left: 0,
-        paddingTop: "3em",
-      }}
-    >
+    <div style={{}}>
       <Center>
         <LinkBox as="article" maxW="sm" p="5" borderWidth="1px" rounded="md">
           <Box as="time" dateTime="2021-01-15 15:30:00 +0000 UTC">
