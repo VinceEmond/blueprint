@@ -17,4 +17,5 @@ INSERT INTO projects (owner_id, name, description, start_date, due_date, modifie
   (1, 'Navigation', 'Create navigation bar with working routing', '2022-04-03','2022-04-29', '2022-04-19', 'Not Started', 3, true),
   (2, 'Login/Register', 'Create login and register page', '2022-04-03','2022-04-29', '2022-04-21', 'Not Started', 3, true),
   (2, 'Twilio', 'Research and implement twilio API for text message notifications', '2022-04-22','2022-04-29', '2022-04-18', 'Not Started', 3, true)
+  (3, 'Web styling', 'Choose color scheme and interactive side-effects', '2022-04-24','2022-04-29', '2022-04-25', 'In Progress', 3, true)
 ;
