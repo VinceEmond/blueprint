@@ -30,7 +30,7 @@ export default function ViewSelect(props) {
             onOpen();
           }}
           border="2px solid white"
-          backgroundColor="RGBA(242,171,39,0.4)"
+          backgroundColor="RGBA(242,171,39,0.8)"
           _hover={{
             bg: "RGBA(242,171,39,0.6)",
           }}
