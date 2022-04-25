@@ -15,6 +15,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import { usersContext } from "../../Providers/UsersProvider";
 import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 import SpeechRecognition from "react-speech-recognition";
+import Footer from "../Layout/Footer";
 
 function App() {
   const [redirectUrl, setRedirectUrl] = useState("");
@@ -208,7 +209,9 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
+            <Footer />
           </div>
+
           {redirect && setRedirectUrl(null)}
         </ChakraProvider>
       </BrowserRouter>
