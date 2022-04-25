@@ -42,6 +42,10 @@ export default function ViewSelect(props) {
           backgroundColor="rgba(3,64,58,1)"
           value="List"
           size="md"
+          _hover={{
+            color: "black",
+            boxShadow: "inset 0 0 100px 100px rgba(255, 255, 255, 0.9)",
+          }}
           onClick={() => setViewValue("List")}
         >
           List
@@ -50,6 +54,10 @@ export default function ViewSelect(props) {
           backgroundColor="rgba(3,64,58,1)"
           value="Board"
           size="md"
+          _hover={{
+            color: "black",
+            boxShadow: "inset 0 0 100px 100px rgba(255, 255, 255, 0.9)",
+          }}
           onClick={() => setViewValue("Board")}
         >
           Board

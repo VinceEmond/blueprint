@@ -43,7 +43,7 @@ export default function MessageBoard() {
   // const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
   const MESSAGE_BUBBLE_COLOR_1 = "#c98e1f";
   const MESSAGE_BUBBLE_COLOR_2 = "#6b4e19";
-  const MESSAGE_BOARD_BACKGROUND = "rgba(10,23,30,0.8)";
+  const MESSAGE_BOARD_BACKGROUND = "rgba(10,23,30,0.3)";
   // const MESSAGE_BOARD_BACKGROUND = "#222b3c";
   const TWILIO_ALERT_MESSAGE =
     "Blueprint Notification: You've got an unread message on your team message board!";
@@ -189,7 +189,17 @@ export default function MessageBoard() {
 
   return (
     <div style={{ color: "white" }}>
-      <Button colorScheme="teal" onClick={onOpen} m="10px">
+      <Button
+        colorScheme={"white"}
+        bg={"teal.400"}
+        rounded={"full"}
+        _hover={{
+          bg: "teal.500",
+          color: "white",
+        }}
+        onClick={onOpen}
+        m="10px"
+      >
         Message Board
       </Button>
       <Drawer
@@ -221,6 +231,7 @@ export default function MessageBoard() {
             style={{
               textAlign: "center",
               color: "white",
+              backgroundColor: "rgba(10,23,30,1)",
             }}
           >
             Team Message Board
@@ -245,44 +256,49 @@ export default function MessageBoard() {
               />
             </form>
           </HStack>
-
-          <ButtonGroup
-            spacing="6"
-            m="1em"
-            display="flex"
-            justifyContent="center"
+          <div
+            style={{
+              backgroundColor: "rgba(10,23,30,1)",
+            }}
           >
-            <Button
-              colorScheme="teal"
-              width="150px"
-              onClick={() => handleVideoChat()}
+            <ButtonGroup
+              spacing="6"
+              m="1em"
+              display="flex"
+              justifyContent="center"
             >
-              Video Chat
-            </Button>
-            <Button
-              colorScheme="teal"
-              width="150px"
-              onClick={(e) => handleSendMessage(e)}
+              <Button
+                colorScheme="teal"
+                width="150px"
+                onClick={() => handleVideoChat()}
+              >
+                Video Chat
+              </Button>
+              <Button
+                colorScheme="teal"
+                width="150px"
+                onClick={(e) => handleSendMessage(e)}
+              >
+                Post Message
+              </Button>
+            </ButtonGroup>
+            <FormControl
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              mb="10px"
             >
-              Post Message
-            </Button>
-          </ButtonGroup>
-          <FormControl
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            mb="10px"
-          >
-            <FormLabel style={{ color: "white" }} mb="0">
-              Enable text alerts?
-            </FormLabel>
-            <Switch
-              defaultChecked={currentUser ? currentUser.text_alert : false}
-              id="text-alerts"
-              onChange={(e) => handleAlertSwitch(e)}
-              colorScheme="yellow"
-            />
-          </FormControl>
+              <FormLabel style={{ color: "white" }} mb="0">
+                Enable text alerts?
+              </FormLabel>
+              <Switch
+                defaultChecked={currentUser ? currentUser.text_alert : false}
+                id="text-alerts"
+                onChange={(e) => handleAlertSwitch(e)}
+                colorScheme="yellow"
+              />
+            </FormControl>
+          </div>
         </DrawerContent>
       </Drawer>
     </div>
