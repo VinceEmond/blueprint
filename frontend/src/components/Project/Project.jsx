@@ -69,7 +69,7 @@ export default function Project({
               marginBottom: "0.2em",
             }}
           >
-            Tasks for Project {projectName}
+            {projectName}
           </Heading>
           <div
             style={{

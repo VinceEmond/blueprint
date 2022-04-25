@@ -15,13 +15,13 @@ import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 export default function CallToActionWithAnnotation() {
   return (
     <div
-      style={{
-        backgroundImage: `url(${Background})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        paddingTop: "3em",
-        minHeight: "100vh",
-      }}
+    // style={{
+    //   backgroundImage: `url(${Background})`,
+    //   backgroundSize: "cover",
+    //   backgroundRepeat: "no-repeat",
+    //   paddingTop: "3em",
+    //   minHeight: "100vh",
+    // }}
     >
       <Head>
         <link
@@ -31,10 +31,12 @@ export default function CallToActionWithAnnotation() {
       </Head>
 
       <Container
-        maxW={"3xl"}
         style={{
-          backgroundColor: "rgba(10,23,30,0.9)",
-          borderRadius: "5px",
+          backgroundColor: "rgba(10,23,30, 1)",
+          // background: "transparent",
+          maxWidth: "80em",
+          maxHeight: "10em",
+          marginTop: "10em",
         }}
       >
         <Stack
@@ -42,6 +44,9 @@ export default function CallToActionWithAnnotation() {
           textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
           py={{ base: 20, md: 36 }}
+          style={{
+            padding: "0",
+          }}
         >
           <Heading
             fontWeight={600}
