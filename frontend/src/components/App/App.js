@@ -91,13 +91,8 @@ function App() {
               backgroundImage: `url(${Background})`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
-              // opacity: "0.5",
-              // width: "100%",
-              height: "100vh",
-              // position: "absolute",
-              // top: 0,
-              // left: 0,
               paddingTop: "3em",
+              minHeight: "100vh",
             }}
           >
             <Routes>
