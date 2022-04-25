@@ -78,12 +78,31 @@ export default function Dashboard({
   return (
     <div style={{}}>
       <Center>
-        <LinkBox as="article" maxW="sm" p="5" borderWidth="1px" rounded="md">
-          <Box as="time" dateTime="2021-01-15 15:30:00 +0000 UTC">
-            <p>{currentDate}</p>
+        <LinkBox
+          as="article"
+          p="5"
+          borderWidth="1px"
+          rounded="md"
+          style={{
+            width: "26em",
+          }}
+        >
+          <Box
+            style={{
+              height: "3em",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignContent: "end",
+              margin: "0",
+            }}
+          >
+            <p style={{ color: "white", fontSize: "1em", margin: "0" }}>
+              {currentDate}
+            </p>
           </Box>
           <Heading size="md" my="2">
-            <LinkOverlay>
+            <LinkOverlay style={{ color: "white", fontSize: "1.4em" }}>
               {timeMessage()}, {currentUser && currentUser.first_name}
             </LinkOverlay>
           </Heading>

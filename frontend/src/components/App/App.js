@@ -93,10 +93,11 @@ function App() {
               backgroundSize: "cover",
               backgroundRepeat: "repeat-y",
               width: "100%",
-              // height: "fit-content",
               minHeight: "100vh",
               paddingTop: "3em",
               paddingBottom: "2em",
+              backgroundRepeat: "no-repeat",
+              paddingTop: "3em",
             }}
           >
             <Routes>
