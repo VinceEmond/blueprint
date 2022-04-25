@@ -11,7 +11,6 @@ import Tasks from "./DashboardTasks";
 import Projects from "./DashboardProjects";
 import ModalForm from "../Layout/ModalForm";
 import { usersContext } from "../../Providers/UsersProvider";
-import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 
 export default function Dashboard({
   modalState,
@@ -19,6 +18,9 @@ export default function Dashboard({
   isOpen,
   onOpen,
   onClose,
+  transcript,
+  isAccepted,
+  setIsAccepted,
 }) {
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
@@ -134,6 +136,9 @@ export default function Dashboard({
         setEditTask={setEditTask}
         editProject={editProject}
         setEditProject={setEditProject}
+        transcript={transcript}
+        isAccepted={isAccepted}
+        setIsAccepted={setIsAccepted}
       />
     </div>
   );

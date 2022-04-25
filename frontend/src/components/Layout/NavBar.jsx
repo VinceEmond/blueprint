@@ -41,10 +41,11 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function NavBar({ transcript, resetTranscript }) {
+export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { login, logout, cookies } = useContext(usersContext);
-  const [voiceCommand, setVoiceCommand] = useState(false);
+  // const [voiceCommand, setVoiceCommand] = useState(false);
+  // const [modalState, setModalState] = useState(null);
 
   function avatarIcon(cookiesId) {
     if (cookiesId === "1") {
@@ -58,18 +59,32 @@ export default function NavBar({ transcript, resetTranscript }) {
     }
   }
 
-  useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "1") {
-        SpeechRecognition.startListening();
-        setVoiceCommand(true);
-      } else if (e.key === "2") {
-        SpeechRecognition.stopListening();
-        resetTranscript();
-        setVoiceCommand(false);
-      }
-    });
-  }, [resetTranscript]);
+  function avatarName(cookiesId) {
+    if (cookiesId === "1") {
+      return "Dylan Pirrotta";
+    } else if (cookiesId === "2") {
+      return "Pablo Tack";
+    } else if (cookiesId === "3") {
+      return "Vince Emond";
+    } else if (!cookiesId) {
+      return "Avatar Icon";
+    }
+  }
+
+  // useEffect(() => {
+  //   window.addEventListener("keypress", (e) => {
+  //     if (e.key === "1") {
+  //       // setModalState("voice");
+  //       SpeechRecognition.startListening();
+  //       setVoiceCommand(true);
+  //     } else if (e.key === "2") {
+  //       SpeechRecognition.stopListening();
+  //       resetTranscript();
+  //       // setModalState(null);
+  //       setVoiceCommand(false);
+  //     }
+  //   });
+  // }, [resetTranscript]);
 
   return (
     <div
@@ -113,11 +128,19 @@ export default function NavBar({ transcript, resetTranscript }) {
             </HStack>
           </div>
           <div>
-            {voiceCommand && (
+            {/* <VoiceModal
+              modalState={modalState}
+              setModalState={setModalState}
+              voiceCommand={voiceCommand}
+              setVoiceCommand={setVoiceCommand}
+              transcript={transcript}
+              resetTranscript={resetTranscript}
+            /> */}
+            {/* {voiceCommand && (
               <p style={{ marginRight: "10em", color: "red" }}>
                 Listening: {transcript}
               </p>
-            )}
+            )} */}
           </div>
           <div>
             <Flex alignItems={"center"}>
@@ -153,7 +176,10 @@ export default function NavBar({ transcript, resetTranscript }) {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar name="Avatar Icon" src={avatarIcon(cookies.id)} />
+                  <Avatar
+                    name={avatarName(cookies.id)}
+                    src={avatarIcon(cookies.id)}
+                  />
                 </MenuButton>
 
                 <MenuList>

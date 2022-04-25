@@ -36,7 +36,7 @@ const TaskInformation = styled.div`
     width: 100%;
     font-size: 12px;
     font-weight: 400px;
-    color: #F2AB27;
+    color: black;
   }
   .status{
     display: flex;
@@ -45,7 +45,7 @@ const TaskInformation = styled.div`
     img{
       width: 20px !important;
       height: 20px !important;
-      margin-right: 12px; */
+      margin-right: 1px; */
       margin-top: 2px; */
    } 
    } 
@@ -91,7 +91,24 @@ export default function ProjectTrelloCard({ item, index, onEdit }) {
                   >
                     <p>{item.name}</p>
                   </div>
-                  <div>
+                  <div style={{ display: "flex" }}>
+                    {
+                      <span className="priority" style={{ marginTop: "12px" }}>
+                        {item.priority === "High" ? (
+                          <img
+                            src={HighPriorityIcon}
+                            alt="High Priority Icon"
+                          />
+                        ) : item.priority === "Medium" ? (
+                          <img
+                            src={MediumPriorityIcon}
+                            alt="Medium Priority Icon"
+                          />
+                        ) : (
+                          <img src={LowPriorityIcon} alt="Low Priority Icon" />
+                        )}
+                      </span>
+                    }
                     <Menu bg="white">
                       <MenuButton bg="white" as={Button}>
                         {<EditIcon />}
@@ -103,40 +120,26 @@ export default function ProjectTrelloCard({ item, index, onEdit }) {
                     </Menu>
                   </div>
                 </div>
-                <Divider />
-                <p>Description: {item.description}</p>
-                <div className="secondary-details">
-                  <p>
-                    <span className="status">
-                      Due:{" "}
-                      {new Date(item.due_date).toLocaleDateString("en-us", {
-                        month: "short",
-                        day: "2-digit",
-                        year: "numeric",
-                      })}
-                      &nbsp;&nbsp;Priorty: &nbsp;&nbsp;
-                      {
-                        <span className="priority">
-                          {item.priority === "High" ? (
-                            <img
-                              src={HighPriorityIcon}
-                              alt="High Priority Icon"
-                            />
-                          ) : item.priority === "Medium" ? (
-                            <img
-                              src={MediumPriorityIcon}
-                              alt="Medium Priority Icon"
-                            />
-                          ) : (
-                            <img
-                              src={LowPriorityIcon}
-                              alt="Low Priority Icon"
-                            />
-                          )}
-                        </span>
-                      }
-                    </span>
-                  </p>
+                <p>{item.description}</p>
+                <Divider
+                  style={{
+                    width: "60%",
+                    display: "flex",
+                    alignSelf: "center",
+                  }}
+                />
+                <div
+                  className="secondary-details"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <span className="status">
+                    Due:{" "}
+                    {new Date(item.due_date).toLocaleDateString("en-us", {
+                      month: "short",
+                      day: "2-digit",
+                      year: "numeric",
+                    })}
+                  </span>
                 </div>
               </TaskInformation>
             </div>
