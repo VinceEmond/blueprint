@@ -19,6 +19,7 @@ import SpeechRecognition from "react-speech-recognition";
 import { useEffect, useContext, useState } from "react";
 import MessageBoard from "../MessageBoard/MessageBoard";
 import { usersContext } from "../../Providers/UsersProvider";
+import AvatarIcon from "../../assets/images/avatar.jpg";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -137,12 +138,7 @@ export default function NavBar({ transcript, resetTranscript }) {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar
-                    size={"sm"}
-                    src={
-                      "https://cdn5.vectorstock.com/i/thumb-large/71/34/user-icon-line-outline-person-symbol-vector-22867134.jpg"
-                    }
-                  />
+                  <Avatar size={"sm"} src={AvatarIcon} />
                 </MenuButton>
 
                 <MenuList>
