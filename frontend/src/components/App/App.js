@@ -87,12 +87,17 @@ function App() {
 
           <div
             className="content"
+            height="fit-content"
             style={{
               backgroundImage: `url(${Background})`,
               backgroundSize: "cover",
+              backgroundRepeat: "repeat-y",
+              width: "100%",
+              minHeight: "100vh",
+              paddingTop: "3em",
+              paddingBottom: "2em",
               backgroundRepeat: "no-repeat",
               paddingTop: "3em",
-              minHeight: "100vh",
             }}
           >
             <Routes>

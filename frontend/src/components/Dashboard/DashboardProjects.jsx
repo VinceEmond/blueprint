@@ -21,13 +21,22 @@ export default function Projects({ setModalState, onOpen, onEdit }) {
         flexDirection="row"
         justifyContent="space-between"
         maxWidth="100%"
+        paddingTop="1rem"
       >
         <Heading size="md" textAlign="left">
           Projects
         </Heading>
         <IconButton
-          aria-label="Search database"
+          aria-label="Add project"
           borderRadius="50%"
+          border="2px solid white"
+          backgroundColor="RGBA(242,171,39,0.4)"
+          _hover={{
+            bg: "RGBA(242,171,39,0.6)",
+          }}
+          _active={{
+            bg: "RGBA(242,171,39,0.8)",
+          }}
           icon={<AddIcon />}
           onClick={() => {
             setModalState("projects");
