@@ -124,7 +124,7 @@ function App() {
               backgroundSize: "cover",
               backgroundRepeat: "repeat-y",
               width: "100%",
-              minHeight: "100vh",
+              minHeight: "95vh",
               paddingTop: "3em",
               paddingBottom: "2em",
               backgroundRepeat: "no-repeat",
