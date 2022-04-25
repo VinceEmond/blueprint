@@ -49,6 +49,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     borderRight: "2px solid white",
     borderLeft: "2px solid white",
     borderTop: "2px solid white",
+    marginBottom: "-1px",
   };
 
   // Onsubmit helper function for add tasks
@@ -194,7 +195,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           My Priorities
         </Heading>
         <IconButton
-          aria-label="Search database"
+          aria-label="Add task"
           borderRadius="50%"
           border="2px solid white"
           backgroundColor="RGBA(242,171,39,0.4)"
