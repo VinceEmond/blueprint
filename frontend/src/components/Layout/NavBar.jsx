@@ -1,3 +1,12 @@
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import SpeechRecognition from "react-speech-recognition";
+import { useEffect, useContext, useState } from "react";
+import MessageBoard from "../MessageBoard/MessageBoard";
+import { usersContext } from "../../Providers/UsersProvider";
+import AvatarIcon from "../../assets/images/avatar.jpg";
+import DylanPirrottaAvatar from "../../assets/images/DylanPirrottaAvatar.jpg";
+import PabloTackAvatar from "../../assets/images/PabloTackAvatar.jpg";
+import VinceEmondAvatar from "../../assets/images/VinceEmondAvatar.jpg";
 import {
   Box,
   Flex,
@@ -14,12 +23,6 @@ import {
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import SpeechRecognition from "react-speech-recognition";
-import { useEffect, useContext, useState } from "react";
-import MessageBoard from "../MessageBoard/MessageBoard";
-import { usersContext } from "../../Providers/UsersProvider";
-import AvatarIcon from "../../assets/images/avatar.jpg";
 
 const Links = ["Dashboard", "Projects", "Tasks"];
 
@@ -43,6 +46,18 @@ export default function NavBar({ transcript, resetTranscript }) {
   const { login, logout, cookies } = useContext(usersContext);
   const [voiceCommand, setVoiceCommand] = useState(false);
 
+  function avatarIcon(cookiesId) {
+    if (cookiesId === "1") {
+      return DylanPirrottaAvatar;
+    } else if (cookiesId === "2") {
+      return PabloTackAvatar;
+    } else if (cookiesId === "3") {
+      return VinceEmondAvatar;
+    } else if (!cookiesId) {
+      return AvatarIcon;
+    }
+  }
+
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
       if (e.key === "1") {
@@ -54,7 +69,7 @@ export default function NavBar({ transcript, resetTranscript }) {
         setVoiceCommand(false);
       }
     });
-  }, []);
+  }, [resetTranscript]);
 
   return (
     <div
@@ -138,7 +153,7 @@ export default function NavBar({ transcript, resetTranscript }) {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"sm"} src={AvatarIcon} />
+                  <Avatar name="Avatar Icon" src={avatarIcon(cookies.id)} />
                 </MenuButton>
 
                 <MenuList>
