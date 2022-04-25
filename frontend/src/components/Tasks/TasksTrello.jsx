@@ -34,7 +34,9 @@ const TaskColumnStyles = styled.div`
 
 const Title = styled.span`
   color: white;
-  background: #24bfbf;
+  font-weight: 700;
+  font-size: 1.3em;
+  background: rgba(10, 23, 30, 1);
   padding: 2px 10px;
   border-radius: 5px;
   align-self: flex-start;
