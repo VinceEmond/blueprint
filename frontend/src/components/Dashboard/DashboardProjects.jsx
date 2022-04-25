@@ -23,14 +23,14 @@ export default function Projects({ setModalState, onOpen, onEdit }) {
         maxWidth="100%"
         paddingTop="1rem"
       >
-        <Heading size="md" textAlign="left">
+        <Heading fontSize="1.8em" textAlign="left">
           Projects
         </Heading>
         <IconButton
           aria-label="Add project"
           borderRadius="50%"
           border="2px solid white"
-          backgroundColor="RGBA(242,171,39,0.4)"
+          backgroundColor="RGBA(242,171,39,0.8)"
           _hover={{
             bg: "RGBA(242,171,39,0.6)",
           }}

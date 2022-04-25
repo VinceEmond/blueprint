@@ -109,7 +109,7 @@ export default function Dashboard({
         </LinkBox>
       </Center>
 
-      <Container width="50%" maxWidth="100%">
+      <Container width="60%" maxWidth="100%">
         {/* Import dashboard tasks */}
         <Tasks
           setModalState={setModalState}

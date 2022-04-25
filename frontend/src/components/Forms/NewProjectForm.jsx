@@ -226,7 +226,7 @@ export default function NewProjectForm(props) {
             Delete
           </Button>
         )}
-        <Button colorScheme="blue" onClick={(e) => handleSave(e)} width="200px">
+        <Button colorScheme="teal" onClick={(e) => handleSave(e)} width="200px">
           Save
         </Button>
       </ButtonGroup>

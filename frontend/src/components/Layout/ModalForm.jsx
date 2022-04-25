@@ -34,8 +34,15 @@ export default function ModalForm({
     <>
       {modalState === "tasks" && (
         <Modal isCentered isOpen={isOpen} onClose={() => clearEditTask()}>
-          <ModalOverlay />
-          <ModalContent mw="60%">
+          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(5px)" />
+          <ModalContent
+            mw="60%"
+            style={{
+              backgroundColor: "rgba(7, 30, 43,0.9)",
+              color: "white",
+              border: "3px solid white",
+            }}
+          >
             <ModalHeader margin="10px">
               {editTask ? "Edit Task" : "New Task"}
             </ModalHeader>
@@ -54,8 +61,15 @@ export default function ModalForm({
 
       {modalState === "projects" && (
         <Modal isCentered isOpen={isOpen} onClose={() => clearEditProject()}>
-          <ModalOverlay />
-          <ModalContent mw="60%">
+          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(5px)" />
+          <ModalContent
+            mw="60%"
+            style={{
+              backgroundColor: "rgba(7, 30, 43,0.9)",
+              color: "white",
+              border: "3px solid white",
+            }}
+          >
             <ModalHeader margin="10px">
               {editProject ? "Edit Project" : "New Project"}
             </ModalHeader>

@@ -44,19 +44,22 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
   const CATEGORY_ID = 1;
   const DASHBOARD_TAB_STYLE = {
     color: "white",
-    bg: "RGBA(242,171,39,0.4)",
+    // bg: "RGBA(242,171,39,0.4)",
+    bg: "rgb(201, 142, 31,0.8)",
     borderRadius: "10px 10px 0 0",
     borderRight: "2px solid white",
     borderLeft: "2px solid white",
     borderTop: "2px solid white",
     marginBottom: "-1px",
   };
+  const TAB_FONT_STYLE = { fontSize: "1.09em", fontWeight: "500" };
 
   // Onsubmit helper function for add tasks
   function addTask(e, filter = "Not Started") {
     e.preventDefault();
     const newTask = e.target[0].value.trim();
     e.target[0].value = "";
+
     if (newTask) {
       const taskFormValues = {
         project_id: PROJECT_ID,
@@ -163,8 +166,13 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
                 ></Checkbox>
               </CheckboxGroup>
             </Td>
-            <Td onClick={(e) => onEdit(task)} padding="7px">
-              {task.name}
+            <Td
+              onClick={(e) => onEdit(task)}
+              padding="7px"
+              style={{ fontSize: "1.02em", overflow: "hidden" }}
+            >
+              <span style={{ fontWeight: "bolder" }}>{`${task.name}`}</span>
+              {task.description && <span>{` - ${task.description}`}</span>}
             </Td>
           </Tr>
         );
@@ -191,14 +199,14 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
         maxWidth="100%"
         paddingTop="1rem"
       >
-        <Heading size="md" textAlign="left">
+        <Heading fontSize="1.6em" textAlign="left" paddingBottom="12px">
           My Priorities
         </Heading>
         <IconButton
           aria-label="Add task"
           borderRadius="50%"
           border="2px solid white"
-          backgroundColor="RGBA(242,171,39,0.4)"
+          backgroundColor="RGBA(242,171,39,0.8)"
           _hover={{
             bg: "RGBA(242,171,39,0.6)",
           }}
@@ -218,6 +226,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
+            style={TAB_FONT_STYLE}
           >
             All
           </Tab>
@@ -225,6 +234,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
+            style={TAB_FONT_STYLE}
           >
             Not started
           </Tab>
@@ -232,6 +242,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
+            style={TAB_FONT_STYLE}
           >
             In progress
           </Tab>
@@ -239,6 +250,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
+            style={TAB_FONT_STYLE}
           >
             Pending
           </Tab>
@@ -246,12 +258,13 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
+            style={TAB_FONT_STYLE}
           >
             Complete
           </Tab>
         </TabList>
         <TabPanels>
-          {userTasks && tabPanel(tabList(), "all", "all")}
+          {userTasks && tabPanel(tabList(), "Not Started", "all")}
           {userTasks && tabPanel(tabList("Not Started"))}
           {userTasks && tabPanel(tabList("In Progress"), "In Progress")}
           {userTasks && tabPanel(tabList("Pending"), "Pending")}

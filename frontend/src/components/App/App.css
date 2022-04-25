@@ -37,6 +37,17 @@
   }
 }
 
+.chakra-modal__close-btn {
+  background-color: rgb(159, 4, 4);
+}
+
+.chakra-modal__close-btn:hover {
+  background-color: rgb(219, 180, 28);
+}
+
+.css-onkibi > path{
+  fill: white;
+}
 .content {
   height: fit-content;
 }
