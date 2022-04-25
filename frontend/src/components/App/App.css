@@ -45,9 +45,10 @@
   background-color: rgb(219, 180, 28);
 }
 
-.css-onkibi > path{
+.css-onkibi > path {
   fill: white;
 }
+
 .content {
   height: fit-content;
 }
