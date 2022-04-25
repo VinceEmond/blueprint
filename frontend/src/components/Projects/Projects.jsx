@@ -12,6 +12,10 @@ export default function Projects({
   isOpen,
   onOpen,
   onClose,
+  transcript,
+  voiceCommand,
+  isAccepted,
+  setIsAccepted,
 }) {
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
@@ -89,6 +93,10 @@ export default function Projects({
           setEditTask={setEditTask}
           editProject={editProject}
           setEditProject={setEditProject}
+          transcript={transcript}
+          voiceCommand={voiceCommand}
+          isAccepted={isAccepted}
+          setIsAccepted={setIsAccepted}
         />
       </div>
     </Center>
