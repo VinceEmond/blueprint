@@ -20,13 +20,11 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Checkbox,
-  CheckboxGroup,
+  // Checkbox,
+  // CheckboxGroup,
 } from "@chakra-ui/react";
+import CheckBox from "react-animated-checkbox";
 
-////////////////////////////////////////////////////////
-// DELETE THIS ONCE IT'S AVAILABLE IN HELPER FUNCTION //
-////////////////////////////////////////////////////////
 function displayServerError(error) {
   console.log("Server Error:", error);
 }
@@ -34,6 +32,16 @@ function displayServerError(error) {
 export default function Tasks({ setModalState, onOpen, onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);
   const { cookies } = useContext(usersContext);
+  const [checkedState, setCheckedState] = useState({
+    all: [],
+    "Not Started": [],
+    "In Progress": [],
+    Pending: [],
+    Complete: [],
+  });
+  const [checkedStateNotStarted, setCheckedStateNotStarted] = useState([]);
+  const [checkedStateInProgress, setCheckedStateInProgress] = useState([]);
+  const [checkedStateComplete, setCheckedStateComplete] = useState([]);
   const PROJECT_ID = 1;
   const PRIORITY = "Low";
   const CURRENT_USER_ID = Number(cookies.id);
@@ -53,6 +61,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     marginBottom: "-1px",
   };
   const TAB_FONT_STYLE = { fontSize: "1.09em", fontWeight: "500" };
+  const TAB_HEADINGS = ["all", "Not Started", "Pending", "Complete"];
 
   // Onsubmit helper function for add tasks
   function addTask(e, filter = "Not Started") {
@@ -122,34 +131,88 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
     );
   }
 
-  function checkClick(e, id) {
-    const updatedTasks = updateUserTaskStatus(userTasks, id, e.target.checked);
+  // function checkClick(e, id) {
+  //   const updatedTasks = updateUserTaskStatus(userTasks, id, e.target.checked);
 
-    const filteredTasks = updatedTasks.filter((project) => {
-      return project.id === id;
+  //   const filteredTasks = updatedTasks.filter((project) => {
+  //     return project.id === id;
+  //   });
+
+  //   axios
+  //     .put(`/api/tasks/${id}`, filteredTasks[0])
+  //     .then(() => {
+  //       setUserTasks(updatedTasks);
+  //     })
+  //     .catch((error) => displayServerError(error));
+  // }
+
+  function handleCheckedValues() {
+    const tempCheckedValues = {
+      all: [],
+      "Not Started": [],
+      "In Progress": [],
+      Pending: [],
+      Complete: [],
+    };
+    for (const heading of TAB_HEADINGS) {
+      const userSpecificTasks = userTasks.filter(
+        (task) => task.assignee_id === CURRENT_USER_ID
+      );
+      const list = userSpecificTasks
+        .filter(
+          (task) =>
+            task.status === heading ||
+            (heading === "all" && task.status !== "Complete")
+        )
+        .map((task, index) => {
+          const checked = task.status === "Complete" ? true : false;
+          tempCheckedValues[heading].push(checked);
+          return "nothing";
+        });
+    }
+    setCheckedState(tempCheckedValues);
+  }
+
+  useEffect(() => {
+    handleCheckedValues();
+  }, [userTasks]);
+
+  function checkClick(position, filter) {
+    console.log("filter", filter);
+    console.log("checkedState[filter]: ", checkedState[filter]);
+    // if (!checkedState[filter]) {
+    //   return;
+    // }
+    const updatedCheckedState = checkedState[filter].map((item, index) =>
+      index === position ? !item : item
+    );
+    console.log("updatedCheckedState: ", updatedCheckedState);
+    // console.log(position);
+    setCheckedState((prev) => {
+      return { ...prev, [filter]: [...updatedCheckedState] };
     });
-
-    axios
-      .put(`/api/tasks/${id}`, filteredTasks[0])
-      .then(() => {
-        setUserTasks(updatedTasks);
-      })
-      .catch((error) => displayServerError(error));
   }
 
   function tabList(filter = "all") {
     const userSpecificTasks = userTasks.filter(
       (task) => task.assignee_id === CURRENT_USER_ID
     );
-    return userSpecificTasks
+    const buildCheckedState = [];
+
+    const list = userSpecificTasks
       .filter(
         (task) =>
           task.status === filter ||
           (filter === "all" && task.status !== "Complete")
       )
-      .map((task) => {
+      .map((task, index) => {
         const key = `${filter}+${task.id}`;
-        const checkValues = task.status === "Complete" ? [task.id] : [];
+        const checked = task.status === "Complete" ? true : false;
+        // console.log(checked);
+        buildCheckedState.push(checked);
+        // console.log(buildCheckedState);
+
+        // setCheckedState((prev) => [...prev, checked]);
         return (
           <Tr
             key={key}
@@ -159,12 +222,23 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             }}
           >
             <Td width="5px" padding="2px">
-              <CheckboxGroup value={checkValues}>
+              {/* <CheckboxGroup value={checkValues}>
                 <Checkbox
                   value={task.id}
                   onChange={(e) => checkClick(e, task.id)}
                 ></Checkbox>
-              </CheckboxGroup>
+              </CheckboxGroup> */}
+
+              <CheckBox
+                checked={checkedState[filter][index] || false}
+                checkBoxStyle={{
+                  checkedColor: "#34b93d",
+                  size: 100,
+                  unCheckedColor: "#b8b8b8",
+                }}
+                duration={400}
+                onClick={(e) => checkClick(index, filter)}
+              />
             </Td>
             <Td
               onClick={(e) => onEdit(task)}
@@ -177,6 +251,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           </Tr>
         );
       });
+    return list;
   }
 
   return (
@@ -230,7 +305,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           >
             All
           </Tab>
-          <Tab
+          {/* <Tab
             _focus={{ boxShadow: "none" }}
             _active={{ bg: "RGBA(242,171,39,0.5)" }}
             _selected={DASHBOARD_TAB_STYLE}
@@ -261,7 +336,7 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
             style={TAB_FONT_STYLE}
           >
             Complete
-          </Tab>
+          </Tab> */}
         </TabList>
         <TabPanels>
           {userTasks && tabPanel(tabList(), "Not Started", "all")}
