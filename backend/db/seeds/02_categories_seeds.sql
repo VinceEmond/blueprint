@@ -1,13 +1,11 @@
 -- 02_categories_seeds.sql
 
 INSERT INTO categories (name) VALUES
-  ('Finance'),
-  ('Human Resources'),
-  ('Budgeting'),
-  ('Conception'),
-  ('Launch'),
+  ('Planning'),
+  ('Features'),
+  ('Bug Fixes'),
+  ('Styling'),
+  ('Experimental'),
   ('Setup'),
-  ('Implementation'),
-  ('Marketing'),
-  ('Event')
+  ('Refactor')
 ;
