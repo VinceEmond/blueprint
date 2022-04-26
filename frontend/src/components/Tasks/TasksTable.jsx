@@ -102,7 +102,11 @@ export default function TasksTable({ onEdit }) {
             ></Checkbox>
           </CheckboxGroup>
         </Td>
-        <Td onClick={() => onEdit(item)} width style={{ color: "white" }}>
+        <Td
+          onClick={() => onEdit(item)}
+          maxWidth={"290px"}
+          style={{ color: "white" }}
+        >
           {item.name}
         </Td>
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>

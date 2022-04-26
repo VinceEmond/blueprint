@@ -1,7 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { tasksContext } from "../../Providers/TasksProvider";
 import { usersContext } from "../../Providers/UsersProvider";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { updateUserTaskStatus } from "../../helpers/selectors";
 import axios from "axios";
 import moment from "moment";
@@ -24,9 +24,6 @@ import {
   CheckboxGroup,
 } from "@chakra-ui/react";
 
-////////////////////////////////////////////////////////
-// DELETE THIS ONCE IT'S AVAILABLE IN HELPER FUNCTION //
-////////////////////////////////////////////////////////
 function displayServerError(error) {
   console.log("Server Error:", error);
 }

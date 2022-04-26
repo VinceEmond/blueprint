@@ -19,7 +19,7 @@ export default function SocialProfileSimple({ project, onEdit }) {
       ? "red"
       : "grey";
   return (
-    <Center py={6} flex="7" height="285px" width="33%">
+    <Center py={6} flex="15" height="285px" width="33%">
       <Box
         w={"full"}
         bg={"rgba(10,23,30,1)"}
@@ -37,12 +37,18 @@ export default function SocialProfileSimple({ project, onEdit }) {
           <Text fontWeight={600} color={STATUS_TEXT_COLOR} mb={4}>
             {project.status}
           </Text>
-          <Text textAlign={"center"} color={"white"} px={3} noOfLines={3}>
+          <Text textAlign={"center"} color={"white"} px={1} noOfLines={2}>
             {project.description}
           </Text>
         </Box>
 
-        <Stack mt={8} direction={"row"} spacing={4} justifyContent="center">
+        <Stack
+          mt={8}
+          direction={"row"}
+          spacing={2}
+          justifyContent="center"
+          marginTop="16px"
+        >
           <Link
             _hover={{ textDecoration: "none" }}
             width={"fit-content"}
