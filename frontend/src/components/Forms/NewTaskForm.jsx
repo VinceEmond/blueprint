@@ -177,7 +177,7 @@ export default function NewTaskForm(props) {
           </Editable>
           <Select
             value={taskFormValues.status || "Not Started"}
-            width="40%"
+            width="42%"
             display="flex"
             onChange={(e) => handleStatusChange(e)}
           >

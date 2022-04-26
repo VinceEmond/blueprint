@@ -165,7 +165,7 @@ export default function NewProjectForm(props) {
         <Select
           // placeholder="Select Status"
           value={projectFormValues.status || "Not Started"}
-          width="40%"
+          width="42%"
           display="flex"
           onChange={(e) => handleStatusChange(e)}
         >
