@@ -16,11 +16,13 @@ import {
   Tr,
   Th,
   TableContainer,
+  Link,
   Container,
   Center,
   Td,
   Checkbox,
   CheckboxGroup,
+  Button,
 } from "@chakra-ui/react";
 
 export default function ProjectsTable({ onEdit }) {
@@ -35,6 +37,7 @@ export default function ProjectsTable({ onEdit }) {
     "Owner",
     "Due Date",
     "Status",
+    "View Tasks",
   ];
   const projectsHeader = projectsColumn.map((column, index) => {
     return (
@@ -121,6 +124,32 @@ export default function ProjectsTable({ onEdit }) {
         </Td>
         <Td onClick={() => onEdit(item)} style={{ color: "white" }}>
           {item.status}
+        </Td>
+        <Td style={{ color: "white" }}>
+          <Link
+            _hover={{ textDecoration: "none" }}
+            width={"fit-content"}
+            href={`/projects/${item.id}`}
+          >
+            <Button
+              fontSize={"sm"}
+              rounded={"full"}
+              bg={"blue.400"}
+              color={"white"}
+              alignSelf="center"
+              boxShadow={
+                "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+              }
+              _hover={{
+                bg: "blue.500",
+              }}
+              _focus={{
+                bg: "blue.500",
+              }}
+            >
+              View
+            </Button>
+          </Link>
         </Td>
       </Tr>
     );
