@@ -37,43 +37,37 @@ INSERT INTO tasks (project_id, priority, assignee_id, name, description, start_d
   (7, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
   -- PROJECT 8 FORMS
-  (8, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (8, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  (8, 'High', 2, 'Decide on how to display forms', 'Look into different display types like slide, popover, modal or even a separate page.', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
+  (8, 'Medium', 3, 'Implement form modal', 'Look into integrating one of chakras modals to be consistent with other areas of the site.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
   -- PROJECT 9 SPEECH RECOGNITION
-  (9, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (9, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  (9, 'High', 2, 'Research react speech recognition', 'Look into the potential of adding speech recognition to improve user experience', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
+  (9, 'Medium', 3, 'Speech recognition proof of concept', 'Create proof of concept using react speech recognitions sample code.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
   -- PROJECT 10 MESSAGE BOARD
   (10, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
   (10, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
-  -- PROJECT 11 MESSAGE BOARD
-  (11, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (11, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  -- PROJECT 11 PROJECTS CAROUSEL
+  (11, 'Medium', 2, 'Research example carousels', 'Find good examples of carousel designs, discuss with team and choose best.', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
+  (11, 'Medium', 3, 'Design carousel card layout', 'Decide what information is most important for each project, choose best layout for each card', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  (11, 'Medium', 3, 'Design carousel card layout', 'Decide what information is most important for each project, choose best layout for each card.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  (11, 'Medium', 3, 'Create button for adding project', 'Will need a button to trigger new project form modal.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
-  -- PROJECT 12 CAROUSEL
-  (12, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (12, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+  -- PROJECT 12 NAVIGATION
+  (12, 'High', 2, 'Implement react-router-dom for main routes', 'React-router-dom will allow us to manage routes from the frontend.', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
+  (12, 'Medium', 3, 'Design preliminary navbar with all routes', 'Add links to main pages (Dashboard, Tasks, Projects), maybe login feature in future.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
-  -- PROJECT 13 NAVIGATION
+  -- PROJECT 13 LOGIN/REGISER
   (13, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
   (13, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
-  -- PROJECT 14 LOGIN/REGISER
-  (14, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (14, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
 
-  -- PROJECT 15 LOGIN/REGISER
+  -- PROJECT 14 TWILIO
+  (14, 'Low', 2, 'Register for Twilio account', 'Register for twilio account and investigate feasibility of integrating it into blueprint.', '2022-09-14','2025-09-19', '2022-06-06', 'Not Started', 3, true),
+  (14, 'Medium', 3, 'Implement basic twilio test', 'Need to setup a test feature as proof of concept before fully diving in.', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
+
+  -- PROJECT 15 OVERALL SITE STYLING
   (15, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-15','2025-09-19', '2022-06-06', 'Not Started', 3, true),
   (15, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
-
-  -- PROJECT 16 TWILIO
-  (16, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-16','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (16, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
-
-  -- PROJECT 17 Web styling and interactivity
-  (17, 'High', 2, 'Task K Name', 'Task K Description: . Kevin shank bacon, andouille tenderloin', '2022-09-17','2025-09-19', '2022-06-06', 'Not Started', 3, true),
-  (17, 'Medium', 3, 'Task L Name', 'Task L Description: atback. Strip steak beef ribs pancetta short', '2022-10-25','2025-10-27', '2022-06-06', 'Pending', 4, true)
-
 ;
