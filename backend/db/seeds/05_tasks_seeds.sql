@@ -67,6 +67,6 @@ INSERT INTO tasks (project_id, priority, assignee_id, name, description, start_d
   -- -- PROJECT 13 APPLICATION STYLING
   (13, 'High', 2, 'Font and themes', 'Go through fonts and choose different fonts and themes for whole application.', '2022-04-14','2022-04-29', '2022-04-28', 'Not Started', 5, true),
   (13, 'Medium', 1, 'Color Scheme', 'Go through color palettes and decide on color scheme for whole application.', '2022-04-14','2022-04-28', '2022-04-27', 'Pending', 4, true),
-  (13, 'Medium', 3, 'Design carousel', 'Decide what information is most important for each project, choose best layout for each card.', '2022-04-14','2022-04-25', '2022-04-27', 'Complete', 3, true)
-  (13, 'Medium', 3, 'Design carousel card layout', 'Decide what information is most important for each project, choose best layout for each card.', '2022-04-14','2022-04-26', '2022-04-26', 'Complete', 2, true),
+  (13, 'Medium', 3, 'Design carousel', 'Decide what information is most important for each project, choose best layout for each card.', '2022-04-14','2022-04-25', '2022-04-27', 'Complete', 3, true),
+  (13, 'Medium', 3, 'Design carousel card layout', 'Decide what information is most important for each project, choose best layout for each card.', '2022-04-14','2022-04-26', '2022-04-26', 'Complete', 2, true)
 ;
