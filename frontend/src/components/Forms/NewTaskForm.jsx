@@ -177,7 +177,7 @@ export default function NewTaskForm(props) {
           </Editable>
           <Select
             value={taskFormValues.status || "Not Started"}
-            width="40%"
+            width="42%"
             display="flex"
             onChange={(e) => handleStatusChange(e)}
           >
@@ -249,6 +249,18 @@ export default function NewTaskForm(props) {
             name="Low"
             onClick={(e) => handlePriorityChange(e)}
             width="100px"
+            _hover={{
+              background: "rgba(4, 94, 28,1)",
+              color: "white",
+            }}
+            _active={{
+              background: "rgba(4, 94, 28,1)",
+              color: "white",
+            }}
+            _focus={{
+              background: "rgba(4, 94, 28,1)",
+              color: "white",
+            }}
           >
             low
           </Button>
@@ -257,6 +269,18 @@ export default function NewTaskForm(props) {
             name="Medium"
             onClick={(e) => handlePriorityChange(e)}
             width="100px"
+            _hover={{
+              background: "rgb(184, 123, 11)",
+              color: "white",
+            }}
+            _active={{
+              background: "rgb(184, 123, 11)",
+              color: "white",
+            }}
+            _focus={{
+              background: "rgb(184, 123, 11)",
+              color: "white",
+            }}
           >
             medium
           </Button>
@@ -265,6 +289,18 @@ export default function NewTaskForm(props) {
             name="High"
             onClick={(e) => handlePriorityChange(e)}
             width="100px"
+            _hover={{
+              background: "rgb(171, 31, 12)",
+              color: "white",
+            }}
+            _active={{
+              background: "rgb(171, 31, 12)",
+              color: "white",
+            }}
+            _focus={{
+              background: "rgb(171, 31, 12)",
+              color: "white",
+            }}
           >
             high
           </Button>
