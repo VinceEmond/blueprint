@@ -130,15 +130,13 @@ export default function ModalForm({
                 <div style={{ maxWidth: "50px" }}>
                   {isAccepted && <img src={checkmark} />}
                   {!isAccepted && (
-                    <p>
-                      <Spinner
-                        thickness="4px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                        size="xl"
-                      />
-                    </p>
+                    <Spinner
+                      thickness="4px"
+                      speed="0.65s"
+                      emptyColor="gray.200"
+                      color="blue.500"
+                      size="xl"
+                    />
                   )}
                 </div>
               </Center>
