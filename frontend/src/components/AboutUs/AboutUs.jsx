@@ -8,331 +8,331 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  HStack,
+  Link,
 } from "@chakra-ui/react";
+import DylanPirrottaAvatar from "../../assets/images/DylanPirrottaAvatar.jpg";
+import PabloTackAvatar from "../../assets/images/PabloTackAvatar.jpg";
+import VinceEmondAvatar from "../../assets/images/VinceEmondAvatar.jpg";
 
 export default function AboutUs() {
   return (
     <Center py={6}>
-      <Stack
-        borderWidth="1px"
-        borderRadius="lg"
-        w={{ sm: "100%", md: "540px" }}
-        height={{ sm: "476px", md: "20rem" }}
-        direction={{ base: "column", md: "row" }}
-        bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
-        padding={4}
-      >
-        <Flex flex={1} bg="blue.200">
-          <Image
-            objectFit="cover"
-            boxSize="100%"
-            src={
-              "https://images.unsplash.com/photo-1455165814004-1126a7199f9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGVuZ2luZWVyaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            }
-          />
-        </Flex>
+      <HStack spacing="24px">
         <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={1}
-          pt={2}
+          borderWidth="1px"
+          borderRadius="lg"
+          w={{ sm: "100%", md: "540px" }}
+          height={{ sm: "476px", md: "20rem" }}
+          direction={{ base: "column", md: "row" }}
+          bg={useColorModeValue("white", "gray.900")}
+          boxShadow={"2xl"}
+          padding={4}
         >
-          <Heading fontSize={"2xl"} fontFamily={"body"}>
-            Dylan Pirrotta
-          </Heading>
-          <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-            LINKEDIN LINK?
-          </Text>
-          <Text
-            textAlign={"center"}
-            color={useColorModeValue("gray.700", "gray.400")}
-            px={3}
-          >
-            DESCRIPTION
-          </Text>
-          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASHTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASHTAG
-            </Badge>
-          </Stack>
-
-          <Stack
-            width={"100%"}
-            mt={"2rem"}
-            direction={"row"}
-            padding={2}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-          >
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              _focus={{
-                bg: "gray.200",
-              }}
-            >
-              RESUME
-            </Button>
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              bg={"blue.400"}
-              color={"white"}
-              boxShadow={
-                "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+          <Flex flex={1} bg="blue.200">
+            <Image
+              objectFit="cover"
+              boxSize="100%"
+              src={
+                "https://images.unsplash.com/photo-1455165814004-1126a7199f9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGVuZ2luZWVyaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
               }
-              _hover={{
-                bg: "blue.500",
-              }}
-              _focus={{
-                bg: "blue.500",
-              }}
+            />
+          </Flex>
+          <Stack
+            flex={1}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            p={1}
+            pt={2}
+          >
+            <Heading fontSize={"2xl"} fontFamily={"body"}>
+              Dylan Pirrotta
+            </Heading>
+            <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
+              LINKEDIN LINK?
+            </Text>
+            <Text
+              textAlign={"center"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
             >
-              GITHUB
-            </Button>
+              DESCRIPTION
+            </Text>
+            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #HASHTAG
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #HASTAG
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #HASHTAG
+              </Badge>
+            </Stack>
+
+            <Stack
+              width={"100%"}
+              mt={"2rem"}
+              direction={"row"}
+              padding={2}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Button
+                flex={1}
+                fontSize={"sm"}
+                rounded={"full"}
+                _focus={{
+                  bg: "gray.200",
+                }}
+              >
+                RESUME
+              </Button>
+              <Button
+                flex={1}
+                fontSize={"sm"}
+                rounded={"full"}
+                bg={"blue.400"}
+                color={"white"}
+                boxShadow={
+                  "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                }
+                _hover={{
+                  bg: "blue.500",
+                }}
+                _focus={{
+                  bg: "blue.500",
+                }}
+              >
+                GITHUB
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
 
-      <Stack
-        borderWidth="1px"
-        borderRadius="lg"
-        w={{ sm: "100%", md: "540px" }}
-        height={{ sm: "476px", md: "20rem" }}
-        direction={{ base: "column", md: "row" }}
-        bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
-        padding={4}
-      >
-        <Flex flex={1} bg="blue.200">
-          <Image
-            objectFit="cover"
-            boxSize="100%"
-            src={
-              "https://images.unsplash.com/photo-1482433504097-a3cde62f7882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1670&q=80"
-            }
-          />
-        </Flex>
         <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={1}
-          pt={2}
+          borderWidth="1px"
+          borderRadius="lg"
+          w={{ sm: "100%", md: "540px" }}
+          height={{ sm: "476px", md: "20rem" }}
+          direction={{ base: "column", md: "row" }}
+          bg={useColorModeValue("white", "gray.900")}
+          boxShadow={"2xl"}
+          padding={4}
         >
-          <Heading fontSize={"2xl"} fontFamily={"body"}>
-            Vince Emond
-          </Heading>
-          <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-            LINKEDIN LINK?
-          </Text>
-          <Text
-            textAlign={"center"}
-            color={useColorModeValue("gray.700", "gray.400")}
-            px={3}
-          >
-            DESCRIPTION
-          </Text>
-          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASHTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #music
-            </Badge>
-          </Stack>
-
-          <Stack
-            width={"100%"}
-            mt={"2rem"}
-            direction={"row"}
-            padding={2}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-          >
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              _focus={{
-                bg: "gray.200",
-              }}
-            >
-              RESUME
-            </Button>
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              bg={"blue.400"}
-              color={"white"}
-              boxShadow={
-                "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+          <Flex flex={1} bg="blue.200">
+            <Image
+              objectFit="cover"
+              boxSize="100%"
+              src={
+                "https://images.unsplash.com/photo-1482433504097-a3cde62f7882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1670&q=80"
               }
-              _hover={{
-                bg: "blue.500",
-              }}
-              _focus={{
-                bg: "blue.500",
-              }}
+            />
+          </Flex>
+          <Stack
+            flex={1}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            p={1}
+            pt={2}
+          >
+            <Heading fontSize={"2xl"} fontFamily={"body"}>
+              Vince Emond
+            </Heading>
+            <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
+              LINKEDIN LINK?
+            </Text>
+            <Text
+              textAlign={"center"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
             >
-              GITHUB
-            </Button>
+              DESCRIPTION
+            </Text>
+            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #HASHTAG
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #HASTAG
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #music
+              </Badge>
+            </Stack>
+
+            <Stack
+              width={"100%"}
+              mt={"2rem"}
+              direction={"row"}
+              padding={2}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Button
+                flex={1}
+                fontSize={"sm"}
+                rounded={"full"}
+                _focus={{
+                  bg: "gray.200",
+                }}
+              >
+                RESUME
+              </Button>
+
+              <Button
+                flex={1}
+                fontSize={"sm"}
+                rounded={"full"}
+                bg={"blue.400"}
+                color={"white"}
+                boxShadow={
+                  "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                }
+                _hover={{
+                  bg: "blue.500",
+                }}
+                _focus={{
+                  bg: "blue.500",
+                }}
+              >
+                GITHUB
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
 
-      <Stack
-        borderWidth="1px"
-        borderRadius="lg"
-        w={{ sm: "100%", md: "540px" }}
-        height={{ sm: "476px", md: "20rem" }}
-        direction={{ base: "column", md: "row" }}
-        bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
-        padding={4}
-      >
-        <Flex flex={1} bg="blue.200">
-          <Image
-            objectFit="cover"
-            boxSize="100%"
-            src={
-              "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHZpZGVvJTIwZ2FtZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-            }
-          />
-        </Flex>
         <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={1}
-          pt={2}
+          borderWidth="1px"
+          borderRadius="lg"
+          w={{ sm: "100%", md: "540px" }}
+          height={{ sm: "476px", md: "20rem" }}
+          direction={{ base: "column", md: "row" }}
+          bg={useColorModeValue("white", "gray.900")}
+          boxShadow={"2xl"}
+          padding={4}
         >
-          <Heading fontSize={"2xl"} fontFamily={"body"}>
-            Pablo Tack
-          </Heading>
-          <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-            LINKEDIN LINK?
-          </Text>
-          <Text
-            textAlign={"center"}
-            color={useColorModeValue("gray.700", "gray.400")}
-            px={3}
-          >
-            DESCRIPTION
-          </Text>
-          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASHTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #HASTAG
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue("gray.50", "gray.800")}
-              fontWeight={"400"}
-            >
-              #music
-            </Badge>
-          </Stack>
-
+          <Flex flex={1} bg="blue.200">
+            <Image objectFit="cover" boxSize="100%" src={PabloTackAvatar} />
+          </Flex>
           <Stack
-            width={"100%"}
-            mt={"2rem"}
-            direction={"row"}
-            padding={2}
-            justifyContent={"space-between"}
-            alignItems={"center"}
+            flex={1}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            p={1}
+            pt={2}
           >
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              _focus={{
-                bg: "gray.200",
-              }}
+            <Heading fontSize={"2xl"} fontFamily={"body"}>
+              Pablo Tack
+            </Heading>
+            <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}></Text>
+            <Text
+              textAlign={"center"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
             >
-              RESUME
-            </Button>
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              bg={"blue.400"}
-              color={"white"}
-              boxShadow={
-                "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-              }
-              _hover={{
-                bg: "blue.500",
-              }}
-              _focus={{
-                bg: "blue.500",
-              }}
+              Previously in biotech, transitioning into tech to drive impactful
+              change while building efficient projects with real life use cases.
+            </Text>
+            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #webdev
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue("gray.50", "gray.800")}
+                fontWeight={"400"}
+              >
+                #softwareengineering
+              </Badge>
+            </Stack>
+
+            <Stack
+              width={"100%"}
+              mt={"2rem"}
+              direction={"row"}
+              padding={2}
+              // justifyContent={"space-between"}
+              alignItems={"center"}
             >
-              GITHUB
-            </Button>
+              <Link
+                href="https://resume.creddle.io/resume/ax7ezvyocao"
+                isExternal
+              >
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  _focus={{
+                    bg: "gray.200",
+                  }}
+                >
+                  RESUME
+                </Button>
+              </Link>
+              <Link href="https://github.com/tackpablo" isExternal>
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  bg={"blue.400"}
+                  color={"white"}
+                  boxShadow={
+                    "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  }
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  _focus={{
+                    bg: "blue.500",
+                  }}
+                >
+                  GITHUB
+                </Button>
+              </Link>
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
+      </HStack>
     </Center>
   );
 }
