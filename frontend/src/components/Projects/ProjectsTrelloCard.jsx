@@ -93,23 +93,6 @@ export default function ProjectsTrelloCard({ item, index, onEdit }) {
                     <p>{item.name}</p>
                   </div>
                   <div style={{ display: "flex" }}>
-                    {
-                      <span className="priority" style={{ marginTop: "12px" }}>
-                        {item.priority === "High" ? (
-                          <img
-                            src={HighPriorityIcon}
-                            alt="High Priority Icon"
-                          />
-                        ) : item.priority === "Medium" ? (
-                          <img
-                            src={MediumPriorityIcon}
-                            alt="Medium Priority Icon"
-                          />
-                        ) : (
-                          <img src={LowPriorityIcon} alt="Low Priority Icon" />
-                        )}
-                      </span>
-                    }
                     <Menu>
                       <MenuButton bg="white" as={Button}>
                         {<EditIcon />}
