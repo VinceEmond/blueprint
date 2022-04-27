@@ -215,7 +215,7 @@ export default function AboutUs() {
                 LinkedIn
               </Link>
             </Text>
-            <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}></Text>
+
             <Text
               textAlign={"center"}
               color={useColorModeValue("gray.700", "gray.400")}
