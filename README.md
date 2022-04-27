@@ -3,7 +3,6 @@
 ## Table Of Contents
 
 - [About](#about)
-  - [Major Learnings](#major-learnings)
   - [Notable Features](#notable-features)
 - [Visuals](#visuals)
   - [Screenshots](#screenshots)
@@ -13,9 +12,9 @@
 - [Purpose](#purpose)
 
 
-## Summary
+## About
 
-A streamlined project management app that strips away excess functionalities and focuses on the core necessities of project management.
+A streamlined project management app that strips away excess functionalities and focuses on simplictiy of user experience. This application was created as a final project for Lighthouse Labs' Web Development Bootcamp by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
 
 ## Features
 
@@ -26,13 +25,32 @@ A streamlined project management app that strips away excess functionalities and
 - Multiple views for diplaying Task and Projects
   - Trello Board View
   - List / Detail View
-- Fast editing of items via one click
+- Edit task or projects details easily by clicking on them
 - Message board to communicate with members of your team
   - Ability to opt-in to text notifications
 - Minimalistic dark theme design
 
 
 ## Screenshots
+
+### Home Page
+![Home Page](./screenshots/Home-Page.png)
+
+### Dashboard
+![Dashboard](./screenshots/Dashboard.png)
+
+### Project View
+![Project View](./screenshots/Project-View.png)
+
+### Trello Board View
+![Trello Board View](./screenshots/Trello-Board-View.png)
+
+### New Task Form
+![New Task Form](./screenshots/New-Task-Form.png)
+
+
+## GIFs
+
 
 ## ERD Diagram:
 
@@ -46,16 +64,103 @@ A streamlined project management app that strips away excess functionalities and
 
 - [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
 
-## Getting Started
+# Getting Started
 
-## Dependencies
+## **Client**
 
-## Frameworks and Libraries
+```sh
+cd frontend
+```
 
-- Express
-- React
-- Chakra UI
+### Setup
 
-## Purpose
+Install dependencies with
 
-This application was created as a final project for **Lighthouse Labs' Web Development Bootcamp** by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
+```sh
+npm install
+```
+
+### Running Webpack Development Server
+
+```sh
+npm run start
+```
+
+Server should be hosted on `http://localhost:3000/`
+
+## Client Dependencies
+
+- @chakra-ui/icons: ^1.1.7
+- @chakra-ui/reac": 2.0.0-next.0
+- @coreui/coreui: ^4.1.3
+- @coreui/react: ^4.1.2
+- @emotion/react: ^11.9.0
+- @emotion/styled: ^11.8.1
+- @testing-library/jest-do": ^5.16.4
+- @testing-library/react: ^13.0.1
+- @testing-library/user-event: ^13.5.0
+- axios": ^0.26.1
+- bootstrap: ^5.1.3
+- chakra-ui: ^0.3.9
+- framer-motion: ^6.3.0
+- moment: ^2.29.2
+- natural-drag-animation-rbdnd: ^2.1.0
+- next: ^12.1.5
+- react: ^18.0.0
+- react-animated-checkbox: ^0.1.4
+- react-beautiful-dnd: ^13.1.0
+- react-cookie: ^4.1.1
+- react-dom: ^18.0.0
+- react-router-dom: ^6.3.0
+- react-scripts: 5.0.1
+- react-speech-recognition: ^3.9.0
+- web-vitals: ^2.1.4
+
+---
+
+## **Server**
+
+```sh
+cd server
+```
+
+### API Setup
+
+Install dependencies with
+
+```sh
+npm install
+```
+
+Copy the .env.example into a .env file and update all fields accordingly
+
+```env
+DB_HOST=
+DB_USER=
+DB_PASS=
+DB_NAME=
+DB_PORT=
+
+API_SID=
+TOKEN=[Twilio Token]
+```
+
+### Database Reset
+
+Resets, and seeds the database for development/testing.
+
+```sh
+npm run db:reset
+```
+
+## Server Dependencies
+
+- body-parser: ^1.20.0
+- chalk: ^2.4.2
+- dotenv: ^2.0.0
+- ejs: ^2.6.2
+- express: ^4.17.1
+- morgan: ^1.9.1
+- pg: ^8.5.0
+- sass: ^1.35.1
+- twilio: ^3.76.1
