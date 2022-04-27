@@ -1,46 +1,61 @@
-# LHL Bootcamp Final Project
+<h1 align="center">blueprint.</h1>
 
-### Project Title:
+## Table Of Contents
 
-- blueprint
+- [About](#about)
+  - [Major Learnings](#major-learnings)
+  - [Notable Features](#notable-features)
+- [Visuals](#visuals)
+  - [Screenshots](#screenshots)
+  - [GIFs](#gifs)
+- [Getting Started](#getting-started)
+    - [Dependencies](#dependencies)
+- [Purpose](#purpose)
 
-### Project description:
 
-- A streamlined project management app that strips away excess functionalities and focuses on the core necessities of project management.
+## Summary
 
-### Features
+A streamlined project management app that strips away excess functionalities and focuses on the core necessities of project management.
 
+## Features
+
+- Ability to quickly add tasks on dashboard page
+- Speech recognition (Digital Assistant) available on all pages
+  - Navigate to new page
+  - Create new taks or project
+- Multiple views for diplaying Task and Projects
+  - Trello Board View
+  - List / Detail View
+- Fast editing of items via one click
+- Message board to communicate with members of your team
+  - Ability to opt-in to text notifications
 - Minimalistic dark theme design
-- Speech recognition to allow for site navigation
-  - Also allows forms to populate for project and task additions
-- Quick add tasks on dashboard
-- View projects and tasks in list and trello board format
-- Edit projects and tasks easily by clicking on them
-- Message board to communicate with registered members
-  - Receive text notifications for new posts
 
-### Target Audience:
 
-- Individuals and startups with medium sized teams.
+## Screenshots
 
-### Team Members:
-
-- [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), [Pablo Tack](https://github.com/tackpablo)
-
-### Screenshots
-
-### ERD Diagram:
+## ERD Diagram:
 
 - [ERD](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/ERD/ERD_Final_Project_v06.png?raw=true)
 
-### User Stories & Routes:
+## User Stories & Routes:
 
 - [User Stories & Routes](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/user%20stories.md)
 
-### Wireframe:
+## Wireframe:
 
 - [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
 
-### Getting Started
+## Getting Started
 
-### Dependencies
+## Dependencies
+
+## Frameworks and Libraries
+
+- Express
+- React
+- Chakra UI
+
+## Purpose
+
+This application was created as a final project for **Lighthouse Labs' Web Development Bootcamp** by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
