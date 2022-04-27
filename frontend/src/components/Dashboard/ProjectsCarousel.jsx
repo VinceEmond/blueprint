@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { CCarousel } from "@coreui/react";
 import { CCarouselItem } from "@coreui/react";
 import { Flex, Spacer } from "@chakra-ui/react";
-import SocialProfileSimple from "./ProjectCard";
+import ProjectCard from "./ProjectCard";
 import { projectsContext } from "../../Providers/ProjectsProvider";
 import { usersContext } from "../../Providers/UsersProvider";
 import { tasksContext } from "../../Providers/TasksProvider";
@@ -32,11 +32,7 @@ export default function ProjectsCarousel({ onEdit }) {
 
     const cards = userSpecificProjects.map((project) => {
       return (
-        <SocialProfileSimple
-          key={`p${project.id}`}
-          project={project}
-          onEdit={onEdit}
-        />
+        <ProjectCard key={`p${project.id}`} project={project} onEdit={onEdit} />
       );
     });
     setProjectBoxes(cards);

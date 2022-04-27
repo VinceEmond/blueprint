@@ -14,7 +14,7 @@ import {
 import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 import BlueprintLogo from "../../assets/images/blueprint-logo.png";
 
-export default function CallToActionWithAnnotation() {
+export default function LandingPage() {
   return (
     <div
     // style={{
@@ -56,7 +56,6 @@ export default function CallToActionWithAnnotation() {
             </Box>
           </Center>
           <Heading
-            marg
             fontWeight={600}
             fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
