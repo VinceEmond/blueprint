@@ -51,9 +51,8 @@ export default function AboutUs() {
               color={useColorModeValue("gray.700", "gray.400")}
               px={3}
             >
-              Full-Stack Developer with a background in mechanical engineering.
-              {/* I am passionate about developing apps that entertain users while
-              helping them practice their skills. */}
+              Full-Stack Developer with a background in mechanical engineering
+              who enjoys solving complex problems with elegant solutions.
             </Text>
             <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
               <Badge
@@ -70,15 +69,7 @@ export default function AboutUs() {
                 bg={useColorModeValue("gray.50", "gray.800")}
                 fontWeight={"400"}
               >
-                #HASHISH
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #HASHTAG
+                #NEVERSTOPLEARNING
               </Badge>
             </Stack>
 
@@ -106,6 +97,11 @@ export default function AboutUs() {
                   RESUME
                 </Button>
               </Link>
+              <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
+                <Link href="https://www.linkedin.com/in/dpirrott">
+                  LinkedIn
+                </Link>
+              </Text>
               <Link href={"https://github.com/dpirrott"}>
                 <Button
                   flex={1}
@@ -199,35 +195,38 @@ export default function AboutUs() {
               justifyContent={"space-between"}
               alignItems={"center"}
             >
-              <Button
-                flex={1}
-                fontSize={"sm"}
-                rounded={"full"}
-                _focus={{
-                  bg: "gray.200",
-                }}
-              >
-                RESUME
-              </Button>
-
-              <Button
-                flex={1}
-                fontSize={"sm"}
-                rounded={"full"}
-                bg={"blue.400"}
-                color={"white"}
-                boxShadow={
-                  "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                }
-                _hover={{
-                  bg: "blue.500",
-                }}
-                _focus={{
-                  bg: "blue.500",
-                }}
-              >
-                GITHUB
-              </Button>
+              <Link href="https://www.canva.com/design/DAE9Fw6vb_A/SvuQStWGfmRczWUx5gHOkg/view?utm_content=DAE9Fw6vb_A">
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  _focus={{
+                    bg: "gray.200",
+                  }}
+                >
+                  RESUME
+                </Button>
+              </Link>
+              <Link href={"https://github.com/vinceemond/"}>
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  bg={"blue.400"}
+                  color={"white"}
+                  boxShadow={
+                    "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  }
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  _focus={{
+                    bg: "blue.500",
+                  }}
+                >
+                  GITHUB
+                </Button>
+              </Link>
             </Stack>
           </Stack>
         </Stack>
