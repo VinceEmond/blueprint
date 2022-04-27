@@ -3,7 +3,6 @@ import moment from "moment";
 import axios from "axios";
 import Message from "./Message";
 import "../App/App.css";
-import Background from "../../assets/images/AdobeStock_415876411-no-text-70-highs.jpg";
 import { displayServerError } from "../../helpers/main_helpers";
 import { usersContext } from "../../Providers/UsersProvider";
 import {
@@ -166,10 +165,11 @@ export default function MessageBoard() {
 
   function sendTextMessage() {
     const subscribedUsers = [];
-    const currentUserID = Number(cookies.id);
+    // const currentUserID = Number(cookies.id);
 
     allUsers.forEach((user) => {
-      if (user.text_alert && user.id !== currentUserID) {
+      if (user.text_alert) {
+        // ====================================Put condition to check current user ID-> && user.id !== currentUserID
         subscribedUsers.push(user.id);
       }
     });
