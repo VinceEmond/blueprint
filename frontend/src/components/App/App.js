@@ -42,7 +42,7 @@ function App() {
       command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
       callback: (speech) => {
         const currentURL = window.location.pathname;
-        console.log(currentURL);
+        // console.log(currentURL);
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }

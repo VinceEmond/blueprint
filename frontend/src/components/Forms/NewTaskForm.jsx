@@ -24,6 +24,7 @@ export default function NewTaskForm(props) {
   const NEW_TASK_MODIFIED_DATE = moment(new Date()).format("YYYY-MM-DD");
   const NEW_TASK_CATEGORY_ID = 1;
   const NEW_TASK_DESCRIPTION = "";
+  const NEW_TASK_STATUS = "Not Started";
   const { cookies } = useContext(usersContext);
 
   const defaultTaskObj = {
@@ -32,6 +33,7 @@ export default function NewTaskForm(props) {
     category_id: NEW_TASK_CATEGORY_ID,
     description: NEW_TASK_DESCRIPTION,
     assignee_id: cookies.id,
+    status: NEW_TASK_STATUS,
   };
 
   const [taskFormValues, setTaskFormValues] = useState(defaultTaskObj);

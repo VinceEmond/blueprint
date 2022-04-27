@@ -180,10 +180,10 @@ export default function MessageBoard() {
         recipients: subscribedUsers,
       };
 
-      // axios
-      //   .post("/api/notification/", queryParams)
-      //   .then(() => {})
-      //   .catch((error) => displayServerError(error));
+      axios
+        .post("/api/notification/", queryParams)
+        .then(() => {})
+        .catch((error) => displayServerError(error));
     }
   }
 
