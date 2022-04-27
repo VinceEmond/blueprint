@@ -54,31 +54,13 @@ export default function AboutUs() {
               Full-Stack Developer with a background in mechanical engineering
               who enjoys solving complex problems with elegant solutions.
             </Text>
-            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #FULL-STACK
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #NEVERSTOPLEARNING
-              </Badge>
-            </Stack>
 
             <Stack
               width={"100%"}
               mt={"2rem"}
               direction={"row"}
               padding={2}
-              justifyContent={"space-between"}
+              justifyContent={"flex-start"}
               alignItems={"center"}
             >
               <Link
@@ -159,39 +141,13 @@ export default function AboutUs() {
               Transitioning from 10 years in photography and video production,
               Vince is a mix of pure logic blended with a creative flair.
             </Text>
-            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #HASHTAG
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #HASTAG
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #music
-              </Badge>
-            </Stack>
 
             <Stack
               width={"100%"}
               mt={"2rem"}
               direction={"row"}
               padding={2}
-              justifyContent={"space-between"}
+              justifyContent={"flex-start"}
               alignItems={"center"}
             >
               <Link href="https://www.canva.com/design/DAE9Fw6vb_A/SvuQStWGfmRczWUx5gHOkg/view?utm_content=DAE9Fw6vb_A">
@@ -254,6 +210,11 @@ export default function AboutUs() {
             <Heading fontSize={"2xl"} fontFamily={"body"}>
               Pablo Tack
             </Heading>
+            <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
+              <Link href="https://www.linkedin.com/in/tackpablo/">
+                LinkedIn
+              </Link>
+            </Text>
             <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}></Text>
             <Text
               textAlign={"center"}
@@ -263,24 +224,6 @@ export default function AboutUs() {
               Previously in biotech, transitioning into tech to drive impactful
               change while building efficient projects with real life use cases.
             </Text>
-            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #webdev
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={useColorModeValue("gray.50", "gray.800")}
-                fontWeight={"400"}
-              >
-                #softwareengineering
-              </Badge>
-            </Stack>
 
             <Stack
               width={"100%"}
