@@ -97,11 +97,7 @@ export default function AboutUs() {
                   RESUME
                 </Button>
               </Link>
-              <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-                <Link href="https://www.linkedin.com/in/dpirrott">
-                  LinkedIn
-                </Link>
-              </Text>
+
               <Link href={"https://github.com/dpirrott"}>
                 <Button
                   flex={1}
@@ -151,14 +147,17 @@ export default function AboutUs() {
               Vince Emond
             </Heading>
             <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-              LINKEDIN LINK?
+              <Link href="https://www.linkedin.com/in/vinceemond/">
+                LinkedIn
+              </Link>
             </Text>
             <Text
               textAlign={"center"}
               color={useColorModeValue("gray.700", "gray.400")}
               px={3}
             >
-              DESCRIPTION
+              Transitioning from 10 years in photography and video production,
+              Vince is a mix of pure logic blended with a creative flair.
             </Text>
             <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
               <Badge
