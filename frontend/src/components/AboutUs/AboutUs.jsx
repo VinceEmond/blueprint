@@ -30,13 +30,7 @@ export default function AboutUs() {
           padding={4}
         >
           <Flex flex={1} bg="blue.200">
-            <Image
-              objectFit="cover"
-              boxSize="100%"
-              src={
-                "https://images.unsplash.com/photo-1455165814004-1126a7199f9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGVuZ2luZWVyaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              }
-            />
+            <Image objectFit="cover" boxSize="100%" src={DylanPirrottaAvatar} />
           </Flex>
           <Stack
             flex={1}
@@ -50,14 +44,16 @@ export default function AboutUs() {
               Dylan Pirrotta
             </Heading>
             <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-              LINKEDIN LINK?
+              <Link href="https://www.linkedin.com/in/dpirrott">LinkedIn</Link>
             </Text>
             <Text
               textAlign={"center"}
               color={useColorModeValue("gray.700", "gray.400")}
               px={3}
             >
-              DESCRIPTION
+              Full-Stack Developer with a background in mechanical engineering.
+              {/* I am passionate about developing apps that entertain users while
+              helping them practice their skills. */}
             </Text>
             <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
               <Badge
@@ -66,7 +62,7 @@ export default function AboutUs() {
                 bg={useColorModeValue("gray.50", "gray.800")}
                 fontWeight={"400"}
               >
-                #HASHTAG
+                #FULL-STACK
               </Badge>
               <Badge
                 px={2}
@@ -74,7 +70,7 @@ export default function AboutUs() {
                 bg={useColorModeValue("gray.50", "gray.800")}
                 fontWeight={"400"}
               >
-                #HASTAG
+                #HASHISH
               </Badge>
               <Badge
                 px={2}
@@ -94,34 +90,42 @@ export default function AboutUs() {
               justifyContent={"space-between"}
               alignItems={"center"}
             >
-              <Button
-                flex={1}
-                fontSize={"sm"}
-                rounded={"full"}
-                _focus={{
-                  bg: "gray.200",
-                }}
-              >
-                RESUME
-              </Button>
-              <Button
-                flex={1}
-                fontSize={"sm"}
-                rounded={"full"}
-                bg={"blue.400"}
-                color={"white"}
-                boxShadow={
-                  "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+              <Link
+                href={
+                  "https://www.canva.com/design/DAE90jr1eZA/W6iuDchETcg_sZd0qmEcmw/view?utm_content=DAE90jr1eZA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
                 }
-                _hover={{
-                  bg: "blue.500",
-                }}
-                _focus={{
-                  bg: "blue.500",
-                }}
               >
-                GITHUB
-              </Button>
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  _focus={{
+                    bg: "gray.200",
+                  }}
+                >
+                  RESUME
+                </Button>
+              </Link>
+              <Link href={"https://github.com/dpirrott"}>
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  bg={"blue.400"}
+                  color={"white"}
+                  boxShadow={
+                    "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  }
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  _focus={{
+                    bg: "blue.500",
+                  }}
+                >
+                  GITHUB
+                </Button>
+              </Link>
             </Stack>
           </Stack>
         </Stack>
@@ -137,13 +141,7 @@ export default function AboutUs() {
           padding={4}
         >
           <Flex flex={1} bg="blue.200">
-            <Image
-              objectFit="cover"
-              boxSize="100%"
-              src={
-                "https://images.unsplash.com/photo-1482433504097-a3cde62f7882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1670&q=80"
-              }
-            />
+            <Image objectFit="cover" boxSize="100%" src={VinceEmondAvatar} />
           </Flex>
           <Stack
             flex={1}
