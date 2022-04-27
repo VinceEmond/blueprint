@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { updateUserTaskStatus } from "../../helpers/selectors";
 import axios from "axios";
 import moment from "moment";
+import { displayServerError } from "../../helpers/main_helpers";
 import {
   Container,
   Heading,
@@ -23,10 +24,6 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-
-function displayServerError(error) {
-  console.log("Server Error:", error);
-}
 
 export default function Tasks({ setModalState, onOpen, onEdit }) {
   const { userTasks, setUserTasks } = useContext(tasksContext);

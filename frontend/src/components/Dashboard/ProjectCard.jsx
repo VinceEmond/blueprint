@@ -9,7 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-export default function SocialProfileSimple({ project, onEdit }) {
+export default function ProjectCard({ project, onEdit }) {
   const STATUS_TEXT_COLOR =
     project.status === "Complete"
       ? "green"
