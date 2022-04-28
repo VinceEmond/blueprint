@@ -109,18 +109,12 @@ Server should be hosted on `http://localhost:3000/`
 - @coreui/react: ^4.1.2
 - @emotion/react: ^11.9.0
 - @emotion/styled: ^11.8.1
-- @testing-library/jest-do": ^5.16.4
-- @testing-library/react: ^13.0.1
-- @testing-library/user-event: ^13.5.0
 - axios": ^0.26.1
 - bootstrap: ^5.1.3
-- chakra-ui: ^0.3.9
-- framer-motion: ^6.3.0
 - moment: ^2.29.2
 - natural-drag-animation-rbdnd: ^2.1.0
 - next: ^12.1.5
 - react: ^18.0.0
-- react-animated-checkbox: ^0.1.4
 - react-beautiful-dnd: ^13.1.0
 - react-cookie: ^4.1.1
 - react-dom: ^18.0.0
@@ -166,11 +160,9 @@ npm run db:reset
 - body-parser: ^1.20.0
 - chalk: ^2.4.2
 - dotenv: ^2.0.0
-- ejs: ^2.6.2
 - express: ^4.17.1
 - morgan: ^1.9.1
 - pg: ^8.5.0
-- sass: ^1.35.1
 - twilio: ^3.76.1
 
 
