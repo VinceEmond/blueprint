@@ -19,14 +19,13 @@
   - [ERD Diagram](#erd-diagram)
   - [User Stories & Routes](#user-stories--routes)
   - [Wireframe](#wireframe)
-- [About](#about) 
-    - [Frameworks & Libraries](#frameworks-and-libraries)
-    - [Purpose](#purpose)
-
+- [About](#about)
+  - [Frameworks & Libraries](#frameworks-and-libraries)
+  - [Purpose](#purpose)
 
 # Summary
 
-A streamlined project management app that strips away excess functionalities and focuses on simplictiy of user experience. This application was built using React, Express, Node, and Chakra UI. 
+A streamlined project management app that strips away excess functionalities and focuses on simplictiy of user experience. This application was built using React, Express, Node, and Chakra UI.
 
 ## Features
 
@@ -34,6 +33,8 @@ A streamlined project management app that strips away excess functionalities and
 - Speech recognition (Digital Assistant) available on all pages
   - Navigate to new page
   - Create new tasks or projects
+  - To access this feature, use " Shift + ` " to start speech recognition
+    - To stop using speech recognition, use " \ "
 - Multiple views for diplaying Task and Projects
   - Trello Board View
   - List / Detail View
@@ -42,44 +43,49 @@ A streamlined project management app that strips away excess functionalities and
   - Ability to opt-in to text notifications
 - Minimalistic dark theme design
 
-
 ## Screenshots
 
 ### Home Page
+
 ![Home Page](./screenshots/Home-Page.png)
 
 ### Dashboard
+
 ![Dashboard](./screenshots/Dashboard.png)
 
 ### Project View
+
 ![Project View](./screenshots/Project-View.png)
 
 ### Trello Board View
+
 ![Trello Board View](./screenshots/Trello-Board-View.png)
 
 ### New Task Form
-![New Task Form](./screenshots/New-Task-Form.png)
 
+![New Task Form](./screenshots/New-Task-Form.png)
 
 ## GIFs
 
 ### Dashboard
+
 ![Dashboard](./screenshots/GIFs/Dashboard.gif)
 
 ### Voice Command - Navigate to Dashboard
+
 ![Voice Command - Navigate to Dashboard](./screenshots/GIFs/Voice-Command-Dashboard.gif)
 
-
 ### Message Board
+
 ![Message Board](./screenshots/GIFs/Message-Board.gif)
 
 ### Trello Board View
+
 ![Trello Board View](./screenshots/GIFs/Trello-Board.gif)
 
 ### Voice Command - Create New Project
+
 ![Voice Command - Create New Project](./screenshots/GIFs/Voice-Command-New-Project.gif)
-
-
 
 # Getting Started
 
@@ -130,11 +136,13 @@ Server should be hosted on `http://localhost:3000/`
 ---
 
 ## **Server**
+
 ```sh
 cd server
 ```
 
 ### API Setup
+
 Install dependencies with
 
 ```sh
@@ -155,12 +163,15 @@ TOKEN=[Twilio Token]
 ```
 
 ### Database Reset
+
 Resets, and seeds the database for development/testing.
+
 ```sh
 npm run db:reset
 ```
 
 ## Server Dependencies
+
 - body-parser: ^1.20.0
 - chalk: ^2.4.2
 - dotenv: ^2.0.0
@@ -169,26 +180,29 @@ npm run db:reset
 - pg: ^8.5.0
 - twilio: ^3.76.1
 
-
 # Planning
 
 ### ERD Diagram:
+
 - [ERD](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/ERD/ERD_Final_Project_v06.png?raw=true)
 
 ### User Stories & Routes:
+
 - [User Stories & Routes](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/user%20stories.md)
 
 ### Wireframe:
-- [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
 
+- [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
 
 # About
 
 ## Frameworks and Libraries
+
 - React
 - Express
 - PostgreSQL
 - Chakra UI
 
 ## Purpose
+
 This application was created as a final project for Lighthouse Labs' Web Development Bootcamp by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
