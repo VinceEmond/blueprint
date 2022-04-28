@@ -112,23 +112,8 @@ export default function ModalForm({
             <ModalCloseButton />
             <ModalBody>
               <Center>
-                {/* <p>
-                <strong>Open Page </strong>"Open *Home, *Dashboard, *Tasks,
-                *Projects"
-              </p>
-              <br />
-              <p>
-                <strong>Add Project/Task </strong>"Add *Task/Tasks,
-                *Project/Projects"
-              </p>
-
-              <br />
-              <p>Press 1 to give commands, 2 to stop giving commands</p>
-              <br />
-              <br /> */}
-
                 <div style={{ maxWidth: "50px" }}>
-                  {isAccepted && <img src={checkmark} />}
+                  {isAccepted && <img src={checkmark} alt="Checkmark" />}
                   {!isAccepted && (
                     <Spinner
                       thickness="4px"

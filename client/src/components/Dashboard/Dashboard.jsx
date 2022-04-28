@@ -112,13 +112,11 @@ export default function Dashboard({
       </Center>
 
       <Container width="60%" maxWidth="100%">
-        {/* Import dashboard tasks */}
         <Tasks
           setModalState={setModalState}
           onOpen={onOpen}
           onEdit={triggerEditTask}
         />
-        {/* Import dashboard projects */}
         <Projects
           setModalState={setModalState}
           onOpen={onOpen}

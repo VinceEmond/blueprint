@@ -163,7 +163,6 @@ export default function NewProjectForm(props) {
         </Editable>
 
         <Select
-          // placeholder="Select Status"
           value={projectFormValues.status || "Not Started"}
           width="42%"
           display="flex"

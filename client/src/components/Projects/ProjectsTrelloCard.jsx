@@ -2,11 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "@emotion/styled";
 import NaturalDragAnimation from "natural-drag-animation-rbdnd";
-import HighPriorityIcon from "../../assets/icons/HighPriorityIcon.png";
-import MediumPriorityIcon from "../../assets/icons/MediumPriorityIcon.png";
-import LowPriorityIcon from "../../assets/icons/LowPriorityIcon.png";
 import { EditIcon } from "@chakra-ui/icons";
-import { Center } from "@chakra-ui/react";
 import {
   Menu,
   MenuButton,

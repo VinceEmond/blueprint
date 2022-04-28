@@ -7,7 +7,7 @@ import ViewSelect from "../Layout/ViewSelect";
 import ProjectTable from "./ProjectTable";
 import ProjectTrello from "./ProjectTrello";
 import ModalForm from "../Layout/ModalForm";
-import { Heading, useDisclosure, Center } from "@chakra-ui/react";
+import { Heading, Center } from "@chakra-ui/react";
 
 export default function Project({
   modalState,
@@ -20,10 +20,8 @@ export default function Project({
   isAccepted,
   setIsAccepted,
 }) {
-  // const [modalState, setModalState] = useState("hide");
   const [editTask, setEditTask] = useState(null);
   const [editProject, setEditProject] = useState(null);
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const { userProjects } = useContext(projectsContext);
   const { viewValue, setViewValue } = useContext(viewsContext);
   const { id } = useParams();

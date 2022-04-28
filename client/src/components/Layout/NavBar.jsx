@@ -1,6 +1,5 @@
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import SpeechRecognition from "react-speech-recognition";
-import { useEffect, useContext, useState } from "react";
+import { useContext } from "react";
 import MessageBoard from "../MessageBoard/MessageBoard";
 import { usersContext } from "../../Providers/UsersProvider";
 import AvatarIcon from "../../assets/images/avatar.jpg";
@@ -21,7 +20,6 @@ import {
   MenuList,
   MenuItem,
   useDisclosure,
-  useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
 
@@ -33,8 +31,6 @@ const NavLink = ({ children }) => (
     py={1}
     rounded={"md"}
     _hover={{
-      // textDecoration: "none",
-      // bg: useColorModeValue(lightModeValue, darkModeValue),
       color: "white",
       boxShadow: "inset 0 0 100px 100px rgba(255, 255, 255, 0.3)",
     }}
@@ -49,8 +45,6 @@ const NavLink = ({ children }) => (
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { login, logout, cookies } = useContext(usersContext);
-  // const [voiceCommand, setVoiceCommand] = useState(false);
-  // const [modalState, setModalState] = useState(null);
 
   function avatarIcon(cookiesId) {
     if (cookiesId === "1") {
@@ -75,21 +69,6 @@ export default function NavBar() {
       return "Avatar Icon";
     }
   }
-
-  // useEffect(() => {
-  //   window.addEventListener("keypress", (e) => {
-  //     if (e.key === "1") {
-  //       // setModalState("voice");
-  //       SpeechRecognition.startListening();
-  //       setVoiceCommand(true);
-  //     } else if (e.key === "2") {
-  //       SpeechRecognition.stopListening();
-  //       resetTranscript();
-  //       // setModalState(null);
-  //       setVoiceCommand(false);
-  //     }
-  //   });
-  // }, [resetTranscript]);
 
   return (
     <div
@@ -132,21 +111,7 @@ export default function NavBar() {
               )}
             </HStack>
           </div>
-          <div>
-            {/* <VoiceModal
-              modalState={modalState}
-              setModalState={setModalState}
-              voiceCommand={voiceCommand}
-              setVoiceCommand={setVoiceCommand}
-              transcript={transcript}
-              resetTranscript={resetTranscript}
-            /> */}
-            {/* {voiceCommand && (
-              <p style={{ marginRight: "10em", color: "red" }}>
-                Listening: {transcript}
-              </p>
-            )} */}
-          </div>
+
           <div>
             <Flex alignItems={"center"}>
               {cookies.id && <MessageBoard />}
@@ -161,7 +126,6 @@ export default function NavBar() {
                     color: "white",
                   }}
                   onClick={onOpen}
-                  // m="10px"
                   as="a"
                   marginRight="10px"
                   href="/login"

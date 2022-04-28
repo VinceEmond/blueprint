@@ -6,7 +6,7 @@ export const tasksContext = createContext();
 export default function TasksProvider(props) {
   const [userTasks, setUserTasks] = useState([]);
 
-  // Retrieve all tasks (eventually user specific tasks)
+  // Retrieve all tasks
   useEffect(() => {
     axios
       .get("/api/tasks")

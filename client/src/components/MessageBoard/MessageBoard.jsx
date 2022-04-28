@@ -38,12 +38,9 @@ export default function MessageBoard() {
 
   const DEFAULT_SENDER_AVATAR = "";
   const DEFAULT_SENDER_NAME = "Unknown Sender";
-  // const MESSAGE_BUBBLE_COLOR_1 = "#3182CE";
-  // const MESSAGE_BUBBLE_COLOR_2 = "#63B3ED";
   const MESSAGE_BUBBLE_COLOR_1 = "#c98e1f";
   const MESSAGE_BUBBLE_COLOR_2 = "#6b4e19";
   const MESSAGE_BOARD_BACKGROUND = "rgba(10,23,30,0.3)";
-  // const MESSAGE_BOARD_BACKGROUND = "#222b3c";
   const TWILIO_ALERT_MESSAGE =
     "Blueprint Notification: You've got an unread message on your team message board!";
 
@@ -165,11 +162,9 @@ export default function MessageBoard() {
 
   function sendTextMessage() {
     const subscribedUsers = [];
-    // const currentUserID = Number(cookies.id);
 
     allUsers.forEach((user) => {
       if (user.text_alert) {
-        // ====================================Put condition to check current user ID-> && user.id !== currentUserID
         subscribedUsers.push(user.id);
       }
     });
@@ -214,7 +209,6 @@ export default function MessageBoard() {
         <DrawerContent
           style={{
             backgroundColor: MESSAGE_BOARD_BACKGROUND,
-            // backgroundImage: `url(${Background})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             borderWidth: "3px",
@@ -223,10 +217,6 @@ export default function MessageBoard() {
         >
           <DrawerCloseButton colorScheme="white" />
           <DrawerHeader
-            // borderBottomWidth="3px"
-            // borderTopWidth="3px"
-            // borderWidth="5px"
-            // borderRadius="6px"
             borderBottom="3px solid white"
             style={{
               textAlign: "center",

@@ -14,14 +14,7 @@ export default function UsersProvider(props) {
     return arraySingleUser[0];
   };
 
-  // useEffect(() => {
-  //   if (!cookies.id) {
-  //     navigate("/welcome");
-  //     console.log("Access denied: login required");
-  //   }
-  // }, []);
-
-  // When mounted, API call for DB query for all users and specific user's name when component renders
+  // Retrieve all users
   useEffect(() => {
     axios
       .get("/api/users")
@@ -31,15 +24,13 @@ export default function UsersProvider(props) {
       .catch((err) => console.log("err:", err));
   }, []);
 
+  // Sets specific user by using cookie ID
   useEffect(() => {
-    //   // console.log("Retreived user from ID", getUserByID(cookies.id));
-    // Only fire of cookie is set
     setCurrentUser(getUserByID(cookies.id));
   }, [allUsers]);
 
   const login = function (id) {
     setCookie("id", id, { path: "/" });
-    // setCurrentUser(getUserByID(cookies.id));
   };
 
   const logout = function () {

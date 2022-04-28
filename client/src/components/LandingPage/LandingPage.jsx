@@ -6,25 +6,13 @@ import {
   Text,
   Button,
   Stack,
-  Icon,
   Center,
-  useColorModeValue,
-  createIcon,
 } from "@chakra-ui/react";
-import Background from "../../assets/images/AdobeStock_409790026-70-highs.jpg";
 import BlueprintLogo from "../../assets/images/blueprint-logo.png";
 
 export default function LandingPage() {
   return (
-    <div
-    // style={{
-    //   backgroundImage: `url(${Background})`,
-    //   backgroundSize: "cover",
-    //   backgroundRepeat: "no-repeat",
-    //   paddingTop: "3em",
-    //   minHeight: "100vh",
-    // }}
-    >
+    <div>
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
@@ -35,9 +23,7 @@ export default function LandingPage() {
       <Container
         style={{
           backgroundColor: "rgba(10,23,30, 0)",
-          // background: "transparent",
           maxWidth: "80em",
-          // maxHeight: "10em",
           marginTop: "5em",
         }}
       >
