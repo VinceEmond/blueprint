@@ -100,7 +100,7 @@ export default function ProjectTrello({ modalState, onEdit }) {
     }
 
     setColumns(updatedTrelloColumns);
-  }, [modalState, userProjects]);
+  }, [modalState, userProjects, userTasks]);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
