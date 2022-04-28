@@ -6,7 +6,6 @@ import {
   Stack,
   Button,
   Link,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 export default function ProjectCard({ project, onEdit }) {

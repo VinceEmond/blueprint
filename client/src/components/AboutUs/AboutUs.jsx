@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Center,
   Flex,
@@ -230,7 +229,6 @@ export default function AboutUs() {
               mt={"2rem"}
               direction={"row"}
               padding={2}
-              // justifyContent={"space-between"}
               alignItems={"center"}
             >
               <Link

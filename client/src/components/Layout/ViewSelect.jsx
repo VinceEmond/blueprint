@@ -3,7 +3,7 @@ import { Button, Flex, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 export default function ViewSelect(props) {
-  const { setViewValue, setModalState, onOpen, state, viewValue } = props;
+  const { setViewValue, setModalState, onOpen, state } = props;
 
   return (
     <Flex

@@ -42,7 +42,6 @@ function App() {
       command: [/.*add.*task.*/, /.*new.*task.*/, /.*create.*task.*/],
       callback: (speech) => {
         const currentURL = window.location.pathname;
-        // console.log(currentURL);
         if (currentURL === "projects" || currentURL === "project") {
           return;
         }
@@ -123,13 +122,11 @@ function App() {
             style={{
               backgroundImage: `url(${Background})`,
               backgroundSize: "cover",
-              backgroundRepeat: "repeat-y",
               width: "100%",
               minHeight: "97vh",
               paddingTop: "3em",
               paddingBottom: "2em",
               backgroundRepeat: "no-repeat",
-              paddingTop: "3em",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",

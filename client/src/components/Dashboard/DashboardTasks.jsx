@@ -38,7 +38,6 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
   const CATEGORY_ID = 1;
   const DASHBOARD_TAB_STYLE = {
     color: "white",
-    // bg: "RGBA(242,171,39,0.4)",
     bg: "rgb(201, 142, 31,0.8)",
     borderRadius: "10px 10px 0 0",
     borderRight: "2px solid white",
@@ -88,8 +87,6 @@ export default function Tasks({ setModalState, onOpen, onEdit }) {
           opacity: "1",
           borderRadius: `${tabName ? "0 10px 10px 10px" : "10px"}`,
           border: "2px solid white",
-          // borderTop: "2px solid white",
-          // boxShadow: "0 0 3px 2px white",
         }}
       >
         <TableContainer>
