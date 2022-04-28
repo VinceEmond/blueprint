@@ -15,7 +15,11 @@
     - [Setup](#api-setup)
     - [Resetting the Database](#database-reset)
     - [Depenencies](#server-dependencies)
- - [About](#about) 
+- [Planning](#planning)
+  - [ERD Diagram](#erd-diagram)
+  - [User Stories & Routes](#user-stories--routes)
+  - [Wireframe](#wireframe)
+- [About](#about) 
     - [Frameworks & Libraries](#frameworks-and-libraries)
     - [Purpose](#purpose)
 
@@ -29,7 +33,7 @@ A streamlined project management app that strips away excess functionalities and
 - Ability to quickly add tasks on dashboard page
 - Speech recognition (Digital Assistant) available on all pages
   - Navigate to new page
-  - Create new taks or project
+  - Create new tasks or projects
 - Multiple views for diplaying Task and Projects
   - Trello Board View
   - List / Detail View
@@ -168,13 +172,13 @@ npm run db:reset
 
 # Planning
 
-## ERD Diagram:
+### ERD Diagram:
 - [ERD](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/ERD/ERD_Final_Project_v06.png?raw=true)
 
-## User Stories & Routes:
+### User Stories & Routes:
 - [User Stories & Routes](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/user%20stories.md)
 
-## Wireframe:
+### Wireframe:
 - [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
 
 
