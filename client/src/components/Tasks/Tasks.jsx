@@ -21,7 +21,6 @@ export default function Tasks({
   const [viewValue, setViewValue] = useState("List");
 
   function triggerEditTask(task) {
-    console.log(task);
     setEditTask(task);
     setModalState("tasks");
     onOpen();

@@ -22,7 +22,6 @@ export default function Projects({
   const { viewValue, setViewValue } = useContext(viewsContext);
 
   function triggerEditProject(project) {
-    console.log(project);
     setEditProject(project);
     setModalState("projects");
     onOpen();
