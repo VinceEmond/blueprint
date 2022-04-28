@@ -2,19 +2,27 @@
 
 ## Table Of Contents
 
-- [About](#about)
-  - [Notable Features](#notable-features)
-- [Visuals](#visuals)
+- [Summary](#summary)
+  - [Features](#features)
   - [Screenshots](#screenshots)
   - [GIFs](#gifs)
 - [Getting Started](#getting-started)
-    - [Dependencies](#dependencies)
-- [Purpose](#purpose)
+  - [Client](#client)
+    - [Setup](#setup)
+    - [Running Dev Server](#running-webpack-development-server)
+    - [Dependencies](#client-dependencies)
+  - [Server](#server)
+    - [Setup](#api-setup)
+    - [Resetting the Database](#database-reset)
+    - [Depenencies](#server-dependencies)
+ - [About](#about) 
+    - [Frameworks & Libraries](#frameworks-and-libraries)
+    - [Purpose](#purpose)
 
 
-## About
+# Summary
 
-A streamlined project management app that strips away excess functionalities and focuses on simplictiy of user experience. This application was created as a final project for Lighthouse Labs' Web Development Bootcamp by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
+A streamlined project management app that strips away excess functionalities and focuses on simplictiy of user experience. This application was built using React, Express, Node, and Chakra UI. 
 
 ## Features
 
@@ -51,18 +59,23 @@ A streamlined project management app that strips away excess functionalities and
 
 ## GIFs
 
+### Dashboard
+![Dashboard](./screenshots/GIFs/Dashboard.gif)
 
-## ERD Diagram:
+### Voice Command - Navigate to Dashboard
+![Voice Command - Navigate to Dashboard](./screenshots/GIFs/Voice-Command-Dashboard.gif)
 
-- [ERD](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/ERD/ERD_Final_Project_v06.png?raw=true)
 
-## User Stories & Routes:
+### Message Board
+![Message Board](./screenshots/GIFs/Message-Board.gif)
 
-- [User Stories & Routes](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/user%20stories.md)
+### Trello Board View
+![Trello Board View](./screenshots/GIFs/Trello-Board.gif)
 
-## Wireframe:
+### Voice Command - Create New Project
+![Voice Command - Create New Project](./screenshots/GIFs/Voice-Command-New-Project.gif)
 
-- [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
+
 
 # Getting Started
 
@@ -119,13 +132,11 @@ Server should be hosted on `http://localhost:3000/`
 ---
 
 ## **Server**
-
 ```sh
 cd server
 ```
 
 ### API Setup
-
 Install dependencies with
 
 ```sh
@@ -146,15 +157,12 @@ TOKEN=[Twilio Token]
 ```
 
 ### Database Reset
-
 Resets, and seeds the database for development/testing.
-
 ```sh
 npm run db:reset
 ```
 
 ## Server Dependencies
-
 - body-parser: ^1.20.0
 - chalk: ^2.4.2
 - dotenv: ^2.0.0
@@ -164,3 +172,27 @@ npm run db:reset
 - pg: ^8.5.0
 - sass: ^1.35.1
 - twilio: ^3.76.1
+
+
+# Planning
+
+## ERD Diagram:
+- [ERD](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/ERD/ERD_Final_Project_v06.png?raw=true)
+
+## User Stories & Routes:
+- [User Stories & Routes](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/user%20stories.md)
+
+## Wireframe:
+- [Wireframe](https://github.com/VinceEmond/LHL-Final-Project/blob/main/planning/Wireframe/Wireframe.md)
+
+
+# About
+
+## Frameworks and Libraries
+- React
+- Express
+- PostgreSQL
+- Chakra UI
+
+## Purpose
+This application was created as a final project for Lighthouse Labs' Web Development Bootcamp by [Vince Emond](https://github.com/VinceEmond), [Dylan Pirrotta](https://github.com/dpirrott), and [Pablo Tack](https://github.com/tackpablo).
